@@ -1,0 +1,27 @@
+.photo-list {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.photo-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.photo-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: #f7f7f7;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.photo-list img {
+  width: 250px;
+  height: 200px;
+  object-fit: cover;
+  margin-right: 10px;
+  border-radius: 5px;
+}

@@ -1,0 +1,22 @@
+<div class="left-panel scrollable-container full-height" [style.width.px]="panelWidth" (mousedown)="startDrag($event)">
+  <ul class="nested-list">
+    <li *ngFor="let item of items" [class.collapsed]="item.collapsed">
+      <span (click)="toggleCollapse(item)">{{ item.name }}</span>
+      <ul *ngIf="!item.collapsed">
+        <li *ngFor="let nestedItem of item.nestedItems" [class.collapsed]="nestedItem.collapsed">
+          <span (click)="toggleCollapse(nestedItem)">{{ nestedItem.name }}</span>
+          <ul *ngIf="!nestedItem.collapsed">
+            <li *ngFor="let location of nestedItem.nestedItems" [class.collapsed]="location.collapsed">
+              <span (click)="toggleCollapse(location)">{{ location.name }}</span>
+              <ul *ngIf="!location.collapsed">
+                <li *ngFor="let buildingLocation of location.nestedItems">
+                  {{ buildingLocation.name }}
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
