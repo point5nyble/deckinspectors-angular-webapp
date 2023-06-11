@@ -1,0 +1,13 @@
+<div class="container sidebar" [ngClass]="{'collapsed': isSidebarCollapsed}" (mouseleave)="collapseSidebar()">
+  <button class="collapsible" (mouseenter)="toggleSidebar()">
+    <img src="../../../assets/images/sidebar.svg" width="20px" height="20px" alt="Button Image">
+  </button>
+  <div class="sidebar-content">
+    <ul>
+      <li><a routerLink="/dashboard" routerLinkActive="active">Projects</a></li>
+      <li><a routerLink="/" routerLinkActive="active">Users</a></li>
+      <li><a routerLink="/" routerLinkActive="active">Files</a></li>
+      <li><a routerLink="/login" routerLinkActive="active">Sign Out</a></li>
+    </ul>
+  </div>
+</div>

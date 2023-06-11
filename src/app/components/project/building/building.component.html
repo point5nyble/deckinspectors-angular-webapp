@@ -1,0 +1,13 @@
+<div class="horizontal-div">
+  <div class="header-component">
+    <div class="flex-item"><b>{{ header }}</b></div>
+    <div class="icons">
+      <span class="mr-3"><i class="fas fa-plus"></i></span>
+      <span><i class="fas fa-bars"></i></span>
+    </div>
+  </div>
+  <div class="full-width" *ngFor="let locationInfo of locationInfos">
+    <app-location [locationInfo]="locationInfo"></app-location>
+  </div>
+</div>
+

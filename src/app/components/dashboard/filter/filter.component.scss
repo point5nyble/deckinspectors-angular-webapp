@@ -1,0 +1,35 @@
+.horizontal-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.horizontal-div input[type="text"],
+.horizontal-div input[type="date"] {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.horizontal-div label {
+  margin-right: 10px;
+}
+
+.horizontal-div button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.horizontal-div button i {
+  font-size: 18px;
+}
+
+.horizontal-div button:hover {
+  color: #007bff;
+}
