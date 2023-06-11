@@ -99,16 +99,16 @@ export class ProjectsListLeftPanelComponent {
   }
 
   @HostListener('document:mouseup')
-  onDragEnd() {
+  onDragEnd():void {
     this.startX = 0;
   }
 
-  startDrag(event: MouseEvent) {
+  startDrag(event: MouseEvent):void {
     this.startX = event.clientX;
     this.startWidth = this.panelWidth;
   }
 
-  toggleCollapse(item: any) {
+  toggleCollapse(item: any):void {
     item.collapsed = !item.collapsed;
   }
 }
