@@ -19,8 +19,14 @@ import { PartInfoComponent } from './components/project/building/location-detail
 import { PartPhotosComponent } from './components/project/building/location-details/part/part-photos/part-photos.component';
 import { PartElementComponent } from './components/project/building/location-details/parts/part-element/part-element.component';
 import {NgOptimizedImage} from "@angular/common";
-
-
+import { NewProjectModalComponent } from './forms/new-project-modal/new-project-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatInputModule} from "@angular/material/input";
+import { AssignProjectModalComponent } from './forms/assign-project-modal/assign-project-modal.component';
+import { UploadFielsModalComponent } from './forms/upload-fiels-modal/upload-fiels-modal.component';
+import { DownloadFilesModalComponent } from './forms/download-files-modal/download-files-modal.component';
+import { VisualDeckReportModalComponent } from './forms/visual-deck-report-modal/visual-deck-report-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,13 +44,21 @@ import {NgOptimizedImage} from "@angular/common";
     PartComponent,
     PartInfoComponent,
     PartPhotosComponent,
-    PartElementComponent
+    PartElementComponent,
+    NewProjectModalComponent,
+    AssignProjectModalComponent,
+    UploadFielsModalComponent,
+    DownloadFilesModalComponent,
+    VisualDeckReportModalComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        NgOptimizedImage
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgOptimizedImage,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatInputModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

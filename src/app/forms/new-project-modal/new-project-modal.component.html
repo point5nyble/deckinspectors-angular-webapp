@@ -1,0 +1,49 @@
+<div class="custom-dialog-content">
+  <h2 class="modal-title">New Project</h2>
+
+  <form [formGroup]="yourForm" class="modal-form">
+    <div class="form-group">
+      <label class="form-label">Visual Report:</label>
+      <div class="radio-group">
+        <label class="radio-label">
+          <input type="radio" value="option1" formControlName="option">
+          Single Level
+        </label>
+      </div>
+      <div class="radio-group">
+        <label class="radio-label">
+          <input type="radio" value="option2" formControlName="option">
+          Multi Level
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Project Name:</label>
+      <input type="text" formControlName="name" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Address:</label>
+      <input type="text" formControlName="name" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Description:</label>
+      <input type="text" formControlName="name" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Upload Image:</label>
+      <input type="file" (change)="handleFileInput($event)" formControlName="image" class="form-control">
+    </div>
+
+    <mat-dialog-actions>
+      <button class="mat-raised-button" (click)="close()">Close</button>
+      <button class="mat-raised-button mat-primary" (click)="save()">Save</button>
+    </mat-dialog-actions>
+  </form>
+</div>
+
+
+
