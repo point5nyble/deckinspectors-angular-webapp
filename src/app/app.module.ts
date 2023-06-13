@@ -21,7 +21,7 @@ import { PartElementComponent } from './components/project/building/location-det
 import {NgOptimizedImage} from "@angular/common";
 import { NewProjectModalComponent } from './forms/new-project-modal/new-project-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from "@angular/material/input";
 import { AssignProjectModalComponent } from './forms/assign-project-modal/assign-project-modal.component';
 import { UploadFielsModalComponent } from './forms/upload-fiels-modal/upload-fiels-modal.component';
@@ -57,7 +57,8 @@ import { VisualDeckReportModalComponent } from './forms/visual-deck-report-modal
     NgOptimizedImage,
     ReactiveFormsModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
