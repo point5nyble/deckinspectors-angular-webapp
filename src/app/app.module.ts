@@ -24,7 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from "@angular/material/input";
 import { AssignProjectModalComponent } from './forms/assign-project-modal/assign-project-modal.component';
-import { UploadFielsModalComponent } from './forms/upload-fiels-modal/upload-fiels-modal.component';
+import { UploadFilesModalComponent } from './forms/upload-fiels-modal/upload-files-modal.component';
 import { DownloadFilesModalComponent } from './forms/download-files-modal/download-files-modal.component';
 import { VisualDeckReportModalComponent } from './forms/visual-deck-report-modal/visual-deck-report-modal.component';
 @NgModule({
@@ -47,7 +47,7 @@ import { VisualDeckReportModalComponent } from './forms/visual-deck-report-modal
     PartElementComponent,
     NewProjectModalComponent,
     AssignProjectModalComponent,
-    UploadFielsModalComponent,
+    UploadFilesModalComponent,
     DownloadFilesModalComponent,
     VisualDeckReportModalComponent
   ],
