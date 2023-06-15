@@ -1,1 +1,63 @@
-<p>visual-deck-report-modal works!</p>
+<!-- form-component.component.html -->
+<div class="form-container">
+  <div class="form-header">
+    <h2>Edit Visual Deck/Waterproofing Report</h2>
+    <div class="button-container">
+      <button class="save-button">Save</button>
+      <button class="close-button">Close</button>
+    </div>
+  </div>
+  <div class="form-body">
+    <div class="form-field">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Visual Reoort Name">
+    </div>
+    <div class="form-field">
+      <label for="exteriorElements">Exterior Elements</label>
+      <select id="exteriorElements" name="exteriorElements" multiple>
+        <option *ngFor="let option of exteriorElementsOptions" [value]="option.value">{{ option.label }}</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label for="waterproofingElements">Waterproofing Elements</label>
+      <select id="waterproofingElements" name="waterproofingElements" multiple>
+        <option *ngFor="let option of exteriorElementsOptions" [value]="option.value">{{ option.label }}</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label>Visual Review</label>
+      <div class="radio-group">
+        <label for="radio1"><input type="radio" id="radio1" name="radioButtons">Good</label>
+        <label for="radio2"><input type="radio" id="radio2" name="radioButtons">Bad</label>
+        <label for="radio3"><input type="radio" id="radio3" name="radioButtons">Fair</label>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Any visual signs of leaks</label>
+      <div class="radio-group">
+        <label for="yes"><input type="radio" id="yes" name="yes">Yes</label>
+        <label for="no"><input type="radio" id="no" name="no">No</label>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Further Invasive Review Required Yes/No</label>
+      <div class="radio-group">
+        <label for="yes1"><input type="radio" id="yes1" name="yes">Yes</label>
+        <label for="no1"><input type="radio" id="no1" name="no">No</label>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Condition Assessment</label>
+      <div class="radio-group">
+        <label for="pass"><input type="radio" id="pass" name="radioButtons">Pass</label>
+        <label for="fail"><input type="radio" id="fail" name="radioButtons">Fail</label>
+        <label for="future_inspection"><input type="radio" id="future_inspection" name="radioButtons">Future Inspection</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-field">
+    <label for="description">Additional Considerations or Concern</label>
+    <textarea id="description" name="description" rows="4"></textarea>
+  </div>
+
+</div>
