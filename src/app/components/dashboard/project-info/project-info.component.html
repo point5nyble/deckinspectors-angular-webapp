@@ -1,11 +1,11 @@
-<div class="horizontal-div d-flex justify-content-between border border-secondary mt-2">
+<div class="horizontal-div border border-secondary mt-2">
   <div class="profile-section">
     <div>
       <div>
-        <span class="name"> {{projectInfo.title }} </span> {{ projectInfo.date }}
+        <span class="name"> {{projectInfo.name }} </span> {{ projectInfo.createdby.split("")[0] }}
       </div>
       <div>
-        <b>Visual Report </b> {{ projectInfo.address }} <b> Assigned To : </b> {{projectInfo.assignedTo.join(',')}}
+        <b>Visual Report </b> {{ projectInfo.address }} <b> Assigned To : </b> {{projectInfo.assignedto.join(',')}}
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@
       <div class="icon-section">
         <span class="bi bi-person-circle" (click)="openAssignProjectModal()"></span>
         <span class="bi bi-upload icon" (click)="openUploadFilesModal()"></span>
-        <span class="bi bi-download icon" (click)="openVisualDeckReportModal()"></span>
+        <span class="bi bi-download icon" (click)="openDownloadReportModal()"></span>
         <span class="bi bi-lightning icon"></span>
         <span class="bi bi-file icon"></span>
       </div>

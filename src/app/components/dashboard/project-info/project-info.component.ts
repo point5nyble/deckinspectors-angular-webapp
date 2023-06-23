@@ -1,11 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { ProjectInfo } from 'src/app/common/models/project-info';
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {AssignProjectModalComponent} from "../../../forms/assign-project-modal/assign-project-modal.component";
 import {UploadFilesModalComponent} from "../../../forms/upload-fiels-modal/upload-files-modal.component";
-import {
-  VisualDeckReportModalComponent
-} from "../../../forms/visual-deck-report-modal/visual-deck-report-modal.component";
+import {DownloadFilesModalComponent} from "../../../forms/download-files-modal/download-files-modal.component";
+import {Project} from "../../../common/models/project";
 
 @Component({
   selector: 'app-project-info',
@@ -13,7 +11,7 @@ import {
   styleUrls: ['./project-info.component.scss']
 })
 export class ProjectInfoComponent {
-  @Input() projectInfo!: ProjectInfo;
+  @Input() projectInfo!: Project;
   constructor(private dialog: MatDialog) { }
 
   openAssignProjectModal() {
@@ -47,16 +45,17 @@ export class ProjectInfoComponent {
     })
   }
 
-  openVisualDeckReportModal() {
+
+  openDownloadReportModal() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "600px";
-    dialogConfig.height = "700px";
+    dialogConfig.width = "300px";
+    dialogConfig.height = "400px";
     dialogConfig.data = {
       id: 1
     };
-    const dialogRef = this.dialog.open(VisualDeckReportModalComponent, dialogConfig);
+    const dialogRef = this.dialog.open(DownloadFilesModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
       console.log(data);
     })

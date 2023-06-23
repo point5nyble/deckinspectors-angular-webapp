@@ -1,9 +1,12 @@
 <div class="container mb-3 mt-1 border border-secondary">
-  <div class="name"> <b> {{ locationInfo.name }} </b></div>
+  <div class="name"> <b> {{ location.name }} </b></div>
   <div class="info">
-    <span class="text-muted margin-right"> <b> Created on: </b> {{locationInfo.createdOn  }}</span>
-    <span class="text-muted margin-right"> <b> By: </b>{{ locationInfo.createdBy }}</span>
-    <span class="text-muted margin-right"> <b> Assigned to: </b> {{ locationInfo.assignedTo }}</span>
+    <span class="text-muted margin-right"> <b> Created on: </b> {{location.createdat  }}</span>
+    <span class="text-muted margin-right"> <b> By: </b>{{ location.createdby }}</span>
+    <span *ngIf="isSubProject" class="text-muted margin-right"> <b> Type: </b>{{ location.type }}</span>
+    <span *ngIf="isSubProject" class="text-muted margin-right"> <b> Parent Project: </b>{{ projectName }}</span>
+<!--    TODO-->
+<!--    <span class="text-muted margin-right"> <b> Assigned to: </b> {{ location.assignedTo }}</span>-->
   </div>
 </div>
 

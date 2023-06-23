@@ -6,8 +6,24 @@
       <span><i class="fas fa-bars"></i></span>
     </div>
   </div>
-  <div class="full-width" *ngFor="let locationInfo of locationInfos">
-    <app-location [locationInfo]="locationInfo"></app-location>
+  <div *ngIf="checkIfSubProject()">
+    <div class="full-width" *ngFor="let project of subproject">
+      <div *ngFor="let locationInfo of project.children">
+        <app-location (dblclick)="onDbClick(locationInfo)" [location]="locationInfo"
+                      [isSubProject]="true"
+                      [projectName]="project.name"
+        ></app-location>
+      </div>
+    </div>
   </div>
+  <div *ngIf="!checkIfSubProject()">
+    <div  class="full-width" *ngFor="let locationInfo of locations">
+      <app-location (dblclick)="onDbClick(locationInfo)"
+                    [location]="locationInfo"
+                    [isSubProject]="false"
+      ></app-location>
+    </div>
+  </div>
+
 </div>
 

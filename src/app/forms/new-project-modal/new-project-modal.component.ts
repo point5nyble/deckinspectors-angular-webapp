@@ -24,6 +24,7 @@ export class NewProjectModalComponent implements OnInit {
     this.yourForm = this.formBuilder.group({
       image: [''], // Add validators if needed
       name: [''], // Add validators if needed
+      address: ['USA'],
       option: [''], // Add validators if needed
       description: [this.description, []]
     });

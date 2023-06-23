@@ -27,6 +27,10 @@ import { AssignProjectModalComponent } from './forms/assign-project-modal/assign
 import { UploadFilesModalComponent } from './forms/upload-fiels-modal/upload-files-modal.component';
 import { DownloadFilesModalComponent } from './forms/download-files-modal/download-files-modal.component';
 import { VisualDeckReportModalComponent } from './forms/visual-deck-report-modal/visual-deck-report-modal.component';
+import { DownloadSpecificReportComponent } from './forms/download-files-modal/download-specific-rerport/download-specific-report/download-specific-report.component';
+import {HttpClientModule} from "@angular/common/http";
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +53,8 @@ import { VisualDeckReportModalComponent } from './forms/visual-deck-report-modal
     AssignProjectModalComponent,
     UploadFilesModalComponent,
     DownloadFilesModalComponent,
-    VisualDeckReportModalComponent
+    VisualDeckReportModalComponent,
+    DownloadSpecificReportComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,8 @@ import { VisualDeckReportModalComponent } from './forms/visual-deck-report-modal
     ReactiveFormsModule,
     MatDialogModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

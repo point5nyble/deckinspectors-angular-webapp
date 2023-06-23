@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Section} from "../../../../../../common/models/buildingLocation";
 
 @Component({
   selector: 'app-part-element',
@@ -6,8 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./part-element.component.scss']
 })
 export class PartElementComponent {
-  name:string= "Street Level Access Stairs B6";
+  @Input() section!: Section;
+  @Output() sectionID = new EventEmitter<string>();
   createdOn: string= "Apr 12, 2023";
   createdBy: string= "John Doe";
   assignedTo: string= "Jane Doe";
+
+  fetchInfoForCurrentSection() {
+    this.sectionID.emit(this.section._id);
+  }
 }
