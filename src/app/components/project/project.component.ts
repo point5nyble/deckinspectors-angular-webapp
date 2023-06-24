@@ -25,7 +25,6 @@ export class ProjectComponent implements OnInit{
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         this.projectCommonLocationList = response.item;
-        console.log(this.projectCommonLocationList);
       },
       error => {
         console.log(error)
@@ -40,7 +39,6 @@ export class ProjectComponent implements OnInit{
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         this.projectBuildings = response.item;
-        console.log(this.projectBuildings);
       },
       error => {
         console.log(error)
@@ -50,7 +48,5 @@ export class ProjectComponent implements OnInit{
   public gotoPartInfo($event: BuildingLocation): void {
     this.showPartInfo = false;
     this.buildingLocation = $event;
-    console.log(this.showPartInfo);
-    console.log(this.buildingLocation);
    }
 }

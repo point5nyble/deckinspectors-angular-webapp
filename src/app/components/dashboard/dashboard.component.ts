@@ -18,7 +18,6 @@ export class DashboardComponent implements OnInit
     ngOnInit(): void {
         this.httpsRequestService.getHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/deck').subscribe(
             (data)=> {
-              console.log(data);
               this.projectInfos = data.projects;
             },
           error => {

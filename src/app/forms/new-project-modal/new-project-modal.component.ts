@@ -16,7 +16,6 @@ export class NewProjectModalComponent implements OnInit {
               private cdr: ChangeDetectorRef,
               private dialogRef: MatDialogRef<NewProjectModalComponent>,
               @Inject(MAT_DIALOG_DATA) data : any) {
-    console.log(data);
     this.description = data.description;
   }
 

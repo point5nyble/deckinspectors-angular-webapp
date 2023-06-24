@@ -21,14 +21,12 @@ export class AssignProjectModalComponent {
   constructor(private cdr: ChangeDetectorRef,
               private dialogRef: MatDialogRef<AssignProjectModalComponent>,
               @Inject(MAT_DIALOG_DATA) data : any) {
-    console.log(data);
     this.filteredNames = this.names;
    }
   filterNames() {
     this.filteredNames = this.names.filter((name) =>
       name.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
-    console.log(this.filteredNames);
   }
 
   refreshList() {

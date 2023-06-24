@@ -20,7 +20,7 @@ export class FilterComponent {
     };
     const dialogRef = this.dialog.open(NewProjectModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data);
+
     })
 
   }
