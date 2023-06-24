@@ -15,3 +15,7 @@
 .table tbody tr:hover {
   background-color: #eaf6ff; /* Highlight row on hover */
 }
+
+.scrollable-container {
+  overflow-x: hidden;
+}
