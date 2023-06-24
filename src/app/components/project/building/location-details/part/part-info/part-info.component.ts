@@ -16,8 +16,7 @@ export class PartInfoComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log(this.sectionReport);
-    console.log(this.sectionReport_);
+    this.rows = [];
     Object.entries(this.sectionReport_).forEach(([fieldName, fieldValue]) => {
       if (!(fieldName === '_id' || fieldName === 'images'
          || fieldName === 'parentid')) {
@@ -25,6 +24,5 @@ export class PartInfoComponent implements OnInit{
       }
 
     });
-    console.log(this.rows);
   }
 }

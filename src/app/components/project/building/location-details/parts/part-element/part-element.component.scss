@@ -1,23 +1,6 @@
 .container {
     background-color: #f7f7f7;
-    padding: 20px;
+    padding: 5px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
-  
-  .container p {
-    margin-bottom: 5px;
-  }
-  
-  .container p b {
-    font-weight: bold;
-  }
-  
-  .container p:not(:last-child) {
-    margin-bottom: 10px;
-  }
-  
-  .container p:last-child {
-    margin-bottom: 0;
-  }
-  

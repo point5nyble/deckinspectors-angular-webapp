@@ -15,7 +15,6 @@ export class PartsComponent implements OnInit{
   @Output() sectionID = new EventEmitter<string>();
   @Input() sections!: Section[];
   constructor(private dialog: MatDialog) {
-    console.log(this.sections);
   }
   openVisualDeckReportModal() {
     const dialogConfig = new MatDialogConfig();
@@ -37,6 +36,5 @@ export class PartsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log(this.sections);
-  }
+   }
 }

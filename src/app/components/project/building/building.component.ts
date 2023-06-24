@@ -18,7 +18,6 @@ export class BuildingComponent
     return (this.header === "Project Buildings");
   }
   onDbClick(locationInfo:BuildingLocation) {
-    console.log(locationInfo);
     this.isDbClick.emit(locationInfo);
   }
 }
