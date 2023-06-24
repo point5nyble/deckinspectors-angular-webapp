@@ -1,0 +1,19 @@
+<div class="form-container">
+  <h2>Form Header</h2>
+  <div class="search-container">
+    <input type="text" placeholder="Search" [(ngModel)]="searchTerm" (input)="filterNames()" />
+    <button (click)="refreshList()"><i class="bi bi-arrow-clockwise"></i></button>
+  </div>
+  <div class="name-list">
+    <div *ngFor="let name of filteredNames">
+      <label>
+        <input type="checkbox" [(ngModel)]="name.checked" />
+        {{ name.name }}
+      </label>
+    </div>
+  </div>
+  <mat-dialog-actions>
+    <button class="mat-raised-button" (click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary" (click)="save()">Save</button>
+  </mat-dialog-actions>
+</div>

@@ -1,0 +1,94 @@
+.horizontal-div {
+  display: flex;
+  align-items: center;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  /* Add padding to the top */
+  padding: 20px 10px 10px;
+  justify-content: space-between;
+}
+
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 20px;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px; /* Add margin to separate the name elements */
+}
+
+.options-section {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  font-size: 14px;
+}
+
+.checkbox-label .checkbox-text {
+  margin-left: 4px;
+}
+
+.checkbox-custom {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #333;
+  border-radius: 3px;
+  margin-right: 5px;
+  position: relative;
+}
+
+.checkbox-custom::after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 6px;
+  background-color: #333;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.checkbox:checked + .checkbox-custom::after {
+  opacity: 1;
+}
+
+.icon-section {
+  display: flex;
+}
+
+.icon {
+  font-size: 24px;
+  color: #333;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: #007bff;
+}
+
+.bi {
+  display: inline-block;
+  font-size: 24px;
+  color: #333;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.bi:hover {
+  color: #007bff;
+}

@@ -1,0 +1,66 @@
+/* Styles for the form container */
+.form-container {
+  width: 400px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* Styles for the form header */
+.form-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Styles for the search container */
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-container input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-container button {
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles for the name list */
+.name-list {
+  margin-bottom: 20px;
+}
+
+.name-list label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.name-list input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* Styles for the dialog actions */
+.mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mat-dialog-actions button {
+  margin-left: 10px;
+}

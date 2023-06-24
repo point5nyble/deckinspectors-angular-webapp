@@ -1,0 +1,90 @@
+<!-- form-component.component.html -->
+<div class="form-container">
+  <div class="form-header">
+    <p><b>Edit Visual Deck/Waterproofing Report</b></p>
+  </div>
+  <div class="form-body" [formGroup]="visualDeckReportModalForm">
+    <div class="form-field">
+      <label for="name">Name</label>
+      <input formControlName="visualReportName" type="text" id="name" name="visualReportName" placeholder="Visual Reoort Name">
+    </div>
+    <div class="form-field">
+      <label for="exteriorElements">Exterior Elements</label>
+      <select formControlName="exteriorElements" id="exteriorElements" name="exteriorElements" multiple>
+        <option *ngFor="let option of exteriorElementsOptions" [value]="option.value">{{ option.label }}</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label for="waterproofingElements">Waterproofing Elements</label>
+      <select formControlName="waterproofingElements" id="waterproofingElements" name="waterproofingElements" multiple>
+        <option *ngFor="let option of exteriorElementsOptions" [value]="option.value">{{ option.label }}</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label>Visual Review</label>
+      <div class="radio-group">
+        <label for="good"><input formControlName="visualReview" type="radio" id="good" name="visualReview" value="good">Good</label>
+        <label for="bad"><input formControlName="visualReview" type="radio" id="bad" name="visualReview" value="bad">Bad</label>
+        <label for="fair"><input formControlName="visualReview" type="radio" id="fair" name="visualReview" value="fair">Fair</label>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Any visual signs of leaks</label>
+      <div class="radio-group">
+        <label for="yes"><input formControlName="signsOfLeaks" type="radio" id="yes" value="yes" name="signsOfLeaks">Yes</label>
+        <label for="no"><input formControlName="signsOfLeaks" type="radio" id="no" value="no" name="signsOfLeaks">No</label>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Further Invasive Review Required Yes/No</label>
+      <div class="radio-group">
+        <label  for="yes1"><input type="radio" id="yes1" name="invasiveReviewRequired" value="yes" formControlName="invasiveReviewRequired">Yes</label>
+        <label  for="no1"><input type="radio" id="no1" name="invasiveReviewRequired" value="no" formControlName="invasiveReviewRequired">No</label>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Condition Assessment</label>
+      <div class="radio-group">
+        <label for="pass"><input type="radio" id="pass" value="pass" name="conditionAssessment" formControlName="conditionAssessment">Pass</label>
+        <label for="fail"><input type="radio" id="fail" value="fail" name="conditionAssessment" formControlName="conditionAssessment">Fail</label>
+        <label for="future_inspection"><input type="radio" value="future_inspection" id="future_inspection" name="conditionAssessment" formControlName="conditionAssessment">Future Inspection</label>
+      </div>
+    </div>
+    <div class="form-field">
+      <label for="description">Additional Considerations or Concern</label>
+      <textarea formControlName="additionalConsiderationsOrConcern" id="description" name="additionalConsiderationsOrConcern" rows="4"></textarea>
+    </div>
+    <div class="form-field">
+      <label>Life Expectancy Exterior Elevated Elements (EEE)</label>
+      <div class="radio-group">
+        <label for="0-1yrs"><input type="radio" id="0-1yrs" value="0-1yrs" name="EEE" formControlName="EEE">0-1 Years</label>
+        <label for="1-4yrs"><input type="radio" id="1-4yrs" value="1-4yrs" name="EEE" formControlName="EEE">1-4 Years</label>
+        <label for="4-7yrs"><input type="radio" id="4-7yrs" value="4-7yrs" name="EEE" formControlName="EEE">4-7 Years</label>
+        <label for="7+yrs"><input type="radio" id="7+yrs" value="7+yrs" name="EEE" formControlName="EEE">7+ Years</label>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Life Expectancy Load Bearing Componenets (LBC)</label>
+      <div class="radio-group">
+        <label  for="0-1yrs1"><input type="radio" id="0-1yrs1" value="0-1yrs" name="LBC" formControlName="LBC">0-1 Years</label>
+        <label  for="1-4yrs1"><input type="radio" id="1-4yrs1" value="1-4yrs" name="LBC" formControlName="LBC">1-4 Years</label>
+        <label  for="4-7yrs1"><input type="radio" id="4-7yrs1" value="4-7yrs" name="LBC" formControlName="LBC">4-7 Years</label>
+        <label  for="7+yrs1"><input type="radio" id="7+yrs1" value="7+yrs" name="LBC" formControlName="LBC">7+ Years</label>
+      </div>
+    </div>
+    <div class="form-field">
+      <label>Life Expectancy Associated Waterproofing Elements (AWE)</label>
+      <div class="radio-group">
+        <label for="0-1yrsAWE"><input type="radio" id="0-1yrsAWE" value="0-1yrs" name="AWE" formControlName="AWE">0-1 Years</label>
+        <label for="1-4yrsAWE"><input type="radio" id="1-4yrsAWE" value="1-4yrs" name="AWE" formControlName="AWE">1-4 Years</label>
+        <label for="4-7yrsAWE"><input type="radio" id="4-7yrsAWE" value="4-7yrs" name="AWE" formControlName="AWE">4-7 Years</label>
+        <label for="7+yrsAWE"><input type="radio" id="7+yrsAWE" value="7+yrs" name="AWE" formControlName="AWE">7+ Years</label>
+      </div>
+    </div>
+  </div>
+  <div class="button-container">
+    <button class="save-button" (click)="save()">Save</button>
+    <button class="close-button" (click)="close()">Close</button>
+  </div>
+</div>
+

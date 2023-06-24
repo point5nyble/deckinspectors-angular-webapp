@@ -1,0 +1,8 @@
+<div class="horizontal-div">
+  <div>
+    <app-parts (sectionID)=fetchDataForGivenSectionId($event) [sections] = location.sections ></app-parts>
+  </div>
+  <div class="right-panel">
+    <app-part [sectionReport] = sectionReport class="right-panel"></app-part>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+.sidebar {
+  width: 200px;
+  background-color: #f0f0f0;
+  transition: width 0.3s ease-out;
+  height: 100vh;
+}
+
+.collapsed {
+  width: 50px;
+}
+
+.collapsible {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #ddd;
+  border: none;
+  text-align: left;
+  outline: none;
+  transition: background-color 0.3s ease-out;
+}
+
+.collapsed .collapsible {
+  background-color: transparent;
+}
+
+.sidebar-content {
+  display: block;
+  padding: 10px;
+  transition: opacity 0.3s ease-out;
+}
+
+.collapsed .sidebar-content {
+  opacity: 0;
+}
+
+.sidebar-content ul {
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-content li {
+  list-style-type: none;
+  margin-bottom: 10px;
+}
+
+.sidebar-content a {
+  display: block;
+  padding: 5px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s ease-out;
+}
+
+.sidebar-content a:hover {
+  background-color: #ddd;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}

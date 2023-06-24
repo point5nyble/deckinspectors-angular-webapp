@@ -1,0 +1,43 @@
+.horizontal-div {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  padding: 20px 10px 10px;
+}
+
+.scrollable-container {
+  overflow-y: auto;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.header-component {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+.header-component b {
+  font-size: 18px;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+}
+
+.icons span {
+  margin-right: 15px;
+  font-size: 20px;
+  color: #888;
+}
+
+.full-width {
+  width: 100%;
+}

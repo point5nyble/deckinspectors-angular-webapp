@@ -1,0 +1,27 @@
+<div class="mt-3 container-fluid horizontal-div">
+  <app-projects-list-left-panel style="min-width: fit-content;"></app-projects-list-left-panel>
+  <div *ngIf="showPartInfo" class="right-panel">
+    <div class="horizontal-div border border-secondary mt-2 info-section">
+      <div class="flex-item">
+        <p><b>Name:</b> {{projectInfo.name}}</p>
+        <p><b>Description:</b> {{projectInfo.description}}</p>
+        <p><b>Address:</b> {{projectInfo.address}}</p>
+        <button class="btn btn-secondary">Inversive</button>
+      </div>
+      <div class="flex-item">
+        <button class="btn btn-secondary">Excel</button>
+      </div>
+      <div class="image-section flex-item">
+        <img src="{{ projectInfo.url }}" alt="image-description" height="150px" width="250px">
+      </div>
+    </div>
+    <div class="d-flex justify-content-between mt-3">
+      <app-building (isDbClick)="gotoPartInfo($event)" header="Project Common Location" [locations]="projectCommonLocationList" ></app-building>
+      <app-building (isDbClick)="gotoPartInfo($event)" header="Project Buildings" [subproject]="projectBuildings"></app-building>
+    </div>
+  </div>
+  <div *ngIf="!showPartInfo" class="right-panel">
+    {{buildingLocation._id}}
+    <app-location-details [location]="buildingLocation"></app-location-details>
+  </div>
+</div>
