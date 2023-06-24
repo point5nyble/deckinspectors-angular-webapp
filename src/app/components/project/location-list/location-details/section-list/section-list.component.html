@@ -8,7 +8,7 @@
         </div>
       </div>
       <div *ngFor="let section of sections">
-        <app-part-element (sectionID)=fetchDataForGivenSectionId($event) [section]="section"></app-part-element >
+        <app-section-list-element (sectionID)=fetchDataForGivenSectionId($event) [section]="section"></app-section-list-element >
       </div>
 
 </div>

@@ -6,11 +6,11 @@ import {
 import {Section} from "../../../../../common/models/buildingLocation";
 
 @Component({
-  selector: 'app-parts',
-  templateUrl: './parts.component.html',
-  styleUrls: ['./parts.component.scss']
+  selector: 'app-section-list',
+  templateUrl: './section-list.component.html',
+  styleUrls: ['./section-list.component.scss']
 })
-export class PartsComponent implements OnInit{
+export class SectionListComponent implements OnInit{
   header: string = 'Parts';
   @Output() sectionID = new EventEmitter<string>();
   @Input() sections!: Section[];

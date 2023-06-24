@@ -10,10 +10,10 @@
   </div>
   <div class="horizontal-div">
     <div>
-      <app-parts (sectionID)=fetchDataForGivenSectionId($event) [sections] = location.sections ></app-parts>
+      <app-section-list (sectionID)=fetchDataForGivenSectionId($event) [sections] = location.sections ></app-section-list>
     </div>
     <div class="right-panel">
-      <app-part [sectionReport] = sectionReport class="right-panel"></app-part>
+      <app-section [sectionReport] = sectionReport class="right-panel"></app-section>
     </div>
   </div>
 </div>

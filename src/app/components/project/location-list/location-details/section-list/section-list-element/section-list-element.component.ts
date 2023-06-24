@@ -2,11 +2,11 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Section} from "../../../../../../common/models/buildingLocation";
 
 @Component({
-  selector: 'app-part-element',
-  templateUrl: './part-element.component.html',
-  styleUrls: ['./part-element.component.scss']
+  selector: 'app-section-list-element',
+  templateUrl: './section-list-element.component.html',
+  styleUrls: ['./section-list-element.component.scss']
 })
-export class PartElementComponent {
+export class SectionListElementComponent {
   @Input() section!: Section;
   @Output() sectionID = new EventEmitter<string>();
   createdOn: string= "Apr 12, 2023";

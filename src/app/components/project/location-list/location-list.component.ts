@@ -3,11 +3,11 @@ import {BuildingLocation} from "../../../common/models/buildingLocation";
 import {Project} from "../../../common/models/project";
 
 @Component({
-  selector: 'app-building',
-  templateUrl: './building.component.html',
-  styleUrls: ['./building.component.scss']
+  selector: 'app-location-list',
+  templateUrl: './location-list.component.html',
+  styleUrls: ['./location-list.component.scss']
 })
-export class BuildingComponent
+export class LocationListComponent
 {
   @Output() isDbClick = new EventEmitter<BuildingLocation>();
   @Input() header!: string;

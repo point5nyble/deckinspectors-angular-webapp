@@ -16,8 +16,8 @@
       </div>
     </div>
     <div class="d-flex justify-content-between mt-3">
-      <app-building (isDbClick)="gotoPartInfo($event)" header="Project Common Location" [locations]="projectCommonLocationList" ></app-building>
-      <app-building (isDbClick)="gotoPartInfo($event)" header="Project Buildings" [subproject]="projectBuildings"></app-building>
+      <app-location-list (isDbClick)="gotoPartInfo($event)" header="Project Common Location" [locations]="projectCommonLocationList" ></app-location-list>
+      <app-location-list (isDbClick)="gotoPartInfo($event)" header="Project Buildings" [subproject]="projectBuildings"></app-location-list>
     </div>
   </div>
   <div *ngIf="!showPartInfo" class="right-panel">

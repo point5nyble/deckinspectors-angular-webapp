@@ -2,11 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {InspectionReport} from "../../../../../common/models/inspection-report";
 
 @Component({
-  selector: 'app-part',
-  templateUrl: './part.component.html',
-  styleUrls: ['./part.component.scss']
+  selector: 'app-section',
+  templateUrl: './section.component.html',
+  styleUrls: ['./section.component.scss']
 })
-export class PartComponent implements OnInit{
+export class SectionComponent implements OnInit{
   @Input() sectionReport!: InspectionReport;
 
   ngOnInit(): void {
