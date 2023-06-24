@@ -1,29 +1,35 @@
-import { ProjectInfo } from '../../common/models/project-info';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {HttpsRequestService} from "../../service/https-request.service";
+import {Project} from "../../common/models/project";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit
+{
   showProjectInfo: boolean = true;
-  projectInfo! :ProjectInfo;
-  constructor(private cdr: ChangeDetectorRef) {}
+  projectInfo! : Project;
+  projectInfos!: Project[];
+    constructor(private cdr: ChangeDetectorRef,
+                private httpsRequestService:HttpsRequestService) {}
 
-  // Create a list of projectInfo class
-  projectInfos : ProjectInfo[] = [
-    new ProjectInfo('Associate Professional Service', 'May 23, 2023', '60 Quintard st, CA 91911', ['Paul Bazek']),
-    new ProjectInfo('Associate Professional Service', 'May 23, 2023', '60 Quintard st, CA 91911', ['Paul Bazek', 'Rohit Jadhav']),
-    new ProjectInfo('Associate Professional Service', 'May 23, 2023', '60 Quintard st, CA 91911', ['Paul Bazek']),
-    new ProjectInfo('Associate Professional Service', 'May 23, 2023', '60 Quintard st, CA 91911', ['Paul Bazek'])
-  ]
+    ngOnInit(): void {
+        this.httpsRequestService.getHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/deck').subscribe(
+            (data)=> {
+              this.projectInfos = data.projects;
+            },
+          error => {
+              console.log(error);
+          }
+        )
+    }
 
-  public gotoProject(projectInfo :ProjectInfo): void {
+
+  public gotoProject(projectInfo :Project): void {
     this.showProjectInfo = false;
     this.projectInfo = projectInfo;
-    console.log(this.showProjectInfo);
-    // this.cdr.detectChanges();
   }
 
 }

@@ -1,11 +1,46 @@
-.container {
+.container-s {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 20px;
   background-color: #f7f7f7;
   padding: 20px;
   border-radius: 5px;
   flex-direction: column;
   margin-top: 15px;
+}
+
+.header-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: baseline;
+  width: 100%;
+}
+.icons {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.icons i {
+  margin-right: 10px; /* Add spacing between the icons */
+}
+
+.icons span {
+  margin-right: 10px; /* Add space between the plus and bars icons */
+}
+
+.flex-item {
+  flex: 1; /* Each item grows to occupy the available space */
+  align-content: center;
+}
+
+.header-component {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: baseline;
+  width: 100%;
 }

@@ -1,8 +1,7 @@
-<div class="container mb-3 mt-1">
-  <p><b>{{ name }}</b></p>
+<div class="container mb-3 mt-1" (dblclick)="fetchInfoForCurrentSection()">
+  <p><b>{{ section.name }}</b></p>
   <p><b>Created on:</b> {{ createdOn }}</p>
   <p><b>By:</b> {{ createdBy }}</p>
   <p><b>Assigned to:</b> {{ assignedTo }}</p>
 </div>
-    
-    
+

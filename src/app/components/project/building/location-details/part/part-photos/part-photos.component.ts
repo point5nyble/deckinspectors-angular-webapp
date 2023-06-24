@@ -1,17 +1,16 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {InspectionReport} from "../../../../../../common/models/inspection-report";
 
 @Component({
   selector: 'app-part-photos',
   templateUrl: './part-photos.component.html',
   styleUrls: ['./part-photos.component.scss']
 })
-export class PartPhotosComponent {
-  photos = [
-    { url: '../../../../../../../assets/images/logo.jpg', caption: 'Photo 1' },
-    { url: '../../../../../../../assets/images/logo.jpg', caption: 'Photo 2' },
-    { url: '../../../../../../../assets/images/logo.jpg', caption: 'Photo 3' },
-    { url: '../../../../../../../assets/images/logo.jpg', caption: 'Photo 1' },
-    { url: '../../../../../../../assets/images/logo.jpg', caption: 'Photo 2' },
-    { url: '../../../../../../../assets/images/logo.jpg', caption: 'Photo 3' }
-  ];
+export class PartPhotosComponent implements OnInit{
+  @Input() sectionReport!: InspectionReport;
+  ngOnInit(): void {
+    console.log(this.sectionReport.images);
+  }
+
+
 }

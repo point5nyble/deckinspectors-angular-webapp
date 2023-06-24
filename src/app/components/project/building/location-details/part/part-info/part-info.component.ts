@@ -1,21 +1,30 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {InspectionReport} from "../../../../../../common/models/inspection-report";
 
 @Component({
   selector: 'app-part-info',
   templateUrl: './part-info.component.html',
   styleUrls: ['./part-info.component.scss']
 })
-export class PartInfoComponent {
-  rows = [
-    { column1: 'Data 1', column2: 'Data 2' },
-    { column1: 'Data 3', column2: 'Data 4' },
-    { column1: 'Data 5', column2: 'Data 6' },
-    { column1: 'Data 7', column2: 'Data 8' },
-    { column1: 'Data 9', column2: 'Data 10' },
-    { column1: 'Data 1', column2: 'Data 2' },
-    { column1: 'Data 3', column2: 'Data 4' },
-    { column1: 'Data 5', column2: 'Data 6' },
-    { column1: 'Data 7', column2: 'Data 8' },
-    { column1: 'Data 9', column2: 'Data 10' }
-  ];
+export class PartInfoComponent implements OnInit{
+  rows: { column1: string; column2: any }[] = [];
+  sectionReport_!: InspectionReport;
+  @Input()
+  set sectionReport(section: InspectionReport) {
+    this.sectionReport_ = section;
+    this.ngOnInit();
+  }
+
+  ngOnInit(): void {
+    console.log(this.sectionReport);
+    console.log(this.sectionReport_);
+    Object.entries(this.sectionReport_).forEach(([fieldName, fieldValue]) => {
+      if (!(fieldName === '_id' || fieldName === 'images'
+         || fieldName === 'parentid')) {
+        this.rows.push({column1: fieldName, column2: fieldValue});
+      }
+
+    });
+    console.log(this.rows);
+  }
 }

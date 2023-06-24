@@ -3,11 +3,11 @@
     <app-sidebar></app-sidebar>
   </div>
   <div class="container-fluid">
-    <app-filter></app-filter>
     <div>
       <div *ngIf="showProjectInfo" class="d-flex flex-column">
+        <app-filter></app-filter>
         <div *ngFor="let projectInfo of projectInfos">
-          <app-project-info (click)="gotoProject(projectInfo)" [projectInfo]=projectInfo></app-project-info>
+          <app-project-info (dblclick)="gotoProject(projectInfo)" [projectInfo]=projectInfo></app-project-info>
         </div>
       </div>
       <div *ngIf="!showProjectInfo">

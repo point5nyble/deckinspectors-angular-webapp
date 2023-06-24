@@ -8,24 +8,24 @@
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
-  
+
   .container app-part-info,
   .container app-part-photos {
     flex: 1;
   }
-  
+
   .container app-part-info {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 5px;
   }
-  
+
   .container app-part-photos {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
   }
-  
+
   .container app-part-photos img {
     width: 100px;
     height: 100px;
@@ -39,4 +39,3 @@
     /* OR */
     /* flex: 0 1 200px; */ /* Div 1 takes 200px width, Div 2 takes 200px width */
   }
-  

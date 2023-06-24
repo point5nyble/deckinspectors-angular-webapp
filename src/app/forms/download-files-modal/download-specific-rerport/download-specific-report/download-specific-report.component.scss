@@ -1,0 +1,39 @@
+.horizontal-div {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  padding: 20px 10px 10px;
+}
+
+.header-component {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-component b {
+  font-size: 18px;
+  color: #333;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+}
+
+.icons span {
+  margin-right: 15px;
+  font-size: 24px;
+  color: #888;
+  transition: color 0.3s ease-in-out;
+}
+
+.icons span:hover {
+  color: #555;
+}
+

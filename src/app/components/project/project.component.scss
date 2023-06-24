@@ -2,9 +2,8 @@
   display: flex;
   flex-wrap: wrap;
   background-color: #f7f7f7;
-  padding: 10px;
   border-radius: 5px;
-  padding-top: 20px;
+  padding: 20px 10px 10px;
 }
 
 .right-panel {
@@ -16,11 +15,11 @@
   padding: 10px;
 }
 
-.info-details {
+.flex-item {
   flex: 1;
 }
 
-.info-details p {
+.flex-item p {
   margin: 0;
 }
 

@@ -1,18 +1,24 @@
-import { Component, Input } from '@angular/core';
-import { LocationInfo } from 'src/app/common/models/location-info';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {BuildingLocation} from "../../../common/models/buildingLocation";
+import {Project} from "../../../common/models/project";
 
 @Component({
   selector: 'app-building',
   templateUrl: './building.component.html',
   styleUrls: ['./building.component.scss']
 })
-export class BuildingComponent {
+export class BuildingComponent
+{
+  @Output() isDbClick = new EventEmitter<BuildingLocation>();
   @Input() header!: string;
+  @Input() locations!: BuildingLocation[];
+  @Input() subproject!: Project[];
 
-  // Create a list of location-info
-  locationInfos: LocationInfo[] = [
-    new LocationInfo('Access Stare Adjacent to Elvator','Apr, 12 2023','David Mazor', 'David Mazor'),
-    new LocationInfo('Access Stare located at North West Corner','Apr, 12 2023','David Mazor', 'David Mazor'),
-    new LocationInfo('Access Stare Next to Elvator 29', 'Apr, 12 2023','David Mazor', 'David Mazor')
-  ]
+  checkIfSubProject() : boolean {
+    return (this.header === "Project Buildings");
+  }
+  onDbClick(locationInfo:BuildingLocation) {
+    console.log(locationInfo);
+    this.isDbClick.emit(locationInfo);
+  }
 }

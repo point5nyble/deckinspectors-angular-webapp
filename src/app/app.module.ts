@@ -19,6 +19,16 @@ import { PartInfoComponent } from './components/project/building/location-detail
 import { PartPhotosComponent } from './components/project/building/location-details/part/part-photos/part-photos.component';
 import { PartElementComponent } from './components/project/building/location-details/parts/part-element/part-element.component';
 import {NgOptimizedImage} from "@angular/common";
+import { NewProjectModalComponent } from './forms/new-project-modal/new-project-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatInputModule} from "@angular/material/input";
+import { AssignProjectModalComponent } from './forms/assign-project-modal/assign-project-modal.component';
+import { UploadFilesModalComponent } from './forms/upload-fiels-modal/upload-files-modal.component';
+import { DownloadFilesModalComponent } from './forms/download-files-modal/download-files-modal.component';
+import { VisualDeckReportModalComponent } from './forms/visual-deck-report-modal/visual-deck-report-modal.component';
+import { DownloadSpecificReportComponent } from './forms/download-files-modal/download-specific-rerport/download-specific-report/download-specific-report.component';
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -38,13 +48,24 @@ import {NgOptimizedImage} from "@angular/common";
     PartComponent,
     PartInfoComponent,
     PartPhotosComponent,
-    PartElementComponent
+    PartElementComponent,
+    NewProjectModalComponent,
+    AssignProjectModalComponent,
+    UploadFilesModalComponent,
+    DownloadFilesModalComponent,
+    VisualDeckReportModalComponent,
+    DownloadSpecificReportComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        NgOptimizedImage
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgOptimizedImage,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatInputModule,
+    FormsModule,
+    HttpClientModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

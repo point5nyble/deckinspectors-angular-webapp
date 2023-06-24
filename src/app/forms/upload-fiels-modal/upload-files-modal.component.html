@@ -1,0 +1,22 @@
+<!-- file-upload.component.html -->
+<div class="file-upload">
+  <label for="fileInput" class="upload-button">Upload Files</label>
+  <input type="file" id="fileInput" (change)="handleFileUpload($event)" multiple>
+  <div class="preview-window">
+    <h3>Preview</h3>
+    <ul>
+      <li *ngFor="let file of fileList; let i = index" class="file-item">
+        <span class="file-icon"><i class="far fa-file"></i></span>
+        <div class="file-details">
+          <span class="file-name">{{ file.name }}</span>
+          <span class="file-time">{{ formatUploadTime(file.lastModified) }}</span>
+        </div>
+        <span class="remove-button" (click)="removeFile(i)">&times;</span>
+      </li>
+    </ul>
+    <div class="button-container">
+      <button class="save-button" (click)="save()" >Save</button>
+      <button class="close-button" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
