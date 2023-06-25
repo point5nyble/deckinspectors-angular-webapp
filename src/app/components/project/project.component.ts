@@ -2,6 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Project} from "../../common/models/project";
 import {HttpsRequestService} from "../../service/https-request.service";
 import {BuildingLocation} from "../../common/models/buildingLocation";
+import {OrchestratorEventName} from "../../orchestrator-service/models/orchestrator-event-name";
+import {
+  OrchestratorCommunicationService
+} from "../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 
 @Component({
   selector: 'app-project',
@@ -14,7 +18,9 @@ export class ProjectComponent implements OnInit{
   projectBuildings!: Project[];
   buildingLocation!: BuildingLocation;
   @Input() projectInfo!: Project;
-  constructor(private httpsRequestService:HttpsRequestService) {
+  constructor(private httpsRequestService:HttpsRequestService,
+              private orchestratorCommunicationService: OrchestratorCommunicationService) {
+    this.subscribeToProjectUpdatedEvent();
   }
   ngOnInit(): void {
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationsByProjectId';
@@ -49,4 +55,10 @@ export class ProjectComponent implements OnInit{
     this.showPartInfo = false;
     this.buildingLocation = $event;
    }
+
+  private subscribeToProjectUpdatedEvent() {
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Application_State_change).subscribe(data => {
+      console.log(data);
+    })
+  }
 }

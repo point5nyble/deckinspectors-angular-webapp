@@ -29,6 +29,11 @@ import { DownloadFilesModalComponent } from './forms/download-files-modal/downlo
 import { VisualDeckReportModalComponent } from './forms/visual-deck-report-modal/visual-deck-report-modal.component';
 import { DownloadSpecificReportComponent } from './forms/download-files-modal/download-specific-rerport/download-specific-report/download-specific-report.component';
 import {HttpClientModule} from "@angular/common/http";
+import { ProjectDetailsComponent } from './components/project/project-details/project-details.component';
+import {AppStateServiceModule} from "./app-state-service/app-state-service.module";
+import {OrchestratorServiceModule} from "./orchestrator-service/orchestrator-service.module";
+import {StoreModule} from "@ngrx/store";
+import {projectReducer} from "./app-state-service/project-state/project-reducer";
 
 
 @NgModule({
@@ -54,7 +59,8 @@ import {HttpClientModule} from "@angular/common/http";
     UploadFilesModalComponent,
     DownloadFilesModalComponent,
     VisualDeckReportModalComponent,
-    DownloadSpecificReportComponent
+    DownloadSpecificReportComponent,
+    ProjectDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +70,12 @@ import {HttpClientModule} from "@angular/common/http";
     MatDialogModule,
     MatInputModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppStateServiceModule,
+    OrchestratorServiceModule,
+    StoreModule.forRoot(
+      {project:projectReducer}
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]

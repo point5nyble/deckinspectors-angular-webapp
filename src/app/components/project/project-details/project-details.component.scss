@@ -1,0 +1,44 @@
+.horizontal-div {
+  display: flex;
+  //flex-wrap: wrap;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  padding: 20px 10px 10px;
+}
+
+.right-panel {
+  flex: 1;
+  margin-left: 15px;
+  overflow-x: auto;
+}
+
+.info-section {
+  padding: 10px;
+}
+
+.flex-item {
+  flex: 1;
+}
+
+.flex-item p {
+  margin: 0;
+}
+
+.image-section {
+  margin-left: 20px;
+}
+
+.btn {
+  margin-right: 10px;
+}
+
+.image-section img {
+  max-height: 150px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.location-section {
+  flex: 1;
+  margin-top: 20px;
+}

@@ -3,7 +3,8 @@
   </div>
   <ul class="nested-list">
     <li *ngFor="let item of items" [class.collapsed]="item.collapsed">
-      <span (click)="toggleCollapse(item)">{{ item.name }}</span>
+      <span (click)="toggleCollapse(item)"
+      (dblclick)="openProject(item)">{{ item.name }}</span>
       <ul *ngIf="!item.collapsed">
         <li *ngFor="let nestedItem of item.nestedItems" [class.collapsed]="nestedItem.collapsed">
           <span (click)="toggleCollapse(nestedItem)">{{ nestedItem.name }}</span>

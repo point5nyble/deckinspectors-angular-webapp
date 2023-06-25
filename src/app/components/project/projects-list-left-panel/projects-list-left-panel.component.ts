@@ -1,6 +1,10 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {Item} from 'src/app/common/models/project-tree';
 import {HttpsRequestService} from "../../../service/https-request.service";
+import {
+  OrchestratorCommunicationService
+} from "../../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
+import {OrchestratorEventName} from "../../../orchestrator-service/models/orchestrator-event-name";
 
 @Component({
   selector: 'app-projects-list-left-panel',
@@ -14,7 +18,8 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   startX: number = 0;
   startWidth: number = 0;
 
-  constructor(private httpsRequestService: HttpsRequestService) {
+  constructor(private httpsRequestService: HttpsRequestService,
+              private orchestratorCommunicationService: OrchestratorCommunicationService) {
 
   }
 
@@ -45,29 +50,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       nestedItems: this.extractNestedItems(project)
     };
   }
-
-  convertToItem(response: any): Item {
-    return response.item.map((project: any) =>
-      (
-        {
-          name: project.name,
-          collapsed: true,
-          nestedItems: project.subProjects.map((subProject: any) =>
-            (
-              {
-                name: subProject.name,
-                nestedItems: subProject.subProjectLocations.map((location: any) =>
-                  (
-                    {
-                      name: location.locationName
-                    }
-                  )
-                )
-              }
-            ))
-        }));
-  }
-
   @HostListener('document:mousemove', ['$event'])
   onDrag(event: MouseEvent) {
     if (this.startX !== 0) {
@@ -140,5 +122,9 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     })
     return [buildingLocation, apartments];
 
+  }
+
+  openProject(item: Item) {
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Project_update, item);
   }
 }
