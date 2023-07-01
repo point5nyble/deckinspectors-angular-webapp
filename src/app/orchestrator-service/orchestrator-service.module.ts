@@ -4,6 +4,8 @@ import {OrchestratorEventSubjectMapService} from "./orchestrartor-communication/
 import {SubjectInjector} from "./subject/subject-injector";
 import {ProjectUpdateStateSubject} from "./subject/project-update-state-subject";
 import {ApplicationStateChangeSubject} from "./subject/application-state-change-subject";
+import {ShowProjectDetailsSubject} from "./subject/show-project-details-subject";
+import {LocationClickSubject} from "./subject/location-click-subject";
 
 
 
@@ -16,7 +18,9 @@ import {ApplicationStateChangeSubject} from "./subject/application-state-change-
     OrchestratorEventSubjectMapService,
     SubjectInjector,
     ProjectUpdateStateSubject,
-    ApplicationStateChangeSubject
+    ApplicationStateChangeSubject,
+    ShowProjectDetailsSubject,
+    LocationClickSubject
   ]
 })
 export class OrchestratorServiceModule { }

@@ -1,12 +1,11 @@
-<div class="mt-3 container-fluid horizontal-div">
-  <app-projects-list-left-panel style="min-width: fit-content;"></app-projects-list-left-panel>
+<div class="horizontal-div full-height">
+  <app-projects-list-left-panel style="min-width: fit-content;"
+  ></app-projects-list-left-panel>
   <app-project-details [showPartInfo]="showPartInfo"
                        [projectInfo]="projectInfo"
                        [gotoPartInfo]="gotoPartInfo"
                        [projectCommonLocationList]="projectCommonLocationList"
                        [projectBuildings]="projectBuildings"
                        [buildingLocation]="buildingLocation">
-
   </app-project-details>
-  <router-outlet></router-outlet>
 </div>

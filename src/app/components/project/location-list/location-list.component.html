@@ -1,4 +1,4 @@
-<div class="horizontal-div scrollable-container border border-secondary ms-2">
+<div class="horizontal-div border border-secondary">
   <div class="header-component">
     <div class="flex-item"><b>{{ header }}</b></div>
     <div class="icons">
@@ -6,8 +6,8 @@
       <span><i class="fas fa-bars"></i></span>
     </div>
   </div>
-  <div *ngIf="checkIfSubProject()">
-    <div class="full-width" *ngFor="let project of subproject">
+  <div class="full-width scrollable-container" *ngIf="checkIfSubProject()">
+    <div *ngFor="let project of subproject">
       <div *ngFor="let locationInfo of project.children">
         <app-location-list-element (dblclick)="onDbClick(locationInfo)" [location]="locationInfo"
                       [isSubProject]="true"
@@ -16,14 +16,13 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!checkIfSubProject()">
-    <div  class="full-width" *ngFor="let locationInfo of locations">
+  <div class="full-width scrollable-container" *ngIf="!checkIfSubProject()">
+    <div *ngFor="let locationInfo of locations">
       <app-location-list-element (dblclick)="onDbClick(locationInfo)"
                     [location]="locationInfo"
                     [isSubProject]="false"
       ></app-location-list-element>
     </div>
   </div>
-
 </div>
 

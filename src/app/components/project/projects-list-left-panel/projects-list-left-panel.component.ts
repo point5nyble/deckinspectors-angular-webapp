@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
 import {Item} from 'src/app/common/models/project-tree';
 import {HttpsRequestService} from "../../../service/https-request.service";
 import {
@@ -12,7 +12,8 @@ import {OrchestratorEventName} from "../../../orchestrator-service/models/orches
   styleUrls: ['./projects-list-left-panel.component.scss']
 })
 export class ProjectsListLeftPanelComponent implements OnInit {
-  items: Item[] = [];
+  @Output() showPartInfo = new EventEmitter<boolean>();
+  projectList: Item[] = [];
   panelWidth: number = 200; // Initial panel width
 
   startX: number = 0;
@@ -29,7 +30,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       (response: any) => {
         this.convertResponseToItemList(response);
         console.log(response);
-        // console.log(item);
+        console.log(this.projectList)
       },
       error => {
         console.log(error)
@@ -37,19 +38,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     );
   }
 
-  convertResponseToItemList(response: any) {
-    return response.item.forEach((project: any) => {
-      this.items.push(this.extractProject(project))
-    })
-  }
-
-  private extractProject(project: any): Item {
-    return {
-      name: project.name,
-      collapsed: true,
-      nestedItems: this.extractNestedItems(project)
-    };
-  }
   @HostListener('document:mousemove', ['$event'])
   onDrag(event: MouseEvent) {
     if (this.startX !== 0) {
@@ -71,26 +59,44 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     this.startWidth = this.panelWidth;
   }
 
-  toggleCollapse(item: any): void {
+  toggleCollapse(item: Item): void {
     item.collapsed = !item.collapsed;
+  }
+
+  private convertResponseToItemList(response: any) {
+    response.item.forEach((project: any) => {
+      this.projectList.push(this.extractProject(project))
+    })
+  }
+  private extractProject(project: any): Item {
+    return {
+      name: project.name,
+      id:project.id,
+      description: project.description,
+      address: project.address,
+      collapsed: true,
+      nestedItems: this.extractNestedItems(project)
+    };
   }
 
   private extractNestedItems(project: any): Item[] {
 
     let locations: Item = {
       name: 'Project Common Location',
+      id:'',
       collapsed: true,
       nestedItems: project.locations.map((location: any) => (
         {
-          name: location.locationName
+          name: location.locationName,
+          id:location.locationId,
         }
       ))
     };
 
-    let subProject: Item[] = project.subProjects.map((subProject: any) =>
-      (
+    let subProject: Item[] = project.subProjects.map((subProject: any) => (
         {
           name: subProject.name,
+          id:subProject._id,
           collapsed: true,
           nestedItems: this.extractSubProjectLocation(subProject.subProjectLocations)
         }))
@@ -102,21 +108,25 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     let buildingLocation: Item = {
       name: 'Building Location',
       collapsed: true,
+      id:'',
       nestedItems: []
     };
     let apartments: Item = {
       name: 'Apartments',
       collapsed: true,
+      id:'',
       nestedItems: []
     };
     subProjectLocations.forEach((location_: any) => {
        if (location_.locationType === 'buildinglocation') {
         buildingLocation.nestedItems?.push({
-          name: location_.locationName
+          name: location_.locationName,
+          id:location_.locationId
         })
       } else {
         apartments.nestedItems?.push({
-          name: location_.locationName
+          name: location_.locationName,
+          id:location_.locationId
         })
       }
     })
@@ -125,6 +135,23 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   }
 
   openProject(item: Item) {
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Project_update, item);
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, true);
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Project_update, this.mapItem(item));
+  }
+
+  private mapItem(input: Item): Item {
+    return {
+      name: input.name,
+      id: input.id,
+      description: input.description,
+      address: input.address,
+      collapsed: input.collapsed,
+      nestedItems: input.nestedItems?.map((item) => this.mapItem(item)) || []
+    };
+  }
+
+  openLocation(location: Item) {
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, false);
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(location));
   }
 }

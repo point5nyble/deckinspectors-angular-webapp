@@ -23,34 +23,45 @@ export class ProjectComponent implements OnInit{
     this.subscribeToProjectUpdatedEvent();
   }
   ngOnInit(): void {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationsByProjectId';
-    let data = {
-      projectid:this.projectInfo._id,
-      username: 'deck'
-    };
-    this.httpsRequestService.postHttpData(url, data).subscribe(
-      (response:any) => {
-        this.projectCommonLocationList = response.item;
-      },
-      error => {
-        console.log(error)
-      }
-    );
+    this.fetchLocationData(this.projectInfo._id);
+    this.fetchSubProjectData(this.projectInfo._id);
+  }
 
-    url = 'https://deckinspectors-dev.azurewebsites.net/api/subproject/getSubprojectsDataByProjectId';
-    data = {
-      projectid:this.projectInfo._id,
+  private fetchSubProjectData(projectID:string) {
+    let url = 'https://deckinspectors-dev.azurewebsites.net/api/subproject/getSubprojectsDataByProjectId';
+    let data = {
+      projectid: projectID,
       username: 'deck'
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
-      (response:any) => {
+      (response: any) => {
         this.projectBuildings = response.item;
+        console.log(response);
       },
       error => {
         console.log(error)
       }
     );
   }
+
+  private fetchLocationData(projectID:string) {
+    let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationsByProjectId';
+    let data = {
+      projectid: projectID,
+      username: 'deck'
+    };
+    this.httpsRequestService.postHttpData(url, data).subscribe(
+      (response: any) => {
+        this.projectCommonLocationList = response.item;
+        console.log(response);
+      },
+      error => {
+        console.log(error)
+      }
+    );
+    return {url, data};
+  }
+
   public gotoPartInfo($event: BuildingLocation): void {
     this.showPartInfo = false;
     this.buildingLocation = $event;
@@ -58,7 +69,13 @@ export class ProjectComponent implements OnInit{
 
   private subscribeToProjectUpdatedEvent() {
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Application_State_change).subscribe(data => {
-      console.log(data);
+      this.projectInfo = data;
+      this.fetchLocationData(data.id);
+      this.fetchSubProjectData(data.id);
     })
+  }
+
+  _showPartInfo($event: any) {
+    this.showPartInfo=true;
   }
 }
