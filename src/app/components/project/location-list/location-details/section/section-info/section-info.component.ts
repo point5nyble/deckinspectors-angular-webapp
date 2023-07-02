@@ -37,15 +37,16 @@ export class SectionInfoComponent implements OnInit{
 
   ngOnInit(): void {
     this.rows = [];
-    Object.entries(this.sectionReport_).forEach(([fieldName, fieldValue]) => {
-      if (!(fieldName === '_id' || fieldName === 'images'
-         || fieldName === 'parentid')) {
-        fieldName = this.extarctFieldName(fieldName);
-        this.rows.push({column1: fieldName, column2: fieldValue});
-      }
+    if (this.sectionReport_ != null || this.sectionReport_ != undefined) {
+      Object.entries(this.sectionReport_).forEach(([fieldName, fieldValue]) => {
+        if (!(fieldName === '_id' || fieldName === 'images'
+          || fieldName === 'parentid')) {
+          fieldName = this.extarctFieldName(fieldName);
+          this.rows.push({column1: fieldName, column2: fieldValue});
+        }
 
-    });
-
+      });
+    }
   }
 
 

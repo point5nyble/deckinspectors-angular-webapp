@@ -1,0 +1,43 @@
+<div class="custom-dialog-content">
+  <h2 class="modal-title">New Location</h2>
+
+  <form [formGroup]="newLocationForm" class="modal-form">
+    <div class="form-group">
+      <label class="form-label">Project Common Location:</label>
+      <input type="text" formControlName="name" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Description:</label>
+      <textarea type="text" formControlName="address" class="form-control"></textarea>
+    </div>
+
+    <div *ngIf="isSubProject" class="form-field">
+      <label class="form-label">Type:</label>
+      <div class="radio-group">
+        <label for="building_location"><input formControlName="subProjectType" type="radio" id="building_location" value="building_location" name="subProjectType">Building Location</label>
+        <label for="apartment"><input formControlName="subProjectType" type="radio" id="apartment" value="apartment" name="subProjectType">Apartment</label>
+      </div>
+    </div>
+
+    <div *ngIf="isSubProject" class="form-field">
+      <label class="form-label" for="subProjectName">SubProject Name</label>
+      <select formControlName="subProjectName" id="subProjectName" name="subProjectName">
+        <option *ngFor="let option of subProjectNames" [value]="option">{{ option }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Upload Image:</label>
+      <input type="file" (change)="handleFileInput($event)" formControlName="image" class="form-control">
+    </div>
+
+    <mat-dialog-actions>
+      <button class="submit-button" (click)="close()">Close</button>
+      <button class="submit-button" (click)="save()">Save</button>
+    </mat-dialog-actions>
+  </form>
+</div>
+
+
+

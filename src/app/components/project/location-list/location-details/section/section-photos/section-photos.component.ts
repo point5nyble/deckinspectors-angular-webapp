@@ -9,7 +9,7 @@ import {InspectionReport} from "../../../../../../common/models/inspection-repor
 export class SectionPhotosComponent implements OnInit{
   @Input() sectionReport!: InspectionReport;
   ngOnInit(): void {
-    console.log(this.sectionReport.images);
+    console.log(this.sectionReport?.images);
   }
 
 

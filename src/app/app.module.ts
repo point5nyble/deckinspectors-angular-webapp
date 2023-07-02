@@ -34,6 +34,7 @@ import {AppStateServiceModule} from "./app-state-service/app-state-service.modul
 import {OrchestratorServiceModule} from "./orchestrator-service/orchestrator-service.module";
 import {StoreModule} from "@ngrx/store";
 import {projectReducer} from "./app-state-service/project-state/project-reducer";
+import { NewLocationModalComponent } from './forms/new-location-modal/new-location-modal.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import {projectReducer} from "./app-state-service/project-state/project-reducer"
     DownloadFilesModalComponent,
     VisualDeckReportModalComponent,
     DownloadSpecificReportComponent,
-    ProjectDetailsComponent
+    ProjectDetailsComponent,
+    NewLocationModalComponent
   ],
   imports: [
     BrowserModule,
