@@ -1,18 +1,18 @@
-<div class="container-fluid d-flex p-2 bd-highlight">
+<div class="container-fluid d-flex p-2 bd-highlight full-height">
   <div class="sidebar">
     <app-sidebar></app-sidebar>
   </div>
   <div class="container-fluid">
-    <div>
       <div *ngIf="showProjectInfo" class="d-flex flex-column">
         <app-filter></app-filter>
+        <!--        Show Project list-->
         <div *ngFor="let projectInfo of projectInfos">
           <app-project-info (dblclick)="gotoProject(projectInfo)" [projectInfo]=projectInfo></app-project-info>
         </div>
       </div>
-      <div *ngIf="!showProjectInfo">
+      <!--      Show Project Details-->
+      <div *ngIf="!showProjectInfo" class="full-height">
         <app-project [projectInfo]=projectInfo></app-project>
       </div>
-    </div>
   </div>
 </div>

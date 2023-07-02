@@ -1,0 +1,28 @@
+<div class="horizontal-div border border-secondary full-height">
+  <div class="header-component">
+    <div class="flex-item"><b>{{ header }}</b></div>
+    <div class="icons">
+      <span class="mr-3"><i class="fas fa-plus" (click)="openModal()"></i></span>
+      <span><i class="fas fa-bars"></i></span>
+    </div>
+  </div>
+  <div class="full-width scrollable-container" *ngIf="checkIfSubProject()">
+    <div *ngFor="let project of subproject">
+      <div *ngFor="let locationInfo of project.children">
+        <app-location-list-element (dblclick)="onDbClick(locationInfo)" [location]="locationInfo"
+                      [isSubProject]="true"
+                      [projectName]="project.name"
+        ></app-location-list-element>
+      </div>
+    </div>
+  </div>
+  <div class="full-width scrollable-container" *ngIf="!checkIfSubProject()">
+    <div *ngFor="let locationInfo of locations">
+      <app-location-list-element (dblclick)="onDbClick(locationInfo)"
+                    [location]="locationInfo"
+                    [isSubProject]="false"
+      ></app-location-list-element>
+    </div>
+  </div>
+</div>
+
