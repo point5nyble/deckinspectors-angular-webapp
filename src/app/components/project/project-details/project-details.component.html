@@ -1,0 +1,26 @@
+<div class="right-panel full-height">
+  <div *ngIf="showPartInfo" class="horizontal-div border border-secondary mt-2 info-section">
+    <div class="flex-item">
+      <h4 class="info-heading">Project Information</h4>
+      <p><strong>Name:</strong> {{ projectInfo.name }}</p>
+      <p><strong>Description:</strong> {{ projectInfo.description }}</p>
+      <p><strong>Address:</strong> {{ projectInfo.address }}</p>
+      <button class="btn btn-secondary">Invasive</button>
+    </div>
+    <div class="flex-item">
+      <button class="btn btn-secondary">Export to Excel</button>
+    </div>
+    <div class="image-section flex-item">
+      <img src="{{ projectInfo.url }}" alt="image-description">
+    </div>
+  </div>
+  <div *ngIf="showPartInfo" class="d-flex justify-content-between mt-3 location-section">
+    <app-location-list class="flex-item" (isDbClick)="gotoPartInfo($event)" header="Project Common Location"
+                       [locations]="projectCommonLocationList"></app-location-list>
+    <app-location-list class="flex-item ms-2" (isDbClick)="gotoPartInfo($event)" header="Project Buildings"
+                       [subproject]="projectBuildings"></app-location-list>
+  </div>
+  <div *ngIf="!showPartInfo" class="right-panel full-width">
+    <app-location-details [location]="buildingLocation"></app-location-details>
+  </div>
+</div>

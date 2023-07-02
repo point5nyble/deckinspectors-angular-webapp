@@ -1,0 +1,16 @@
+
+<div class="container-s scrollable-container">
+      <div class="header-component">
+        <div class="flex-item"><b>{{ header }}</b></div>
+        <div class="icons">
+          <span (click)="openVisualDeckReportModal()" class="mr-3"><i class="fas fa-plus"></i></span>
+          <span><i class="fas fa-bars"></i></span>
+        </div>
+      </div>
+      <div *ngFor="let section of sections">
+        <app-section-list-element (sectionID)=fetchDataForGivenSectionId($event) [section]="section"></app-section-list-element >
+      </div>
+
+</div>
+
+

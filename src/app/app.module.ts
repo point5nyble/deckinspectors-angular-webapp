@@ -8,16 +8,16 @@ import { SidebarComponent } from './components/dashboard/sidebar/sidebar.compone
 import { FilterComponent } from './components/dashboard/filter/filter.component';
 import { ProjectInfoComponent } from './components/dashboard/project-info/project-info.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { LocationComponent } from './components/project/building/location/location.component';
+import { LocationListElementComponent } from './components/project/location-list/location-list-element/location-list-element.component';
 import { ProjectsListLeftPanelComponent } from './components/project/projects-list-left-panel/projects-list-left-panel.component';
 import { ProjectComponent } from './components/project/project.component';
-import { BuildingComponent } from './components/project/building/building.component';
-import { LocationDetailsComponent } from './components/project/building/location-details/location-details.component';
-import { PartsComponent } from './components/project/building/location-details/parts/parts.component';
-import { PartComponent } from './components/project/building/location-details/part/part.component';
-import { PartInfoComponent } from './components/project/building/location-details/part/part-info/part-info.component';
-import { PartPhotosComponent } from './components/project/building/location-details/part/part-photos/part-photos.component';
-import { PartElementComponent } from './components/project/building/location-details/parts/part-element/part-element.component';
+import { LocationListComponent } from './components/project/location-list/location-list.component';
+import { LocationDetailsComponent } from './components/project/location-list/location-details/location-details.component';
+import { SectionListComponent } from './components/project/location-list/location-details/section-list/section-list.component';
+import { SectionComponent } from './components/project/location-list/location-details/section/section.component';
+import { SectionInfoComponent } from './components/project/location-list/location-details/section/section-info/section-info.component';
+import { SectionPhotosComponent } from './components/project/location-list/location-details/section/section-photos/section-photos.component';
+import { SectionListElementComponent } from './components/project/location-list/location-details/section-list/section-list-element/section-list-element.component';
 import {NgOptimizedImage} from "@angular/common";
 import { NewProjectModalComponent } from './forms/new-project-modal/new-project-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -29,6 +29,12 @@ import { DownloadFilesModalComponent } from './forms/download-files-modal/downlo
 import { VisualDeckReportModalComponent } from './forms/visual-deck-report-modal/visual-deck-report-modal.component';
 import { DownloadSpecificReportComponent } from './forms/download-files-modal/download-specific-rerport/download-specific-report/download-specific-report.component';
 import {HttpClientModule} from "@angular/common/http";
+import { ProjectDetailsComponent } from './components/project/project-details/project-details.component';
+import {AppStateServiceModule} from "./app-state-service/app-state-service.module";
+import {OrchestratorServiceModule} from "./orchestrator-service/orchestrator-service.module";
+import {StoreModule} from "@ngrx/store";
+import {projectReducer} from "./app-state-service/project-state/project-reducer";
+import { NewLocationModalComponent } from './forms/new-location-modal/new-location-modal.component';
 
 
 @NgModule({
@@ -41,20 +47,22 @@ import {HttpClientModule} from "@angular/common/http";
     DashboardComponent,
     ProjectsListLeftPanelComponent,
     ProjectComponent,
-    BuildingComponent,
-    LocationComponent,
+    LocationListComponent,
+    LocationListElementComponent,
     LocationDetailsComponent,
-    PartsComponent,
-    PartComponent,
-    PartInfoComponent,
-    PartPhotosComponent,
-    PartElementComponent,
+    SectionListComponent,
+    SectionComponent,
+    SectionInfoComponent,
+    SectionPhotosComponent,
+    SectionListElementComponent,
     NewProjectModalComponent,
     AssignProjectModalComponent,
     UploadFilesModalComponent,
     DownloadFilesModalComponent,
     VisualDeckReportModalComponent,
-    DownloadSpecificReportComponent
+    DownloadSpecificReportComponent,
+    ProjectDetailsComponent,
+    NewLocationModalComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +72,12 @@ import {HttpClientModule} from "@angular/common/http";
     MatDialogModule,
     MatInputModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppStateServiceModule,
+    OrchestratorServiceModule,
+    StoreModule.forRoot(
+      {project:projectReducer}
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]
