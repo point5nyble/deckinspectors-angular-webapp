@@ -152,7 +152,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   openLocation(location: Item) {
     if (location.id !== '') {
-      console.log(this.mapItem(location))
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, false);
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(location));
     }

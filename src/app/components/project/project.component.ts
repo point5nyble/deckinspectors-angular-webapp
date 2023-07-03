@@ -68,14 +68,10 @@ export class ProjectComponent implements OnInit{
    }
 
   private subscribeToProjectUpdatedEvent() {
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Application_State_change).subscribe(data => {
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Project_update).subscribe(data => {
       this.projectInfo = data;
       this.fetchLocationData(data.id);
       this.fetchSubProjectData(data.id);
     })
-  }
-
-  _showPartInfo($event: any) {
-    this.showPartInfo=true;
   }
 }

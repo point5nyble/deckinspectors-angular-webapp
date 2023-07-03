@@ -6,6 +6,8 @@ import {OrchestratorEventName} from "../../../../orchestrator-service/models/orc
 import {
   OrchestratorCommunicationService
 } from "../../../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
+import {ProjectQuery} from "../../../../app-state-service/project-state/project-selector";
+import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'app-location-details',
@@ -17,8 +19,16 @@ export class LocationDetailsComponent implements OnInit{
   sectionReport!: InspectionReport;
 
   constructor(private httpsRequestService:HttpsRequestService,
-              private orchestratorCommunicationService:OrchestratorCommunicationService) {}
+              private orchestratorCommunicationService:OrchestratorCommunicationService,
+              private store: Store<any>) {
+  }
+
+  ngOnInit(): void {
+    this.fetchInitialData();
+    this.subscribeToOnLocationClick();
+  }
   fetchDataForGivenSectionId($event: string) {
+    console.log("Inside fetchDataForGivenSectionId")
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/section/getSectionById';
     let data = {
       sectionid:$event,
@@ -35,6 +45,7 @@ export class LocationDetailsComponent implements OnInit{
   }
 
   fetchLocationDetails($event: string) {
+    console.log("Inside fetchDataForGivenSectionId")
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationById';
       let data = {
           locationid:$event,
@@ -49,16 +60,18 @@ export class LocationDetailsComponent implements OnInit{
           }
       );
   }
-
-  ngOnInit(): void {
-    this.subscribeToOnLocationClick();
+  private subscribeToOnLocationClick() {
+    // this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Location_Click).subscribe(data => {
+    //   this.fetchLocationDetails(data.id);
+    //   console.log(data)
+    // });
   }
 
-
-  private subscribeToOnLocationClick() {
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Location_Click).subscribe(data => {
-      this.fetchLocationDetails(data.id);
-      console.log(data)
-    });
+  private fetchInitialData() {
+    this.store.select(ProjectQuery.getProjectModel).subscribe((project: any)=> {
+      this.location = project;
+      this.fetchLocationDetails(project.id);
+      console.log(this.location);
+     })
   }
 }

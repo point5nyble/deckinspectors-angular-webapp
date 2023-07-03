@@ -10,11 +10,9 @@ export class SidebarComponent {
 
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
-    console.log(this.isSidebarCollapsed);
   }
 
   collapseSidebar() {
     this.isSidebarCollapsed = true;
-    console.log(this.isSidebarCollapsed);
   }
 }
