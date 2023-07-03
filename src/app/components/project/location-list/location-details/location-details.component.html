@@ -1,11 +1,11 @@
 <div>
   <div class="horizontal-div justify-content-between border border-secondary mt-2 info-section">
     <div class="flex-item">
-      <p><b>Name:</b> {{location.name}}</p>
-      <p><b>Description:</b> {{location.description}}</p>
+      <p><b>Name:</b> {{location?.name}}</p>
+      <p><b>Description:</b> {{location?.description}}</p>
     </div>
     <div class="image-section flex-item">
-      <img src="{{ location.url }}" alt="image-description" height="150px" width="250px">
+      <img src="{{ location?.url }}" alt="image-description" height="150px" width="250px">
     </div>
   </div>
   <div class="horizontal-div">

@@ -20,7 +20,7 @@
     <app-location-list class="flex-item ms-2" (isDbClick)="gotoPartInfo($event)" header="Project Buildings"
                        [subproject]="projectBuildings"></app-location-list>
   </div>
-  <div *ngIf="!showPartInfo" class="right-panel full-width">
+  <div *ngIf="!showPartInfo" class="right-panel">
     <app-location-details [location]="buildingLocation"></app-location-details>
   </div>
 </div>
