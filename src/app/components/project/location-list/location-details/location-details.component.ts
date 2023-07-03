@@ -51,10 +51,14 @@ export class LocationDetailsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Location_Click).subscribe(data => {
-      this.fetchLocationDetails(data.id);
-    });
+    this.subscribeToOnLocationClick();
   }
 
 
+  private subscribeToOnLocationClick() {
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Location_Click).subscribe(data => {
+      this.fetchLocationDetails(data.id);
+      console.log(data)
+    });
+  }
 }
