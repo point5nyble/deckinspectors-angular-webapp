@@ -20,7 +20,7 @@
                       <i *ngIf="location.nestedItems" class="icon" [class.rotate-icon]="!location.collapsed"
                         (click)="toggleCollapse(location)"></i>
                     </span>
-                    {{ location.name }}
+                    <span (click)="openLocation(location)">{{ location.name }}</span>
                     <ul *ngIf="!location.collapsed" class="nested-list">
                       <li *ngFor="let buildingLocation of location.nestedItems">
                         <span (click)="openLocation(buildingLocation)">{{ buildingLocation.name }}</span>
