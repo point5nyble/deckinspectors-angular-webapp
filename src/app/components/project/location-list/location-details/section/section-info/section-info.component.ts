@@ -12,21 +12,17 @@ export class SectionInfoComponent implements OnInit{
   englishNamesMap!: { [key: string]: string };
   constructor() {
     this.englishNamesMap = {
-      additionalconsiderations: "Additional Considerations",
-      awe: "Life Expectancy Associated Waterproofing Elements (AWE)",
-      conditionalassessment: "Conditional Assessment",
-      createdat: "Created At",
-      createdby: "Created By",
-      editedat: "Edited At",
-      eee: "Life Expectancy Exterior Elevated Elements (EEE)",
-      exteriorelements: "Exterior Elements",
-      furtherinvasivereviewrequired: "Further Invasive Review Required",
-      lasteditedby: "Last Edited By",
-      lbc: "Life Expectancy Load Bearing Componenets (LBC)",
       name: "Name",
+      exteriorelements: "Exterior Elements",
+      waterproofingelements: "Waterproofing Elements",
       visualreview: "Visual Review",
       visualsignsofleak: "Visual Signs of Leak",
-      waterproofingelements: "Waterproofing Elements"
+      furtherinvasivereviewrequired: "Further Invasive Review Required",
+      conditionalassessment: "Conditional Assessment",
+      additionalconsiderations: "Additional Considerations or Concerns",
+      eee: "Life Expectancy Exterior Elevated Elements (EEE)",
+      lbc: "Life Expectancy Load Bearing Componenets (LBC)",
+      awe: "Life Expectancy Associated Waterproofing Elements (AWE)",
     };
   }
   @Input()
@@ -38,20 +34,23 @@ export class SectionInfoComponent implements OnInit{
   ngOnInit(): void {
     this.rows = [];
     if (this.sectionReport_ != null || this.sectionReport_ != undefined) {
-      Object.entries(this.sectionReport_).forEach(([fieldName, fieldValue]) => {
-        if (!(fieldName === '_id' || fieldName === 'images'
-          || fieldName === 'parentid')) {
-          fieldName = this.extarctFieldName(fieldName);
-          this.rows.push({column1: fieldName, column2: fieldValue});
+      for (let key in this.englishNamesMap) {
+        if (this.englishNamesMap.hasOwnProperty(key)) {
+          const value:string = this.englishNamesMap[key];
+          this.rows.push(
+            {
+              column1: value,
+              column2: this.sectionReport_[key]
+            }
+          );
         }
-
-      });
+      }
     }
   }
 
 
   private extarctFieldName(fieldName: string) {
-    return this.englishNamesMap[fieldName] || fieldName;
+    return this.englishNamesMap[fieldName];
   }
 
 }
