@@ -6,6 +6,8 @@ import {ProjectUpdateStateSubject} from "./subject/project-update-state-subject"
 import {ApplicationStateChangeSubject} from "./subject/application-state-change-subject";
 import {ShowProjectDetailsSubject} from "./subject/show-project-details-subject";
 import {LocationClickSubject} from "./subject/location-click-subject";
+import {PreviousButtonClickSubject} from "./subject/previous-button-click-subject";
+import {ShowAllProjectSubject} from "./subject/show-all-project-subject";
 
 
 
@@ -20,7 +22,9 @@ import {LocationClickSubject} from "./subject/location-click-subject";
     ProjectUpdateStateSubject,
     ApplicationStateChangeSubject,
     ShowProjectDetailsSubject,
-    LocationClickSubject
+    LocationClickSubject,
+    PreviousButtonClickSubject,
+    ShowAllProjectSubject
   ]
 })
 export class OrchestratorServiceModule { }

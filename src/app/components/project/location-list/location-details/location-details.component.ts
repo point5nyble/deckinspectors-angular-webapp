@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BuildingLocation} from "../../../../common/models/buildingLocation";
 import {HttpsRequestService} from "../../../../service/https-request.service";
 import {InspectionReport} from "../../../../common/models/inspection-report";
@@ -15,8 +15,9 @@ import {Store} from "@ngrx/store";
   styleUrls: ['./location-details.component.scss']
 })
 export class LocationDetailsComponent implements OnInit{
-  @Input() location!: BuildingLocation;
+  location!: BuildingLocation;
   sectionReport!: InspectionReport;
+  @Output() previousBtnClickedFromLocationDetails = new  EventEmitter<boolean>();
 
   constructor(private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -28,7 +29,6 @@ export class LocationDetailsComponent implements OnInit{
     this.subscribeToOnLocationClick();
   }
   fetchDataForGivenSectionId($event: string) {
-    console.log("Inside fetchDataForGivenSectionId")
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/section/getSectionById';
     let data = {
       sectionid:$event,
@@ -45,7 +45,6 @@ export class LocationDetailsComponent implements OnInit{
   }
 
   fetchLocationDetails($event: string) {
-    console.log("Inside fetchDataForGivenSectionId")
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationById';
       let data = {
           locationid:$event,
@@ -73,5 +72,10 @@ export class LocationDetailsComponent implements OnInit{
       this.fetchLocationDetails(project.id);
       console.log(this.location);
      })
+  }
+
+  previousBtnClicked() {
+    this.previousBtnClickedFromLocationDetails.emit(true);
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, true);
   }
 }

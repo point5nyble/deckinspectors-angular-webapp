@@ -10,4 +10,5 @@ export class LocationListElementComponent {
   @Input() location!: BuildingLocation;
   @Input() isSubProject!: boolean;
   @Input() projectName!: string;
+
 }

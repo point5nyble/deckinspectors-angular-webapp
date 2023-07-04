@@ -21,7 +21,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   constructor(private httpsRequestService: HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService) {
-
   }
 
   ngOnInit() {
@@ -139,6 +138,12 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Project_update, this.mapItem(item));
   }
 
+  openLocation(location: Item) {
+    if (location.id !== '') {
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, false);
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(location));
+    }
+  }
   private mapItem(input: Item): Item {
     return {
       name: input.name,
@@ -148,12 +153,5 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       collapsed: input.collapsed,
       nestedItems: input.nestedItems?.map((item) => this.mapItem(item)) || []
     };
-  }
-
-  openLocation(location: Item) {
-    if (location.id !== '') {
-      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, false);
-      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(location));
-    }
   }
 }

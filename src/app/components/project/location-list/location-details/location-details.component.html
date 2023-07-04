@@ -1,6 +1,7 @@
 <div>
   <div class="horizontal-div justify-content-between border border-secondary mt-2 info-section">
     <div class="flex-item">
+      <i class="fas fa-arrow-left" style="font-size: 20px;" (click)="previousBtnClicked()"></i>
       <p><b>Name:</b> {{location?.name}}</p>
       <p><b>Description:</b> {{location?.description}}</p>
     </div>
@@ -10,7 +11,10 @@
   </div>
   <div class="horizontal-div">
     <div>
-      <app-section-list (sectionID)=fetchDataForGivenSectionId($event) [sections] = location.sections ></app-section-list>
+      <app-section-list
+        (sectionID)=fetchDataForGivenSectionId($event)
+        [sections] = location.sections
+      ></app-section-list>
     </div>
     <div class="right-panel">
       <app-section [sectionReport] = sectionReport class="right-panel"></app-section>

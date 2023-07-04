@@ -3,6 +3,8 @@ import {ProjectUpdateStateSubject} from "./project-update-state-subject";
 import {ApplicationStateChangeSubject} from "./application-state-change-subject";
 import {ShowProjectDetailsSubject} from "./show-project-details-subject";
 import {LocationClickSubject} from "./location-click-subject";
+import {PreviousButtonClickSubject} from "./previous-button-click-subject";
+import {ShowAllProjectSubject} from "./show-all-project-subject";
 
 @Injectable()
 export class SubjectInjector {
@@ -23,5 +25,11 @@ export class SubjectInjector {
     this.injector.get<LocationClickSubject>(
       LocationClickSubject as Type<LocationClickSubject>
       )
+    this.injector.get<PreviousButtonClickSubject>(
+      PreviousButtonClickSubject as Type<PreviousButtonClickSubject>
+    )
+    this.injector.get<ShowAllProjectSubject>(
+      ShowAllProjectSubject as Type<ShowAllProjectSubject>
+    )
   }
 }

@@ -35,7 +35,7 @@ export class LocationListComponent
     return subProjectNames;
   }
   onDbClick(locationInfo:BuildingLocation) {
-    // this.isDbClick.emit(locationInfo);
+    this.isDbClick.emit(locationInfo);
     if (locationInfo._id !== '') {
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, false);
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(locationInfo));
