@@ -15,7 +15,6 @@ export class ProjectDetailsComponent implements OnInit{
 
   @Input() showPartInfo!: boolean;
   @Input() projectInfo!: Project;
-  @Input() gotoPartInfo!: ($event: BuildingLocation) => void;
   @Input() projectCommonLocationList!: BuildingLocation[];
   @Input() projectBuildings!: Project[];
   @Input() buildingLocation!: BuildingLocation;
