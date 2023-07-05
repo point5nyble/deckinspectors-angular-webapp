@@ -1,5 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {InspectionReport} from "../../../../../../common/models/inspection-report";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {
+  VisualDeckReportModalComponent
+} from "../../../../../../forms/visual-deck-report-modal/visual-deck-report-modal.component";
 
 @Component({
   selector: 'app-section-info',
@@ -10,7 +14,7 @@ export class SectionInfoComponent implements OnInit{
   rows: { column1: string; column2: any }[] = [];
   sectionReport_!: InspectionReport;
   englishNamesMap!: { [key: string]: string };
-  constructor() {
+  constructor(private dialog: MatDialog) {
     this.englishNamesMap = {
       name: "Name",
       exteriorelements: "Exterior Elements",
@@ -48,9 +52,19 @@ export class SectionInfoComponent implements OnInit{
     }
   }
 
-
-  private extarctFieldName(fieldName: string) {
-    return this.englishNamesMap[fieldName];
+  editVisualDeckReportModal() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "600px";
+    dialogConfig.height = "700px";
+    dialogConfig.data = {
+      id: 1,
+      row:this.rows
+    };
+    const dialogRef = this.dialog.open(VisualDeckReportModalComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      console.log(data);
+    })
   }
-
 }

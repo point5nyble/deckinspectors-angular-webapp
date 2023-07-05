@@ -15,9 +15,10 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   @Output() showPartInfo = new EventEmitter<boolean>();
   projectList: Item[] = [];
   panelWidth: number = 200; // Initial panel width
-
+  isHighlighted: boolean = true;
   startX: number = 0;
   startWidth: number = 0;
+  currentSelectedItem:string = '';
 
   constructor(private httpsRequestService: HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService) {
@@ -92,6 +93,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       ))
     };
 
+
     let subProject: Item[] = project.subProjects.map((subProject: any) => (
         {
           name: subProject.name,
@@ -100,7 +102,14 @@ export class ProjectsListLeftPanelComponent implements OnInit {
           nestedItems: this.extractSubProjectLocation(subProject.subProjectLocations)
         }))
 
-    return [locations, ...subProject];
+    let projectBuildings: Item = {
+      name: 'Project Buildings',
+      id:'',
+      collapsed: true,
+      nestedItems: subProject
+    }
+
+    return [locations, projectBuildings];
   }
 
   private extractSubProjectLocation(subProjectLocations: any): Item[] {
@@ -134,16 +143,20 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   }
 
   openProject(item: Item) {
+    this.currentSelectedItem = item.name;
+    console.log(this.currentSelectedItem)
+    console.log(item.name)
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, true);
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Project_update, this.mapItem(item));
   }
 
   openLocation(location: Item) {
-    if (location.id !== '') {
-      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, false);
-      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(location));
+    if (location.id !== '' && location?.nestedItems === undefined) {
+        this.currentSelectedItem = location.name;
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, false);
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(location));
     }
-  }
+    }
   private mapItem(input: Item): Item {
     return {
       name: input.name,
