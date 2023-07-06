@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ProjectEventListenerService} from "./project-state/project-event-listener.service";
+import {PreviousStateEventListenerService} from "./previous-state/previous-state-event-listener.service";
 
 
 
@@ -10,10 +11,12 @@ import {ProjectEventListenerService} from "./project-state/project-event-listene
     CommonModule
   ],
   providers: [
-    ProjectEventListenerService
+    ProjectEventListenerService,
+    PreviousStateEventListenerService
   ]
 })
 export class AppStateServiceModule {
-  constructor(private projectEventListenerService: ProjectEventListenerService) {
+  constructor(private projectEventListenerService: ProjectEventListenerService,
+              private previousStateEventListenerService: PreviousStateEventListenerService) {
   }
 }

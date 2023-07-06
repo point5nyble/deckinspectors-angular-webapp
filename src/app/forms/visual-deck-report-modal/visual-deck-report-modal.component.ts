@@ -8,6 +8,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
   styleUrls: ['./visual-deck-report-modal.component.scss']
 })
 export class VisualDeckReportModalComponent implements OnInit {
+  data: any;
   visualDeckReportModalForm!: FormGroup;
   exteriorElementsOptions = [
     { value: 'option1', label: 'Option 1' },
@@ -20,11 +21,13 @@ export class VisualDeckReportModalComponent implements OnInit {
               private cdr: ChangeDetectorRef,
               private dialogRef: MatDialogRef<VisualDeckReportModalComponent>,
               @Inject(MAT_DIALOG_DATA) data : any) {
+    this.data = data;
   }
 
   ngOnInit() {
+    console.log(this.data);
     this.visualDeckReportModalForm = this.formBuilder.group({
-      visualReportName: [''], // Add validators if needed
+      visualReportName: [this.data.row], // Add validators if needed
       exteriorElements: [''], // Add validators if needed
       waterproofingElements: [''],
       visualReview:[''],

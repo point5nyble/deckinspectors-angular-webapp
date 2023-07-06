@@ -3,6 +3,11 @@ import {BuildingLocation} from "../../../common/models/buildingLocation";
 import {Project} from "../../../common/models/project";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {NewLocationModalComponent} from "../../../forms/new-location-modal/new-location-modal.component";
+import {Item} from "../../../common/models/project-tree";
+import {OrchestratorEventName} from "../../../orchestrator-service/models/orchestrator-event-name";
+import {
+  OrchestratorCommunicationService
+} from "../../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 
 @Component({
   selector: 'app-location-list',
@@ -16,7 +21,8 @@ export class LocationListComponent
   @Input() locations!: BuildingLocation[];
   @Input() subproject!: Project[];
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog,
+              private orchestratorCommunicationService: OrchestratorCommunicationService) { }
   checkIfSubProject() : boolean {
     return (this.header === "Project Buildings");
   }
@@ -30,6 +36,10 @@ export class LocationListComponent
   }
   onDbClick(locationInfo:BuildingLocation) {
     this.isDbClick.emit(locationInfo);
+    if (locationInfo._id !== '') {
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, false);
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(locationInfo));
+    }
   }
 
   public openModal():void {
@@ -47,6 +57,13 @@ export class LocationListComponent
     dialogRef.afterClosed().subscribe(data => {
 
     })
+  }
 
+  private mapItem(input: BuildingLocation): Item {
+    return {
+      name: input.name,
+      id: input._id,
+      description: input.description
+    };
   }
 }

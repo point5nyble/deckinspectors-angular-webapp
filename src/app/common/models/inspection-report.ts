@@ -1,4 +1,5 @@
 export interface InspectionReport {
+  [key: string]: any;
   _id: string;
   additionalconsiderations: string;
   awe: string;

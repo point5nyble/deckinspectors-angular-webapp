@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BuildingLocation} from "../../../../common/models/buildingLocation";
 import {HttpsRequestService} from "../../../../service/https-request.service";
 import {InspectionReport} from "../../../../common/models/inspection-report";
@@ -6,6 +6,8 @@ import {OrchestratorEventName} from "../../../../orchestrator-service/models/orc
 import {
   OrchestratorCommunicationService
 } from "../../../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
+import {ProjectQuery} from "../../../../app-state-service/project-state/project-selector";
+import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'app-location-details',
@@ -13,11 +15,19 @@ import {
   styleUrls: ['./location-details.component.scss']
 })
 export class LocationDetailsComponent implements OnInit{
-  @Input() location!: BuildingLocation;
+  location!: BuildingLocation;
   sectionReport!: InspectionReport;
+  @Output() previousBtnClickedFromLocationDetails = new  EventEmitter<boolean>();
 
   constructor(private httpsRequestService:HttpsRequestService,
-              private orchestratorCommunicationService:OrchestratorCommunicationService) {}
+              private orchestratorCommunicationService:OrchestratorCommunicationService,
+              private store: Store<any>) {
+  }
+
+  ngOnInit(): void {
+    this.fetchInitialData();
+    this.subscribeToOnLocationClick();
+  }
   fetchDataForGivenSectionId($event: string) {
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/section/getSectionById';
     let data = {
@@ -49,16 +59,23 @@ export class LocationDetailsComponent implements OnInit{
           }
       );
   }
-
-  ngOnInit(): void {
-    this.subscribeToOnLocationClick();
+  private subscribeToOnLocationClick() {
+    // this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Location_Click).subscribe(data => {
+    //   this.fetchLocationDetails(data.id);
+    //   console.log(data)
+    // });
   }
 
+  private fetchInitialData() {
+    this.store.select(ProjectQuery.getProjectModel).subscribe((project: any)=> {
+      this.location = project;
+      this.fetchLocationDetails(project.id);
+      console.log(this.location);
+     })
+  }
 
-  private subscribeToOnLocationClick() {
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Location_Click).subscribe(data => {
-      this.fetchLocationDetails(data.id);
-      console.log(data)
-    });
+  previousBtnClicked() {
+    this.previousBtnClickedFromLocationDetails.emit(true);
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, true);
   }
 }
