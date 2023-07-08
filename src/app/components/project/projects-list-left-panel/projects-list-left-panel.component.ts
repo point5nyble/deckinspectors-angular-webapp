@@ -25,29 +25,34 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   constructor(private httpsRequestService: HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService,
               private store: Store<any>) {
+    this.fetchLeftTreeDataFromState();
     this.fetchLeftTreeData();
   }
 
   ngOnInit() {
-    this.subscribeToProjectDetails();
+    this.subscribeToProjectDetailsForNameHighlight();
+  }
+
+  private fetchLeftTreeDataFromState() {
     this.store.select(LeftTreeListModelQuery.getLeftTreeList).subscribe(leftTreeData => {
-      console.log(leftTreeData)
-     this.projectList = leftTreeData.items;
+      this.projectList = this.mapItemList(leftTreeData.items);
     })
   }
 
   private fetchLeftTreeData() {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsMetaDataByUserName/deck';
-    this.httpsRequestService.getHttpData<any>(url).subscribe(
-      (response: any) => {
-        let fetchedProjectList:Item[] = this.convertResponseToItemList(response);
-        console.log(fetchedProjectList);
-        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Left_Tree_Data,  fetchedProjectList);
-      },
-      error => {
-        console.log(error)
-      }
-    );
+    if (this.projectList.length === 0) {
+      let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsMetaDataByUserName/deck';
+      this.httpsRequestService.getHttpData<any>(url).subscribe(
+        (response: any) => {
+          let fetchedProjectList: Item[] = this.convertResponseToItemList(response);
+          console.log(fetchedProjectList);
+          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Left_Tree_Data, fetchedProjectList);
+        },
+        error => {
+          console.log(error)
+        }
+      );
+    }
   }
 
   private convertResponseToItemList(response: any):Item[] {
@@ -138,12 +143,19 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   }
 
   openLocation(location: Item) {
-    if (location.id !== '' && location?.nestedItems === undefined) {
+    if (location.id !== '' && location?.nestedItems?.length === 0) {
         this.currentSelectedItem = location.name;
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, false);
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(location));
     }
     }
+  private subscribeToProjectDetailsForNameHighlight() {
+    console.log("Inside subscribeToProjectDetails")
+    this.store.select(ProjectQuery.getProjectModel).subscribe(project => {
+      this.currentSelectedItem = project.name;
+     });
+  }
+
   private mapItem(input: Item): Item {
     return {
       name: input.name,
@@ -155,10 +167,8 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     };
   }
 
-  private subscribeToProjectDetails() {
-    this.store.select(ProjectQuery.getProjectModel).subscribe(project => {
-      this.currentSelectedItem = project.name;
-     });
+  private mapItemList(input: Item[]): Item[] {
+    return input.map((item) => this.mapItem(item));
   }
 
   @HostListener('document:mousemove', ['$event'])
