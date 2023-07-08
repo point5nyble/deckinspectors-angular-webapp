@@ -27,7 +27,6 @@ export class SectionListComponent implements OnInit{
     };
     const dialogRef = this.dialog.open(VisualDeckReportModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data);
     })
   }
 

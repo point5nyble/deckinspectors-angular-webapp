@@ -38,7 +38,6 @@ export class NewProjectModalComponent implements OnInit {
   }
 
   save() {
-    console.log(this.yourForm.value);
     this.dialogRef.close(this.yourForm.value);
   }
 }

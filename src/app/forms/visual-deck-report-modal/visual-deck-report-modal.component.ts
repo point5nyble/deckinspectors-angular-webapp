@@ -25,9 +25,8 @@ export class VisualDeckReportModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.data);
     this.visualDeckReportModalForm = this.formBuilder.group({
-      visualReportName: [this.data.row], // Add validators if needed
+      visualReportName: [this.data.rowsMap.get('name')], // Add validators if needed
       exteriorElements: [''], // Add validators if needed
       waterproofingElements: [''],
       visualReview:[''],
@@ -45,7 +44,6 @@ export class VisualDeckReportModalComponent implements OnInit {
   }
 
   save() {
-    console.log(this.visualDeckReportModalForm.value);
     this.dialogRef.close(this.visualDeckReportModalForm.value);
   }
 }

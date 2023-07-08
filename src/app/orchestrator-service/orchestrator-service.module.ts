@@ -8,6 +8,7 @@ import {ShowProjectDetailsSubject} from "./subject/show-project-details-subject"
 import {LocationClickSubject} from "./subject/location-click-subject";
 import {PreviousButtonClickSubject} from "./subject/previous-button-click-subject";
 import {ShowAllProjectSubject} from "./subject/show-all-project-subject";
+import {FetchLeftTreeDataStateSubject} from "./subject/fetch-left-tree-data-state-subject";
 
 
 
@@ -24,7 +25,8 @@ import {ShowAllProjectSubject} from "./subject/show-all-project-subject";
     ShowProjectDetailsSubject,
     LocationClickSubject,
     PreviousButtonClickSubject,
-    ShowAllProjectSubject
+    ShowAllProjectSubject,
+    FetchLeftTreeDataStateSubject
   ]
 })
 export class OrchestratorServiceModule { }

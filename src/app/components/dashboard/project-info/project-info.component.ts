@@ -25,8 +25,7 @@ export class ProjectInfoComponent {
     };
     const dialogRef = this.dialog.open(AssignProjectModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data);
-    })
+     })
 
   }
 
@@ -41,10 +40,8 @@ export class ProjectInfoComponent {
     };
     const dialogRef = this.dialog.open(UploadFilesModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data);
     })
   }
-
 
   openDownloadReportModal() {
     const dialogConfig = new MatDialogConfig();
@@ -57,7 +54,6 @@ export class ProjectInfoComponent {
     };
     const dialogRef = this.dialog.open(DownloadFilesModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data);
     })
   }
 }

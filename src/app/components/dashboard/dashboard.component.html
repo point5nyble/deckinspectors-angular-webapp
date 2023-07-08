@@ -4,7 +4,7 @@
   </div>
   <div class="container-fluid">
       <div *ngIf="showProjectInfo" class="d-flex flex-column">
-        <app-filter></app-filter>
+        <app-filter (searchedTerm)="projectSearch($event)"></app-filter>
         <!--        Show Project list-->
         <div *ngFor="let projectInfo of projectInfos">
           <app-project-info (dblclick)="gotoProject(projectInfo)" [projectInfo]=projectInfo></app-project-info>

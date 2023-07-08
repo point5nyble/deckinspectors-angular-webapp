@@ -5,6 +5,7 @@ import {ShowProjectDetailsSubject} from "./show-project-details-subject";
 import {LocationClickSubject} from "./location-click-subject";
 import {PreviousButtonClickSubject} from "./previous-button-click-subject";
 import {ShowAllProjectSubject} from "./show-all-project-subject";
+import {FetchLeftTreeDataStateSubject} from "./fetch-left-tree-data-state-subject";
 
 @Injectable()
 export class SubjectInjector {
@@ -31,5 +32,9 @@ export class SubjectInjector {
     this.injector.get<ShowAllProjectSubject>(
       ShowAllProjectSubject as Type<ShowAllProjectSubject>
     )
+    this.injector.get<FetchLeftTreeDataStateSubject>(
+      FetchLeftTreeDataStateSubject as Type<FetchLeftTreeDataStateSubject>
+    )
+
   }
 }
