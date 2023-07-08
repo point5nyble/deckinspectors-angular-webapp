@@ -21,8 +21,8 @@
                 <ng-container *ngFor="let location of nestedItem.nestedItems">
                   <li [class.collapsed]="location.collapsed">
                     <span>
-                      <i *ngIf="location.nestedItems" class="icon" [class.rotate-icon]="!location.collapsed"
-                        (click)="toggleCollapse(location)"></i>
+                      <i *ngIf="!(location.nestedItems?.length===0)" class="icon" [class.rotate-icon]="!location.collapsed"
+                         (click)="toggleCollapse(location)"></i>
                     </span>
                     <span (click)="openLocation(location)">
                       <p [ngClass]="{'highlighted': currentSelectedItem === location.name}">{{ location.name }}</p>
