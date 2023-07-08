@@ -10,7 +10,6 @@ export class SectionComponent implements OnInit{
   @Input() sectionReport!: InspectionReport;
 
   ngOnInit(): void {
-    console.log(this.sectionReport);
   }
 
 

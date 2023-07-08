@@ -8,6 +8,11 @@
   justify-content: space-between;
 }
 
+.horizontal-div:hover {
+  background-color: #f7f7f7;
+  filter: brightness(80%);
+}
+
 .profile-section {
   display: flex;
   flex-direction: column;

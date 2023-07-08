@@ -14,6 +14,7 @@ export class SectionInfoComponent implements OnInit{
   rows: { column1: string; column2: any }[] = [];
   sectionReport_!: InspectionReport;
   englishNamesMap!: { [key: string]: string };
+  rowsMap!: Map<string, string>;
   constructor(private dialog: MatDialog) {
     this.englishNamesMap = {
       name: "Name",
@@ -37,6 +38,7 @@ export class SectionInfoComponent implements OnInit{
 
   ngOnInit(): void {
     this.rows = [];
+    this.rowsMap = new Map<string,string>();
     if (this.sectionReport_ != null || this.sectionReport_ != undefined) {
       for (let key in this.englishNamesMap) {
         if (this.englishNamesMap.hasOwnProperty(key)) {
@@ -47,6 +49,7 @@ export class SectionInfoComponent implements OnInit{
               column2: this.sectionReport_[key]
             }
           );
+          this.rowsMap.set(key, this.sectionReport_[key]);
         }
       }
     }
@@ -60,11 +63,10 @@ export class SectionInfoComponent implements OnInit{
     dialogConfig.height = "700px";
     dialogConfig.data = {
       id: 1,
-      row:this.rows
+      rowsMap:this.rowsMap
     };
     const dialogRef = this.dialog.open(VisualDeckReportModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data);
     })
   }
 }

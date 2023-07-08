@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {BuildingLocation} from "../../../../common/models/buildingLocation";
 import {HttpsRequestService} from "../../../../service/https-request.service";
 import {InspectionReport} from "../../../../common/models/inspection-report";
@@ -8,6 +8,8 @@ import {
 } from "../../../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import {ProjectQuery} from "../../../../app-state-service/project-state/project-selector";
 import {Store} from "@ngrx/store";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {NewLocationModalComponent} from "../../../../forms/new-location-modal/new-location-modal.component";
 
 @Component({
   selector: 'app-location-details',
@@ -21,7 +23,8 @@ export class LocationDetailsComponent implements OnInit{
 
   constructor(private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
-              private store: Store<any>) {
+              private store: Store<any>,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -70,12 +73,26 @@ export class LocationDetailsComponent implements OnInit{
     this.store.select(ProjectQuery.getProjectModel).subscribe((project: any)=> {
       this.location = project;
       this.fetchLocationDetails(project.id);
-      console.log(this.location);
-     })
+      })
   }
 
   previousBtnClicked() {
     this.previousBtnClickedFromLocationDetails.emit(true);
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, true);
+  }
+
+  editLocation() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "600px";
+    dialogConfig.height = "700px";
+    dialogConfig.data = {
+      id: 1,
+      location:this.location
+    };
+    const dialogRef = this.dialog.open(NewLocationModalComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+    })
   }
 }

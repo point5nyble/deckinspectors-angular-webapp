@@ -5,6 +5,9 @@ import {
   OrchestratorCommunicationService
 } from "../../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import {OrchestratorEventName} from "../../../orchestrator-service/models/orchestrator-event-name";
+import {ProjectQuery} from "../../../app-state-service/project-state/project-selector";
+import {Store} from "@ngrx/store";
+import {LeftTreeListModelQuery} from "../../../app-state-service/left-tree-items-state/left-tree-items-state-selector";
 
 @Component({
   selector: 'app-projects-list-left-panel',
@@ -15,22 +18,31 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   @Output() showPartInfo = new EventEmitter<boolean>();
   projectList: Item[] = [];
   panelWidth: number = 200; // Initial panel width
-  isHighlighted: boolean = true;
   startX: number = 0;
   startWidth: number = 0;
   currentSelectedItem:string = '';
 
   constructor(private httpsRequestService: HttpsRequestService,
-              private orchestratorCommunicationService: OrchestratorCommunicationService) {
+              private orchestratorCommunicationService: OrchestratorCommunicationService,
+              private store: Store<any>) {
+    this.fetchLeftTreeData();
   }
 
   ngOnInit() {
+    this.subscribeToProjectDetails();
+    this.store.select(LeftTreeListModelQuery.getLeftTreeList).subscribe(leftTreeData => {
+      console.log(leftTreeData)
+     this.projectList = leftTreeData.items;
+    })
+  }
+
+  private fetchLeftTreeData() {
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsMetaDataByUserName/deck';
     this.httpsRequestService.getHttpData<any>(url).subscribe(
       (response: any) => {
-        this.convertResponseToItemList(response);
-        console.log(response);
-        console.log(this.projectList)
+        let fetchedProjectList:Item[] = this.convertResponseToItemList(response);
+        console.log(fetchedProjectList);
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Left_Tree_Data,  fetchedProjectList);
       },
       error => {
         console.log(error)
@@ -38,35 +50,12 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     );
   }
 
-  @HostListener('document:mousemove', ['$event'])
-  onDrag(event: MouseEvent) {
-    if (this.startX !== 0) {
-      const newWidth = this.startWidth + (event.clientX - this.startX);
-      this.panelWidth = Math.max(200, newWidth); // Set minimum width
-
-      // Uncomment the following line if you want the panel width to be limited to a maximum value
-      // this.panelWidth = Math.min(400, Math.max(200, newWidth));
-    }
-  }
-
-  @HostListener('document:mouseup')
-  onDragEnd(): void {
-    this.startX = 0;
-  }
-
-  startDrag(event: MouseEvent): void {
-    this.startX = event.clientX;
-    this.startWidth = this.panelWidth;
-  }
-
-  toggleCollapse(item: Item): void {
-    item.collapsed = !item.collapsed;
-  }
-
-  private convertResponseToItemList(response: any) {
+  private convertResponseToItemList(response: any):Item[] {
+    let fetchedProjectList:Item[] = [];
     response.item.forEach((project: any) => {
-      this.projectList.push(this.extractProject(project))
+      fetchedProjectList.push(this.extractProject(project))
     })
+    return fetchedProjectList;
   }
   private extractProject(project: any): Item {
     return {
@@ -144,8 +133,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   openProject(item: Item) {
     this.currentSelectedItem = item.name;
-    console.log(this.currentSelectedItem)
-    console.log(item.name)
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, true);
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Project_update, this.mapItem(item));
   }
@@ -166,5 +153,36 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       collapsed: input.collapsed,
       nestedItems: input.nestedItems?.map((item) => this.mapItem(item)) || []
     };
+  }
+
+  private subscribeToProjectDetails() {
+    this.store.select(ProjectQuery.getProjectModel).subscribe(project => {
+      this.currentSelectedItem = project.name;
+     });
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  onDrag(event: MouseEvent) {
+    if (this.startX !== 0) {
+      const newWidth = this.startWidth + (event.clientX - this.startX);
+      this.panelWidth = Math.max(200, newWidth); // Set minimum width
+
+      // Uncomment the following line if you want the panel width to be limited to a maximum value
+      // this.panelWidth = Math.min(400, Math.max(200, newWidth));
+    }
+  }
+
+  @HostListener('document:mouseup')
+  onDragEnd(): void {
+    this.startX = 0;
+  }
+
+  startDrag(event: MouseEvent): void {
+    this.startX = event.clientX;
+    this.startWidth = this.panelWidth;
+  }
+
+  toggleCollapse(item: Item): void {
+    item.collapsed = !item.collapsed;
   }
 }

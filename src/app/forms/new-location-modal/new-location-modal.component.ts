@@ -13,6 +13,7 @@ export class NewLocationModalComponent {
   private _event: any;
   subProjectNames: string[] = [];
   isSubProject: boolean = false;
+  data!:any;
 
   constructor(private formBuilder: FormBuilder,
               private cdr: ChangeDetectorRef,
@@ -21,16 +22,15 @@ export class NewLocationModalComponent {
     this.description = data.description;
     this.subProjectNames = data.projectName;
     this.isSubProject = data.isSubProject;
-    console.log(data);
+    this.data = data;
   }
 
   ngOnInit() {
     this.newLocationForm = this.formBuilder.group({
       image: [''], // Add validators if needed
-      name: [''], // Add validators if needed
-      address: [''],
+      name: [this.data.location.name], // Add validators if needed
       option: [''], // Add validators if needed
-      description: [this.description, []]
+      description: [this.data.location.description]
     });
   }
 
@@ -43,7 +43,6 @@ export class NewLocationModalComponent {
   }
 
   save() {
-    console.log(this.newLocationForm.value);
     this.dialogRef.close(this.newLocationForm.value);
   }
 }

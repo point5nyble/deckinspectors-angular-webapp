@@ -1,5 +1,6 @@
 <div class="horizontal-div">
-    <input type="text" placeholder="Search by name">
+    <input type="text" placeholder="Search by name"
+           [(ngModel)]="searchTerm" (input)="filterNames()">
     <input type="date" placeholder="Created on">
     <label>
       <input type="checkbox"> Completed

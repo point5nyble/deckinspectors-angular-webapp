@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {NewProjectModalComponent} from "../../../forms/new-project-modal/new-project-modal.component";
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 @Component({
@@ -7,6 +7,8 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent {
+  searchTerm!: string;
+  @Output() searchedTerm = new EventEmitter<string>();
   constructor(private dialog: MatDialog) { }
 
   public openModal():void {
@@ -23,5 +25,9 @@ export class FilterComponent {
 
     })
 
+  }
+
+  filterNames() {
+      this.searchedTerm.emit(this.searchTerm);
   }
 }

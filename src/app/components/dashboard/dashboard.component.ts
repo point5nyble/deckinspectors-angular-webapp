@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit
   showProjectInfo: boolean = true;
   projectInfo! : Project;
   projectInfos!: Project[];
+  allProjects!: Project[];
     constructor(private cdr: ChangeDetectorRef,
                 private httpsRequestService:HttpsRequestService,
                 private orchestratorCommunicationService:OrchestratorCommunicationService) {}
@@ -24,6 +25,7 @@ export class DashboardComponent implements OnInit
         this.httpsRequestService.getHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/deck').subscribe(
             (data)=> {
               this.projectInfos = data.projects;
+              this.allProjects = data.projects;
             },
           error => {
               console.log(error);
@@ -36,11 +38,18 @@ export class DashboardComponent implements OnInit
   public gotoProject(projectInfo :Project): void {
     this.showProjectInfo = false;
     this.projectInfo = projectInfo;
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Project_update,projectInfo);
   }
 
   private subscribeToshowProjectInfoToggle() {
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Show_All_Projects).subscribe(data => {
       this.showProjectInfo = data;
     })
+  }
+
+  projectSearch($event: string) {
+    this.projectInfos = this.allProjects.filter((project) =>
+      project.name.toLowerCase().includes($event.toLowerCase())
+    );
   }
 }

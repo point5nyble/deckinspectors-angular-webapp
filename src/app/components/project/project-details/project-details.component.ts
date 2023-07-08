@@ -80,7 +80,6 @@ export class ProjectDetailsComponent implements OnInit{
   }
 
   locationClicked($event: BuildingLocation) {
-    console.log($event);
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Previous_Button_Click, this.projectInfo);
   }
 
@@ -90,7 +89,6 @@ export class ProjectDetailsComponent implements OnInit{
 
   previousBtnClickedFromLocationDetails($event: boolean) {
     this.store.select(PreviousStateModelQuery.getPreviousStateModel).subscribe((previousState:any) => {
-      console.log(previousState);
       this.projectInfo = previousState;
       this.fetchLocationData(previousState.id);
       this.fetchSubProjectData(previousState.id);

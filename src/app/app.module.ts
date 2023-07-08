@@ -36,6 +36,7 @@ import {StoreModule} from "@ngrx/store";
 import {projectReducer} from "./app-state-service/project-state/project-reducer";
 import { NewLocationModalComponent } from './forms/new-location-modal/new-location-modal.component';
 import {updatePreviousStateModel} from "./app-state-service/previous-state/previous-state-reducer";
+import {addLeftTreeItems} from "./app-state-service/left-tree-items-state/left-tree-items-state-reducer";
 
 
 @NgModule({
@@ -78,7 +79,9 @@ import {updatePreviousStateModel} from "./app-state-service/previous-state/previ
     OrchestratorServiceModule,
     StoreModule.forRoot(
       {project:projectReducer,
-        previousState:updatePreviousStateModel},
+        previousState:updatePreviousStateModel,
+        leftTreeItemsState:addLeftTreeItems
+      },
     )
   ],
   providers: [],

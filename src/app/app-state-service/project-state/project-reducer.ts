@@ -12,6 +12,5 @@ export const initialState: Readonly<ProjectStateModel> = new ProjectStateModel()
   );
 
 const updateProjectParams = (state: ProjectStateModel, project: ProjectStateModel) => {
-  console.log({...state,...project});
   return {...state,...project};
 }
