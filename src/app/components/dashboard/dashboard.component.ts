@@ -22,18 +22,22 @@ export class DashboardComponent implements OnInit
                 private orchestratorCommunicationService:OrchestratorCommunicationService) {}
 
     ngOnInit(): void {
-        this.httpsRequestService.getHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/deck').subscribe(
-            (data)=> {
-              this.projectInfos = data.projects;
-              this.allProjects = data.projects;
-            },
-          error => {
-              console.log(error);
-          }
-        )
+      this.fetchProjectData();
       this.subscribeToshowProjectInfoToggle();
     }
 
+
+  private fetchProjectData() {
+    this.httpsRequestService.getHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/deck').subscribe(
+      (data) => {
+        this.projectInfos = data.projects;
+        this.allProjects = data.projects;
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
 
   public gotoProject(projectInfo :Project): void {
     this.showProjectInfo = false;
@@ -42,6 +46,7 @@ export class DashboardComponent implements OnInit
   }
 
   private subscribeToshowProjectInfoToggle() {
+      // Show Project Screen
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Show_All_Projects).subscribe(data => {
       this.showProjectInfo = data;
     })
@@ -51,5 +56,12 @@ export class DashboardComponent implements OnInit
     this.projectInfos = this.allProjects.filter((project) =>
       project.name.toLowerCase().includes($event.toLowerCase())
     );
+  }
+
+  newProjectUploaded() {
+      // add Timeout
+      setTimeout(() => {
+        this.fetchProjectData();
+      },1000)
   }
 }

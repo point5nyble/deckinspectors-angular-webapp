@@ -9,6 +9,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 export class FilterComponent {
   searchTerm!: string;
   @Output() searchedTerm = new EventEmitter<string>();
+  @Output() newProjectUploaded = new EventEmitter<boolean>();
   constructor(private dialog: MatDialog) { }
 
   public openModal():void {
@@ -22,7 +23,9 @@ export class FilterComponent {
     };
     const dialogRef = this.dialog.open(NewProjectModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
-
+      if (data.name !== undefined) {
+        this.newProjectUploaded.emit(true);
+      }
     })
 
   }
