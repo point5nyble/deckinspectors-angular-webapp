@@ -35,12 +35,12 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   private fetchLeftTreeDataFromState() {
     this.store.select(LeftTreeListModelQuery.getLeftTreeList).subscribe(leftTreeData => {
-      this.projectList = this.mapItemList(leftTreeData.items);
+      this.projectList = this.mapItemList(leftTreeData?.items);
     })
   }
 
   private fetchLeftTreeData() {
-    if (this.projectList.length === 0) {
+    if (this.projectList?.length === 0) {
       let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsMetaDataByUserName/deck';
       this.httpsRequestService.getHttpData<any>(url).subscribe(
         (response: any) => {
@@ -150,7 +150,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     }
     }
   private subscribeToProjectDetailsForNameHighlight() {
-    console.log("Inside subscribeToProjectDetails")
     this.store.select(ProjectQuery.getProjectModel).subscribe(project => {
       this.currentSelectedItem = project.name;
      });
@@ -158,17 +157,17 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   private mapItem(input: Item): Item {
     return {
-      name: input.name,
-      id: input.id,
-      description: input.description,
-      address: input.address,
-      collapsed: input.collapsed,
-      nestedItems: input.nestedItems?.map((item) => this.mapItem(item)) || []
+      name: input?.name,
+      id: input?.id,
+      description: input?.description,
+      address: input?.address,
+      collapsed: input?.collapsed,
+      nestedItems: input?.nestedItems?.map((item) => this.mapItem(item)) || []
     };
   }
 
   private mapItemList(input: Item[]): Item[] {
-    return input.map((item) => this.mapItem(item));
+    return input?.map((item) => this.mapItem(item));
   }
 
   @HostListener('document:mousemove', ['$event'])

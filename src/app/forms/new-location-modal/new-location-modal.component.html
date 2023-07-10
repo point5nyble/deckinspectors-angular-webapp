@@ -15,7 +15,7 @@
     <div *ngIf="isSubProject" class="form-field">
       <label class="form-label">Type:</label>
       <div class="radio-group">
-        <label for="building_location"><input formControlName="subProjectType" type="radio" id="building_location" value="building_location" name="subProjectType">Building Location</label>
+        <label for="buildinglocation"><input formControlName="subProjectType" type="radio" id="buildinglocation" value="buildinglocation" name="subProjectType">Building Location</label>
         <label for="apartment"><input formControlName="subProjectType" type="radio" id="apartment" value="apartment" name="subProjectType">Apartment</label>
       </div>
     </div>
@@ -23,7 +23,7 @@
     <div *ngIf="isSubProject" class="form-field">
       <label class="form-label" for="subProjectName">SubProject Name</label>
       <select formControlName="subProjectName" id="subProjectName" name="subProjectName">
-        <option *ngFor="let option of subProjectNames" [value]="option">{{ option }}</option>
+        <option *ngFor="let subproject of subProjects" [ngValue]="subproject">{{ subproject.name }}</option>
       </select>
     </div>
 

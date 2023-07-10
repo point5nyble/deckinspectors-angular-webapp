@@ -1,8 +1,5 @@
 <div class="right-panel full-height">
-  <div *ngIf="!showPartInfo" class="right-panel">
-    <app-location-details (previousBtnClickedFromLocationDetails)="previousBtnClickedFromLocationDetails($event)"></app-location-details>
-  </div>
-  <div *ngIf="showPartInfo" class="horizontal-div border border-secondary mt-2 info-section">
+  <div *ngIf="showSectionInfo" class="horizontal-div border border-secondary mt-2 info-section">
     <div class="flex-item">
       <i class="fas fa-arrow-left" style="font-size: 20px;" (click)="previousBtnClicked()"></i>
       <h4 class="info-heading">{{ projectInfo.name }}</h4>
@@ -14,15 +11,20 @@
       </div>
     </div>
     <div class="image-section flex-item">
-      <img src="{{ projectInfo.url }}" alt="image-description">
+      <img alt="image-description" src="{{ projectInfo.url }}">
     </div>
   </div>
-  <div *ngIf="showPartInfo" class="d-flex justify-content-between mt-3 location-section">
+  <div *ngIf="showSectionInfo" class="d-flex justify-content-between mt-3 location-section">
     <app-location-list class="flex-item" header="Project Common Location"
                        [locations]="projectCommonLocationList"
                        (isDbClick)="locationClicked($event)"></app-location-list>
     <app-location-list class="flex-item ms-2" header="Project Buildings"
                        [subproject]="projectBuildings"
                        (isDbClick)="locationClicked($event)"></app-location-list>
+  </div>
+  <div *ngIf="!showSectionInfo" class="right-panel">
+    <app-location-details (previousBtnClickedFromLocationDetails)="previousBtnClickedFromLocationDetails($event)">
+
+    </app-location-details>
   </div>
 </div>

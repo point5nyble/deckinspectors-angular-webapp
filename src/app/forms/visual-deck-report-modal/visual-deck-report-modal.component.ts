@@ -11,10 +11,10 @@ export class VisualDeckReportModalComponent implements OnInit {
   data: any;
   visualDeckReportModalForm!: FormGroup;
   exteriorElementsOptions = [
-    { value: 'option1', label: 'Option 1' },
-    { value: 'option2', label: 'Option 2' },
-    { value: 'option3', label: 'Option 3' }
-    // Add more options as needed
+    'Decks', 'Porches / Entry', 'Stairs', 'Stairs Landing', 'Walkways', 'Railings', 'Integrations', 'Door Threshold'
+  ];
+  waterproofingElements = [
+    'Flashings', 'Waterproofing', 'Coatings','Sealants'
   ];
 
   constructor(private formBuilder: FormBuilder,
@@ -25,18 +25,19 @@ export class VisualDeckReportModalComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.data);
     this.visualDeckReportModalForm = this.formBuilder.group({
-      visualReportName: [this.data.rowsMap.get('name')], // Add validators if needed
-      exteriorElements: [''], // Add validators if needed
-      waterproofingElements: [''],
-      visualReview:[''],
-      signsOfLeaks:[''],
-      invasiveReviewRequired:[''],
-      conditionAssessment: [''],
-      additionalConsiderationsOrConcern:[''],
-      EEE:[''],
-      LBC:[''],
-      AWE:['']
+      visualReportName: [this.data.rowsMap?.get('name')], // Add validators if needed
+      exteriorElements: [this.data.rowsMap?.get('exteriorelements')], // Add validators if needed
+      waterproofingElements: [this.data.rowsMap?.get('waterproofingelements')],
+      visualReview:[this.data.rowsMap?.get('visualreview')],
+      signsOfLeaks:[this.data.rowsMap?.get('visualsignsofleak')],
+      invasiveReviewRequired:[this.data.rowsMap?.get('furtherinvasivereviewrequired')],
+      conditionAssessment: [this.data.rowsMap?.get('conditionalassessment')],
+      additionalConsiderationsOrConcern:[this.data.rowsMap?.get('additionalconsiderations')],
+      EEE:[this.data.rowsMap?.get('eee')],
+      LBC:[this.data.rowsMap?.get('lbc')],
+      AWE:[this.data.rowsMap?.get('awe')]
     });
   }
   close() {
@@ -44,6 +45,7 @@ export class VisualDeckReportModalComponent implements OnInit {
   }
 
   save() {
+    console.log(this.visualDeckReportModalForm.value);
     this.dialogRef.close(this.visualDeckReportModalForm.value);
   }
 }

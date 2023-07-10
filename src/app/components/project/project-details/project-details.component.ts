@@ -16,7 +16,7 @@ import {Store} from "@ngrx/store";
 })
 export class ProjectDetailsComponent implements OnInit{
 
-  showPartInfo: boolean = true;
+  showSectionInfo: boolean = true;
   @Input() projectInfo!: Project;
   projectCommonLocationList!: BuildingLocation[];
   projectBuildings!: Project[];
@@ -47,7 +47,6 @@ export class ProjectDetailsComponent implements OnInit{
       }
     );
   }
-
   private fetchLocationData(projectID:string) {
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationsByProjectId';
     let data = {
@@ -75,7 +74,7 @@ export class ProjectDetailsComponent implements OnInit{
 
   private subscribeToShowPartInfoEvent() {
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Show_Project_Details).subscribe(data => {
-      this.showPartInfo = data;
+      this.showSectionInfo = data;
     });
   }
 

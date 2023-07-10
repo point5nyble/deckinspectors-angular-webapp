@@ -76,8 +76,6 @@ export class NewProjectModalComponent implements OnInit {
           console.log(error)
         }
       );
-
-
     }
 
 

@@ -37,6 +37,9 @@ import {projectReducer} from "./app-state-service/project-state/project-reducer"
 import { NewLocationModalComponent } from './forms/new-location-modal/new-location-modal.component';
 import {updatePreviousStateModel} from "./app-state-service/previous-state/previous-state-reducer";
 import {addLeftTreeItems} from "./app-state-service/left-tree-items-state/left-tree-items-state-reducer";
+import { NewSubprojectModalComponent } from './forms/new-subproject-modal/new-subproject-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 
 @NgModule({
@@ -64,7 +67,8 @@ import {addLeftTreeItems} from "./app-state-service/left-tree-items-state/left-t
     VisualDeckReportModalComponent,
     DownloadSpecificReportComponent,
     ProjectDetailsComponent,
-    NewLocationModalComponent
+    NewLocationModalComponent,
+    NewSubprojectModalComponent
   ],
   imports: [
     BrowserModule,
@@ -78,11 +82,14 @@ import {addLeftTreeItems} from "./app-state-service/left-tree-items-state/left-t
     AppStateServiceModule,
     OrchestratorServiceModule,
     StoreModule.forRoot(
-      {project:projectReducer,
-        previousState:updatePreviousStateModel,
-        leftTreeItemsState:addLeftTreeItems
+      {
+        project: projectReducer,
+        previousState: updatePreviousStateModel,
+        leftTreeItemsState: addLeftTreeItems
       },
-    )
+    ),
+    BrowserAnimationsModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

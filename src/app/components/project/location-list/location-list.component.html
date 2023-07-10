@@ -2,7 +2,8 @@
   <div class="header-component">
     <div class="flex-item"><b>{{ header }}</b></div>
     <div class="icons">
-      <span class="mr-3"><i class="fas fa-plus" (click)="openModal()"></i></span>
+      <span class="mr-3" *ngIf="checkIfSubProject()"><i class="fas fa-plus" (click)="openSubprojectModal()"></i></span>
+      <span class="mr-3"><i class="fas fa-plus" (click)="openLocationModal()"></i></span>
       <span><i class="fas fa-bars"></i></span>
     </div>
   </div>
