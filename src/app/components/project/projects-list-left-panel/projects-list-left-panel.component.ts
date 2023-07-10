@@ -35,12 +35,13 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   private fetchLeftTreeDataFromState() {
     this.store.select(LeftTreeListModelQuery.getLeftTreeList).subscribe(leftTreeData => {
+      console.log(leftTreeData);
       this.projectList = this.mapItemList(leftTreeData?.items);
     })
   }
 
   private fetchLeftTreeData() {
-    if (this.projectList?.length === 0) {
+    if (this.projectList?.length === 0 || this.projectList === undefined) {
       let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsMetaDataByUserName/deck';
       this.httpsRequestService.getHttpData<any>(url).subscribe(
         (response: any) => {

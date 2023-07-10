@@ -1,19 +1,6 @@
 <div class="right-panel full-height">
-  <div *ngIf="showSectionInfo" class="horizontal-div border border-secondary mt-2 info-section">
-    <div class="flex-item">
-      <i class="fas fa-arrow-left" style="font-size: 20px;" (click)="previousBtnClicked()"></i>
-      <h4 class="info-heading">{{ projectInfo.name }}</h4>
-          <p><strong>Description:</strong> {{ projectInfo.description }}</p>
-      <p class="address" style="margin-bottom: 10px;"><strong>Address:</strong> {{ projectInfo.address }}</p>
-      <div class="button-group">
-        <button class="btn btn-secondary">Invasive</button>
-        <button class="btn btn-secondary">Export to Excel</button>
-      </div>
-    </div>
-    <div class="image-section flex-item">
-      <img alt="image-description" src="{{ projectInfo.url }}">
-    </div>
-  </div>
+  <app-project-details-upper-section *ngIf="showSectionInfo"
+                                     [projectInfo]="projectInfo"></app-project-details-upper-section>
   <div *ngIf="showSectionInfo" class="d-flex justify-content-between mt-3 location-section">
     <app-location-list class="flex-item" header="Project Common Location"
                        [locations]="projectCommonLocationList"

@@ -40,6 +40,7 @@ import {addLeftTreeItems} from "./app-state-service/left-tree-items-state/left-t
 import { NewSubprojectModalComponent } from './forms/new-subproject-modal/new-subproject-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { ProjectDetailsUpperSectionComponent } from './components/project/project-details/project-details-upper-section/project-details-upper-section.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     DownloadSpecificReportComponent,
     ProjectDetailsComponent,
     NewLocationModalComponent,
-    NewSubprojectModalComponent
+    NewSubprojectModalComponent,
+    ProjectDetailsUpperSectionComponent
   ],
   imports: [
     BrowserModule,

@@ -83,7 +83,6 @@ export class LocationListComponent implements OnInit {
 
   private subscribeToProjectDetailsForNameHighlight() {
     this.store.select(ProjectQuery.getProjectModel).subscribe((project:any) => {
-      console.log(project);
       this.projectInfo = {};
       this.projectInfo.name = project.name;
       this.projectInfo.parentId = project._id;

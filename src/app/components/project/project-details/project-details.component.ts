@@ -14,7 +14,7 @@ import {Store} from "@ngrx/store";
   templateUrl: './project-details.component.html',
   styleUrls: ['./project-details.component.scss']
 })
-export class ProjectDetailsComponent implements OnInit{
+export class ProjectDetailsComponent implements OnInit {
 
   showSectionInfo: boolean = true;
   @Input() projectInfo!: Project;
@@ -80,10 +80,6 @@ export class ProjectDetailsComponent implements OnInit{
 
   locationClicked($event: BuildingLocation) {
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Previous_Button_Click, this.projectInfo);
-  }
-
-  previousBtnClicked() {
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_All_Projects, true);
   }
 
   previousBtnClickedFromLocationDetails($event: boolean) {
