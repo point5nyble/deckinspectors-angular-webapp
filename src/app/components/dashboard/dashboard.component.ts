@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit
     this.showProjectInfo = false;
     this.projectInfo = projectInfo;
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Project_update,projectInfo);
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC,projectInfo);
   }
 
   private subscribeToshowProjectInfoToggle() {

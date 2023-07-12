@@ -7,8 +7,8 @@
           <span><i class="fas fa-bars"></i></span>
         </div>
       </div>
-      <div *ngFor="let section of sections">
-        <app-section-list-element (sectionID)=fetchDataForGivenSectionId($event) [section]="section"></app-section-list-element >
+      <div *ngFor="let section of location.sections">
+        <app-section-list-element (dblclick)="fetchDataForGivenSectionId(section)" [section]="section"></app-section-list-element >
       </div>
 
 </div>

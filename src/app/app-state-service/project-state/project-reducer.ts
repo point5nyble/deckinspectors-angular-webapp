@@ -12,5 +12,6 @@ export const initialState: Readonly<ProjectStateModel> = new ProjectStateModel()
   );
 
 const updateProjectParams = (state: ProjectStateModel, project: ProjectStateModel) => {
+  // console.log("Inside Current Project Reducer", {...state,...project})
   return {...state,...project};
 }

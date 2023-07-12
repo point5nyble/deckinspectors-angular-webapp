@@ -11,6 +11,8 @@ import {
 import {ProjectQuery} from "../../../app-state-service/project-state/project-selector";
 import {Store} from "@ngrx/store";
 import {NewSubprojectModalComponent} from "../../../forms/new-subproject-modal/new-subproject-modal.component";
+import {ProjectListElement} from "../../../common/models/project-list-element";
+import {BackNavigation} from "../../../app-state-service/back-navigation-state/back-navigation-selector";
 
 @Component({
   selector: 'app-location-list',
@@ -18,10 +20,21 @@ import {NewSubprojectModalComponent} from "../../../forms/new-subproject-modal/n
   styleUrls: ['./location-list.component.scss']
 })
 export class LocationListComponent implements OnInit {
-  @Output() isDbClick = new EventEmitter<BuildingLocation>();
+  @Output() isDbClick = new EventEmitter<ProjectListElement>();
   @Input() header!: string;
-  @Input() locations!: BuildingLocation[];
-  @Input() subproject!: Project[];
+  @Input()
+  set locations(locations: BuildingLocation[]) {
+    this.extractLocationList(locations);
+  }
+
+  @Input()
+  set subproject(subproject: Project[]) {
+    this.extractSubprojectList(subproject);
+  }
+
+  locationList: ProjectListElement[] = [];
+  subprojectList!: ProjectListElement[];
+
   projectInfo: any;
 
   constructor(private dialog: MatDialog,
@@ -47,12 +60,16 @@ export class LocationListComponent implements OnInit {
     });
     return subProjectNames;
   }
-  onDbClick(locationInfo:BuildingLocation) {
-    console.log(locationInfo);
+  onDbClick(locationInfo:ProjectListElement) {
     this.isDbClick.emit(locationInfo);
     if (locationInfo._id !== '') {
-      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, false);
+      if (locationInfo.type === 'subproject') {
+          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'subproject');
+      } else {
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'location');
+      }
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(locationInfo));
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, locationInfo)
     }
   }
 
@@ -65,7 +82,8 @@ export class LocationListComponent implements OnInit {
     dialogConfig.data = {
       id: 1,
       isSubProject: this.checkIfSubProject(),
-      projectInfo: this.checkIfSubProject()?this.extractSubprojectInfo():this.projectInfo,
+      projectInfo: this.projectInfo,
+      type: this.getType()
     };
     const dialogRef = this.dialog.open(NewLocationModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
@@ -73,7 +91,7 @@ export class LocationListComponent implements OnInit {
     })
   }
 
-  private mapItem(input: BuildingLocation): Item {
+  private mapItem(input: ProjectListElement): Item {
     return {
       name: input.name,
       id: input._id,
@@ -82,11 +100,20 @@ export class LocationListComponent implements OnInit {
   }
 
   private subscribeToProjectDetailsForNameHighlight() {
-    this.store.select(ProjectQuery.getProjectModel).subscribe((project:any) => {
+    // this.store.select(ProjectQuery.getProjectModel).subscribe((project:any) => {
+    //   this.projectInfo = {};
+    //   this.projectInfo.name = project.name;
+    //   this.projectInfo.parentId = project._id;
+    //   this.projectInfo.parenttype = 'project';
+    //   console.log(project);
+    // });
+
+    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
+      console.log(previousState);
       this.projectInfo = {};
-      this.projectInfo.name = project.name;
-      this.projectInfo.parentId = project._id;
-      this.projectInfo.parenttype = 'project';
+      this.projectInfo.name = previousState.stack[previousState.stack.length - 1].name;
+      this.projectInfo.parentId = previousState.stack[previousState.stack.length - 1]._id;
+      this.projectInfo.parenttype = previousState.stack[previousState.stack.length - 1].type?previousState.stack[previousState.stack.length - 1].type:'project';
     });
   }
 
@@ -105,5 +132,59 @@ export class LocationListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
 
     })
+  }
+
+  private extractLocationList(locations: BuildingLocation[]){
+    this.locationList = [];
+    locations?.forEach(location => {
+      this.locationList.push(
+        {
+          _id: location._id,
+          createdat: location.createdat,
+          createdby: location.createdby,
+          description: location.description,
+          name: location.name,
+          parentid: location.parentid,
+          parenttype: location.parenttype,
+          type: location.type,
+          url: location.url
+        }
+        );
+    })
+  }
+
+  private extractSubprojectList(subproject: Project[]) {
+    this.subprojectList = [];
+      subproject?.forEach(project => {
+          this.subprojectList.push(
+              {
+                  _id: project._id,
+                  createdat: project.createdat,
+                  createdby: project.createdby,
+                  description: project.description,
+                  name: project.name,
+                  parentid: project.parentid?project.parentid:'',
+                  parenttype: project.parenttype?project.parenttype:'project',
+                  type: project.type?project.type:'project',
+                  url: project.url
+              }
+          );
+      })
+  }
+
+  private getType():string {
+    // add case for subproject
+    switch (this.header) {
+        case "Project Common Location":
+            return "projectlocation";
+        case "Project Buildings":
+            return "subproject";
+        case "Building Common Location":
+          return "buildinglocation";
+        case "Building Apartments":
+          return "apartment";
+        default:
+            return "location";
+    }
   }
 }

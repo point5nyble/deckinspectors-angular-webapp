@@ -1,16 +1,15 @@
 <div class="horizontal-div border border-secondary mt-2 info-section">
-    <div class="flex-item">
-        <i (click)="previousBtnClicked()" class="fas fa-arrow-left" style="font-size: 20px;"></i>
-        <h4 class="info-heading">Project Information</h4>
-        <p><strong>Name:</strong> {{ projectInfo.name }}</p>
-        <p><strong>Description:</strong> {{ projectInfo.description }}</p>
-        <p><strong>Address:</strong> {{ projectInfo.address }}</p>
-        <button class="btn btn-secondary">Invasive</button>
+  <div class="flex-item">
+    <i class="fas fa-arrow-left" style="font-size: 20px;" (click)="previousBtnClicked()"></i>
+    <h4 class="info-heading">{{ projectInfo.name }}</h4>
+    <p><strong>Description:</strong> {{ projectInfo.description }}</p>
+    <p class="address" style="margin-bottom: 10px;"><strong>Address:</strong> {{ projectInfo.address }}</p>
+    <div class="button-group">
+      <button class="btn btn-secondary">Invasive</button>
+      <button class="btn btn-secondary">Export to Excel</button>
     </div>
-    <div class="flex-item">
-        <button class="btn btn-secondary">Export to Excel</button>
-    </div>
-    <div class="image-section flex-item">
-        <img alt="image-description" src="{{ projectInfo.url }}">
-    </div>
+  </div>
+  <div class="image-section flex-item">
+    <img alt="image-description" src="{{ projectInfo.url }}">
+  </div>
 </div>

@@ -77,8 +77,13 @@ export class LocationDetailsComponent implements OnInit{
   }
 
   previousBtnClicked() {
+    if (this.location.parenttype === 'subproject') {
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'subproject');
+    } else {
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'project');
+    }
     this.previousBtnClickedFromLocationDetails.emit(true);
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, true);
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, this.location);
   }
 
   editLocation() {

@@ -25,7 +25,6 @@ export class NewLocationModalComponent {
     this.subProjects = data.projectInfo;
     this.isSubProject = data.isSubProject;
     this.data = data;
-    console.log(data);
   }
 
   ngOnInit() {
@@ -47,24 +46,29 @@ export class NewLocationModalComponent {
   }
 
   save() {
-    console.log(this.newLocationForm.value);
     this.createNewLocation();
     this.dialogRef.close(this.newLocationForm);
   }
 
   createNewLocation(){
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/add';
     let data = {
       "name": this.newLocationForm.value.name,
       "description": this.newLocationForm.value.description,
-      "parentid": this.data.isSubProject?this.newLocationForm.value.subProjectName.id:this.data.projectInfo.parentId,
-      "parenttype": this.data.isSubProject?this.newLocationForm.value.subProjectName.type:this.data.projectInfo.parenttype,
+      "parentid":  this.data.projectInfo.parentId,
+      "parenttype": this.data.projectInfo.parenttype,
       "isInvasive": true,
       "createdBy": "deck",
       "url": this.newLocationForm.value.image,
-      "type": this.data.isSubProject?this.newLocationForm.value.subProjectType:"projectlocation"
+      "type": this.data.type,
+      "assignedTo":['']
     }
-    console.log(data);
+    let url = '';
+    if (this.data.isSubProject) {
+      data["assignedTo"] = ['deck'];
+      url = "https://deckinspectors-dev.azurewebsites.net/api/subproject/add"
+    } else {
+      url = 'https://deckinspectors-dev.azurewebsites.net/api/location/add';
+    }
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         console.log(response);

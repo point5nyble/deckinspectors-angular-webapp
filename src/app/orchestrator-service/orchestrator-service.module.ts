@@ -9,6 +9,8 @@ import {LocationClickSubject} from "./subject/location-click-subject";
 import {PreviousButtonClickSubject} from "./subject/previous-button-click-subject";
 import {ShowAllProjectSubject} from "./subject/show-all-project-subject";
 import {FetchLeftTreeDataStateSubject} from "./subject/fetch-left-tree-data-state-subject";
+import {AddElementToPreviousButtonLogicSubject} from "./subject/add-element-to-previous-button-logic-subject";
+import {RemoveElementToPreviousButtonLogicSubject} from "./subject/remove-element-to-previous-button-logic-subject";
 
 
 
@@ -26,7 +28,9 @@ import {FetchLeftTreeDataStateSubject} from "./subject/fetch-left-tree-data-stat
     LocationClickSubject,
     PreviousButtonClickSubject,
     ShowAllProjectSubject,
-    FetchLeftTreeDataStateSubject
+    FetchLeftTreeDataStateSubject,
+    AddElementToPreviousButtonLogicSubject,
+    RemoveElementToPreviousButtonLogicSubject
   ]
 })
 export class OrchestratorServiceModule { }

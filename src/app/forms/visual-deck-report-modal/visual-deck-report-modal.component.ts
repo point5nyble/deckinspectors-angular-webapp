@@ -31,8 +31,8 @@ export class VisualDeckReportModalComponent implements OnInit {
       exteriorElements: [this.data.rowsMap?.get('exteriorelements')], // Add validators if needed
       waterproofingElements: [this.data.rowsMap?.get('waterproofingelements')],
       visualReview:[this.data.rowsMap?.get('visualreview')],
-      signsOfLeaks:[this.data.rowsMap?.get('visualsignsofleak')],
-      invasiveReviewRequired:[this.data.rowsMap?.get('furtherinvasivereviewrequired')],
+      signsOfLeaks:[this.data.rowsMap?.get('visualsignsofleak')+''],
+      invasiveReviewRequired:[this.data.rowsMap?.get('furtherinvasivereviewrequired')+''],
       conditionAssessment: [this.data.rowsMap?.get('conditionalassessment')],
       additionalConsiderationsOrConcern:[this.data.rowsMap?.get('additionalconsiderations')],
       EEE:[this.data.rowsMap?.get('eee')],
@@ -45,6 +45,7 @@ export class VisualDeckReportModalComponent implements OnInit {
   }
 
   save() {
+    console.log(this.data);
     console.log(this.visualDeckReportModalForm.value);
     this.dialogRef.close(this.visualDeckReportModalForm.value);
   }

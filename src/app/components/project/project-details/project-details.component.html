@@ -1,7 +1,8 @@
 <div class="right-panel full-height">
-  <app-project-details-upper-section *ngIf="showSectionInfo"
-                                     [projectInfo]="projectInfo"></app-project-details-upper-section>
-  <div *ngIf="showSectionInfo" class="d-flex justify-content-between mt-3 location-section">
+  <app-project-details-upper-section *ngIf="showSectionInfo === 'project'">
+
+  </app-project-details-upper-section>
+  <div *ngIf="showSectionInfo === 'project'" class="d-flex justify-content-between mt-3 location-section">
     <app-location-list class="flex-item" header="Project Common Location"
                        [locations]="projectCommonLocationList"
                        (isDbClick)="locationClicked($event)"></app-location-list>
@@ -9,7 +10,10 @@
                        [subproject]="projectBuildings"
                        (isDbClick)="locationClicked($event)"></app-location-list>
   </div>
-  <div *ngIf="!showSectionInfo" class="right-panel">
+  <app-subproject *ngIf="showSectionInfo === 'subproject'"
+    [projectInfo]="subprojectInfo">
+  </app-subproject>
+  <div *ngIf="showSectionInfo === 'location'" class="right-panel">
     <app-location-details (previousBtnClickedFromLocationDetails)="previousBtnClickedFromLocationDetails($event)">
 
     </app-location-details>

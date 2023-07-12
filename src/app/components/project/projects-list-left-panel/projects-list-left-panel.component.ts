@@ -35,7 +35,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   private fetchLeftTreeDataFromState() {
     this.store.select(LeftTreeListModelQuery.getLeftTreeList).subscribe(leftTreeData => {
-      console.log(leftTreeData);
       this.projectList = this.mapItemList(leftTreeData?.items);
     })
   }
@@ -46,7 +45,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       this.httpsRequestService.getHttpData<any>(url).subscribe(
         (response: any) => {
           let fetchedProjectList: Item[] = this.convertResponseToItemList(response);
-          console.log(fetchedProjectList);
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Left_Tree_Data, fetchedProjectList);
         },
         error => {
@@ -139,14 +137,14 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   openProject(item: Item) {
     this.currentSelectedItem = item.name;
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, true);
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'project');
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Project_update, this.mapItem(item));
   }
 
   openLocation(location: Item) {
     if (location.id !== '' && location?.nestedItems?.length === 0) {
         this.currentSelectedItem = location.name;
-        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, false);
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'location');
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(location));
     }
     }

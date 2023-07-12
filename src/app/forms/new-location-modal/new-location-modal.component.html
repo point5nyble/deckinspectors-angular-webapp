@@ -1,30 +1,15 @@
 <div class="custom-dialog-content">
-  <h2 class="modal-title">New Location</h2>
-  
+  <h2 class="modal-title">{{ isSubProject ? 'New Building':'New Location'}}</h2>
+
   <form [formGroup]="newLocationForm" class="modal-form">
     <div class="form-group">
-      <label class="form-label">Project Common Location:</label>
+      <label class="form-label">{{ isSubProject ? 'Building Name:' : 'Project Common Location:' }}</label>
       <input type="text" formControlName="name" class="form-control">
     </div>
 
     <div class="form-group">
       <label class="form-label">Description:</label>
       <textarea type="text" formControlName="description" class="form-control"></textarea>
-    </div>
-
-    <div *ngIf="isSubProject" class="form-field">
-      <label class="form-label">Type:</label>
-      <div class="radio-group">
-        <label for="buildinglocation"><input formControlName="subProjectType" type="radio" id="buildinglocation" value="buildinglocation" name="subProjectType">Building Location</label>
-        <label for="apartment"><input formControlName="subProjectType" type="radio" id="apartment" value="apartment" name="subProjectType">Apartment</label>
-      </div>
-    </div>
-
-    <div *ngIf="isSubProject" class="form-field">
-      <label class="form-label" for="subProjectName">SubProject Name</label>
-      <select formControlName="subProjectName" id="subProjectName" name="subProjectName">
-        <option *ngFor="let subproject of subProjects" [ngValue]="subproject">{{ subproject.name }}</option>
-      </select>
     </div>
 
     <div class="form-group">
@@ -35,7 +20,7 @@
       <button class="mat-raised-button close-button" (click)="close()">Close</button>
       <button class="mat-raised-button mat-primary save-button" (click)="save()">Save</button>
     </mat-dialog-actions>
-    
+
   </form>
 </div>
 

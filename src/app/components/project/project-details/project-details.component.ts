@@ -8,6 +8,7 @@ import {
 import {HttpsRequestService} from "../../../service/https-request.service";
 import {PreviousStateModelQuery} from "../../../app-state-service/previous-state/previous-state-selector";
 import {Store} from "@ngrx/store";
+import {ProjectListElement} from "../../../common/models/project-list-element";
 
 @Component({
   selector: 'app-project-details',
@@ -16,10 +17,18 @@ import {Store} from "@ngrx/store";
 })
 export class ProjectDetailsComponent implements OnInit {
 
-  showSectionInfo: boolean = true;
-  @Input() projectInfo!: Project;
+  showSectionInfo: string = 'project';
+  // @Input() projectInfo!: Project;
+  @Input()
+  set projectInfo(projectInfo: Project) {
+    this.projectInfo_ = projectInfo;
+    this.map(projectInfo);
+  }
   projectCommonLocationList!: BuildingLocation[];
   projectBuildings!: Project[];
+  subprojectInfo!: ProjectListElement;
+  mappedProjectListInfo!: ProjectListElement;
+  projectInfo_!: Project;
 
   constructor(private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService,
@@ -27,8 +36,8 @@ export class ProjectDetailsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.subscribeToProjectUpdatedEvent();
-    this.fetchLocationData(this.projectInfo._id);
-    this.fetchSubProjectData(this.projectInfo._id);
+    this.fetchLocationData(this.projectInfo_._id);
+    this.fetchSubProjectData(this.projectInfo_._id);
     this.subscribeToShowPartInfoEvent();
   }
 
@@ -78,15 +87,33 @@ export class ProjectDetailsComponent implements OnInit {
     });
   }
 
-  locationClicked($event: BuildingLocation) {
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Previous_Button_Click, this.projectInfo);
+  locationClicked($event: ProjectListElement) {
+    this.subprojectInfo = $event;
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Previous_Button_Click, this.projectInfo_);
   }
 
   previousBtnClickedFromLocationDetails($event: boolean) {
     this.store.select(PreviousStateModelQuery.getPreviousStateModel).subscribe((previousState:any) => {
       this.projectInfo = previousState;
-      this.fetchLocationData(previousState.id);
-      this.fetchSubProjectData(previousState.id);
+      this.fetchLocationData(previousState._id);
+      if (previousState.type !== 'subproject') {
+        this.fetchSubProjectData(previousState._id);
+      }
     })
+  }
+
+  private map(project: Project) {
+    this.mappedProjectListInfo =
+    {
+      _id: project._id,
+      createdat: project.createdat,
+      createdby: project.createdby,
+      description: project.description,
+      name: project.name,
+      parentid: project.parentid?project.parentid:'',
+      parenttype: project.parenttype?project.parenttype:'project',
+      type: project.type?project.type:'project',
+      url: project.url
+    }
   }
 }
