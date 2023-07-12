@@ -13,6 +13,11 @@ export class NewProjectModalComponent implements OnInit {
   yourForm!: FormGroup;
   description:string;
   private _event: any;
+  data!:any;
+  selectedImage: File | null = null;
+  imagePreviewUrl: string | null = null;
+  selectedFileName: string | null = null;
+
 
   constructor(private formBuilder: FormBuilder,
               private imageToUrlConverterService : ImageToUrlConverterService,
@@ -21,6 +26,7 @@ export class NewProjectModalComponent implements OnInit {
               private httpsRequestService: HttpsRequestService,
               @Inject(MAT_DIALOG_DATA) data : any) {
     this.description = data.description;
+    this.data = data;
   }
 
   ngOnInit() {
@@ -34,23 +40,48 @@ export class NewProjectModalComponent implements OnInit {
   }
 
   handleFileInput(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedImage = file;
+    // Read and set the image preview URL
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.imagePreviewUrl = e.target.result;
+    };
+    reader.readAsDataURL(file);
     this._event = event;
-    // Handle file input change, e.g., read and process the selected file
   }
+
+  removeImage() {
+    this.selectedImage = null;
+    this.selectedFileName = null;
+    this.imagePreviewUrl = null;
+    this.yourForm.patchValue({
+      image: ''
+    });
+  }
+
   close() {
     this.dialogRef.close();
   }
 
   save() {
     this.uploadImage();
-    this.createNewProject();
     this.dialogRef.close(this.yourForm.value);
+    this.createNewProject();
   }
 
-    uploadImage() {
-     this.yourForm.value.image = 'https://deckinspectors.blob.core.windows.net/location3/image_picker_CFD17C05-6758-4E0D-8CDA-527CA67746CD-3753-00000024EE34AE1A.jpg';
-      // const imageFile = new File([this.yourForm.value.image], 'image.jpg', { type: 'image/jpeg' });
-      // this.imageToUrlConverterService.convertImageToUrl(imageFile, '20210608_100407.jpg');
+    uploadImage():string {
+      // curl -X POST -F 'picture=@/Users/umeshpalav/Downloads/sampleImage.jpg'  -F 'containerName=inor' -F 'uploader=deck' -F 'entityName=Inorbit Mall'
+      console.log(this.data);
+      console.log(this.yourForm.value);
+      let url = 'https://deckinspectors-dev.azurewebsites.net/api/image/upload';
+      let data = {
+        'entityName':this.yourForm.value.name,
+        'uploader':'deck',
+        'containerName':this.yourForm.value.name.replace(' ','').toLowerCase(),
+        'picture':this.selectedImage,
+      }
+       return this.imageToUrlConverterService.convertImageToUrl(data);
     }
 
     createNewProject() {
@@ -60,7 +91,7 @@ export class NewProjectModalComponent implements OnInit {
         "description": this.yourForm.value.description,
         "createdBy": "deck",
         "address": this.yourForm.value.address,
-        "url": this.yourForm.value.image,
+        "url": this.uploadImage(),
         "projecttype": this.yourForm.value.option,
         "assignedTo": [
           "deck"

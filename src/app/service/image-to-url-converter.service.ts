@@ -10,19 +10,15 @@ export class ImageToUrlConverterService {
 
   }
 
-    public convertImageToUrl(image:File, filePaths:string): string {
-      console.log(image);
-      console.log(filePaths);
+    public convertImageToUrl(data:any): string {
+
       let url = 'https://deckinspectors-dev.azurewebsites.net/api/image/upload';
       let s3URL='';
-      let data = {
-        "blobName": image,
-        "containerName": "deck-rj",
-        "filePath": filePaths
-      }
+
       this.httpsRequestService.postHttpData(url, data).subscribe(
         (response: any) => {
           console.log(response);
+          s3URL = response.data.url;
         },
         error => {
           console.log(error)
