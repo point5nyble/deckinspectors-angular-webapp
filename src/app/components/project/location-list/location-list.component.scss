@@ -1,22 +1,25 @@
+.horizontal-div {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+  padding: 20px 10px;
+  height: 100%;
+}
+
 .header-component {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 10px;
   align-items: baseline;
-  width: 100%;
+  margin-bottom: 10px;
   height: 50px;
 }
 
-.horizontal-div {
-  background-color: #f7f7f7;
-  border-radius: 5px;
-  padding: 20px 10px 10px;
-}
 .flex-item {
-  flex: 1; /* Each item grows to occupy the available space */
-  align-content: center;
+  flex: 1;
 }
+
 .icons {
   display: flex;
   align-items: center;
@@ -24,15 +27,11 @@
 }
 
 .icons i {
-  margin-right: 10px; /* Add spacing between the icons */
+  margin-right: 10px;
 }
 
-.icons span {
-  margin-right: 10px; /* Add space between the plus and bars icons */
-}
 .scrollable-container {
   max-height: 300px;
+  overflow-y: auto;
   padding-right: 5px;
 }
-
-
