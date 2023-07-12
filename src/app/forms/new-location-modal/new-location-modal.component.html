@@ -1,6 +1,6 @@
 <div class="custom-dialog-content">
   <h2 class="modal-title">New Location</h2>
-
+  
   <form [formGroup]="newLocationForm" class="modal-form">
     <div class="form-group">
       <label class="form-label">Project Common Location:</label>
@@ -31,11 +31,11 @@
       <label class="form-label">Upload Image:</label>
       <input type="file" (change)="handleFileInput($event)" formControlName="image" class="form-control">
     </div>
-
-    <mat-dialog-actions>
-      <button class="submit-button" (click)="close()">Close</button>
-      <button class="submit-button" (click)="save()">Save</button>
+    <mat-dialog-actions class="button-container">
+      <button class="mat-raised-button close-button" (click)="close()">Close</button>
+      <button class="mat-raised-button mat-primary save-button" (click)="save()">Save</button>
     </mat-dialog-actions>
+    
   </form>
 </div>
 
