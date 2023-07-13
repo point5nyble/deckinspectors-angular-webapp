@@ -49,7 +49,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 20px; /* Optional spacing above the buttons */
- 
+
 }
 
 
@@ -119,6 +119,35 @@
   font-size: 24px;
   color: #000;
 }
+.image-preview {
+  position: relative; /* Add position relative to the container */
+  width: 300px; /* Set the desired width */
+  height: 200px; /* Set the desired height */
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+.preview-image {
+  width: 100%; /* Image will fit within the container width */
+  height: 100%; /* Image will fit within the container height */
+  object-fit: contain; /* Adjusts the image to fit within the given dimensions */
+}
+
+.close-icon-img {
+  position: absolute; /* Position the close icon absolutely */
+  top: 5px;
+  right: 5px;
+  font-size: 18px;
+  color: #110e0e;
+  cursor: pointer;
+  z-index: 1; /* Set a higher z-index to make it appear on top */
+}
+
+.close-icon-img:hover {
+  color: #ff0000;
+}
+
+
 
 
 

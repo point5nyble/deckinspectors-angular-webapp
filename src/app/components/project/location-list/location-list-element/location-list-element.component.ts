@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import {BuildingLocation} from "../../../../common/models/buildingLocation";
+import {ProjectListElement} from "../../../../common/models/project-list-element";
 
 @Component({
   selector: 'app-location-list-element',
@@ -7,7 +8,7 @@ import {BuildingLocation} from "../../../../common/models/buildingLocation";
   styleUrls: ['./location-list-element.component.scss']
 })
 export class LocationListElementComponent {
-  @Input() location!: BuildingLocation;
+  @Input() location!: ProjectListElement;
   @Input() isSubProject!: boolean;
   @Input() projectName!: string;
 

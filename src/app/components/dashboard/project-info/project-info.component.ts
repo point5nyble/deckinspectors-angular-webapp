@@ -21,7 +21,8 @@ export class ProjectInfoComponent {
     dialogConfig.width = "400px";
     dialogConfig.height = "350px";
     dialogConfig.data = {
-      id: 1
+      id: 1,
+      project: this.projectInfo
     };
     const dialogRef = this.dialog.open(AssignProjectModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
@@ -50,7 +51,8 @@ export class ProjectInfoComponent {
     dialogConfig.width = "300px";
     dialogConfig.height = "400px";
     dialogConfig.data = {
-      id: 1
+      id: 1,
+      project: this.projectInfo
     };
     const dialogRef = this.dialog.open(DownloadFilesModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {

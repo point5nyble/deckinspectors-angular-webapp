@@ -10,7 +10,6 @@ export const updatePreviousStateModel = createReducer(
     return updatePreviousStateModelParams(state, previousState);
   })
 );
-
 const updatePreviousStateModelParams = (state: PreviousStateModel, project: PreviousStateModel) => {
   return {...state,...project};
 }

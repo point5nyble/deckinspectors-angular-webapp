@@ -5,6 +5,7 @@ import {PreviousStateEventListenerService} from "./previous-state/previous-state
 import {
   LeftTreeItemsStateEventListenerService
 } from "./left-tree-items-state/left-tree-items-state-event-listener.service";
+import {BackNavigationEventListenerService} from "./back-navigation-state/back-navigation-event-listener.service";
 
 
 
@@ -16,12 +17,14 @@ import {
   providers: [
     ProjectEventListenerService,
     PreviousStateEventListenerService,
-    LeftTreeItemsStateEventListenerService
+    LeftTreeItemsStateEventListenerService,
+    BackNavigationEventListenerService
   ]
 })
 export class AppStateServiceModule {
   constructor(private projectEventListenerService: ProjectEventListenerService,
               private previousStateEventListenerService: PreviousStateEventListenerService,
-              private leftTreeItemsStateEventListenerService: LeftTreeItemsStateEventListenerService) {
+              private leftTreeItemsStateEventListenerService: LeftTreeItemsStateEventListenerService,
+              private backNavigationEventListenerService: BackNavigationEventListenerService){
   }
 }

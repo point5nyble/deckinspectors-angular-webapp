@@ -35,8 +35,16 @@ import {OrchestratorServiceModule} from "./orchestrator-service/orchestrator-ser
 import {StoreModule} from "@ngrx/store";
 import {projectReducer} from "./app-state-service/project-state/project-reducer";
 import { NewLocationModalComponent } from './forms/new-location-modal/new-location-modal.component';
-import {updatePreviousStateModel} from "./app-state-service/previous-state/previous-state-reducer";
+import {
+  updatePreviousStateModel
+} from "./app-state-service/previous-state/previous-state-reducer";
 import {addLeftTreeItems} from "./app-state-service/left-tree-items-state/left-tree-items-state-reducer";
+import { NewSubprojectModalComponent } from './forms/new-subproject-modal/new-subproject-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { ProjectDetailsUpperSectionComponent } from './components/project/project-details/project-details-upper-section/project-details-upper-section.component';
+import { SubprojectComponent } from './components/subproject/subproject.component';
+import {addPreviousStateModel} from "./app-state-service/back-navigation-state/back-navigation-reducer";
 
 
 @NgModule({
@@ -64,7 +72,10 @@ import {addLeftTreeItems} from "./app-state-service/left-tree-items-state/left-t
     VisualDeckReportModalComponent,
     DownloadSpecificReportComponent,
     ProjectDetailsComponent,
-    NewLocationModalComponent
+    NewLocationModalComponent,
+    NewSubprojectModalComponent,
+    ProjectDetailsUpperSectionComponent,
+    SubprojectComponent
   ],
   imports: [
     BrowserModule,
@@ -78,11 +89,16 @@ import {addLeftTreeItems} from "./app-state-service/left-tree-items-state/left-t
     AppStateServiceModule,
     OrchestratorServiceModule,
     StoreModule.forRoot(
-      {project:projectReducer,
-        previousState:updatePreviousStateModel,
-        leftTreeItemsState:addLeftTreeItems
+      {
+        project: projectReducer,
+        previousState: updatePreviousStateModel,
+        leftTreeItemsState: addLeftTreeItems,
+        addToPreviousState:addPreviousStateModel
+
       },
-    )
+    ),
+    BrowserAnimationsModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

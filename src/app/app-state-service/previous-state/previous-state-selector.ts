@@ -6,6 +6,8 @@ const getPreviousStateModel = createSelector(
   (previousStateModel: PreviousStateModel) => previousStateModel
 );
 
+
+
 export const PreviousStateModelQuery = {
   getPreviousStateModel
 }

@@ -14,7 +14,7 @@
     <div>
       <app-section-list
         (sectionID)=fetchDataForGivenSectionId($event)
-        [sections] = location.sections
+        [location] = location
       ></app-section-list>
     </div>
     <div class="right-panel">

@@ -4,7 +4,7 @@ import {
   OrchestratorCommunicationService
 } from "../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import {OrchestratorEventName} from "../../orchestrator-service/models/orchestrator-event-name";
-import {updatePreviousState} from "./previous-state-action";
+import { updatePreviousState} from "./previous-state-action";
 import {PreviousStateModelQuery} from "./previous-state-selector";
 
 @Injectable()
