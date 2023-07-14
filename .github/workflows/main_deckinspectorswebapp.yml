@@ -8,7 +8,11 @@ on:
     branches:
       - main
   workflow_dispatch:
-
+env:
+  AZURE_WEBAPP_NAME: deckinspectorswebapp    # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: './dist/deckinspectorswebapp'      # set this to the path to your web app project
+  NODE_VERSION: '18.x'
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,7 +29,8 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-          
+          
+
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -52,4 +57,4 @@ jobs:
           app-name: 'deckinspectorswebapp'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: .
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
