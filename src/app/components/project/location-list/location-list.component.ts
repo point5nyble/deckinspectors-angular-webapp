@@ -8,7 +8,6 @@ import {OrchestratorEventName} from "../../../orchestrator-service/models/orches
 import {
   OrchestratorCommunicationService
 } from "../../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
-import {ProjectQuery} from "../../../app-state-service/project-state/project-selector";
 import {Store} from "@ngrx/store";
 import {NewSubprojectModalComponent} from "../../../forms/new-subproject-modal/new-subproject-modal.component";
 import {ProjectListElement} from "../../../common/models/project-list-element";

@@ -54,7 +54,7 @@ export class SubprojectComponent {
 
   }
   locationClicked($event: ProjectListElement) {
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Previous_Button_Click, this.projectInfo);
+    // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Previous_Button_Click, this.projectInfo);
   }
 
   private separateProject(item:any) {
