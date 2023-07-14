@@ -8,6 +8,7 @@ import {OrchestratorEventName} from "../../../orchestrator-service/models/orches
 import {ProjectQuery} from "../../../app-state-service/project-state/project-selector";
 import {Store} from "@ngrx/store";
 import {LeftTreeListModelQuery} from "../../../app-state-service/left-tree-items-state/left-tree-items-state-selector";
+import {BackNavigation} from "../../../app-state-service/back-navigation-state/back-navigation-selector";
 
 @Component({
   selector: 'app-projects-list-left-panel',
@@ -21,6 +22,8 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   startX: number = 0;
   startWidth: number = 0;
   currentSelectedItem:string = '';
+  objectMap = new Map<string, any>();
+
 
   constructor(private httpsRequestService: HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService,
@@ -57,8 +60,9 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   private convertResponseToItemList(response: any):Item[] {
     let fetchedProjectList:Item[] = [];
     response.item.forEach((project: any) => {
-      fetchedProjectList.push(this.extractProject(project))
+      fetchedProjectList.push(this.extractProject(project));
     })
+    this.createObjectMap(fetchedProjectList,this.objectMap);
     return fetchedProjectList;
   }
   private extractProject(project: any): Item {
@@ -68,12 +72,13 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       description: project.description,
       address: project.address,
       collapsed: true,
+      parentid: "home",
+      type: "project",
       nestedItems: this.extractNestedItems(project)
     };
   }
 
   private extractNestedItems(project: any): Item[] {
-
     let locations: Item = {
       name: 'Project Common Location',
       id:'',
@@ -82,6 +87,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
         {
           name: location.locationName,
           id:location.locationId,
+          parentid:project.id
         }
       ))
     };
@@ -92,7 +98,9 @@ export class ProjectsListLeftPanelComponent implements OnInit {
           name: subProject.name,
           id:subProject._id,
           collapsed: true,
-          nestedItems: this.extractSubProjectLocation(subProject.subProjectLocations)
+          parentId:project.id,
+          type: "subproject",
+          nestedItems: this.extractSubProjectLocation(subProject)
         }))
 
     let projectBuildings: Item = {
@@ -105,7 +113,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     return [locations, projectBuildings];
   }
 
-  private extractSubProjectLocation(subProjectLocations: any): Item[] {
+  private extractSubProjectLocation(subProject: any): Item[] {
     let buildingLocation: Item = {
       name: 'Building Location',
       collapsed: true,
@@ -118,16 +126,18 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       id:'',
       nestedItems: []
     };
-    subProjectLocations.forEach((location_: any) => {
-       if (location_.locationType === 'buildinglocation') {
+    subProject.subProjectLocations.forEach((location_: any) => {
+      if (location_.locationType === 'buildinglocation') {
         buildingLocation.nestedItems?.push({
           name: location_.locationName,
-          id:location_.locationId
+          id:location_.locationId,
+          parentid:subProject._id
         })
       } else {
         apartments.nestedItems?.push({
           name: location_.locationName,
-          id:location_.locationId
+          id:location_.locationId,
+          parentid:subProject._id
         })
       }
     })
@@ -139,6 +149,8 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     this.currentSelectedItem = item.name;
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'project');
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Project_update, this.mapItem(item));
+
+    this.findPath(item);
   }
 
   openLocation(location: Item) {
@@ -146,6 +158,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
         this.currentSelectedItem = location.name;
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'location');
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(location));
+        this.findPath(location);
     }
     }
   private subscribeToProjectDetailsForNameHighlight() {
@@ -161,6 +174,8 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       description: input?.description,
       address: input?.address,
       collapsed: input?.collapsed,
+      parentid: input?.parentid,
+      type: input?.type,
       nestedItems: input?.nestedItems?.map((item) => this.mapItem(item)) || []
     };
   }
@@ -192,5 +207,70 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   toggleCollapse(item: Item): void {
     item.collapsed = !item.collapsed;
+  }
+
+  private createObjectMap(project: Item[], objectMap: Map<any, any>) {
+    project.forEach((project: any) => {
+        objectMap.set(project.id, project);
+        project.nestedItems.forEach((nestedItem: any) => {
+            objectMap.set(nestedItem.id, nestedItem);
+            if (nestedItem.nestedItems) {
+                nestedItem.nestedItems.forEach((nestedItem: any) => {
+                    objectMap.set(nestedItem.id, nestedItem);
+                    if (nestedItem.nestedItems) {
+                        nestedItem.nestedItems.forEach((nestedItem: any) => {
+                            objectMap.set(nestedItem.id, nestedItem);
+                            if (nestedItem.nestedItems) {
+                                nestedItem.nestedItems.forEach((nestedItem: any) => {
+                                    objectMap.set(nestedItem.id, nestedItem);
+                                    if (nestedItem.nestedItems) {
+                                        nestedItem.nestedItems.forEach((nestedItem: any) => {
+                                            objectMap.set(nestedItem.id, nestedItem);
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    });
+    // objectMap.set(project.id, project);
+    // project.subProjects.forEach((subProject: any) => {
+    //   objectMap.set(subProject._id, subProject);
+    //     subProject.subProjectLocations.forEach((location: any) => {
+    //         objectMap.set(location.locationId, location);
+    //     })
+    // });
+    // project.locations.forEach((location: any) => {
+    //   objectMap.set(location.locationId, location);
+    // });
+  }
+
+  private findPath(item: Item) {
+    let tempList:any[] = [];
+    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe(chain => {
+      tempList = chain.stack;
+    })
+    tempList.forEach((element:any) => {
+      if (element.name !== 'Home') {
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, '');
+      }
+    })
+    // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC,'');
+    // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC,'');
+    // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC,'');
+    let path = [];
+    let parent:string | undefined = item.parentid;
+    path.push(item);
+    while (parent !== 'home' && parent != null) {
+        let parentItem = this.objectMap.get(parent);
+        path.push(parentItem);
+        parent = parentItem.parentId;
+    }
+    while (path.length != 0) {
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, path.pop());
+    }
   }
 }

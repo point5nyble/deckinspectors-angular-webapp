@@ -3,6 +3,9 @@ export interface Item {
     id: string;
     description?: string;
     address?: string;
+    parentid?: string;
+    phone?: string;
     collapsed?: boolean;
+    type?: string;
     nestedItems?: Item[];
   }

@@ -1,6 +1,7 @@
 <div class="horizontal-div border border-secondary mt-2 info-section">
   <div class="flex-item">
     <i class="fas fa-arrow-left" style="font-size: 20px;" (click)="previousBtnClicked()"></i>
+    <app-navigation-component></app-navigation-component>
     <h4 class="info-heading">{{ projectInfo.name }}</h4>
     <p><strong>Description:</strong> {{ projectInfo.description }}</p>
     <p class="address" style="margin-bottom: 10px;"><strong>Address:</strong> {{ projectInfo.address }}</p>

@@ -7,6 +7,7 @@ import {
 import {Store} from "@ngrx/store";
 import {OrchestratorEventName} from "../../orchestrator-service/models/orchestrator-event-name";
 import {ProjectListElement} from "../../common/models/project-list-element";
+import {BackNavigation} from "../../app-state-service/back-navigation-state/back-navigation-selector";
 
 @Component({
   selector: 'app-subproject',
@@ -14,7 +15,7 @@ import {ProjectListElement} from "../../common/models/project-list-element";
   styleUrls: ['./subproject.component.scss']
 })
 export class SubprojectComponent {
-  @Input() projectInfo!: ProjectListElement;
+  @Input() projectInfo!: any;
   buildingCommonLocation!: BuildingLocation[];
   buildingApartments!: BuildingLocation[];
 
@@ -46,10 +47,11 @@ export class SubprojectComponent {
   }
 
   private subscribeToProjectUpdatedEvent() {
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Project_update).subscribe(data => {
-      this.projectInfo = data;
-      this.fetchSubProjectData(data.id);
-    })
+    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
+      this.projectInfo = previousState.stack[previousState.stack.length - 1];
+      this.fetchSubProjectData(this.projectInfo.id);
+    });
+
   }
   locationClicked($event: ProjectListElement) {
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Previous_Button_Click, this.projectInfo);

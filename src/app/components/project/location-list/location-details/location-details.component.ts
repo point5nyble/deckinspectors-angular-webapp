@@ -19,7 +19,7 @@ import {NewLocationModalComponent} from "../../../../forms/new-location-modal/ne
 export class LocationDetailsComponent implements OnInit{
   location!: BuildingLocation;
   sectionReport!: InspectionReport;
-  @Output() previousBtnClickedFromLocationDetails = new  EventEmitter<boolean>();
+  // @Output() previousBtnClickedFromLocationDetails = new  EventEmitter<boolean>();
 
   constructor(private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -82,7 +82,7 @@ export class LocationDetailsComponent implements OnInit{
     } else {
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'project');
     }
-    this.previousBtnClickedFromLocationDetails.emit(true);
+    // this.previousBtnClickedFromLocationDetails.emit(true);
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, this.location);
   }
 

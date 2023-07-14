@@ -25,6 +25,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
   }
 
   previousBtnClicked() {
+    console.log(this.projectInfo)
     if (this.projectInfo.type === 'subproject') {
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'project')
     }else {
@@ -36,11 +37,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
 
   private subscribeToProjectInfo() {
     this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
-      console.log(previousState.stack[previousState.stack.length - 1]);
       this.projectInfo = previousState.stack[previousState.stack.length - 1];
-    });
-    this.store.select(PreviousStateModelQuery.getPreviousStateModel).subscribe((previousState:any) => {
-      console.log(previousState);
     });
   }
 }

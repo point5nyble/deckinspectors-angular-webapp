@@ -9,6 +9,7 @@ import {HttpsRequestService} from "../../../service/https-request.service";
 import {PreviousStateModelQuery} from "../../../app-state-service/previous-state/previous-state-selector";
 import {Store} from "@ngrx/store";
 import {ProjectListElement} from "../../../common/models/project-list-element";
+import {BackNavigation} from "../../../app-state-service/back-navigation-state/back-navigation-selector";
 
 @Component({
   selector: 'app-project-details',
@@ -73,11 +74,13 @@ export class ProjectDetailsComponent implements OnInit {
     return {url, data};
   }
   private subscribeToProjectUpdatedEvent() {
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Project_update).subscribe(data => {
-      this.projectInfo = data;
-      this.fetchLocationData(data.id);
-      this.fetchSubProjectData(data.id);
-    })
+    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
+      this.projectInfo = previousState.stack[previousState.stack.length - 1];
+      this.fetchLocationData(previousState._id);
+      if (previousState.type !== 'subproject') {
+        this.fetchSubProjectData(previousState._id);
+      }
+    });
   }
 
 
@@ -89,18 +92,9 @@ export class ProjectDetailsComponent implements OnInit {
 
   locationClicked($event: ProjectListElement) {
     this.subprojectInfo = $event;
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Previous_Button_Click, this.projectInfo_);
+    // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Previous_Button_Click, this.projectInfo_);
   }
 
-  previousBtnClickedFromLocationDetails($event: boolean) {
-    this.store.select(PreviousStateModelQuery.getPreviousStateModel).subscribe((previousState:any) => {
-      this.projectInfo = previousState;
-      this.fetchLocationData(previousState._id);
-      if (previousState.type !== 'subproject') {
-        this.fetchSubProjectData(previousState._id);
-      }
-    })
-  }
 
   private map(project: Project) {
     this.mappedProjectListInfo =

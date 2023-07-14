@@ -109,7 +109,6 @@ export class LocationListComponent implements OnInit {
     // });
 
     this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
-      console.log(previousState);
       this.projectInfo = {};
       this.projectInfo.name = previousState.stack[previousState.stack.length - 1].name;
       this.projectInfo.parentId = previousState.stack[previousState.stack.length - 1]._id;

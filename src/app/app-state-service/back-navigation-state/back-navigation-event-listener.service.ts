@@ -5,7 +5,6 @@ import {
 } from "../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import {OrchestratorEventName} from "../../orchestrator-service/models/orchestrator-event-name";
 import {addPreviousState, removePreviousState} from "./back-navigation-action";
-import {PreviousStateModelQuery} from "../previous-state/previous-state-selector";
 import {BackNavigation} from "./back-navigation-selector";
 
 
@@ -32,7 +31,6 @@ export class BackNavigationEventListenerService implements OnDestroy {
 
   private publishPreviousState() {
     this.store.select(BackNavigation.getPreviousStateModelChain).subscribe(previousState => {
-      console.log(previousState);
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Application_State_change,previousState);
     })
   }

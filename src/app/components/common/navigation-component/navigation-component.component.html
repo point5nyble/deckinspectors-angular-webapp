@@ -1,0 +1,8 @@
+<div class="path">
+  <ng-container *ngFor="let folder of path; let last = last">
+    <ng-container *ngIf="!last">
+      <span class="folder">{{ folder.name }}</span>
+      <span class="separator">/</span>
+    </ng-container>
+  </ng-container>
+</div>
