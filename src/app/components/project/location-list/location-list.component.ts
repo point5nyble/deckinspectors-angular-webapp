@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {BuildingLocation} from "../../../common/models/buildingLocation";
 import {Project} from "../../../common/models/project";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";

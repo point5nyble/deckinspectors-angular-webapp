@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {BuildingLocation} from "../../common/models/buildingLocation";
 import {HttpsRequestService} from "../../service/https-request.service";
 import {
@@ -6,7 +6,6 @@ import {
 } from "../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import {Store} from "@ngrx/store";
 import {OrchestratorEventName} from "../../orchestrator-service/models/orchestrator-event-name";
-import {ProjectListElement} from "../../common/models/project-list-element";
 import {BackNavigation} from "../../app-state-service/back-navigation-state/back-navigation-selector";
 
 @Component({

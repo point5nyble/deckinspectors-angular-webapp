@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Project} from "../../../common/models/project";
 import {BuildingLocation} from "../../../common/models/buildingLocation";
 import {OrchestratorEventName} from "../../../orchestrator-service/models/orchestrator-event-name";
