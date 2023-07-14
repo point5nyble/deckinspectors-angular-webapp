@@ -3,10 +3,8 @@
   ></app-project-details-upper-section>
   <div class="d-flex justify-content-between mt-3 location-section">
     <app-location-list class="flex-item" header="Building Common Location"
-                       [locations]="buildingCommonLocation"
-                       (isDbClick)="locationClicked($event)"></app-location-list>
+                       [locations]="buildingCommonLocation"></app-location-list>
     <app-location-list class="flex-item ms-2" header="Building Apartments"
-                       [locations]="buildingApartments"
-                       (isDbClick)="locationClicked($event)"></app-location-list>
+                       [locations]="buildingApartments"></app-location-list>
   </div>
 </div>

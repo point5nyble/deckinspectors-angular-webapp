@@ -19,7 +19,6 @@ import {BackNavigation} from "../../../app-state-service/back-navigation-state/b
   styleUrls: ['./location-list.component.scss']
 })
 export class LocationListComponent implements OnInit {
-  @Output() isDbClick = new EventEmitter<ProjectListElement>();
   @Input() header!: string;
   @Input()
   set locations(locations: BuildingLocation[]) {
@@ -49,7 +48,6 @@ export class LocationListComponent implements OnInit {
 
   extractSubprojectInfo()  {
     let subProjectNames:any[]= [];
-    console.log(this.subproject);
     this.subproject?.forEach(project => {
       subProjectNames.push({
         name: project.name,
@@ -60,7 +58,6 @@ export class LocationListComponent implements OnInit {
     return subProjectNames;
   }
   onDbClick(locationInfo:ProjectListElement) {
-    this.isDbClick.emit(locationInfo);
     if (locationInfo._id !== '') {
       if (locationInfo.type === 'subproject') {
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'subproject');

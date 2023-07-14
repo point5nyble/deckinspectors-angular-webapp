@@ -98,7 +98,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
           name: subProject.name,
           id:subProject._id,
           collapsed: true,
-          parentId:project.id,
+          parentid:project.id,
           type: "subproject",
           nestedItems: this.extractSubProjectLocation(subProject)
         }))
@@ -267,7 +267,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     while (parent !== 'home' && parent != null) {
         let parentItem = this.objectMap.get(parent);
         path.push(parentItem);
-        parent = parentItem.parentId;
+        parent = parentItem.parentid;
     }
     while (path.length != 0) {
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, path.pop());
