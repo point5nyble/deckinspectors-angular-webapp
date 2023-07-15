@@ -5,7 +5,6 @@ import {
   OrchestratorCommunicationService
 } from "../../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import {OrchestratorEventName} from "../../../orchestrator-service/models/orchestrator-event-name";
-import {ProjectQuery} from "../../../app-state-service/project-state/project-selector";
 import {Store} from "@ngrx/store";
 import {LeftTreeListModelQuery} from "../../../app-state-service/left-tree-items-state/left-tree-items-state-selector";
 import {BackNavigation} from "../../../app-state-service/back-navigation-state/back-navigation-selector";
