@@ -59,6 +59,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   private convertResponseToItemList(response: any):Item[] {
     let fetchedProjectList:Item[] = [];
+    this.objectMap.clear();
     response.item.forEach((project: any) => {
       fetchedProjectList.push(this.extractProject(project));
     })
@@ -162,9 +163,9 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     }
     }
   private subscribeToProjectDetailsForNameHighlight() {
-    this.store.select(ProjectQuery.getProjectModel).subscribe(project => {
-      this.currentSelectedItem = project.name;
-     });
+    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
+        this.currentSelectedItem = previousState.stack[previousState.stack.length - 1].name;
+    });
   }
 
   private mapItem(input: Item): Item {
@@ -236,16 +237,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
             }
         })
     });
-    // objectMap.set(project.id, project);
-    // project.subProjects.forEach((subProject: any) => {
-    //   objectMap.set(subProject._id, subProject);
-    //     subProject.subProjectLocations.forEach((location: any) => {
-    //         objectMap.set(location.locationId, location);
-    //     })
-    // });
-    // project.locations.forEach((location: any) => {
-    //   objectMap.set(location.locationId, location);
-    // });
   }
 
   private findPath(item: Item) {
