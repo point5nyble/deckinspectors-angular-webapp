@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 env:
   AZURE_WEBAPP_NAME: deckinspectorswebapp    # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: './dist'      # set this to the path to your web app project
+  AZURE_WEBAPP_PACKAGE_PATH: './dist/deckinspector'      # set this to the path to your web app project
   NODE_VERSION: '18.x'
   
 jobs:
