@@ -58,7 +58,11 @@ export class SubprojectComponent {
 
   }
   private separateProject(item:any) {
+    // Temp solution
     let subproject = item.filter((sub:any) => sub._id === this.projectInfo.id)[0];
+    if (subproject === undefined) {
+      subproject = item.filter((sub:any) => sub._id === this.projectInfo._id)[0];
+    }
     this.buildingApartments = subproject.children.filter((sub:any) => sub.type === 'apartment');
     this.buildingCommonLocation = subproject.children.filter((sub:any) => sub.type === 'buildinglocation');
   }
