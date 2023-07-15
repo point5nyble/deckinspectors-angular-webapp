@@ -38,6 +38,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   private fetchLeftTreeDataFromState() {
     this.store.select(LeftTreeListModelQuery.getLeftTreeList).subscribe(leftTreeData => {
       this.projectList = this.mapItemList(leftTreeData?.items);
+      this.createObjectMap(this.projectList,this.objectMap);
     })
   }
 
@@ -62,7 +63,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     response.item.forEach((project: any) => {
       fetchedProjectList.push(this.extractProject(project));
     })
-    this.createObjectMap(fetchedProjectList,this.objectMap);
+    // this.createObjectMap(fetchedProjectList,this.objectMap);
     return fetchedProjectList;
   }
   private extractProject(project: any): Item {
@@ -210,6 +211,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   }
 
   private createObjectMap(project: Item[], objectMap: Map<any, any>) {
+    if (project === undefined) return;
     project.forEach((project: any) => {
         objectMap.set(project.id, project);
         project.nestedItems.forEach((nestedItem: any) => {
