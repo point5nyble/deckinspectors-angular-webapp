@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Project} from "../../../common/models/project";
 import {BuildingLocation} from "../../../common/models/buildingLocation";
 import {OrchestratorEventName} from "../../../orchestrator-service/models/orchestrator-event-name";
@@ -6,9 +6,9 @@ import {
   OrchestratorCommunicationService
 } from "../../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import {HttpsRequestService} from "../../../service/https-request.service";
-import {PreviousStateModelQuery} from "../../../app-state-service/previous-state/previous-state-selector";
 import {Store} from "@ngrx/store";
 import {ProjectListElement} from "../../../common/models/project-list-element";
+import {BackNavigation} from "../../../app-state-service/back-navigation-state/back-navigation-selector";
 
 @Component({
   selector: 'app-project-details',
@@ -16,28 +16,19 @@ import {ProjectListElement} from "../../../common/models/project-list-element";
   styleUrls: ['./project-details.component.scss']
 })
 export class ProjectDetailsComponent implements OnInit {
-
   showSectionInfo: string = 'project';
-  // @Input() projectInfo!: Project;
-  @Input()
-  set projectInfo(projectInfo: Project) {
-    this.projectInfo_ = projectInfo;
-    this.map(projectInfo);
-  }
+  projectInfo!: Project;
   projectCommonLocationList!: BuildingLocation[];
   projectBuildings!: Project[];
   subprojectInfo!: ProjectListElement;
-  mappedProjectListInfo!: ProjectListElement;
-  projectInfo_!: Project;
-
   constructor(private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService,
               private store: Store<any> ) {
   }
   ngOnInit(): void {
     this.subscribeToProjectUpdatedEvent();
-    this.fetchLocationData(this.projectInfo_._id);
-    this.fetchSubProjectData(this.projectInfo_._id);
+    // this.fetchLocationData(this.projectInfo?._id);
+    // this.fetchSubProjectData(this.projectInfo?._id);
     this.subscribeToShowPartInfoEvent();
   }
 
@@ -50,6 +41,7 @@ export class ProjectDetailsComponent implements OnInit {
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
         this.projectBuildings = response.item;
+        console.log(this.projectBuildings);
       },
       error => {
         console.log(error)
@@ -72,12 +64,17 @@ export class ProjectDetailsComponent implements OnInit {
     );
     return {url, data};
   }
+
   private subscribeToProjectUpdatedEvent() {
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Project_update).subscribe(data => {
-      this.projectInfo = data;
-      this.fetchLocationData(data.id);
-      this.fetchSubProjectData(data.id);
-    })
+    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
+      if (this.showSectionInfo === 'project') {
+        this.projectInfo = previousState.stack[previousState.stack.length - 1];
+        this.fetchLocationData(this.projectInfo._id);
+        if (previousState.type !== 'subproject') {
+          this.fetchSubProjectData(this.projectInfo._id);
+        }
+      }
+    });
   }
 
 
@@ -85,35 +82,5 @@ export class ProjectDetailsComponent implements OnInit {
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Show_Project_Details).subscribe(data => {
       this.showSectionInfo = data;
     });
-  }
-
-  locationClicked($event: ProjectListElement) {
-    this.subprojectInfo = $event;
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Previous_Button_Click, this.projectInfo_);
-  }
-
-  previousBtnClickedFromLocationDetails($event: boolean) {
-    this.store.select(PreviousStateModelQuery.getPreviousStateModel).subscribe((previousState:any) => {
-      this.projectInfo = previousState;
-      this.fetchLocationData(previousState._id);
-      if (previousState.type !== 'subproject') {
-        this.fetchSubProjectData(previousState._id);
-      }
-    })
-  }
-
-  private map(project: Project) {
-    this.mappedProjectListInfo =
-    {
-      _id: project._id,
-      createdat: project.createdat,
-      createdby: project.createdby,
-      description: project.description,
-      name: project.name,
-      parentid: project.parentid?project.parentid:'',
-      parenttype: project.parenttype?project.parenttype:'project',
-      type: project.type?project.type:'project',
-      url: project.url
-    }
   }
 }

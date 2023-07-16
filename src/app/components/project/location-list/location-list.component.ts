@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {BuildingLocation} from "../../../common/models/buildingLocation";
 import {Project} from "../../../common/models/project";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
@@ -8,7 +8,6 @@ import {OrchestratorEventName} from "../../../orchestrator-service/models/orches
 import {
   OrchestratorCommunicationService
 } from "../../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
-import {ProjectQuery} from "../../../app-state-service/project-state/project-selector";
 import {Store} from "@ngrx/store";
 import {NewSubprojectModalComponent} from "../../../forms/new-subproject-modal/new-subproject-modal.component";
 import {ProjectListElement} from "../../../common/models/project-list-element";
@@ -20,7 +19,6 @@ import {BackNavigation} from "../../../app-state-service/back-navigation-state/b
   styleUrls: ['./location-list.component.scss']
 })
 export class LocationListComponent implements OnInit {
-  @Output() isDbClick = new EventEmitter<ProjectListElement>();
   @Input() header!: string;
   @Input()
   set locations(locations: BuildingLocation[]) {
@@ -50,7 +48,6 @@ export class LocationListComponent implements OnInit {
 
   extractSubprojectInfo()  {
     let subProjectNames:any[]= [];
-    console.log(this.subproject);
     this.subproject?.forEach(project => {
       subProjectNames.push({
         name: project.name,
@@ -61,7 +58,6 @@ export class LocationListComponent implements OnInit {
     return subProjectNames;
   }
   onDbClick(locationInfo:ProjectListElement) {
-    this.isDbClick.emit(locationInfo);
     if (locationInfo._id !== '') {
       if (locationInfo.type === 'subproject') {
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'subproject');
@@ -109,7 +105,6 @@ export class LocationListComponent implements OnInit {
     // });
 
     this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
-      console.log(previousState);
       this.projectInfo = {};
       this.projectInfo.name = previousState.stack[previousState.stack.length - 1].name;
       this.projectInfo.parentId = previousState.stack[previousState.stack.length - 1]._id;

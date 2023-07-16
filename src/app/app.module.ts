@@ -45,6 +45,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { ProjectDetailsUpperSectionComponent } from './components/project/project-details/project-details-upper-section/project-details-upper-section.component';
 import { SubprojectComponent } from './components/subproject/subproject.component';
 import {addPreviousStateModel} from "./app-state-service/back-navigation-state/back-navigation-reducer";
+import { NavigationComponentComponent } from './components/common/navigation-component/navigation-component.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import {addPreviousStateModel} from "./app-state-service/back-navigation-state/b
     NewLocationModalComponent,
     NewSubprojectModalComponent,
     ProjectDetailsUpperSectionComponent,
-    SubprojectComponent
+    SubprojectComponent,
+    NavigationComponentComponent
   ],
   imports: [
     BrowserModule,
