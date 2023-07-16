@@ -19,4 +19,13 @@ export class HttpsRequestService {
      };
      return this.http.post<T>(url, data,httpOptions);
    }
+
+  public postHttpDataForMultipart<T>(url:string, data:any): Observable<T> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'multipart/form-data'
+      })
+    };
+    return this.http.post<T>(url, data,httpOptions);
+  }
 }

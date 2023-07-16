@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, Inject} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {HttpsRequestService} from "../../service/https-request.service";
+import {ImageToUrlConverterService} from "../../service/image-to-url-converter.service";
 
 @Component({
   selector: 'app-new-location-modal',
@@ -15,12 +16,16 @@ export class NewLocationModalComponent {
   subProjects:any[] = [];
   isSubProject: boolean = false;
   data!:any;
+  imagePreviewUrl: string | null = null;
+  selectedImage: File | null = null;
+  selectedFileName: string | null = null;
 
   constructor(private formBuilder: FormBuilder,
               private cdr: ChangeDetectorRef,
               private dialogRef: MatDialogRef<NewLocationModalComponent>,
               private httpsRequestService: HttpsRequestService,
-              @Inject(MAT_DIALOG_DATA) data : any) {
+              @Inject(MAT_DIALOG_DATA) data : any,
+              private imageToUrlConverterService : ImageToUrlConverterService ) {
     this.description = data.description;
     this.subProjects = data.projectInfo;
     this.isSubProject = data.isSubProject;
@@ -38,19 +43,26 @@ export class NewLocationModalComponent {
   }
 
   handleFileInput(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedImage = file;
+    // Read and set the image preview URL
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.imagePreviewUrl = e.target.result;
+    };
+    reader.readAsDataURL(file);
     this._event = event;
-    // Handle file input change, e.g., read and process the selected file
   }
   close() {
     this.dialogRef.close();
   }
 
   save() {
-    this.createNewLocation();
+    this.uploadImage();
     this.dialogRef.close(this.newLocationForm);
   }
 
-  createNewLocation(){
+  createNewLocation(image_url?:string){
     let data = {
       "name": this.newLocationForm.value.name,
       "description": this.newLocationForm.value.description,
@@ -58,7 +70,7 @@ export class NewLocationModalComponent {
       "parenttype": this.data.projectInfo.parenttype,
       "isInvasive": true,
       "createdBy": "deck",
-      "url": this.newLocationForm.value.image,
+      "url": image_url,
       "type": this.data.type,
       "assignedTo":['']
     }
@@ -77,5 +89,33 @@ export class NewLocationModalComponent {
         console.log(error)
       }
     );
+  }
+
+  removeImage() {
+    this.selectedImage = null;
+    this.selectedFileName = null;
+    this.imagePreviewUrl = null;
+    this.newLocationForm.patchValue({
+      image: ''
+    });
+  }
+
+  uploadImage() {
+    let url = 'https://deckinspectors-dev.azurewebsites.net/api/image/upload';
+    let data = {
+      'entityName': this.newLocationForm.value.name,
+      'uploader': 'deck',
+      'containerName': this.newLocationForm.value.name.replace(' ', '').toLowerCase(),
+      'picture': this.selectedImage,
+    }
+    this.imageToUrlConverterService.convertImageToUrl(data).subscribe(
+      (response:any) => {
+        this.createNewLocation(response.url);
+        console.log(response);
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 }

@@ -67,38 +67,40 @@ export class NewProjectModalComponent implements OnInit {
   save() {
     this.uploadImage();
     this.dialogRef.close(this.yourForm.value);
-    this.createNewProject();
   }
 
-    uploadImage():string {
-      // curl -X POST -F 'picture=@/Users/umeshpalav/Downloads/sampleImage.jpg'  -F 'containerName=inor' -F 'uploader=deck' -F 'entityName=Inorbit Mall'
-      console.log(this.data);
-      console.log(this.yourForm.value);
+    uploadImage() {
       let url = 'https://deckinspectors-dev.azurewebsites.net/api/image/upload';
       let data = {
-        'entityName':this.yourForm.value.name,
-        'uploader':'deck',
-        'containerName':this.yourForm.value.name.replace(' ','').toLowerCase(),
-        'picture':this.selectedImage,
+        'entityName': this.yourForm.value.name,
+        'uploader': 'deck',
+        'containerName': this.yourForm.value.name.replace(' ', '').toLowerCase(),
+        'picture': this.selectedImage,
       }
-       return this.imageToUrlConverterService.convertImageToUrl(data);
+      this.imageToUrlConverterService.convertImageToUrl(data).subscribe(
+          (response:any) => {
+            this.createNewProject(response.url);
+            console.log(response);
+          },
+          error => {
+            console.log(error)
+          }
+      )
     }
 
-    createNewProject() {
+    createNewProject(image_url:string) {
       let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/add';
       let data = {
         "name": this.yourForm.value.name,
         "description": this.yourForm.value.description,
         "createdBy": "deck",
         "address": this.yourForm.value.address,
-        "url": this.uploadImage(),
+        "url": image_url,
         "projecttype": this.yourForm.value.option,
         "assignedTo": [
           "deck"
         ]
       }
-      console.log(data);
-
       this.httpsRequestService.postHttpData(url, data).subscribe(
         (response:any) => {
           console.log(response);
