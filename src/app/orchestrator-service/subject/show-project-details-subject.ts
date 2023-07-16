@@ -9,6 +9,6 @@ import {Injectable} from "@angular/core";
 export class ShowProjectDetailsSubject extends Subject<any> {
   constructor(private orchestratorEventSubjectMap:OrchestratorEventSubjectMapService) {
     super();
-    this.orchestratorEventSubjectMap.addEventSubjectToMap(OrchestratorEventName.Show_Project_Details,this);
+    this.orchestratorEventSubjectMap.addEventSubjectToMap(OrchestratorEventName.SHOW_SCREEN,this);
   }
 }

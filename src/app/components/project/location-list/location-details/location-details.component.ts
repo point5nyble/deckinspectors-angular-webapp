@@ -10,6 +10,7 @@ import {ProjectQuery} from "../../../../app-state-service/project-state/project-
 import {Store} from "@ngrx/store";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {NewLocationModalComponent} from "../../../../forms/new-location-modal/new-location-modal.component";
+import {BackNavigation} from "../../../../app-state-service/back-navigation-state/back-navigation-selector";
 
 @Component({
   selector: 'app-location-details',
@@ -70,17 +71,28 @@ export class LocationDetailsComponent implements OnInit{
   }
 
   private fetchInitialData() {
-    this.store.select(ProjectQuery.getProjectModel).subscribe((project: any)=> {
-      this.location = project;
-      this.fetchLocationDetails(project.id);
-      })
+    // this.store.select(ProjectQuery.getProjectModel).subscribe((project: any)=> {
+    //   this.location = project;
+    //   //TODO: Fix this inconsistent naming
+    //   let projectid = project._id === undefined ? (<any>project).id : project._id;
+    //   this.fetchLocationDetails(projectid);
+    //   })
+
+    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
+      this.location = previousState.stack[previousState.stack.length - 1];
+      // TODO: Remove this inconsistent naming
+      if (this.location.type === 'location' || this.location.type === 'projectlocation' || this.location.type === 'apartment' || this.location.type === 'buildinglocation') {
+        let projectid = this.location._id === undefined ? (<any>this.location).id : this.location._id;
+        this.fetchLocationDetails(projectid);
+      }
+    });
   }
 
   previousBtnClicked() {
     if (this.location.parenttype === 'subproject') {
-      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'subproject');
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'subproject');
     } else {
-      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'project');
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'project');
     }
     // this.previousBtnClickedFromLocationDetails.emit(true);
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, this.location);

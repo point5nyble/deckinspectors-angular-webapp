@@ -46,7 +46,7 @@ export class SubprojectComponent {
   }
 
   private subscribeToProjectUpdatedEvent() {
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Show_Project_Details).subscribe(data => {
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
       this.showSectionInfo = data;
     });
     this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {

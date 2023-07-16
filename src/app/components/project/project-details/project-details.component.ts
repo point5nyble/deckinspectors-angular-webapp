@@ -67,19 +67,30 @@ export class ProjectDetailsComponent implements OnInit {
 
   private subscribeToProjectUpdatedEvent() {
     this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
-      if (this.showSectionInfo === 'project') {
-        this.projectInfo = previousState.stack[previousState.stack.length - 1];
-        this.fetchLocationData(this.projectInfo._id);
-        if (previousState.type !== 'subproject') {
-          this.fetchSubProjectData(this.projectInfo._id);
-        }
+      //TODO: Change logic and make it consistent with project details upper selection component
+      // if (this.showSectionInfo === 'project') {
+      //   this.projectInfo = previousState.stack[previousState.stack.length - 1];
+      //   let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
+      //   this.fetchLocationData(projectid);
+      //   if (this.projectInfo.type !== 'subproject') {
+      //     this.fetchSubProjectData(projectid);
+      //   }
+      // }
+      this.projectInfo = previousState.stack[previousState.stack.length - 1];
+      if (this.projectInfo.type === 'project' && this.showSectionInfo === 'project') {
+        let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
+        this.fetchLocationData(projectid);
+        this.fetchSubProjectData(projectid);
+        // if (this.projectInfo.type !== 'subproject') {
+        //   this.fetchSubProjectData(projectid);
+        // }
       }
     });
   }
 
 
   private subscribeToShowPartInfoEvent() {
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Show_Project_Details).subscribe(data => {
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
       this.showSectionInfo = data;
     });
   }

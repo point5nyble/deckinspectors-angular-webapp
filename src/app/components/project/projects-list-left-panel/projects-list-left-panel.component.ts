@@ -38,6 +38,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   private fetchLeftTreeDataFromState() {
     this.store.select(LeftTreeListModelQuery.getLeftTreeList).subscribe(leftTreeData => {
       this.projectList = this.mapItemList(leftTreeData?.items);
+      console.log(this.projectList)
       this.createObjectMap(this.projectList,this.objectMap);
     })
   }
@@ -73,8 +74,8 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       description: project.description,
       address: project.address,
       collapsed: true,
-      parentid: "home",
-      type: "project",
+      parentid: 'home',
+      type: 'project',
       nestedItems: this.extractNestedItems(project)
     };
   }
@@ -148,17 +149,16 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   openProject(item: Item) {
     this.currentSelectedItem = item.name;
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'project');
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Project_update, this.mapItem(item));
-
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'project');
+    // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Project_update, this.mapItem(item));
     this.findPath(item);
   }
 
   openLocation(location: Item) {
     if (location.id !== '' && location?.nestedItems?.length === 0) {
         this.currentSelectedItem = location.name;
-        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'location');
-        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(location));
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'location');
+        // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(location));
         this.findPath(location);
     }
     }
@@ -176,7 +176,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       address: input?.address,
       collapsed: input?.collapsed,
       parentid: input?.parentid,
-      type: input?.type,
+      type: input?.nestedItems? input?.type:'location',
       nestedItems: input?.nestedItems?.map((item) => this.mapItem(item)) || []
     };
   }
@@ -262,7 +262,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
         parent = parentItem.parentid;
     }
     while (path.length != 0) {
-      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, path.pop());
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, this.mapItem(path.pop()));
     }
   }
 }
