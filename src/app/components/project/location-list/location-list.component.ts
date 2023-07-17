@@ -60,9 +60,9 @@ export class LocationListComponent implements OnInit {
   onDbClick(locationInfo:ProjectListElement) {
     if (locationInfo._id !== '') {
       if (locationInfo.type === 'subproject') {
-          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'subproject');
+          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'subproject');
       } else {
-        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_Project_Details, 'location');
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'location');
       }
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(locationInfo));
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, locationInfo)
