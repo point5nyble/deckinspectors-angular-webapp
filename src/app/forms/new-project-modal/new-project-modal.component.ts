@@ -70,7 +70,6 @@ export class NewProjectModalComponent implements OnInit {
   }
 
     uploadImage() {
-      let url = 'https://deckinspectors-dev.azurewebsites.net/api/image/upload';
       let data = {
         'entityName': this.yourForm.value.name,
         'uploader': 'deck',

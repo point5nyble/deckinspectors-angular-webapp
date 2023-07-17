@@ -1,11 +1,14 @@
 <div class="scrollable-container">
   <div class="header-component horizontal-div">
-    <div class="flex-item"><b>Bramhas 20 HOA</b></div>
+    <div class="flex-item"><b>{{this.projectName}}</b></div>
   </div>
   <div class="full-width">
-    <app-download-specific-report [title]="'Visual Report'"></app-download-specific-report>
-    <app-download-specific-report></app-download-specific-report>
-    <app-download-specific-report></app-download-specific-report>
-    <app-download-specific-report></app-download-specific-report>
+    <app-download-specific-report [title]="'Visual Report'" (downloadReportEvent)="downloadReportEvent($event)"></app-download-specific-report>
+    <app-download-specific-report [title]="'Invasive Only Report'"></app-download-specific-report>
+    <app-download-specific-report [title]="'Final Report'"></app-download-specific-report>
   </div>
+  <mat-dialog-actions class="button-container">
+    <button class="mat-raised-button close-button" (click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary save-button" (click)="save()">Save</button>
+  </mat-dialog-actions>
 </div>

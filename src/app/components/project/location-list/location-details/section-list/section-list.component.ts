@@ -63,9 +63,7 @@ export class SectionListComponent implements OnInit{
       "visualreview": data.visualReview,
       "visualsignsofleak": data.signsOfLeaks,
       "waterproofingelements": data.waterproofingElements,
-      "images": [
-        "string"
-      ]
+      "images": data.images
     }
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/section/add';
     console.log(request);

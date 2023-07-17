@@ -44,7 +44,6 @@ export class DashboardComponent implements OnInit
     this.projectInfo = projectInfo;
     //TODO: Remove this temp solution
     projectInfo.type = 'project';
-    // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Project_update,projectInfo);
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC,projectInfo);
   }
 

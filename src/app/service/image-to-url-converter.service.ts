@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {HttpsRequestService} from "./https-request.service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
@@ -7,9 +6,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 })
 export class ImageToUrlConverterService {
 
-  constructor(private httpsRequestService:HttpsRequestService,
-              private http: HttpClient) {
-
+  constructor(private http: HttpClient) {
   }
   public convertImageToUrl(data:any) {
     const formData = new FormData();
@@ -21,6 +18,5 @@ export class ImageToUrlConverterService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data'); // Set the correct Content-Type
     return this.http.post(url, formData, { headers })
-
   }
 }

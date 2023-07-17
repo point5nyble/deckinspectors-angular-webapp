@@ -33,7 +33,6 @@ export class VisualDeckReportModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.data);
     this.visualDeckReportModalForm = this.formBuilder.group({
       visualReportName: [this.data.rowsMap?.get('name')], // Add validators if needed
       exteriorElements: [this.data.rowsMap?.get('exteriorelements')], // Add validators if needed
@@ -95,7 +94,6 @@ export class VisualDeckReportModalComponent implements OnInit {
       )
       .subscribe(
         (imageUrls: string[]) => {
-          console.log(imageUrls);
           this.visualDeckReportModalForm.patchValue({
             images: imageUrls
           });
