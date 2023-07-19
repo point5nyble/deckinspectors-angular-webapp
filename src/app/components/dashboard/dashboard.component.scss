@@ -22,8 +22,6 @@
      border-radius: 5px;
   }
 
-
-
 .right-panel {
   flex: 1;
   margin-left: 15px;
@@ -61,3 +59,21 @@
   margin-top: 20px;
 }
 
+.horizontal-frame {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 62px;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+
+.company-logo {
+  margin-right: 10px;
+  margin-left: 74px; /* Adjust the margin as needed */
+}
+
+.projects {
+
+  margin-left: 20px; /* Adjust the margin as needed */
+}
