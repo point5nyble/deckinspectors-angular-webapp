@@ -6,7 +6,6 @@ import {OrchestratorEventName} from "../../../../orchestrator-service/models/orc
 import {
   OrchestratorCommunicationService
 } from "../../../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
-import {ProjectQuery} from "../../../../app-state-service/project-state/project-selector";
 import {Store} from "@ngrx/store";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {NewLocationModalComponent} from "../../../../forms/new-location-modal/new-location-modal.component";
@@ -57,6 +56,7 @@ export class LocationDetailsComponent implements OnInit{
       this.httpsRequestService.postHttpData(url, data).subscribe(
           (response:any) => {
             this.location = response.item;
+            console.log(response);
           },
           error => {
               console.log(error)

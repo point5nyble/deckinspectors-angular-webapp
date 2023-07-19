@@ -81,6 +81,14 @@
         <label for="7+yrsAWE"><input type="radio" id="7+yrsAWE" value="sevenplus" name="AWE" formControlName="AWE">7+ Years</label>
       </div>
     </div>
+    <div class="form-group">
+      <label class="form-label">Upload Image:</label>
+      <input type="file" (change)="handleFileInput($event)" class="form-control" multiple>
+      <div *ngFor="let imageUrl of imagePreviewUrls; let i = index" class="image-preview">
+        <img [src]="imageUrl" alt="Image Preview" class="preview-image">
+        <span class="close-icon-img" (click)="removeImage(i)">&times;</span>
+      </div>
+    </div>
   </div>
   <div class="button-container">
     <button class="save-button" (click)="save()">Save</button>

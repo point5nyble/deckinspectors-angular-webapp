@@ -46,6 +46,7 @@ import { ProjectDetailsUpperSectionComponent } from './components/project/projec
 import { SubprojectComponent } from './components/subproject/subproject.component';
 import {addPreviousStateModel} from "./app-state-service/back-navigation-state/back-navigation-reducer";
 import { NavigationComponentComponent } from './components/common/navigation-component/navigation-component.component';
+import { LoadingScreenComponent } from './components/common/loading-screen/loading-screen.component';
 
 
 @NgModule({
@@ -77,7 +78,8 @@ import { NavigationComponentComponent } from './components/common/navigation-com
     NewSubprojectModalComponent,
     ProjectDetailsUpperSectionComponent,
     SubprojectComponent,
-    NavigationComponentComponent
+    NavigationComponentComponent,
+    LoadingScreenComponent
   ],
   imports: [
     BrowserModule,

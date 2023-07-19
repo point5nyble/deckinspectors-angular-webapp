@@ -27,8 +27,6 @@ export class ProjectDetailsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.subscribeToProjectUpdatedEvent();
-    // this.fetchLocationData(this.projectInfo?._id);
-    // this.fetchSubProjectData(this.projectInfo?._id);
     this.subscribeToShowPartInfoEvent();
   }
 
@@ -41,7 +39,6 @@ export class ProjectDetailsComponent implements OnInit {
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
         this.projectBuildings = response.item;
-        console.log(this.projectBuildings);
       },
       error => {
         console.log(error)

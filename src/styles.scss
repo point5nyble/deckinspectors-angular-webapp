@@ -7,7 +7,7 @@
 }
 
 .scrollable-container {
-  max-height: 400px;
+  max-height: fit-content;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #888888 transparent;

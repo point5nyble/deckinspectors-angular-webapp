@@ -22,6 +22,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   startWidth: number = 0;
   currentSelectedItem:string = '';
   objectMap = new Map<string, any>();
+  loadingScreen:boolean = true;
 
 
   constructor(private httpsRequestService: HttpsRequestService,
@@ -38,7 +39,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   private fetchLeftTreeDataFromState() {
     this.store.select(LeftTreeListModelQuery.getLeftTreeList).subscribe(leftTreeData => {
       this.projectList = this.mapItemList(leftTreeData?.items);
-      console.log(this.projectList)
       this.createObjectMap(this.projectList,this.objectMap);
     })
   }
@@ -50,6 +50,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
         (response: any) => {
           let fetchedProjectList: Item[] = this.convertResponseToItemList(response);
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Left_Tree_Data, fetchedProjectList);
+          this.loadingScreen = false;
         },
         error => {
           console.log(error)
@@ -64,7 +65,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     response.item.forEach((project: any) => {
       fetchedProjectList.push(this.extractProject(project));
     })
-    // this.createObjectMap(fetchedProjectList,this.objectMap);
     return fetchedProjectList;
   }
   private extractProject(project: any): Item {
@@ -150,7 +150,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   openProject(item: Item) {
     this.currentSelectedItem = item.name;
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'project');
-    // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Project_update, this.mapItem(item));
     this.findPath(item);
   }
 
@@ -250,9 +249,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, '');
       }
     })
-    // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC,'');
-    // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC,'');
-    // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC,'');
     let path = [];
     let parent:string | undefined = item.parentid;
     path.push(item);

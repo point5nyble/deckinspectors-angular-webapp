@@ -3,11 +3,11 @@
     <app-sidebar></app-sidebar>
   </div>
   <div class="container-fluid">
-      <div *ngIf="showProjectInfo" class="d-flex flex-column">
+      <div *ngIf="showProjectInfo" class="d-flex flex-column full-height">
         <app-filter (searchedTerm)="projectSearch($event)"
                     (newProjectUploaded)="newProjectUploaded()"></app-filter>
         <!--        Show Project list-->
-        <div class="scrollable-container">
+        <div class="scrollable-container mt-1">
           <div *ngFor="let projectInfo of projectInfos">
             <app-project-info (dblclick)="gotoProject(projectInfo)" [projectInfo]=projectInfo></app-project-info>
           </div>

@@ -71,6 +71,7 @@ export class LocationListComponent implements OnInit {
 
   public openLocationModal():void {
     const dialogConfig = new MatDialogConfig();
+    console.log(this.projectInfo);
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "600px";
