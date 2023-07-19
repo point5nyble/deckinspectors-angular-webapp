@@ -1,13 +1,37 @@
-<div class="container sidebar" [ngClass]="{'collapsed': isSidebarCollapsed}" (mouseleave)="collapseSidebar()">
-  <button class="collapsible" (mouseenter)="toggleSidebar()">
+<!-- <div class="container sidebar" [ngClass]="{'collapsed': isSidebarCollapsed}" (mouseleave)="collapseSidebar()"> -->
+  <!-- <button class="collapsible" (mouseenter)="toggleSidebar()">
     <img src="../../../assets/images/sidebar.svg" width="20px" height="20px" alt="Button Image">
-  </button>
-  <div class="sidebar-content">
-    <ul>
-      <li><a routerLink="/dashboard" routerLinkActive="active">Projects</a></li>
-      <li><a routerLink="/" routerLinkActive="active">Users</a></li>
-      <li><a routerLink="/" routerLinkActive="active">Files</a></li>
-      <li><a routerLink="/login" routerLinkActive="active">Sign Out</a></li>
-    </ul>
+  </button> -->
+  <div class="container sidebar">
+    <div class="sidebar-block">
+      <div class="sidebar-content">
+        <ul>
+          <li class="active">
+            <a routerLink="/dashboard" routerLinkActive="active">
+              <img src="../../../assets/images/ant-design_project-outlined.png" alt="Logo 1" class="logo-image" >
+              <span>Projects</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/" routerLinkActive="active">
+              <img src="../../../assets/images/Vector.png" alt="Logo 2" class="logo-image">
+              <span>Users</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/" routerLinkActive="active">
+              <img src="../../../assets/images/mdi_files.png" alt="Logo 3" class="logo-image">
+              <span>Files</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/login" routerLinkActive="active">
+              <img src="../../../assets/images/ion_log-out.png" alt="Logo 4" class="logo-image">
+              <span>Sign Out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
-</div>
+  
