@@ -1,9 +1,65 @@
 .sidebar {
-  width: 200px;
+  width: 215px;
   background-color: #f0f0f0;
   transition: width 0.3s ease-out;
   height: 100%;
+  padding: 20px; /* Add padding to create space between content and container */
 }
+
+.sidebar-content {
+  display: block;
+  padding-top: 20px; /* Add padding-top to create space between content and container */
+  transition: opacity 0.3s ease-out;
+}
+
+.sidebar-block{
+  display: block;
+  width: 175px;
+  height: 845px;
+  top: 136px;
+  left: 27px;
+  border-radius: 16px;
+  background-color: #FFFFFF;
+}
+
+
+.sidebar-content ul {
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-content li {
+  list-style-type: none;
+  margin-bottom: 10px;
+}
+
+.sidebar-content a {
+  display: block;
+  padding: 5px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s ease-out;
+}
+
+.sidebar-content a:hover {
+  background-color: #ED7C1C;
+  border-radius: 13px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Add this to your existing CSS */
+
+.sidebar-content .active a {
+  background-color: #ED7C1C;
+  border-radius: 13px;
+  color: #fff; /* You may want to change the text color to make it more visible */
+}
+
+
 
 .collapsed {
   width: 50px;
@@ -25,39 +81,9 @@
   background-color: transparent;
 }
 
-.sidebar-content {
-  display: block;
-  padding: 10px;
-  transition: opacity 0.3s ease-out;
-}
+
 
 .collapsed .sidebar-content {
   opacity: 0;
 }
 
-.sidebar-content ul {
-  margin: 0;
-  padding: 0;
-}
-
-.sidebar-content li {
-  list-style-type: none;
-  margin-bottom: 10px;
-}
-
-.sidebar-content a {
-  display: block;
-  padding: 5px;
-  color: #333;
-  text-decoration: none;
-  transition: background-color 0.3s ease-out;
-}
-
-.sidebar-content a:hover {
-  background-color: #ddd;
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
-}
