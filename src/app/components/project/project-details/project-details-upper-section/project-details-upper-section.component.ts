@@ -42,9 +42,9 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
   }
 
   private fetchSubprojectDetails(projectid: string) {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/subproject/getSubprojectsDataByProjectId';
+    let url = 'https://deckinspectors-dev.azurewebsites.net/api/subproject/getSubProjectById';
     let data = {
-      projectid: projectid,
+      subprojectid: projectid,
       username: 'deck'
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
@@ -62,7 +62,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
     if (this.projectInfo.type === 'subproject') {
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'project')
     }else {
-      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Show_All_Projects, true);
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'home');
     }
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
   }
@@ -71,10 +71,13 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
   private subscribeToProjectInfo() {
     this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
       this.projectInfo = previousState.stack[previousState.stack.length - 1];
-      let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
-      if (this.projectInfo.type === 'subproject' && projectid !== undefined) {
-        this.fetchSubprojectDetails(projectid)
-      } else if (this.projectInfo.type === 'project' && projectid !== undefined){
+
+      if (this.projectInfo.type === 'subproject') {
+        console.log(this.projectInfo);
+        let subprojectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
+        this.fetchSubprojectDetails(subprojectid)
+      } else if (this.projectInfo.type === 'project'){
+        let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
         this.fetchProjectDetails(projectid);
       }
     });

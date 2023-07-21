@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Project} from "../../../common/models/project";
 import {BuildingLocation} from "../../../common/models/buildingLocation";
 import {OrchestratorEventName} from "../../../orchestrator-service/models/orchestrator-event-name";
@@ -7,27 +7,32 @@ import {
 } from "../../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import {HttpsRequestService} from "../../../service/https-request.service";
 import {Store} from "@ngrx/store";
-import {ProjectListElement} from "../../../common/models/project-list-element";
 import {BackNavigation} from "../../../app-state-service/back-navigation-state/back-navigation-selector";
+import {take} from "rxjs";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-project-details',
   templateUrl: './project-details.component.html',
   styleUrls: ['./project-details.component.scss']
 })
-export class ProjectDetailsComponent implements OnInit {
+export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   showSectionInfo: string = 'project';
   projectInfo!: Project;
   projectCommonLocationList!: BuildingLocation[];
   projectBuildings!: Project[];
-  subprojectInfo!: ProjectListElement;
+  private subscription!: Subscription;
   constructor(private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService,
               private store: Store<any> ) {
   }
   ngOnInit(): void {
-    this.subscribeToProjectUpdatedEvent();
     this.subscribeToShowPartInfoEvent();
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe the subscription to avoid memory leaks
+    this.subscription.unsubscribe();
   }
 
   private fetchSubProjectData(projectID:string) {
@@ -62,33 +67,27 @@ export class ProjectDetailsComponent implements OnInit {
     return {url, data};
   }
 
-  private subscribeToProjectUpdatedEvent() {
-    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
-      //TODO: Change logic and make it consistent with project details upper selection component
-      // if (this.showSectionInfo === 'project') {
-      //   this.projectInfo = previousState.stack[previousState.stack.length - 1];
-      //   let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
-      //   this.fetchLocationData(projectid);
-      //   if (this.projectInfo.type !== 'subproject') {
-      //     this.fetchSubProjectData(projectid);
-      //   }
-      // }
+
+
+  private subscribeToShowPartInfoEvent() {
+    this.subscription = this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
+      console.log(data);
+      this.showSectionInfo = data;
+      if (data === 'project') {
+        this.fetchProjectDataFromState();
+      }
+    });
+    this.fetchProjectDataFromState();
+  }
+
+  private fetchProjectDataFromState() {
+    this.store.select(BackNavigation.getPreviousStateModelChain).pipe(take(1)).subscribe((previousState: any) => {
       this.projectInfo = previousState.stack[previousState.stack.length - 1];
       if (this.projectInfo.type === 'project' && this.showSectionInfo === 'project') {
         let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
         this.fetchLocationData(projectid);
         this.fetchSubProjectData(projectid);
-        // if (this.projectInfo.type !== 'subproject') {
-        //   this.fetchSubProjectData(projectid);
-        // }
       }
-    });
-  }
-
-
-  private subscribeToShowPartInfoEvent() {
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
-      this.showSectionInfo = data;
     });
   }
 }

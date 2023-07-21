@@ -28,18 +28,24 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   constructor(private httpsRequestService: HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService,
               private store: Store<any>) {
-    this.fetchLeftTreeDataFromState();
-    this.fetchLeftTreeData();
+
   }
 
   ngOnInit() {
+    this.fetchLeftTreeDataFromState();
+    this.fetchLeftTreeData();
     this.subscribeToProjectDetailsForNameHighlight();
+    if (this.projectList !== undefined) {
+      this.loadingScreen = false;
+    }
   }
 
   private fetchLeftTreeDataFromState() {
     this.store.select(LeftTreeListModelQuery.getLeftTreeList).subscribe(leftTreeData => {
+      console.log(leftTreeData);
       this.projectList = this.mapItemList(leftTreeData?.items);
       this.createObjectMap(this.projectList,this.objectMap);
+
     })
   }
 
@@ -53,6 +59,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
           this.loadingScreen = false;
         },
         error => {
+          this.loadingScreen = false;
           console.log(error)
         }
       );

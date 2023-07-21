@@ -58,13 +58,14 @@ export class LocationListComponent implements OnInit {
     return subProjectNames;
   }
   onDbClick(locationInfo:ProjectListElement) {
+    console.log(locationInfo);
     if (locationInfo._id !== '') {
       if (locationInfo.type === 'subproject') {
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'subproject');
       } else {
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'location');
       }
-      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(locationInfo));
+      // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(locationInfo));
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, locationInfo)
     }
   }

@@ -11,7 +11,7 @@
     <app-sidebar></app-sidebar>
   </div>
   <div class="container-fluid">
-      <div *ngIf="showProjectInfo" class="d-flex flex-column full-height">
+      <div *ngIf="showProjectInfo === 'home'" class="d-flex flex-column full-height">
         <app-filter (searchedTerm)="projectSearch($event)"
                     (newProjectUploaded)="newProjectUploaded()"></app-filter>
         <!--        Show Project list-->
@@ -22,9 +22,21 @@
         </div>
 
       </div>
-      <!--      Show Project Details-->
-      <div *ngIf="!showProjectInfo" class="full-height">
-        <app-project></app-project>
+    <div class="horizontal-div full-height">
+      <<app-projects-list-left-panel style="min-width: fit-content;"></app-projects-list-left-panel>
+      <div *ngIf="showProjectInfo === 'project'" class="full-height">
+        <app-project-details class="full-width">
+        </app-project-details>
       </div>
+      <div *ngIf="showProjectInfo === 'subproject'">
+        <app-subproject class="full-width">
+        </app-subproject>
+      </div>
+      <div *ngIf="showProjectInfo === 'location'" class="right-panel">
+        <app-location-details class="full-width">
+
+        </app-location-details>
+      </div>
+    </div>
   </div>
 </div>
