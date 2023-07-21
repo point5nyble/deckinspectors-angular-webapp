@@ -3,12 +3,19 @@
     <div class="flex-item"><b>{{this.projectName}}</b></div>
   </div>
   <div class="full-width">
-    <app-download-specific-report [title]="'Visual Report'" (downloadReportEvent)="downloadReportEvent($event)"></app-download-specific-report>
-    <app-download-specific-report [title]="'Invasive Only Report'"></app-download-specific-report>
-    <app-download-specific-report [title]="'Final Report'"></app-download-specific-report>
+    <div *ngIf="showLoading">
+      <div class="download-animation">
+        <!-- Add any additional content or icon for the download animation -->
+      </div>
+    </div>
+    <div *ngIf="!showLoading">
+      <app-download-specific-report #appDownloadSpecificReport [title]="'Visual Report'" (downloadReportEvent)="downloadReportEvent($event)" [showLoading]="showLoading"></app-download-specific-report>
+      <app-download-specific-report #appDownloadSpecificReport [title]="'Invasive Only Report'" (downloadReportEvent)="downloadReportEvent($event)" [showLoading]="showLoading" ></app-download-specific-report>
+      <app-download-specific-report #appDownloadSpecificReport [title]="'Final Report'" (downloadReportEvent)="downloadReportEvent($event)" [showLoading]="showLoading"></app-download-specific-report>
+    </div>
+
   </div>
   <mat-dialog-actions class="button-container">
     <button class="mat-raised-button close-button" (click)="close()">Close</button>
-    <button class="mat-raised-button mat-primary save-button" (click)="save()">Save</button>
   </mat-dialog-actions>
 </div>

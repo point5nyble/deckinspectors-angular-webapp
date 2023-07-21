@@ -41,3 +41,24 @@
 .full-width {
   width: 100%;
 }
+
+/* Example CSS for parent component */
+.full-width .download-animation {
+  /* Set the styles for the download animation */
+  height: 100px;
+  width: 100px;
+  border: 4px solid #007bff; /* Blue border */
+  border-radius: 50%;
+  border-top: 4px solid transparent;
+  animation: spin 1.5s linear infinite; /* Apply the animation */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+

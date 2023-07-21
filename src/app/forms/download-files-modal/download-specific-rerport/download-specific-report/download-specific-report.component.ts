@@ -8,6 +8,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 export class DownloadSpecificReportComponent {
   @Input() title!: string;
   @Output() downloadReportEvent = new EventEmitter<string>();
+  @Input() showLoading!: boolean;
 
   downloadReport() {
     this.downloadReportEvent.emit(this.title)
