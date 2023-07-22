@@ -13,6 +13,75 @@
 }
 
 .projects {
-  
+
   margin-left: 20px; /* Adjust the margin as needed */
 }
+.horizontal-div {
+    display: flex;
+    justify-content: flex-start;
+     border-radius: 5px;
+  }
+
+.right-panel {
+  flex: 1;
+  margin-left: 15px;
+  overflow-x: auto;
+}
+
+.info-section {
+  padding: 10px;
+}
+
+.flex-item {
+  flex: 1;
+}
+
+.flex-item p {
+  margin: 0;
+}
+
+.image-section {
+  margin-left: 20px;
+}
+
+.btn {
+  margin-right: 10px;
+}
+
+.image-section img {
+  max-height: 150px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+
+.location-section {
+  flex: 1;
+  margin-top: 20px;
+}
+
+.horizontal-frame {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 62px;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+
+.company-logo {
+  margin-right: 10px;
+  margin-left: 74px; /* Adjust the margin as needed */
+}
+
+.projects {
+
+  margin-left: 20px; /* Adjust the margin as needed */
+}
+
+.location-section {
+  flex: 1;
+  margin-top: 20px;
+}
+
+

@@ -1,17 +1,12 @@
 <div class="right-panel full-height">
-  <app-project-details-upper-section *ngIf="showSectionInfo === 'project'">
-  </app-project-details-upper-section>
-  <div *ngIf="showSectionInfo === 'project'" class="d-flex justify-content-between mt-3 location-section">
-    <app-location-list class="flex-item" header="Project Common Location"
-                       [locations]="projectCommonLocationList"></app-location-list>
-    <app-location-list class="flex-item ms-2" header="Project Buildings"
-                       [subproject]="projectBuildings"></app-location-list>
-  </div>
-  <app-subproject *ngIf="showSectionInfo === 'subproject'">
-  </app-subproject>
-  <div *ngIf="showSectionInfo === 'location'" class="right-panel">
-    <app-location-details>
-
-    </app-location-details>
+  <div *ngIf="showSectionInfo === 'project'">
+    <app-project-details-upper-section >
+    </app-project-details-upper-section>
+    <div class="d-flex justify-content-between mt-3 location-section">
+      <app-location-list class="flex-item" header="Project Common Location"
+                         [locations]="projectCommonLocationList"></app-location-list>
+      <app-location-list class="flex-item ms-2" header="Project Buildings"
+                         [subproject]="projectBuildings"></app-location-list>
+    </div>
   </div>
 </div>

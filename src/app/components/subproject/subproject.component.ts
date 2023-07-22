@@ -25,6 +25,7 @@ export class SubprojectComponent {
   }
 
   ngOnInit(): void {
+    console.log("Inside SubprojectComponent")
     this.subscribeToProjectUpdatedEvent();
   }
 
@@ -47,6 +48,7 @@ export class SubprojectComponent {
 
   private subscribeToProjectUpdatedEvent() {
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
+      console.log(data);
       this.showSectionInfo = data;
     });
     this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {

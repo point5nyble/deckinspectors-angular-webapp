@@ -10,7 +10,6 @@ import { ProjectInfoComponent } from './components/dashboard/project-info/projec
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LocationListElementComponent } from './components/project/location-list/location-list-element/location-list-element.component';
 import { ProjectsListLeftPanelComponent } from './components/project/projects-list-left-panel/projects-list-left-panel.component';
-import { ProjectComponent } from './components/project/project.component';
 import { LocationListComponent } from './components/project/location-list/location-list.component';
 import { LocationDetailsComponent } from './components/project/location-list/location-details/location-details.component';
 import { SectionListComponent } from './components/project/location-list/location-details/section-list/section-list.component';
@@ -58,7 +57,6 @@ import { LoadingScreenComponent } from './components/common/loading-screen/loadi
     ProjectInfoComponent,
     DashboardComponent,
     ProjectsListLeftPanelComponent,
-    ProjectComponent,
     LocationListComponent,
     LocationListElementComponent,
     LocationDetailsComponent,

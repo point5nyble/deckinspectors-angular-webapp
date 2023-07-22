@@ -5,6 +5,7 @@ import {
   OrchestratorCommunicationService
 } from "../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import {OrchestratorEventName} from "../../orchestrator-service/models/orchestrator-event-name";
+import {ObjectCloneServiceService} from "../../service/object-clone-service.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,7 @@ import {OrchestratorEventName} from "../../orchestrator-service/models/orchestra
 })
 export class DashboardComponent implements OnInit
 {
-  showProjectInfo: boolean = true;
+  showProjectInfo: string = 'home';
   projectInfo! : Project;
   projectInfos!: Project[];
   allProjects!: Project[];
@@ -40,16 +41,17 @@ export class DashboardComponent implements OnInit
   }
 
   public gotoProject(projectInfo :Project): void {
-    this.showProjectInfo = false;
     this.projectInfo = projectInfo;
     //TODO: Remove this temp solution
     projectInfo.type = 'project';
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC,projectInfo);
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC,
+      ObjectCloneServiceService.deepClone(projectInfo));
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN,'project')
   }
 
   private subscribeToshowProjectInfoToggle() {
       // Show Project Screen
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Show_All_Projects).subscribe(data => {
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
       this.showProjectInfo = data;
     })
   }
