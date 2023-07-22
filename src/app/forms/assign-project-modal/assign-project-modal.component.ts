@@ -22,7 +22,7 @@ export class AssignProjectModalComponent {
               private dialogRef: MatDialogRef<AssignProjectModalComponent>,
               @Inject(MAT_DIALOG_DATA) data : any) {
     this.filteredNames = this.names;
-    console.log(data);
+    // console.log(data);
    }
   filterNames() {
     this.filteredNames = this.names.filter((name) =>

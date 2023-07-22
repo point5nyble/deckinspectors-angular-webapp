@@ -24,7 +24,7 @@ export class NewSubprojectModalComponent {
     this.description = data.description;
     this.subProjects = data.projectInfo;
     this.data = data;
-    console.log(data);
+    // console.log(data);
   }
 
   ngOnInit() {
@@ -47,7 +47,7 @@ export class NewSubprojectModalComponent {
   }
 
   save() {
-    console.log(this.newSubprojectForm.value);
+    // console.log(this.newSubprojectForm.value);
     this.createNewLocation();
     this.dialogRef.close(this.newSubprojectForm);
   }
@@ -64,7 +64,7 @@ export class NewSubprojectModalComponent {
       "url": this.newSubprojectForm.value.image,
       "assignedTo" : ['deck']
     }
-    console.log(data);
+    // console.log(data);
     // this.httpsRequestService.postHttpData(url, data).subscribe(
     //   (response:any) => {
     //     console.log(response);
@@ -76,7 +76,7 @@ export class NewSubprojectModalComponent {
   }
 
   toggleChanged() {
-    console.log(this.newSubprojectForm.value);
+    // console.log(this.newSubprojectForm.value);
     this.isSubProject = this.newSubprojectForm.value.toggle;
   }
 

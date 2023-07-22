@@ -3,6 +3,10 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {HttpsRequestService} from "../../service/https-request.service";
 import {ImageToUrlConverterService} from "../../service/image-to-url-converter.service";
+import {
+  OrchestratorCommunicationService
+} from "../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
+import {OrchestratorEventName} from "../../orchestrator-service/models/orchestrator-event-name";
 
 @Component({
   selector: 'app-new-location-modal',
@@ -25,7 +29,8 @@ export class NewLocationModalComponent {
               private dialogRef: MatDialogRef<NewLocationModalComponent>,
               private httpsRequestService: HttpsRequestService,
               @Inject(MAT_DIALOG_DATA) data : any,
-              private imageToUrlConverterService : ImageToUrlConverterService ) {
+              private imageToUrlConverterService : ImageToUrlConverterService,
+              private orchestratorCommunicationService: OrchestratorCommunicationService) {
     this.description = data.description;
     this.subProjects = data.projectInfo;
     this.isSubProject = data.isSubProject;
@@ -59,7 +64,6 @@ export class NewLocationModalComponent {
 
   save() {
     this.uploadImage();
-    this.dialogRef.close(this.newLocationForm);
   }
 
   createNewLocation(image_url?:string){
@@ -83,7 +87,10 @@ export class NewLocationModalComponent {
     }
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
-        console.log(response);
+        // console.log(response);
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
+        this.dialogRef.close(this.newLocationForm);
+
       },
       error => {
         console.log(error)
@@ -111,7 +118,7 @@ export class NewLocationModalComponent {
     this.imageToUrlConverterService.convertImageToUrl(data).subscribe(
       (response:any) => {
         this.createNewLocation(response.url);
-        console.log(response);
+        // console.log(response);
       },
       error => {
         console.log(error)

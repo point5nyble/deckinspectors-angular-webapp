@@ -10,6 +10,7 @@ import {Store} from "@ngrx/store";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {NewLocationModalComponent} from "../../../../forms/new-location-modal/new-location-modal.component";
 import {BackNavigation} from "../../../../app-state-service/back-navigation-state/back-navigation-selector";
+import {take} from "rxjs";
 
 @Component({
   selector: 'app-location-details',
@@ -28,7 +29,7 @@ export class LocationDetailsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.fetchInitialData();
+    this.fetchSectionList();
     this.subscribeToOnLocationClick();
   }
   fetchDataForGivenSectionId($event: string) {
@@ -56,7 +57,7 @@ export class LocationDetailsComponent implements OnInit{
       this.httpsRequestService.postHttpData(url, data).subscribe(
           (response:any) => {
             this.location = response.item;
-            console.log(response);
+            // console.log(response);
           },
           error => {
               console.log(error)
@@ -68,24 +69,46 @@ export class LocationDetailsComponent implements OnInit{
     //   this.fetchLocationDetails(data.id);
     //   console.log(data)
     // });
-  }
-
-  private fetchInitialData() {
-    // this.store.select(ProjectQuery.getProjectModel).subscribe((project: any)=> {
-    //   this.location = project;
-    //   //TODO: Fix this inconsistent naming
-    //   let projectid = project._id === undefined ? (<any>project).id : project._id;
-    //   this.fetchLocationDetails(projectid);
-    //   })
-
-    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
-      this.location = previousState.stack[previousState.stack.length - 1];
-      // TODO: Remove this inconsistent naming
-      if (this.location.type === 'location' || this.location.type === 'projectlocation' || this.location.type === 'apartment' || this.location.type === 'buildinglocation') {
-        let projectid = this.location._id === undefined ? (<any>this.location).id : this.location._id;
-        this.fetchLocationDetails(projectid);
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
+      if (data === 'location') {
+        this.fetchSectionList();
       }
     });
+    this.fetchSectionList();
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
+      setTimeout(() => {
+        this.fetchSectionList();
+      },1000)
+    });
+
+  }
+
+  private fetchSectionList() {
+    // TODO : Use pipe take 1
+    // this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
+    //   this.location = previousState.stack[previousState.stack.length - 1];
+    //   // TODO: Remove this inconsistent naming
+    //   if (this.location.type === 'location' ||
+    //       this.location.type === 'projectlocation' ||
+    //       this.location.type === 'apartment' ||
+    //       this.location.type === 'buildinglocation') {
+    //         let projectid = this.location._id === undefined ? (<any>this.location).id : this.location._id;
+    //         this.fetchLocationDetails(projectid);
+    //       }
+    //   }
+    // );
+    this.store.select(BackNavigation.getPreviousStateModelChain).pipe(take(1)).subscribe((previousState: any) => {
+      this.location = previousState.stack[previousState.stack.length - 1];
+        // TODO: Remove this inconsistent naming
+        if (this.location.type === 'location' ||
+          this.location.type === 'projectlocation' ||
+          this.location.type === 'apartment' ||
+          this.location.type === 'buildinglocation') {
+          let projectid = this.location._id === undefined ? (<any>this.location).id : this.location._id;
+          this.fetchLocationDetails(projectid);
+        }
+      }
+    );
   }
 
   previousBtnClicked() {

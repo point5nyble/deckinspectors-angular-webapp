@@ -3,6 +3,10 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ImageToUrlConverterService} from "../../service/image-to-url-converter.service";
 import {HttpsRequestService} from "../../service/https-request.service";
+import {OrchestratorEventName} from "../../orchestrator-service/models/orchestrator-event-name";
+import {
+  OrchestratorCommunicationService
+} from "../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 
 @Component({
   selector: 'app-new-project-modal',
@@ -24,7 +28,8 @@ export class NewProjectModalComponent implements OnInit {
               private cdr: ChangeDetectorRef,
               private dialogRef: MatDialogRef<NewProjectModalComponent>,
               private httpsRequestService: HttpsRequestService,
-              @Inject(MAT_DIALOG_DATA) data : any) {
+              @Inject(MAT_DIALOG_DATA) data : any,
+              private orchestratorCommunicationService: OrchestratorCommunicationService) {
     this.description = data.description;
     this.data = data;
   }
@@ -66,7 +71,6 @@ export class NewProjectModalComponent implements OnInit {
 
   save() {
     this.uploadImage();
-    this.dialogRef.close(this.yourForm.value);
   }
 
     uploadImage() {
@@ -79,7 +83,7 @@ export class NewProjectModalComponent implements OnInit {
       this.imageToUrlConverterService.convertImageToUrl(data).subscribe(
           (response:any) => {
             this.createNewProject(response.url);
-            console.log(response);
+            // console.log(response);
           },
           error => {
             console.log(error)
@@ -102,7 +106,9 @@ export class NewProjectModalComponent implements OnInit {
       }
       this.httpsRequestService.postHttpData(url, data).subscribe(
         (response:any) => {
-          console.log(response);
+          // console.log(response);
+          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
+          this.dialogRef.close(this.yourForm.value);
         },
         error => {
           console.log(error)

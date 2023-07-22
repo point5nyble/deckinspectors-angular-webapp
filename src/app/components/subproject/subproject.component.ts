@@ -7,6 +7,7 @@ import {
 import {Store} from "@ngrx/store";
 import {OrchestratorEventName} from "../../orchestrator-service/models/orchestrator-event-name";
 import {BackNavigation} from "../../app-state-service/back-navigation-state/back-navigation-selector";
+import {take} from "rxjs";
 
 @Component({
   selector: 'app-subproject',
@@ -25,7 +26,6 @@ export class SubprojectComponent {
   }
 
   ngOnInit(): void {
-    console.log("Inside SubprojectComponent")
     this.subscribeToProjectUpdatedEvent();
   }
 
@@ -48,16 +48,16 @@ export class SubprojectComponent {
 
   private subscribeToProjectUpdatedEvent() {
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
-      console.log(data);
       this.showSectionInfo = data;
+      this.fetchSubprojectDataFromState();
     });
-    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
-      if (this.showSectionInfo === 'subproject') {
-        this.projectInfo = previousState.stack[previousState.stack.length - 1];
-        this.fetchSubProjectData(this.projectInfo.parentid);
-      }
+    this.fetchSubprojectDataFromState();
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
+      // console.log(data);
+      setTimeout(() => {
+        this.fetchSubprojectDataFromState();
+      },1000)
     });
-
   }
   private separateProject(item:any) {
     // Temp solution
@@ -67,5 +67,14 @@ export class SubprojectComponent {
     }
     this.buildingApartments = subproject.children.filter((sub:any) => sub.type === 'apartment');
     this.buildingCommonLocation = subproject.children.filter((sub:any) => sub.type === 'buildinglocation');
+  }
+
+  private fetchSubprojectDataFromState() {
+    this.store.select(BackNavigation.getPreviousStateModelChain).pipe(take(1)).subscribe((previousState: any) => {
+      this.projectInfo = previousState.stack[previousState.stack.length - 1];
+      if (this.projectInfo.type === 'subproject' && this.showSectionInfo === 'subproject') {
+        this.fetchSubProjectData(this.projectInfo.parentid);
+      }
+    });
   }
 }

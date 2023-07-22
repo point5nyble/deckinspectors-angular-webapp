@@ -36,6 +36,7 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   }
 
   private fetchSubProjectData(projectID:string) {
+    this.projectBuildings = [];
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/subproject/getSubprojectsDataByProjectId';
     let data = {
       projectid: projectID,
@@ -51,6 +52,7 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
     );
   }
   private fetchLocationData(projectID:string) {
+    this.projectCommonLocationList = [];
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationsByProjectId';
     let data = {
       projectid: projectID,
@@ -67,17 +69,21 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
     return {url, data};
   }
 
-
-
   private subscribeToShowPartInfoEvent() {
     this.subscription = this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
-      console.log(data);
+      // console.log(data);
       this.showSectionInfo = data;
       if (data === 'project') {
         this.fetchProjectDataFromState();
       }
     });
     this.fetchProjectDataFromState();
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
+      // console.log(data);
+      setTimeout(() => {
+        this.fetchProjectDataFromState();
+      },1000)
+    });
   }
 
   private fetchProjectDataFromState() {

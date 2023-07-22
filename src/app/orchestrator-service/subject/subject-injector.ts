@@ -8,6 +8,7 @@ import {ShowAllProjectSubject} from "./show-all-project-subject";
 import {FetchLeftTreeDataStateSubject} from "./fetch-left-tree-data-state-subject";
 import {AddElementToPreviousButtonLogicSubject} from "./add-element-to-previous-button-logic-subject";
 import {RemoveElementToPreviousButtonLogicSubject} from "./remove-element-to-previous-button-logic-subject";
+import {UpdateLeftTreeDataSubject} from "./update-left-tree-data-subject";
 
 @Injectable()
 export class SubjectInjector {
@@ -43,6 +44,8 @@ export class SubjectInjector {
     this.injector.get<RemoveElementToPreviousButtonLogicSubject>(
       RemoveElementToPreviousButtonLogicSubject as Type<RemoveElementToPreviousButtonLogicSubject>
     )
-
+    this.injector.get<UpdateLeftTreeDataSubject>(
+      UpdateLeftTreeDataSubject as Type<UpdateLeftTreeDataSubject>
+    )
   }
 }

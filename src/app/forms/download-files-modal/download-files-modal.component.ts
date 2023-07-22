@@ -1,9 +1,6 @@
-import {ChangeDetectorRef, Component, Inject, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {
-  DownloadSpecificReportComponent
-} from "./download-specific-rerport/download-specific-report/download-specific-report.component";
 
 @Component({
   selector: 'app-download-files-modal',
@@ -18,7 +15,7 @@ export class DownloadFilesModalComponent {
               private dialogRef: MatDialogRef<DownloadFilesModalComponent>,
               @Inject(MAT_DIALOG_DATA) data : any,
               private http: HttpClient) {
-    console.log(data);
+    // console.log(data);
     this.modalData = data;
     this.projectName = data.project.name;
   }
