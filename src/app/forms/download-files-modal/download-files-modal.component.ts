@@ -11,6 +11,9 @@ export class DownloadFilesModalComponent {
   public projectName!: string;
   private modalData!: any;
   showLoading: boolean = false;
+  activeSection!: string; // Variable to keep track of the active section
+  imageQuality = 50; // Default image quality value
+  selectedImages = '3'; // Default selected image option
   constructor(private cdr: ChangeDetectorRef,
               private dialogRef: MatDialogRef<DownloadFilesModalComponent>,
               @Inject(MAT_DIALOG_DATA) data : any,
@@ -18,6 +21,10 @@ export class DownloadFilesModalComponent {
     // console.log(data);
     this.modalData = data;
     this.projectName = data.project.name;
+  }
+
+  showSection(section: string): void {
+    this.activeSection = section;
   }
 
   close() {
@@ -61,11 +68,12 @@ export class DownloadFilesModalComponent {
 
   downloadReportEvent($event: string) {
     if ($event === 'Visual Report') {
-      this.downloadReport('visual');
+      this.downloadReport('Visual');
     } else if ($event === 'Invasive Only Report') {
       this.downloadReport('InvasiveOnly');
     } else if ($event == 'Final Report') {
       this.downloadReport('Invasive');
     }
   }
+
 }

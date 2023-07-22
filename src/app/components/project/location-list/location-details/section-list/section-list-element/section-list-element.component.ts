@@ -8,7 +8,6 @@ import {Section} from "../../../../../../common/models/buildingLocation";
 })
 export class SectionListElementComponent {
   @Input() section!: Section;
-  createdOn: string= "Apr 12, 2023";
-  createdBy: string= "John Doe";
+  @Input() isHighlighted!: boolean;
   assignedTo: string= "Jane Doe";
 }

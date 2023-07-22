@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {
   VisualDeckReportModalComponent
@@ -13,12 +13,14 @@ import {OrchestratorEventName} from "../../../../../orchestrator-service/models/
 @Component({
   selector: 'app-section-list',
   templateUrl: './section-list.component.html',
-  styleUrls: ['./section-list.component.scss']
+  styleUrls: ['./section-list.component.scss'],
 })
 export class SectionListComponent implements OnInit{
-  header: string = 'Parts';
+  header: string = 'Locations';
   @Output() sectionID = new EventEmitter<string>();
   @Input() location!: BuildingLocation
+  public currentSection!: any;
+
   constructor(private dialog: MatDialog,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
               private httpsRequestService:HttpsRequestService) {
@@ -39,10 +41,9 @@ export class SectionListComponent implements OnInit{
   }
 
   fetchDataForGivenSectionId($event: Section) {
-    // console.log($event);
     this.sectionID.emit($event._id);
-    // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, $event);
-
+    this.currentSection = $event;
+    console.log($event);
   }
 
   ngOnInit(): void {

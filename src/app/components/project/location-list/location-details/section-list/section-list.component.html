@@ -7,7 +7,11 @@
         </div>
       </div>
       <div *ngFor="let section of location.sections">
-        <app-section-list-element (dblclick)="fetchDataForGivenSectionId(section)" [section]="section"></app-section-list-element >
+        <app-section-list-element
+          (dblclick)="fetchDataForGivenSectionId(section)"
+          [section]="section"
+          [isHighlighted]="section.name === this.currentSection?.name"
+        ></app-section-list-element >
       </div>
 
 </div>
