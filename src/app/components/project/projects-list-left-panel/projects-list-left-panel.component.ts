@@ -33,8 +33,8 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   ngOnInit() {
     this.fetchLeftTreeDataFromState();
-    this.fetchLeftTreeData();
     this.subscribeToProjectDetailsForNameHighlight();
+    this.updateProjectList();
     if (this.projectList !== undefined) {
       this.loadingScreen = false;
     }
@@ -42,15 +42,27 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   private fetchLeftTreeDataFromState() {
     this.store.select(LeftTreeListModelQuery.getLeftTreeList).subscribe(leftTreeData => {
-      console.log(leftTreeData);
       this.projectList = this.mapItemList(leftTreeData?.items);
       this.createObjectMap(this.projectList,this.objectMap);
+      if (this.projectList?.length === 0 || this.projectList === undefined) {
+        this.fetchLeftTreeData();
+      }
 
     })
   }
 
+  private updateProjectList() {
+    // This function is called when used adds new project, subproject, location or sections
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(event => {
+      setTimeout(() => {
+        // console.log("Updating project list After adding new project");
+        this.fetchLeftTreeData();
+      },1000)
+    });
+
+  }
+
   private fetchLeftTreeData() {
-    if (this.projectList?.length === 0 || this.projectList === undefined) {
       let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsMetaDataByUserName/deck';
       this.httpsRequestService.getHttpData<any>(url).subscribe(
         (response: any) => {
@@ -63,7 +75,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
           console.log(error)
         }
       );
-    }
   }
 
   private convertResponseToItemList(response: any):Item[] {
@@ -156,16 +167,16 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   openProject(item: Item) {
     this.currentSelectedItem = item.name;
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'project');
     this.findPath(item);
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'project');
   }
 
   openLocation(location: Item) {
     if (location.id !== '' && location?.nestedItems?.length === 0) {
         this.currentSelectedItem = location.name;
-        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'location');
         // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(location));
         this.findPath(location);
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'location');
     }
     }
   private subscribeToProjectDetailsForNameHighlight() {
@@ -267,5 +278,8 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     while (path.length != 0) {
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, this.mapItem(path.pop()));
     }
+
   }
+
+
 }

@@ -8,6 +8,7 @@ import {
   OrchestratorCommunicationService
 } from "../../../../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import {HttpsRequestService} from "../../../../../service/https-request.service";
+import {OrchestratorEventName} from "../../../../../orchestrator-service/models/orchestrator-event-name";
 
 @Component({
   selector: 'app-section-list',
@@ -38,7 +39,7 @@ export class SectionListComponent implements OnInit{
   }
 
   fetchDataForGivenSectionId($event: Section) {
-    console.log($event);
+    // console.log($event);
     this.sectionID.emit($event._id);
     // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, $event);
 
@@ -66,10 +67,11 @@ export class SectionListComponent implements OnInit{
       "images": data.images
     }
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/section/add';
-    console.log(request);
+    // console.log(request);
     this.httpsRequestService.postHttpData(url, request).subscribe(
       (response:any) => {
-        console.log(response);
+        // console.log(response);
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'added section');
       },
       error => {
         console.log(error)

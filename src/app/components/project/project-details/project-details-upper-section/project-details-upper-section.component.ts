@@ -58,7 +58,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
   }
 
    previousBtnClicked() {
-    console.log(this.projectInfo)
+    // console.log(this.projectInfo)
     if (this.projectInfo.type === 'subproject') {
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'project')
     }else {
@@ -73,7 +73,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
       this.projectInfo = previousState.stack[previousState.stack.length - 1];
 
       if (this.projectInfo.type === 'subproject') {
-        console.log(this.projectInfo);
+        // console.log(this.projectInfo);
         let subprojectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
         this.fetchSubprojectDetails(subprojectid)
       } else if (this.projectInfo.type === 'project'){

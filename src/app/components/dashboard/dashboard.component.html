@@ -24,15 +24,15 @@
       </div>
     <div class="horizontal-div full-height">
       <app-projects-list-left-panel *ngIf="showProjectInfo !== 'home'" style="min-width: fit-content;"></app-projects-list-left-panel>
-      <div *ngIf="showProjectInfo === 'project'" class="full-height">
-        <app-project-details class="full-width">
+      <div *ngIf="showProjectInfo === 'project'" class="full-height full-width">
+        <app-project-details>
         </app-project-details>
       </div>
-      <div *ngIf="showProjectInfo === 'subproject'">
+      <div *ngIf="showProjectInfo === 'subproject'" class="full-width">
         <app-subproject class="full-width">
         </app-subproject>
       </div>
-      <div *ngIf="showProjectInfo === 'location'" class="right-panel">
+      <div *ngIf="showProjectInfo === 'location'" class="full-width">
         <app-location-details class="full-width">
 
         </app-location-details>

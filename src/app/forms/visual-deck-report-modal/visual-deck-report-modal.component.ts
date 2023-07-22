@@ -97,7 +97,7 @@ export class VisualDeckReportModalComponent implements OnInit {
           this.visualDeckReportModalForm.patchValue({
             images: imageUrls
           });
-          console.log(this.visualDeckReportModalForm.value);
+          // console.log(this.visualDeckReportModalForm.value);
           this.dialogRef.close(this.visualDeckReportModalForm.value);
         },
         (error) => {
