@@ -9,6 +9,7 @@
   justify-content: space-between;
 }
 
+
 .scrollable-container {
   overflow-y: auto;
   background-color: #f9f9f9;
@@ -24,7 +25,7 @@
   border-radius: 5px;
   padding: 20px;
   margin-bottom: 10px;
-  color: white;
+  color: #1f1d1d;
 }
 
 .header-component b {
@@ -103,6 +104,7 @@ div.full-width > div {
   border: 1px solid #ccc;
   padding: 15px;
   border-radius: 5px;
+  margin-top: 20px;
 }
 
 /* Style for Slider */
@@ -128,5 +130,13 @@ div.full-width > div {
   background-color: #007bff;
   color: white;
 }
+
+/* CSS */
+.highlight {
+  background-color: yellow; /* or any other desired highlight color */
+  font-weight: bold; /* for example, you can make the text bold */
+  /* Add any other styles you want to apply to the highlighted span */
+}
+
 
 

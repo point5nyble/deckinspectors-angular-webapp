@@ -47,7 +47,6 @@ import { NavigationComponentComponent } from './components/common/navigation-com
 import { LoadingScreenComponent } from './components/common/loading-screen/loading-screen.component';
 import {MatSliderModule} from "@angular/material/slider";
 import {MatRadioModule} from "@angular/material/radio";
-import {MatLegacySliderModule} from "@angular/material/legacy-slider";
 
 
 @NgModule({
@@ -104,8 +103,7 @@ import {MatLegacySliderModule} from "@angular/material/legacy-slider";
     BrowserAnimationsModule,
     MatSlideToggleModule,
     MatSliderModule,
-    MatRadioModule,
-    MatLegacySliderModule
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

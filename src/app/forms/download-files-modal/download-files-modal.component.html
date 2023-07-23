@@ -5,9 +5,9 @@
 
   <div>
     <!-- Navigation Links -->
-    <span (click)="showSection('deckInspector')">Deck Inspector</span>
-    <span (click)="showSection('wicr')">WICR</span>
-    <span (click)="showSection('imageSettings')">Image Settings</span>
+    <span (click)="showSection('deckInspector')" [ngClass]="{ 'highlight': activeSection === 'deckInspector' }">Deck Inspector</span>
+    <span (click)="showSection('wicr')" [ngClass]="{ 'highlight': activeSection === 'wicr' }">WICR</span>
+    <span (click)="showSection('imageSettings')" [ngClass]="{ 'highlight': activeSection === 'imageSettings' }">Image Settings</span>
   </div>
 
   <div class="full-width">
@@ -38,10 +38,11 @@
     <div *ngIf="activeSection === 'imageSettings'">
       <div>
         <!-- Slider for Image Quality -->
-        <mat-slider min="0" max="100" thumbLabel tickInterval="1" [(ngModel)]="imageQuality"></mat-slider>
-        <p>Image Quality: {{ imageQuality }}</p>
+<!--        <p>Image Quality: {{ imageQuality }} % of original image</p>-->
+<!--        <mat-slider min="0" max="100" (input)="onSliderChange($event)"></mat-slider>-->
       </div>
       <div>
+        <p>please select count of images to include in a row</p>
         <!-- Radio buttons for Image Selection -->
         <mat-radio-group [(ngModel)]="selectedImages">
           <mat-radio-button value="2">2</mat-radio-button>
@@ -49,7 +50,6 @@
           <mat-radio-button value="4">4</mat-radio-button>
           <mat-radio-button value="5">5</mat-radio-button>
         </mat-radio-group>
-        <p>Select Images to include in a row</p>
       </div>
     </div>
   </div>

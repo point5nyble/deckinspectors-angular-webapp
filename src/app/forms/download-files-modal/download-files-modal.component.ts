@@ -11,7 +11,7 @@ export class DownloadFilesModalComponent {
   public projectName!: string;
   private modalData!: any;
   showLoading: boolean = false;
-  activeSection!: string; // Variable to keep track of the active section
+  activeSection: string = 'deckInspector'; // Variable to keep track of the active section
   imageQuality = 50; // Default image quality value
   selectedImages = '3'; // Default selected image option
   constructor(private cdr: ChangeDetectorRef,
@@ -76,4 +76,7 @@ export class DownloadFilesModalComponent {
     }
   }
 
+  onSliderChange(event: any) {
+    this.imageQuality = event.value;
+  }
 }
