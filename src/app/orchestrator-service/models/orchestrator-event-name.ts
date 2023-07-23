@@ -10,10 +10,10 @@ export enum OrchestratorEventName {
   // Previous Button Logic
   Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC = 'add_element_to_previous_button_logic',
   REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC = 'remove_element_from_previous_button_logic',
-
+  PROJECT_STATE_UPDATE = 'project_state_update',
 
   // TODO - Remove Unused Event
-  Project_update = 'project_update',
+
   Location_Click = 'location_click',
   Previous_Button_Click = 'previous_button_click',
   Show_All_Projects = 'show_all_projects',

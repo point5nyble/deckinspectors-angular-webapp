@@ -10,6 +10,8 @@ import {Store} from "@ngrx/store";
 import {BackNavigation} from "../../../app-state-service/back-navigation-state/back-navigation-selector";
 import {take} from "rxjs";
 import { Subscription } from 'rxjs';
+import {ProjectQuery} from "../../../app-state-service/project-state/project-selector";
+import {ProjectState} from "../../../app-state-service/store/project-state-model";
 
 @Component({
   selector: 'app-project-details',
@@ -22,16 +24,16 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   projectCommonLocationList!: BuildingLocation[];
   projectBuildings!: Project[];
   private subscription!: Subscription;
+  projectState!: ProjectState;
   constructor(private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService,
               private store: Store<any> ) {
   }
   ngOnInit(): void {
-    this.subscribeToShowPartInfoEvent();
+    this.subscribeToFetchLocationsAndSubprojectList();
   }
 
   ngOnDestroy(): void {
-    // Unsubscribe the subscription to avoid memory leaks
     this.subscription.unsubscribe();
   }
 
@@ -44,7 +46,7 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
-        this.projectBuildings = response.item;
+        this.projectBuildings = this.filterSubproject(response.item);
       },
       error => {
         console.log(error)
@@ -60,7 +62,8 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
-        this.projectCommonLocationList = response.item;
+        console.log(response)
+        this.projectCommonLocationList = this.filterLocations(response.item);
       },
       error => {
         console.log(error)
@@ -69,7 +72,8 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
     return {url, data};
   }
 
-  private subscribeToShowPartInfoEvent() {
+  private subscribeToFetchLocationsAndSubprojectList() {
+    this.fetchProjectDataFromState();
     this.subscription = this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
       // console.log(data);
       this.showSectionInfo = data;
@@ -77,12 +81,14 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
         this.fetchProjectDataFromState();
       }
     });
-    this.fetchProjectDataFromState();
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
-      // console.log(data);
       setTimeout(() => {
         this.fetchProjectDataFromState();
       },1000)
+    });
+    this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
+      this.projectState = data.state;
+      this.fetchProjectDataFromState();
     });
   }
 
@@ -95,5 +101,22 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
         this.fetchSubProjectData(projectid);
       }
     });
+  }
+
+  private filterLocations(locations:BuildingLocation[]): BuildingLocation[] {
+    if (this.projectState === ProjectState.INVASIVE) {
+      // return projects.filter(project => project.isInvasive);
+      return locations.filter(location => location.invasiveSections?.length > 0);
+    }
+    return locations;
+  }
+
+  private filterSubproject(projects:Project[]): Project[] {
+    console.log(projects);
+    if (this.projectState === ProjectState.INVASIVE) {
+      // return projects.filter(project => project.isInvasive);
+      return projects.filter(project => project.invasiveChildren?.length > 0);
+    }
+    return projects;
   }
 }

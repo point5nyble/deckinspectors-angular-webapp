@@ -20,10 +20,7 @@ export class ProjectEventListenerService implements OnDestroy {
   }
 
   private subscribeToProjectChangeEvents() {
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Project_update).subscribe(data => {
-      this.store.dispatch(updateProject({project: data}));
-    })
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Location_Click).subscribe(data => {
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.PROJECT_STATE_UPDATE).subscribe(data => {
       this.store.dispatch(updateProject({project: data}));
     })
   }

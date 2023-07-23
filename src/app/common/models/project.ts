@@ -18,4 +18,5 @@ export interface Project {
   parenttype?: string;
   type?: string;
   createdat: string;
+  isInvasive: boolean;
 }

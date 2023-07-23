@@ -9,6 +9,6 @@ import {OrchestratorEventName} from "../models/orchestrator-event-name";
 export class ProjectUpdateStateSubject extends Subject<any>{
   constructor(private orchestratorEventSubjectMap:OrchestratorEventSubjectMapService) {
     super();
-    this.orchestratorEventSubjectMap.addEventSubjectToMap(OrchestratorEventName.Project_update,this);
+    this.orchestratorEventSubjectMap.addEventSubjectToMap(OrchestratorEventName.PROJECT_STATE_UPDATE,this);
   }
 }

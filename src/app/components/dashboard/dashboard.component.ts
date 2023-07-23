@@ -6,6 +6,9 @@ import {
 } from "../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import {OrchestratorEventName} from "../../orchestrator-service/models/orchestrator-event-name";
 import {ObjectCloneServiceService} from "../../service/object-clone-service.service";
+import {ProjectState} from "../../app-state-service/store/project-state-model";
+import {Store} from "@ngrx/store";
+import {ProjectQuery} from "../../app-state-service/project-state/project-selector";
 
 @Component({
   selector: 'app-dashboard',
@@ -18,21 +21,24 @@ export class DashboardComponent implements OnInit
   projectInfo! : Project;
   projectInfos!: Project[];
   allProjects!: Project[];
+  projectState!: ProjectState;
     constructor(private cdr: ChangeDetectorRef,
                 private httpsRequestService:HttpsRequestService,
-                private orchestratorCommunicationService:OrchestratorCommunicationService) {}
+                private orchestratorCommunicationService:OrchestratorCommunicationService,
+                private store: Store<any>) {}
 
     ngOnInit(): void {
-      this.fetchProjectData();
+      // this.fetchProjectData();
       this.subscribeToshowProjectInfoToggle();
+      this.subscribeToProjectState();
     }
 
 
   private fetchProjectData() {
     this.httpsRequestService.getHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/deck').subscribe(
       (data) => {
-        this.projectInfos = data.projects;
-        this.allProjects = data.projects;
+        this.projectInfos = this.filterProject(data.projects);
+        this.allProjects = this.filterProject(data.projects);
       },
       error => {
         console.log(error);
@@ -68,4 +74,25 @@ export class DashboardComponent implements OnInit
         this.fetchProjectData();
       },1000)
   }
+
+  changeProjectState() {
+    this.projectState = this.projectState === ProjectState.NORMAL ? ProjectState.INVASIVE : ProjectState.NORMAL;
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.PROJECT_STATE_UPDATE, {state:this.projectState});
+  }
+
+  private subscribeToProjectState() {
+    this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
+      this.projectState = data.state;
+      this.fetchProjectData();
+    });
+  }
+
+  private filterProject(projects:Project[]): Project[] {
+    if (this.projectState === ProjectState.INVASIVE) {
+      // return projects.filter(project => project.isInvasive);
+      return projects.filter(project => project.invasiveChildren?.length > 0);
+    }
+    return projects;
+  }
+
 }
