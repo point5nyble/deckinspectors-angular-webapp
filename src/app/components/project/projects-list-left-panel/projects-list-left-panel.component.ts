@@ -8,6 +8,8 @@ import {OrchestratorEventName} from "../../../orchestrator-service/models/orches
 import {Store} from "@ngrx/store";
 import {LeftTreeListModelQuery} from "../../../app-state-service/left-tree-items-state/left-tree-items-state-selector";
 import {BackNavigation} from "../../../app-state-service/back-navigation-state/back-navigation-selector";
+import {ProjectState} from "../../../app-state-service/store/project-state-model";
+import {ProjectQuery} from "../../../app-state-service/project-state/project-selector";
 
 @Component({
   selector: 'app-projects-list-left-panel',
@@ -58,6 +60,16 @@ export class ProjectsListLeftPanelComponent implements OnInit {
         // console.log("Updating project list After adding new project");
         this.fetchLeftTreeData();
       },1000)
+    });
+
+    this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
+      if (data.state === ProjectState.INVASIVE) {
+            // console.log("Updating project list After adding new project");
+            this.fetchLeftTreeData();
+        }
+      else {
+        this.fetchLeftTreeData();
+      }
     });
 
   }

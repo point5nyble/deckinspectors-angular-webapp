@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -46,6 +45,8 @@ import { SubprojectComponent } from './components/subproject/subproject.componen
 import {addPreviousStateModel} from "./app-state-service/back-navigation-state/back-navigation-reducer";
 import { NavigationComponentComponent } from './components/common/navigation-component/navigation-component.component';
 import { LoadingScreenComponent } from './components/common/loading-screen/loading-screen.component';
+import {MatSliderModule} from "@angular/material/slider";
+import {MatRadioModule} from "@angular/material/radio";
 
 
 @NgModule({
@@ -95,12 +96,14 @@ import { LoadingScreenComponent } from './components/common/loading-screen/loadi
         project: projectReducer,
         previousState: updatePreviousStateModel,
         leftTreeItemsState: addLeftTreeItems,
-        addToPreviousState:addPreviousStateModel
+        addToPreviousState: addPreviousStateModel
 
       },
     ),
     BrowserAnimationsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatSliderModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -48,8 +48,8 @@ export class ProjectInfoComponent {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "300px";
-    dialogConfig.height = "400px";
+    dialogConfig.width = "400px";
+    dialogConfig.height = "500px";
     dialogConfig.data = {
       id: 1,
       project: this.projectInfo

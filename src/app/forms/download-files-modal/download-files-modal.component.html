@@ -1,20 +1,59 @@
 <div class="scrollable-container">
   <div class="header-component horizontal-div">
-    <div class="flex-item"><b>{{this.projectName}}</b></div>
+    <div class="flex-item"><b>{{ projectName }}</b></div>
   </div>
+
+  <div>
+    <!-- Navigation Links -->
+    <span (click)="showSection('deckInspector')" [ngClass]="{ 'highlight': activeSection === 'deckInspector' }">Deck Inspector</span>
+    <span (click)="showSection('wicr')" [ngClass]="{ 'highlight': activeSection === 'wicr' }">WICR</span>
+    <span (click)="showSection('imageSettings')" [ngClass]="{ 'highlight': activeSection === 'imageSettings' }">Image Settings</span>
+  </div>
+
   <div class="full-width">
-    <div *ngIf="showLoading">
-      <div class="download-animation">
-        <!-- Add any additional content or icon for the download animation -->
+    <!-- Deck Inspectors -->
+    <div *ngIf="activeSection === 'deckInspector'">
+      <div *ngIf="showLoading">
+        <div class="download-animation"></div>
+      </div>
+      <div *ngIf="!showLoading">
+        <app-download-specific-report [title]="'Visual Report'" (downloadReportEvent)="downloadReportEvent($event)" [showLoading]="showLoading"></app-download-specific-report>
+        <app-download-specific-report [title]="'Invasive Only Report'" (downloadReportEvent)="downloadReportEvent($event)" [showLoading]="showLoading"></app-download-specific-report>
+        <app-download-specific-report [title]="'Final Report'" (downloadReportEvent)="downloadReportEvent($event)" [showLoading]="showLoading"></app-download-specific-report>
       </div>
     </div>
-    <div *ngIf="!showLoading">
-      <app-download-specific-report #appDownloadSpecificReport [title]="'Visual Report'" (downloadReportEvent)="downloadReportEvent($event)" [showLoading]="showLoading"></app-download-specific-report>
-      <app-download-specific-report #appDownloadSpecificReport [title]="'Invasive Only Report'" (downloadReportEvent)="downloadReportEvent($event)" [showLoading]="showLoading" ></app-download-specific-report>
-      <app-download-specific-report #appDownloadSpecificReport [title]="'Final Report'" (downloadReportEvent)="downloadReportEvent($event)" [showLoading]="showLoading"></app-download-specific-report>
+
+    <!-- WICR -->
+    <div *ngIf="activeSection === 'wicr'">
+      <div *ngIf="showLoading">
+        <div class="download-animation"></div>
+      </div>
+      <div *ngIf="!showLoading">
+        <app-download-specific-report [title]="'Visual Report'" (downloadReportEvent)="downloadReportEvent($event)" [showLoading]="showLoading"></app-download-specific-report>
+        <app-download-specific-report [title]="'Final Report'" (downloadReportEvent)="downloadReportEvent($event)" [showLoading]="showLoading"></app-download-specific-report>
+      </div>
     </div>
 
+    <!-- Image Settings -->
+    <div *ngIf="activeSection === 'imageSettings'">
+      <div>
+        <!-- Slider for Image Quality -->
+<!--        <p>Image Quality: {{ imageQuality }} % of original image</p>-->
+<!--        <mat-slider min="0" max="100" (input)="onSliderChange($event)"></mat-slider>-->
+      </div>
+      <div>
+        <p>please select count of images to include in a row</p>
+        <!-- Radio buttons for Image Selection -->
+        <mat-radio-group [(ngModel)]="selectedImages">
+          <mat-radio-button value="2">2</mat-radio-button>
+          <mat-radio-button value="3">3</mat-radio-button>
+          <mat-radio-button value="4">4</mat-radio-button>
+          <mat-radio-button value="5">5</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
   </div>
+
   <mat-dialog-actions class="button-container">
     <button class="mat-raised-button close-button" (click)="close()">Close</button>
   </mat-dialog-actions>

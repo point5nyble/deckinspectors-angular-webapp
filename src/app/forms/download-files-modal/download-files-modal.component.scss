@@ -4,7 +4,11 @@
   background-color: #f7f7f7;
   border-radius: 5px;
   padding: 20px 10px 10px;
+
+  align-items: center;
+  justify-content: space-between;
 }
+
 
 .scrollable-container {
   overflow-y: auto;
@@ -21,6 +25,7 @@
   border-radius: 5px;
   padding: 20px;
   margin-bottom: 10px;
+  color: #1f1d1d;
 }
 
 .header-component b {
@@ -53,6 +58,17 @@
   animation: spin 1.5s linear infinite; /* Apply the animation */
 }
 
+/* Style for Download Animation */
+.download-animation {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #ccc;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -61,4 +77,66 @@
     transform: rotate(360deg);
   }
 }
+
+
+.flex-item {
+  flex: 1;
+  margin-right: 10px;
+}
+
+/* Style for Navigation Links */
+div > span {
+  cursor: pointer;
+  padding: 10px;
+  margin: 0 5px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+
+div > span:hover {
+  background-color: #e0e0e0;
+}
+
+/* Style for Deck Inspector, WICR, and Image Settings Sections */
+div.full-width > div {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+/* Style for Slider */
+.mat-slider-horizontal {
+  width: 100%;
+}
+
+/* Style for Radio Buttons */
+.mat-radio-group {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px 0;
+}
+
+/* Style for Close Button */
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
+.close-button {
+  background-color: #007bff;
+  color: white;
+}
+
+/* CSS */
+.highlight {
+  background-color: yellow; /* or any other desired highlight color */
+  font-weight: bold; /* for example, you can make the text bold */
+  /* Add any other styles you want to apply to the highlighted span */
+}
+
+
 
