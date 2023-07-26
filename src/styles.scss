@@ -2,6 +2,7 @@
 .full-width {
   width: 100%;
 }
+
 .full-height {
   height: 100%;
 }
@@ -10,7 +11,7 @@
   max-height: fit-content;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #888888 transparent;
+  scrollbar-color: #888 transparent;
   padding-right: 5px;
 }
 
@@ -19,7 +20,7 @@
 }
 
 .scrollable-container::-webkit-scrollbar-thumb {
-  background-color: #888888; /* Set the color of the scrollbar thumb */
+  background-color: #888; /* Set the color of the scrollbar thumb */
   border-radius: 4px; /* Set the border radius of the scrollbar thumb */
 }
 
@@ -31,8 +32,6 @@ body, html {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: Roboto,"Helvetica Neue", sans-serif;
 }
 
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

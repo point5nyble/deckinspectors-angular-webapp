@@ -15,7 +15,7 @@
       <app-sidebar></app-sidebar>
     </div>
     <div class="container-fluid">
-      <div *ngIf="showProjectInfo === 'home'" class="d-flex flex-column full-height">
+      <div *ngIf="showProjectInfo === 'home'" class="full-height">
         <app-filter (searchedTerm)="projectSearch($event)"
                     (newProjectUploaded)="newProjectUploaded()"></app-filter>
         <!--        Show Project list-->
