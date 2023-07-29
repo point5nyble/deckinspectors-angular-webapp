@@ -26,6 +26,7 @@
     display: flex;
     justify-content: flex-start;
     border-radius: 5px;
+    flex: 1;
   }
 
 .right-panel {
@@ -73,4 +74,26 @@
   height: 62px;
   width: 100%;
   background-color: #FFF;
+}
+
+.main-class {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.project-container {
+  display: flex;
+  flex: 1;
+  overflow: auto;
+}
+
+.project-list-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.flex {
+  display: flex;
 }

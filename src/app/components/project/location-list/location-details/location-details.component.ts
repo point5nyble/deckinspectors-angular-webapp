@@ -20,12 +20,10 @@ import {take} from "rxjs";
 export class LocationDetailsComponent implements OnInit{
   location!: BuildingLocation;
   sectionReport!: InspectionReport;
-  // @Output() previousBtnClickedFromLocationDetails = new  EventEmitter<boolean>();
 
   constructor(private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
-              private store: Store<any>,
-              private dialog: MatDialog) {
+              private store: Store<any>) {
   }
 
   ngOnInit(): void {
@@ -57,7 +55,6 @@ export class LocationDetailsComponent implements OnInit{
       this.httpsRequestService.postHttpData(url, data).subscribe(
           (response:any) => {
             this.location = response.item;
-            // console.log(response);
           },
           error => {
               console.log(error)
@@ -65,10 +62,6 @@ export class LocationDetailsComponent implements OnInit{
       );
   }
   private subscribeToOnLocationClick() {
-    // this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.Location_Click).subscribe(data => {
-    //   this.fetchLocationDetails(data.id);
-    //   console.log(data)
-    // });
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
       if (data === 'location') {
         this.fetchSectionList();
@@ -84,19 +77,6 @@ export class LocationDetailsComponent implements OnInit{
   }
 
   private fetchSectionList() {
-    // TODO : Use pipe take 1
-    // this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
-    //   this.location = previousState.stack[previousState.stack.length - 1];
-    //   // TODO: Remove this inconsistent naming
-    //   if (this.location.type === 'location' ||
-    //       this.location.type === 'projectlocation' ||
-    //       this.location.type === 'apartment' ||
-    //       this.location.type === 'buildinglocation') {
-    //         let projectid = this.location._id === undefined ? (<any>this.location).id : this.location._id;
-    //         this.fetchLocationDetails(projectid);
-    //       }
-    //   }
-    // );
     this.store.select(BackNavigation.getPreviousStateModelChain).pipe(take(1)).subscribe((previousState: any) => {
       this.location = previousState.stack[previousState.stack.length - 1];
         // TODO: Remove this inconsistent naming
@@ -109,30 +89,5 @@ export class LocationDetailsComponent implements OnInit{
         }
       }
     );
-  }
-
-  previousBtnClicked() {
-    if (this.location.parenttype === 'subproject') {
-      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'subproject');
-    } else {
-      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'project');
-    }
-    // this.previousBtnClickedFromLocationDetails.emit(true);
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, this.location);
-  }
-
-  editLocation() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "600px";
-    dialogConfig.height = "700px";
-    dialogConfig.data = {
-      id: 1,
-      location:this.location
-    };
-    const dialogRef = this.dialog.open(NewLocationModalComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(data => {
-    })
   }
 }

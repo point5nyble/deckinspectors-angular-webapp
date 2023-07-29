@@ -35,14 +35,16 @@ export class NewLocationModalComponent {
     this.subProjects = data.projectInfo;
     this.isSubProject = data.isSubProject;
     this.data = data;
+    this.imagePreviewUrl = this.data.location?.url;
   }
 
   ngOnInit() {
+    console.log(this.data);
     this.newLocationForm = this.formBuilder.group({
-      image: [''], // Add validators if needed
-      name: [''], // Add validators if needed
+      image: [this.data.location?.url], // Add validators if needed
+      name: [this.data.location?.name], // Add validators if needed
       subProjectName: [null], // Add validators if needed
-      description: [''],
+      description: [this.data.location?.description],
       subProjectType: []
     });
   }

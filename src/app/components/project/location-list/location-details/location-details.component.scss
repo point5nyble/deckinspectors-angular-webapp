@@ -1,13 +1,29 @@
 .right-panel {
-    flex: 1;
-    margin-left: 5px;
+  flex: 1;
+  margin-left: 15px;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
 }
 
-.horizontal-div {
+.report-section {
+  flex: 1;
+  margin-left: 15px;
+  overflow-x: auto;
   display: flex;
-  flex-direction: row;
-  //flex-wrap: wrap;
-  background-color: #f7f7f7;
-  border-radius: 5px;
-  padding: 20px 10px 10px;
+  flex-direction: column;
+}
+
+.location-section {
+  flex: 1;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  overflow: auto;
+}
+
+.flex-item {
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
 }

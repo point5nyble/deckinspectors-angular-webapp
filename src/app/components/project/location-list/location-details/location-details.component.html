@@ -1,26 +1,12 @@
-<div>
-  <div class="horizontal-div justify-content-between border border-secondary mt-2 info-section">
-    <div class="flex-item">
-      <i class="fas fa-arrow-left" style="font-size: 20px;" (click)="previousBtnClicked()"></i>
-      <app-navigation-component></app-navigation-component>
-      <i class="fas fa-edit" style="font-size: 24px;" (click)="editLocation()"></i>
-      <p><b>Name:</b> {{location?.name}}</p>
-      <p><b>Description:</b> {{location?.description}}</p>
-    </div>
-    <div class="image-section flex-item">
-      <img src="{{ location?.url }}" alt="image-description" height="150px" width="250px">
-    </div>
-  </div>
-  <div class="horizontal-div">
-    <div>
-      <app-section-list
-        (sectionID)=fetchDataForGivenSectionId($event)
-        [location] = location
-      ></app-section-list>
-    </div>
-    <div class="right-panel">
-      <app-section [sectionReport] = sectionReport class="right-panel"></app-section>
-    </div>
+<div class="right-panel full-height">
+  <app-project-details-upper-section>
+  </app-project-details-upper-section>
+  <div class="location-section">
+    <app-section-list class="flex-item"
+                      (sectionID)=fetchDataForGivenSectionId($event)
+                      [location] = location>
+    </app-section-list>
+    <app-section [sectionReport] = sectionReport class="report-section"></app-section>
   </div>
 </div>
 

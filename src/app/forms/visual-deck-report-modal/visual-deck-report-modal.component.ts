@@ -30,6 +30,7 @@ export class VisualDeckReportModalComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) data : any,
               private imageToUrlConverterService : ImageToUrlConverterService) {
     this.data = data;
+    this.imagePreviewUrls = this.data.images;
   }
 
   ngOnInit() {
@@ -45,7 +46,7 @@ export class VisualDeckReportModalComponent implements OnInit {
       EEE:[this.data.rowsMap?.get('eee')],
       LBC:[this.data.rowsMap?.get('lbc')],
       AWE:[this.data.rowsMap?.get('awe')],
-      images:[]
+      images:[this.data.images]
     });
   }
   close() {

@@ -24,4 +24,5 @@ export interface BuildingLocation {
   url: string;
   sections: Section[];
   invasiveSections: Section[];
+  address?: string;
 }
