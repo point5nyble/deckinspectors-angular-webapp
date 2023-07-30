@@ -67,7 +67,8 @@ export class LocationListComponent implements OnInit {
       id: 1,
       isSubProject: this.checkIfSubProject(),
       projectInfo: this.projectInfo,
-      type: this.getType()
+      type: this.getType(),
+      process: 'create'
     };
     const dialogRef = this.dialog.open(NewLocationModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {

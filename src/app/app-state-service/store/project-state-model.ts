@@ -1,9 +1,9 @@
 export class ProjectStateModel {
   id: number = 0;
-  state: ProjectState = ProjectState.NORMAL;
+  state: ProjectState = ProjectState.VISUAL;
 }
 
 export enum ProjectState {
-  NORMAL='NORMAL',
+  VISUAL='VISUAL',
   INVASIVE='INVASIVE'
 }

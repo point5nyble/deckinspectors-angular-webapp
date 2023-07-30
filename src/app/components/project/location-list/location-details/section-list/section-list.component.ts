@@ -27,7 +27,6 @@ export class SectionListComponent implements OnInit{
   set location(location: BuildingLocation) {
     this.location_ = location;
     this.getSections(location);
-
   }
   public currentSection!: any;
 

@@ -76,7 +76,7 @@ export class DashboardComponent implements OnInit
   }
 
   changeProjectState() {
-    this.projectState = this.projectState === ProjectState.NORMAL ? ProjectState.INVASIVE : ProjectState.NORMAL;
+    this.projectState = this.projectState === ProjectState.VISUAL ? ProjectState.INVASIVE : ProjectState.VISUAL;
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.PROJECT_STATE_UPDATE, {state:this.projectState});
   }
 

@@ -86,6 +86,7 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
         this.fetchProjectDataFromState();
       },1000)
     });
+    // This function is for Invasive or Visual
     this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
       this.projectState = data.state;
       this.fetchProjectDataFromState();

@@ -10,6 +10,8 @@ import {HttpsRequestService} from "../../../../service/https-request.service";
 import {BuildingLocation} from "../../../../common/models/buildingLocation";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {NewLocationModalComponent} from "../../../../forms/new-location-modal/new-location-modal.component";
+import {NewProjectModalComponent} from "../../../../forms/new-project-modal/new-project-modal.component";
+import {take} from "rxjs";
 
 @Component({
   selector: 'app-project-details-upper-section',
@@ -39,6 +41,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
         this.projectInfo = response.item;
+        this.projectInfo.type = 'project';
       },
       error => {
         console.log(error)
@@ -99,7 +102,43 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
 
 
   private subscribeToProjectInfo() {
-    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
+    this.fetchProjectFromState();
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
+        this.fetchProjectFromState();
+    });
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
+      setTimeout(() => {
+        this.fetchProjectFromState();
+      },1000)
+    });
+  }
+
+  editLocation() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "600px";
+    dialogConfig.height = "700px";
+    dialogConfig.data = {
+      id: 1,
+      projectInfo:this.projectInfo,
+      process: 'edit',
+      type: this.projectType
+    };
+    console.log(this.projectInfo);
+    if (this.projectInfo.type === 'project') {
+      const dialogRef = this.dialog.open(NewProjectModalComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(data => {
+      })
+    } else {
+      const dialogRef = this.dialog.open(NewLocationModalComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(data => {
+      })
+    }
+  }
+
+  private fetchProjectFromState(): void {
+    this.store.select(BackNavigation.getPreviousStateModelChain).pipe(take(1)).subscribe((previousState: any) => {
       this.projectInfo = previousState.stack[previousState.stack.length - 1];
       if (this.projectInfo.type === 'subproject') {
         // console.log(this.projectInfo);
@@ -121,18 +160,4 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
     });
   }
 
-  editLocation() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "600px";
-    dialogConfig.height = "700px";
-    dialogConfig.data = {
-      id: 1,
-      location:this.projectInfo
-    };
-    const dialogRef = this.dialog.open(NewLocationModalComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(data => {
-    })
-  }
 }

@@ -95,16 +95,32 @@ export class VisualDeckReportModalComponent implements OnInit {
       )
       .subscribe(
         (imageUrls: string[]) => {
-          this.visualDeckReportModalForm.patchValue({
-            images: imageUrls
-          });
-          // console.log(this.visualDeckReportModalForm.value);
-          this.dialogRef.close(this.visualDeckReportModalForm.value);
+          this.addImagesUrlIfAny(imageUrls);
+
         },
         (error) => {
           console.log(error);
         }
       );
+    if (imageRequests.length === 0) {
+      this.addImagesUrlIfAny([]);
+      return;
+    }
 
+  }
+
+  private addImagesUrlIfAny(imageUrls: string[]) {
+    if (this.imagePreviewUrls) {
+      // push all imagePreviewUrls if they are string
+      this.imagePreviewUrls.forEach(imageUrl => {
+        if (typeof imageUrl === "string") {
+          imageUrls.push(imageUrl);
+        }
+      })
+    }
+    this.visualDeckReportModalForm.patchValue({
+      images: imageUrls
+    });
+    this.dialogRef.close(this.visualDeckReportModalForm.value);
   }
 }
