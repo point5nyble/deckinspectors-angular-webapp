@@ -32,15 +32,16 @@ export class NewProjectModalComponent implements OnInit {
               private orchestratorCommunicationService: OrchestratorCommunicationService) {
     this.description = data.description;
     this.data = data;
+    this.imagePreviewUrl = this.data.projectInfo?.url;
   }
 
   ngOnInit() {
     this.yourForm = this.formBuilder.group({
-      image: [''], // Add validators if needed
-      name: [''], // Add validators if needed
-      address: [''],
-      option: [''], // Add validators if needed
-      description: [this.description, []]
+      image: [this.data.process === 'edit' ? this.data.projectInfo?.url: null], // Add validators if needed
+      name: [this.data.process === 'edit' ? this.data.projectInfo?.name: null], // Add validators if needed
+      address: [this.data.process === 'edit' ? this.data.projectInfo?.address: null],
+      option: [this.data.process === 'edit' ? this.data.projectInfo?.projecttype: null], // Add validators if needed
+      description: [this.data.process === 'edit' ? this.data.projectInfo?.description: null]
     });
   }
 
@@ -69,7 +70,7 @@ export class NewProjectModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  save() {
+    save() {
     this.uploadImage();
   }
 
@@ -80,18 +81,22 @@ export class NewProjectModalComponent implements OnInit {
         'containerName': this.yourForm.value.name.replace(' ', '').toLowerCase(),
         'picture': this.selectedImage,
       }
-      this.imageToUrlConverterService.convertImageToUrl(data).subscribe(
+      if (data.picture != null ) {
+        this.imageToUrlConverterService.convertImageToUrl(data).subscribe(
           (response:any) => {
-            this.createNewProject(response.url);
+            this.createProject(response.url);
             // console.log(response);
           },
           error => {
             console.log(error)
           }
-      )
-    }
+        )
+      } else {
+        this.createProject(this.data.projectInfo?.url);
+      }
 
-    createNewProject(image_url:string) {
+    }
+  createProject(image_url:string) {
       let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/add';
       let data = {
         "name": this.yourForm.value.name,
@@ -104,6 +109,18 @@ export class NewProjectModalComponent implements OnInit {
           "deck"
         ]
       }
+      if (this.data.process === 'edit') {
+        let projectid = this.data.projectInfo._id === undefined ? (<any>this.data.projectInfo).id : this.data.projectInfo._id;
+        let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/' + projectid;
+        console.log(url);
+        console.log(data);
+        this.updateProject(url, data);
+      } else {
+        this.createNewProject(url, data);
+      }
+    }
+
+    private createNewProject(url:string, data:any) {
       this.httpsRequestService.postHttpData(url, data).subscribe(
         (response:any) => {
           // console.log(response);
@@ -116,6 +133,17 @@ export class NewProjectModalComponent implements OnInit {
       );
     }
 
-
-
+    private updateProject(url:string, data:any) {
+    console.log(url);
+      this.httpsRequestService.putHttpData(url, data).subscribe(
+        (response:any) => {
+          console.log(response);
+          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
+          this.dialogRef.close(this.yourForm.value);
+        },
+        error => {
+          console.log(error)
+        }
+      );
+    }
 }

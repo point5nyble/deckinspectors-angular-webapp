@@ -9,7 +9,7 @@
   justify-content: flex-start;
   height: 62px;
   width: 100%;
-  background-color: #FFFFFF;
+  background-color: #FFF;
 }
 
 .company-logo {
@@ -18,13 +18,15 @@
 }
 
 .projects {
-
   margin-left: 20px; /* Adjust the margin as needed */
 }
+
+
 .horizontal-div {
     display: flex;
     justify-content: flex-start;
-     border-radius: 5px;
+    border-radius: 5px;
+    flex: 1;
   }
 
 .right-panel {
@@ -65,29 +67,33 @@
   margin-top: 20px;
 }
 
-
-
-.company-logo {
-  margin-right: 10px;
-  margin-left: 74px; /* Adjust the margin as needed */
-}
-
-.projects {
-
-  margin-left: 20px; /* Adjust the margin as needed */
-}
-
-.location-section {
-  flex: 1;
-  margin-top: 20px;
-}
-
-
 .logo-bar {
   display: flex;
   justify-content: end;
   align-items: center;
   height: 62px;
   width: 100%;
-  background-color: #FFFFFF;
+  background-color: #FFF;
+}
+
+.main-class {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.project-container {
+  display: flex;
+  flex: 1;
+  overflow: auto;
+}
+
+.project-list-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.flex {
+  display: flex;
 }

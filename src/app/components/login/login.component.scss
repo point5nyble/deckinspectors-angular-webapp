@@ -20,16 +20,16 @@ body {
 .left-side {
   max-width: 400px;
   width: 100%;
-  background-color: #ffffff;
+  background-color: #fff;
   padding: 40px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 10%);
   border-radius: 5px;
 }
 
 h2 {
   font-size: 24px;
   margin-bottom: 20px;
-  color: #333333;
+  color: #333;
 }
 
 form div {
@@ -39,7 +39,7 @@ form div {
 label {
   display: block;
   margin-bottom: 5px;
-  color: #666666;
+  color: #666;
   font-weight: bold;
   margin-left: 10px;
 }
@@ -57,7 +57,7 @@ input[type="password"] {
   display: flex;
   align-items: center;
   margin-top: 10px;
-  color: #666666;
+  color: #666;
   font-size: 14px;
 }
 
@@ -66,7 +66,7 @@ button.login-button {
   width: 100%;
   padding: 10px;
   background-color: #007bff;
-  color: #ffffff;
+  color: #fff;
   border: none;
   border-radius: 3px;
   font-size: 16px;

@@ -1,11 +1,16 @@
-.photo-list {
-  max-width: 500px;
-  margin: 0 auto;
-}
-
 .photo-list ul {
   list-style-type: none;
   padding: 0;
+}
+
+.photo-list .image-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.photo-list .image-row li {
+  flex-basis: calc(33.33% - 10px); /* This will distribute the images evenly with a small gap between them */
+  margin: 5px; /* Set the margin between images */
 }
 
 .photo-list li {
@@ -16,6 +21,7 @@
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  justify-content: center;
 }
 
 .photo-list img {

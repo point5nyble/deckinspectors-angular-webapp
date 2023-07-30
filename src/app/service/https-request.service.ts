@@ -28,4 +28,14 @@ export class HttpsRequestService {
     };
     return this.http.post<T>(url, data,httpOptions);
   }
+
+  public putHttpData<T>(url:string, data:any): Observable<T> {
+    const httpOptions = {
+          headers: new HttpHeaders({
+              'Content-Type': 'application/json'
+          })
+      };
+      return this.http.put<T>(url, data,httpOptions);
+  }
+
 }

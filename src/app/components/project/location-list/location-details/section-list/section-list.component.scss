@@ -1,12 +1,11 @@
 .container-s {
   display: flex;
-  align-items: center;
+  flex: 1;
   gap: 20px;
   background-color: #f7f7f7;
   padding: 20px;
   border-radius: 5px;
   flex-direction: column;
-  margin-top: 15px;
 }
 
 .header-component {

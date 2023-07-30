@@ -1,8 +1,5 @@
 <div class="container">
-  <div class="flex-item">
-    <app-section-info [sectionReport] = 'sectionReport' ></app-section-info>
-  </div>
-  <div>
-    <app-section-photos [sectionReport]='sectionReport' class="flex-item"></app-section-photos>
-  </div>
+  <i class="fas fa-edit edit-btn" (click)="editVisualDeckReportModal()"></i>
+  <app-section-info class="flex-item" [rows]='rows' ></app-section-info>
+  <app-section-photos [sectionReport]='sectionReport_' class="flex-item"></app-section-photos>
 </div>

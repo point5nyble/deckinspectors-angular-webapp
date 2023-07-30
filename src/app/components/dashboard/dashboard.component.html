@@ -1,4 +1,4 @@
-<div class="full-height">
+<div class="main-class">
   <div class="logo-bar">
     <div class="horizontal-frame">
       <div class="company-logo">
@@ -8,39 +8,26 @@
         <img src="../../../assets/images/Projects.png" width="161px" height="36px" alt="Button Image">
       </div>
     </div>
-    <button class="btn btn-secondary" (click)="changeProjectState()">Invasive</button>
+    <button class="btn btn-secondary" (click)="changeProjectState()">{{projectState}}</button>
   </div>
-  <div class="container-fluid d-flex p-2 bd-highlight">
-    <div class="sidebar">
-      <app-sidebar></app-sidebar>
-    </div>
-    <div class="container-fluid">
-      <div *ngIf="showProjectInfo === 'home'" class="d-flex flex-column full-height">
-        <app-filter (searchedTerm)="projectSearch($event)"
-                    (newProjectUploaded)="newProjectUploaded()"></app-filter>
-        <!--        Show Project list-->
+  <div class="project-container">
+    <app-sidebar class="flex"></app-sidebar>
+    <div class="container-fluid flex">
+      <div *ngIf="showProjectInfo === 'home'" class="project-list-container">
+        <app-filter (searchedTerm)="projectSearch($event)" (newProjectUploaded)="newProjectUploaded()">
+
+        </app-filter>
         <div class="scrollable-container mt-1">
           <div *ngFor="let projectInfo of projectInfos">
             <app-project-info (dblclick)="gotoProject(projectInfo)" [projectInfo]=projectInfo></app-project-info>
           </div>
         </div>
-
       </div>
-      <div *ngIf="showProjectInfo !== 'home'" class="horizontal-div full-height">
-        <app-projects-list-left-panel *ngIf="showProjectInfo !== 'home'" style="min-width: fit-content;"></app-projects-list-left-panel>
-        <div *ngIf="showProjectInfo === 'project'" class="full-height full-width">
-          <app-project-details>
-          </app-project-details>
-        </div>
-        <div *ngIf="showProjectInfo === 'subproject'" class="full-width">
-          <app-subproject class="full-width">
-          </app-subproject>
-        </div>
-        <div *ngIf="showProjectInfo === 'location'" class="full-width">
-          <app-location-details class="full-width">
-
-          </app-location-details>
-        </div>
+      <div *ngIf="showProjectInfo !== 'home'" class="horizontal-div">
+        <app-projects-list-left-panel *ngIf="showProjectInfo !== 'home'"></app-projects-list-left-panel>
+        <app-project-details *ngIf="showProjectInfo === 'project'" class="flex-item"></app-project-details>
+        <app-subproject *ngIf="showProjectInfo === 'subproject'" class="flex-item"></app-subproject>
+        <app-location-details *ngIf="showProjectInfo === 'location'" class="flex-item"></app-location-details>
       </div>
     </div>
   </div>

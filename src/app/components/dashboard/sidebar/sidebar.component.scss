@@ -1,9 +1,10 @@
-.sidebar {
+.flex {
   width: 215px;
   background-color: #f0f0f0;
   transition: width 0.3s ease-out;
-  height: 100%;
+  flex: 1;
   padding: 20px; /* Add padding to create space between content and container */
+  display: flex;
 }
 
 .sidebar-content {
@@ -15,11 +16,12 @@
 .sidebar-block{
   display: block;
   width: 175px;
-  height: 845px;
+  //height: 845px;
   top: 136px;
   left: 27px;
   border-radius: 16px;
   background-color: #FFFFFF;
+  flex:1;
 }
 
 

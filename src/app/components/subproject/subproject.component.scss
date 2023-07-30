@@ -2,6 +2,8 @@
   flex: 1;
   margin-left: 15px;
   overflow-x: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .flex-item {
@@ -11,4 +13,7 @@
 .location-section {
   flex: 1;
   margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  overflow: auto;
 }

@@ -78,6 +78,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsMetaDataByUserName/deck';
       this.httpsRequestService.getHttpData<any>(url).subscribe(
         (response: any) => {
+          console.log(response);
           let fetchedProjectList: Item[] = this.convertResponseToItemList(response);
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Left_Tree_Data, fetchedProjectList);
           this.loadingScreen = false;
