@@ -10,6 +10,7 @@ import {LeftTreeListModelQuery} from "../../../app-state-service/left-tree-items
 import {BackNavigation} from "../../../app-state-service/back-navigation-state/back-navigation-selector";
 import {ProjectState} from "../../../app-state-service/store/project-state-model";
 import {ProjectQuery} from "../../../app-state-service/project-state/project-selector";
+import {take} from "rxjs";
 
 @Component({
   selector: 'app-projects-list-left-panel',
@@ -25,6 +26,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   currentSelectedItem:string = '';
   objectMap = new Map<string, any>();
   loadingScreen:boolean = true;
+  private projectState: ProjectState = ProjectState.VISUAL;
 
 
   constructor(private httpsRequestService: HttpsRequestService,
@@ -45,6 +47,19 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   private fetchLeftTreeDataFromState() {
     this.store.select(LeftTreeListModelQuery.getLeftTreeList).subscribe(leftTreeData => {
       this.projectList = this.mapItemList(leftTreeData?.items);
+      this.projectList = this.filterInvasiveProjects(this.projectList);
+      this.createObjectMap(this.projectList,this.objectMap);
+      if (this.projectList?.length === 0 || this.projectList === undefined) {
+        this.fetchLeftTreeData();
+      }
+
+    })
+  }
+
+  private fetchLeftTreeDataFromStateWhenCalled() {
+    this.store.select(LeftTreeListModelQuery.getLeftTreeList).pipe(take(1)).subscribe(leftTreeData => {
+      this.projectList = this.mapItemList(leftTreeData?.items);
+      this.projectList = this.filterInvasiveProjects(this.projectList);
       this.createObjectMap(this.projectList,this.objectMap);
       if (this.projectList?.length === 0 || this.projectList === undefined) {
         this.fetchLeftTreeData();
@@ -63,13 +78,8 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     });
 
     this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
-      if (data.state === ProjectState.INVASIVE) {
-            // console.log("Updating project list After adding new project");
-            this.fetchLeftTreeData();
-        }
-      else {
-        this.fetchLeftTreeData();
-      }
+      this.projectState = data.state;
+      this.fetchLeftTreeDataFromStateWhenCalled();
     });
 
   }
@@ -78,7 +88,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsMetaDataByUserName/deck';
       this.httpsRequestService.getHttpData<any>(url).subscribe(
         (response: any) => {
-          console.log(response);
           let fetchedProjectList: Item[] = this.convertResponseToItemList(response);
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Left_Tree_Data, fetchedProjectList);
           this.loadingScreen = false;
@@ -107,6 +116,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       collapsed: true,
       parentid: 'home',
       type: 'project',
+      isInvasive:project.isInvasive,
       nestedItems: this.extractNestedItems(project)
     };
   }
@@ -120,7 +130,8 @@ export class ProjectsListLeftPanelComponent implements OnInit {
         {
           name: location.locationName,
           id:location.locationId,
-          parentid:project.id
+          parentid:project.id,
+          isInvasive:location.isInvasive
         }
       ))
     };
@@ -133,6 +144,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
           collapsed: true,
           parentid:project.id,
           type: "subproject",
+          isInvasive:true,
           nestedItems: this.extractSubProjectLocation(subProject)
         }))
 
@@ -140,6 +152,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       name: 'Project Buildings',
       id:'',
       collapsed: true,
+      isInvasive:true,
       nestedItems: subProject
     }
 
@@ -151,12 +164,14 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       name: 'Building Location',
       collapsed: true,
       id:'',
+      isInvasive:true,
       nestedItems: []
     };
     let apartments: Item = {
       name: 'Apartments',
       collapsed: true,
       id:'',
+      isInvasive:true,
       nestedItems: []
     };
     subProject.subProjectLocations.forEach((location_: any) => {
@@ -164,13 +179,15 @@ export class ProjectsListLeftPanelComponent implements OnInit {
         buildingLocation.nestedItems?.push({
           name: location_.locationName,
           id:location_.locationId,
-          parentid:subProject._id
+          parentid:subProject._id,
+          isInvasive:location_.isInvasive
         })
       } else {
         apartments.nestedItems?.push({
           name: location_.locationName,
           id:location_.locationId,
-          parentid:subProject._id
+          parentid:subProject._id,
+          isInvasive:location_.isInvasive
         })
       }
     })
@@ -207,6 +224,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       collapsed: input?.collapsed,
       parentid: input?.parentid,
       type: input?.nestedItems? input?.type:'location',
+      isInvasive:input?.isInvasive,
       nestedItems: input?.nestedItems?.map((item) => this.mapItem(item)) || []
     };
   }
@@ -295,4 +313,30 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   }
 
 
+  private filterInvasiveProjects(projectList: Item[]) {
+    // Iterate over all projectList and check if isInvasive is true.
+    if (this.projectState === ProjectState.INVASIVE) {
+      console.log(projectList);
+      projectList = projectList.filter(project => project.isInvasive);
+      projectList.forEach(project => {
+        project.nestedItems = this.filterInvasiveLocations(project.nestedItems);
+        project.nestedItems?.forEach(nestedItem => {
+          nestedItem.nestedItems = this.filterInvasiveLocations(nestedItem.nestedItems);
+          nestedItem.nestedItems?.forEach(nestedItem => {
+            nestedItem.nestedItems = this.filterInvasiveLocations(nestedItem.nestedItems);
+            nestedItem.nestedItems?.forEach(nestedItem => {
+              nestedItem.nestedItems = this.filterInvasiveLocations(nestedItem.nestedItems);
+            })
+          })
+        });
+      })
+      console.log(projectList);
+    }
+    return projectList;
+
+  }
+
+  private filterInvasiveLocations(nestedItems: Item[] | undefined) {
+    return nestedItems?.filter(location => location.isInvasive);
+  }
 }

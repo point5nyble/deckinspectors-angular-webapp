@@ -7,5 +7,7 @@ export interface Item {
     phone?: string;
     collapsed?: boolean;
     type?: string;
+    isInvasive?: boolean;
     nestedItems?: Item[];
+
   }

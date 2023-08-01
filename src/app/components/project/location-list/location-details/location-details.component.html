@@ -4,10 +4,15 @@
   <div class="location-section">
     <app-section-list class="flex-item"
                       (sectionID)=fetchDataForGivenSectionId($event)
+                      (sectionStateChange)=sectionStateChange($event)
                       [location] = location>
     </app-section-list>
-    <app-section [sectionReport] = sectionReport class="report-section"
-                 [location] = location></app-section>
+    <app-section class="report-section"
+                 [sectionReport] = sectionReport
+                 [location] = location
+                 [isRecordFound] = isRecordFound
+                 [sectionState] = sectionState
+    ></app-section>
   </div>
 </div>
 

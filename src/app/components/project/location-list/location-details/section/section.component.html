@@ -1,5 +1,14 @@
 <div class="container">
   <i class="fas fa-edit edit-btn" (click)="editVisualDeckReportModal()"></i>
-  <app-section-info class="flex-item" [rows]='rows' ></app-section-info>
-  <app-section-photos [sectionReport]='sectionReport_' class="flex-item"></app-section-photos>
+
+  <div class="overlay-container" *ngIf="!isRecordFound">
+    <div class="overlay">
+      <p class="flex-item-overley">Please add data first by clicking on the edit button.</p>
+      <button class="close-button" (click)="closeOverlay()">X</button>
+    </div>
+  </div>
+
+  <!-- Show app-section-info and app-section-photos when add_data is false -->
+  <app-section-info class="flex-item" [rows]="rows" *ngIf="isRecordFound"></app-section-info>
+  <app-section-photos [sectionReport]="sectionReport_" class="flex-item" *ngIf="isRecordFound"></app-section-photos>
 </div>

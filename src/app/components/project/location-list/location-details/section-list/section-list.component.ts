@@ -11,7 +11,7 @@ import {HttpsRequestService} from "../../../../../service/https-request.service"
 import {OrchestratorEventName} from "../../../../../orchestrator-service/models/orchestrator-event-name";
 import {ProjectQuery} from "../../../../../app-state-service/project-state/project-selector";
 import {Store} from "@ngrx/store";
-import {ProjectState} from "../../../../../app-state-service/store/project-state-model";
+import {ProjectState, SectionState} from "../../../../../app-state-service/store/project-state-model";
 
 @Component({
   selector: 'app-section-list',
@@ -20,6 +20,7 @@ import {ProjectState} from "../../../../../app-state-service/store/project-state
 })
 export class SectionListComponent implements OnInit{
   header: string = 'Locations';
+
   @Output() sectionID = new EventEmitter<string>();
   location_!: BuildingLocation;  // @Input() location!: BuildingLocation
   sections: Section[] = [];
@@ -31,6 +32,8 @@ export class SectionListComponent implements OnInit{
   public currentSection!: any;
 
   projectState!: ProjectState;
+  sectionState: SectionState = SectionState.VISUAL;
+  @Output() sectionStateChange = new EventEmitter<SectionState>();
 
   constructor(private dialog: MatDialog,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -96,15 +99,28 @@ export class SectionListComponent implements OnInit{
   private subscribeProjectState() {
     this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
       this.projectState = data.state;
+      this.getSections(this.location_!);
     });
   }
 
   private getSections(location: BuildingLocation) {
+    console.log(location);
     if (this.projectState === ProjectState.INVASIVE) {
+      // TODO: Check Logic for Invasive
       this.sections = location.invasiveSections;
     } else {
       this.sections = location.sections;
     }
+    console.log(this.sections)
 
   }
+
+  protected readonly ProjectState = ProjectState;
+
+  setSectionState(sectionState: SectionState) {
+    this.sectionState = sectionState;
+    this.sectionStateChange.emit(sectionState);
+  }
+
+  protected readonly SectionState = SectionState;
 }

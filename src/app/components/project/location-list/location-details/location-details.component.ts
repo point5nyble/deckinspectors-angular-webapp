@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {BuildingLocation} from "../../../../common/models/buildingLocation";
 import {HttpsRequestService} from "../../../../service/https-request.service";
 import {InspectionReport} from "../../../../common/models/inspection-report";
@@ -9,6 +9,7 @@ import {
 import {Store} from "@ngrx/store";
 import {BackNavigation} from "../../../../app-state-service/back-navigation-state/back-navigation-selector";
 import {take} from "rxjs";
+import {SectionState} from "../../../../app-state-service/store/project-state-model";
 
 @Component({
   selector: 'app-location-details',
@@ -18,6 +19,8 @@ import {take} from "rxjs";
 export class LocationDetailsComponent implements OnInit{
   location!: BuildingLocation;
   sectionReport!: InspectionReport;
+  sectionState: SectionState = SectionState.VISUAL;
+  isRecordFound:boolean = true;
 
   constructor(private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -29,17 +32,33 @@ export class LocationDetailsComponent implements OnInit{
     this.subscribeToOnLocationClick();
   }
   fetchDataForGivenSectionId($event: string) {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/section/getSectionById';
-    let data = {
-      sectionid:$event,
+    let url = '';
+    let data: any = {
       username: 'deck'
     };
+    if (this.sectionState === SectionState.VISUAL) {
+      data = {...data, sectionid: $event}
+      url = 'https://deckinspectors-dev.azurewebsites.net/api/section/getSectionById';
+    } else if (this.sectionState === SectionState.INVASIVE) {
+        data = {...data, parentSectionId: $event}
+        url = 'https://deckinspectors-dev.azurewebsites.net/api/invasivesection/getInvasiveSectionByParentId';
+    } else if (this.sectionState === SectionState.CONCLUSIVE) {
+      data = {...data, parentSectionId: $event}
+      url = 'https://deckinspectors-dev.azurewebsites.net/api/conclusivesection/getConclusiveSectionsByParentId';
+    }
+
+
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
+        console.log(response)
         this.sectionReport = response.item;
+        this.isRecordFound = true;
        },
       error => {
-        console.log(error)
+        if (error.error.code === 401 && error.error.message === "No Invasive Section found.") {
+          this.isRecordFound = false;
+        }
+        console.log(error.error)
       }
     );
   }
@@ -87,5 +106,9 @@ export class LocationDetailsComponent implements OnInit{
         }
       }
     );
+  }
+
+  sectionStateChange($event: SectionState) {
+    this.sectionState = $event;
   }
 }

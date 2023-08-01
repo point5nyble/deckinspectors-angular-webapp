@@ -4,12 +4,13 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {
   VisualDeckReportModalComponent
 } from "../../../../../forms/visual-deck-report-modal/visual-deck-report-modal.component";
-import {OrchestratorEventName} from "../../../../../orchestrator-service/models/orchestrator-event-name";
 import {BuildingLocation} from "../../../../../common/models/buildingLocation";
 import {
   OrchestratorCommunicationService
 } from "../../../../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import {HttpsRequestService} from "../../../../../service/https-request.service";
+import {SectionState} from "../../../../../app-state-service/store/project-state-model";
+import {OrchestratorEventName} from "../../../../../orchestrator-service/models/orchestrator-event-name";
 
 @Component({
   selector: 'app-section',
@@ -18,7 +19,7 @@ import {HttpsRequestService} from "../../../../../service/https-request.service"
 })
 export class SectionComponent implements OnInit{
   sectionReport_!: InspectionReport;
-
+  @Input() sectionState!: SectionState;
   @Input()
   set sectionReport(section: InspectionReport) {
     this.sectionReport_ = section;
@@ -29,6 +30,7 @@ export class SectionComponent implements OnInit{
   englishNamesMap!: { [key: string]: string };
   rows: { column1: string; column2: any }[] = [];
   rowsMap!: Map<string, string>;
+  @Input() isRecordFound!:boolean;
   constructor(private dialog: MatDialog,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
               private httpsRequestService:HttpsRequestService) {
@@ -82,7 +84,7 @@ export class SectionComponent implements OnInit{
     dialogConfig.data = {
       id: 1,
       rowsMap:this.rowsMap,
-      images: this.sectionReport_.images
+      images: this.sectionReport_?.images
     };
     const dialogRef = this.dialog.open(VisualDeckReportModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
@@ -108,18 +110,71 @@ export class SectionComponent implements OnInit{
       "waterproofingelements": data.waterproofingElements,
       "images": data.images
     }
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/section/' + this.sectionReport_._id;
+    let url = this.getURL()
+    console.log(url)
+    if (this.isRecordFound) {
+      console.log(request);
+      this.httpsRequestService.putHttpData(url, request).subscribe(
+        (response:any) => {
+          console.log(response);
+          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'added section');
+          this.closeOverlay();
+        },
+        error => {
+          console.log(error)
+          this.closeOverlay();
+        }
+      );
+    } else {
+      console.log(request);
+      this.httpsRequestService.postHttpData(url, request).subscribe(
+        (response:any) => {
+          console.log(response);
+          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'added section');
+          this.closeOverlay();
+        },
+        error => {
+          console.log(error)
+          this.closeOverlay();
+        }
+      );
+    }
     // console.log(request);
-    this.httpsRequestService.putHttpData(url, request).subscribe(
-      (response:any) => {
-        console.log(response);
-        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'added section');
-      },
-      error => {
-        console.log(error)
-      }
-    );
+    // this.httpsRequestService.putHttpData(url, request).subscribe(
+    //   (response:any) => {
+    //     console.log(response);
+    //     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'added section');
+    //   },
+    //   error => {
+    //     console.log(error)
+    //   }
+    // );
   }
 
+  closeOverlay() {
+    this.isRecordFound  =!this.isRecordFound;
+  }
 
+  private getURL(): string {
+    let url = '';
+    if (this.isRecordFound) {
+      if (this.sectionState === SectionState.VISUAL) {
+          url = 'https://deckinspectors-dev.azurewebsites.net/api/section/' + this.sectionReport_._id;
+      } else if (this.sectionState === SectionState.CONCLUSIVE) {
+          url = 'https://deckinspectors-dev.azurewebsites.net/api/conclusivesection/' + this.sectionReport_._id;
+      } else if (this.sectionState === SectionState.INVASIVE) {
+          url = 'https://deckinspectors-dev.azurewebsites.net/api/invasivesection/' + this.sectionReport_._id;
+      }
+    } else {
+      // If record not found we will add the record in the database
+      if (this.sectionState === SectionState.VISUAL) {
+            url = 'https://deckinspectors-dev.azurewebsites.net/api/section/add';
+        } else if (this.sectionState === SectionState.CONCLUSIVE) {
+            url = 'https://deckinspectors-dev.azurewebsites.net/api/conclusivesection/add';
+        } else if (this.sectionState === SectionState.INVASIVE) {
+            url = 'https://deckinspectors-dev.azurewebsites.net/api/invasivesection/add';
+        }
+    }
+    return url;
+  }
 }
