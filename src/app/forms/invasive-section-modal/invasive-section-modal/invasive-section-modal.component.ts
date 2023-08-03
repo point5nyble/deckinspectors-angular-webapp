@@ -1,32 +1,25 @@
-import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {ImageToUrlConverterService} from "../../service/image-to-url-converter.service";
+import {ImageToUrlConverterService} from "../../../service/image-to-url-converter.service";
 import {forkJoin, Observable} from "rxjs";
-import { map } from 'rxjs/operators';
-
+import {map} from "rxjs/operators";
 
 @Component({
-  selector: 'app-visual-deck-report-modal',
-  templateUrl: './visual-deck-report-modal.component.html',
-  styleUrls: ['./visual-deck-report-modal.component.scss']
+  selector: 'app-invasive-section-modal',
+  templateUrl: './invasive-section-modal.component.html',
+  styleUrls: ['./invasive-section-modal.component.scss']
 })
-export class VisualDeckReportModalComponent implements OnInit {
+export class InvasiveSectionModalComponent {
   data: any;
-  visualDeckReportModalForm!: FormGroup;
-  exteriorElementsOptions = [
-    'Decks', 'Porches / Entry', 'Stairs', 'Stairs Landing', 'Walkways', 'Railings', 'Integrations', 'Door Threshold'
-  ];
-  waterproofingElements = [
-    'Flashings', 'Waterproofing', 'Coatings','Sealants'
-  ];
+  invasiveDeckReportModalForm!: FormGroup;
   selectedImage: File[] = [];
   imagePreviewUrls: (string | ArrayBuffer | null)[] = [];
   imageControl: FormControl = new FormControl();
 
   constructor(private formBuilder: FormBuilder,
               private cdr: ChangeDetectorRef,
-              private dialogRef: MatDialogRef<VisualDeckReportModalComponent>,
+              private dialogRef: MatDialogRef<InvasiveSectionModalComponent>,
               @Inject(MAT_DIALOG_DATA) data : any,
               private imageToUrlConverterService : ImageToUrlConverterService) {
     this.data = data;
@@ -34,19 +27,9 @@ export class VisualDeckReportModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.visualDeckReportModalForm = this.formBuilder.group({
-      visualReportName: [this.data.rowsMap?.get('name')], // Add validators if needed
-      exteriorElements: [this.data.rowsMap?.get('exteriorelements')], // Add validators if needed
-      waterproofingElements: [this.data.rowsMap?.get('waterproofingelements')],
-      visualReview:[this.data.rowsMap?.get('visualreview')],
-      signsOfLeaks:[this.data.rowsMap?.get('visualsignsofleak')+''],
-      invasiveReviewRequired:[this.data.rowsMap?.get('furtherinvasivereviewrequired')+''],
-      conditionAssessment: [this.data.rowsMap?.get('conditionalassessment')],
-      additionalConsiderationsOrConcern:[this.data.rowsMap?.get('additionalconsiderations')],
-      EEE:[this.data.rowsMap?.get('eee')],
-      LBC:[this.data.rowsMap?.get('lbc')],
-      AWE:[this.data.rowsMap?.get('awe')],
-      images:[this.data.images]
+    this.invasiveDeckReportModalForm = this.formBuilder.group({
+      invasiveDescription:[this.data.rowsMap?.get('invasiveDescription')],
+      invasiveimages:[this.data.images]
     });
   }
   close() {
@@ -59,10 +42,9 @@ export class VisualDeckReportModalComponent implements OnInit {
 
   handleFileInput(event: any) {
     const files = event.target.files;
-    this.imageControl.setValue(files);
-    // Set the form control value if needed
+    this.imageControl.setValue(files); // Set the form control value if needed
     if (this.imagePreviewUrls === null || this.imagePreviewUrls === undefined) {
-      this.imagePreviewUrls = [];
+        this.imagePreviewUrls = [];
     }
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
@@ -83,9 +65,9 @@ export class VisualDeckReportModalComponent implements OnInit {
 
   uploadImage() {
     let data:any = {
-      'entityName': this.visualDeckReportModalForm.value.visualReportName,
+      'entityName': 'invasivefolders',
       'uploader': 'deck',
-      'containerName': this.visualDeckReportModalForm.value.visualReportName.replace(' ', '').toLowerCase(),
+      'containerName': 'invasivefolders',
     }
     const imageRequests:Observable<any>[]= [];
     this.selectedImage.forEach(file => {
@@ -115,18 +97,17 @@ export class VisualDeckReportModalComponent implements OnInit {
 
   private addImagesUrlIfAny(imageUrls: string[]) {
     if (this.imagePreviewUrls) {
-      // push all imagePreviewUrls if they are images.
-      // We are verifying this as in edit functionality there could be images
+      // push all imagePreviewUrls if they are string
       this.imagePreviewUrls.forEach(imageUrl => {
         if (typeof imageUrl === "string" && this.isValidImageLink(imageUrl)) {
           imageUrls.push(imageUrl);
         }
       })
     }
-    this.visualDeckReportModalForm.patchValue({
-      images: imageUrls
+    this.invasiveDeckReportModalForm.patchValue({
+      invasiveimages: imageUrls
     });
-    this.dialogRef.close(this.visualDeckReportModalForm.value);
+    this.dialogRef.close(this.invasiveDeckReportModalForm.value);
   }
 
   private isValidImageLink(imageUrl: string): boolean {

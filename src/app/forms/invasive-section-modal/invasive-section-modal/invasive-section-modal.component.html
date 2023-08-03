@@ -1,0 +1,25 @@
+<!-- form-component.component.html -->
+<div class="form-container">
+  <div class="form-header">
+    <p><b>Edit Visual Deck/Waterproofing Report</b></p>
+  </div>
+  <div class="form-body" [formGroup]="invasiveDeckReportModalForm">
+    <div class="form-field">
+      <label for="description">Invasive Description</label>
+      <textarea formControlName="invasiveDescription" id="description" name="invasiveDescription" rows="4"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Upload Image:</label>
+      <input type="file" (change)="handleFileInput($event)" class="form-control" multiple>
+      <div *ngFor="let imageUrl of imagePreviewUrls; let i = index" class="image-preview">
+        <img [src]="imageUrl" alt="Image Preview" class="preview-image">
+        <span class="close-icon-img" (click)="removeImage(i)">&times;</span>
+      </div>
+    </div>
+  </div>
+  <div class="button-container">
+    <button class="save-button" (click)="save()">Save</button>
+    <button class="close-button" (click)="close()">Close</button>
+  </div>
+</div>
+

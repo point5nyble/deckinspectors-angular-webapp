@@ -47,6 +47,8 @@ import { NavigationComponentComponent } from './components/common/navigation-com
 import { LoadingScreenComponent } from './components/common/loading-screen/loading-screen.component';
 import {MatSliderModule} from "@angular/material/slider";
 import {MatRadioModule} from "@angular/material/radio";
+import { InvasiveSectionModalComponent } from './forms/invasive-section-modal/invasive-section-modal/invasive-section-modal.component';
+import { ConclusiveSectionModalComponent } from './forms/conclusive-section-modal/conclusive-section-modal/conclusive-section-modal.component';
 
 
 
@@ -79,7 +81,9 @@ import {MatRadioModule} from "@angular/material/radio";
     ProjectDetailsUpperSectionComponent,
     SubprojectComponent,
     NavigationComponentComponent,
-    LoadingScreenComponent
+    LoadingScreenComponent,
+    InvasiveSectionModalComponent,
+    ConclusiveSectionModalComponent
   ],
   imports: [
     BrowserModule,

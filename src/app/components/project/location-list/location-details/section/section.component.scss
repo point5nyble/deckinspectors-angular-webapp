@@ -54,3 +54,50 @@
   height: 100%;
   display: flex;
 }
+
+button.highlighted {
+  background-color: #e0e0e0;
+  font-weight: bold;
+}
+
+.icons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.icons .mr-3 {
+  margin-right: 10px;
+}
+
+/* Style the buttons */
+.icons button {
+  padding: 8px 12px;
+  border: 1px solid #f39c12; /* Saffron color */
+  background-color: #f9f9f9;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #f39c12; /* Saffron color */
+}
+
+/* Highlight the active button */
+.icons button.highlighted {
+  background-color: #f39c12; /* Saffron color */
+  color: white;
+}
+
+/* Style the add and edit icons */
+.icons .fas {
+  font-size: 40px;
+  color: #000000; /* Saffron color */
+  cursor: pointer;
+}
+
+/* Add some spacing between the icons */
+.icons .mr-3 .fas,
+.icons .fas.edit-btn {
+  margin-right: 10px;
+}
+
+.add-edit {
+  display: flex;
+}

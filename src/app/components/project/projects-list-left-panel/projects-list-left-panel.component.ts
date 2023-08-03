@@ -317,8 +317,8 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     // Iterate over all projectList and check if isInvasive is true.
     if (this.projectState === ProjectState.INVASIVE) {
       console.log(projectList);
-      projectList = projectList.filter(project => project.isInvasive);
-      projectList.forEach(project => {
+      projectList = projectList?.filter(project => project.isInvasive);
+      projectList?.forEach(project => {
         project.nestedItems = this.filterInvasiveLocations(project.nestedItems);
         project.nestedItems?.forEach(nestedItem => {
           nestedItem.nestedItems = this.filterInvasiveLocations(nestedItem.nestedItems);

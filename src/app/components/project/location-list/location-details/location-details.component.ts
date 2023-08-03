@@ -18,9 +18,9 @@ import {SectionState} from "../../../../app-state-service/store/project-state-mo
 })
 export class LocationDetailsComponent implements OnInit{
   location!: BuildingLocation;
-  sectionReport!: InspectionReport;
   sectionState: SectionState = SectionState.VISUAL;
   isRecordFound:boolean = true;
+  sectionId!: string;
 
   constructor(private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -32,35 +32,8 @@ export class LocationDetailsComponent implements OnInit{
     this.subscribeToOnLocationClick();
   }
   fetchDataForGivenSectionId($event: string) {
-    let url = '';
-    let data: any = {
-      username: 'deck'
-    };
-    if (this.sectionState === SectionState.VISUAL) {
-      data = {...data, sectionid: $event}
-      url = 'https://deckinspectors-dev.azurewebsites.net/api/section/getSectionById';
-    } else if (this.sectionState === SectionState.INVASIVE) {
-        data = {...data, parentSectionId: $event}
-        url = 'https://deckinspectors-dev.azurewebsites.net/api/invasivesection/getInvasiveSectionByParentId';
-    } else if (this.sectionState === SectionState.CONCLUSIVE) {
-      data = {...data, parentSectionId: $event}
-      url = 'https://deckinspectors-dev.azurewebsites.net/api/conclusivesection/getConclusiveSectionsByParentId';
-    }
-
-
-    this.httpsRequestService.postHttpData(url, data).subscribe(
-      (response:any) => {
-        console.log(response)
-        this.sectionReport = response.item;
-        this.isRecordFound = true;
-       },
-      error => {
-        if (error.error.code === 401 && error.error.message === "No Invasive Section found.") {
-          this.isRecordFound = false;
-        }
-        console.log(error.error)
-      }
-    );
+    this.sectionId = $event;
+    console.log(this.sectionId);
   }
 
   fetchLocationDetails($event: string) {

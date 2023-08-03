@@ -1,14 +1,30 @@
 <div class="container">
-  <i class="fas fa-edit edit-btn" (click)="editVisualDeckReportModal()"></i>
+
+  <div class="icons">
+    <div *ngIf="projectState === ProjectState.INVASIVE" class="mr-3">
+      <button (click)="setSectionState(SectionState.VISUAL)" [ngClass]="{ 'highlighted': sectionState === SectionState.VISUAL }">Visual</button>
+      <button (click)="setSectionState(SectionState.INVASIVE)" [ngClass]="{ 'highlighted': sectionState === SectionState.INVASIVE }">Invasive</button>
+      <button (click)="setSectionState(SectionState.CONCLUSIVE)" [ngClass]="{ 'highlighted': sectionState === SectionState.CONCLUSIVE }">Conclusive</button>
+    </div>
+    <div class="add-edit">
+      <div *ngIf="showAddBtn()" (click)="openVisualDeckReportModal()" class="mr-3">
+        <i class="fas fa-plus"></i>
+      </div>
+      <div>
+        <i class="fas fa-edit edit-btn" (click)="editVisualDeckReportModal()"></i>
+      </div>
+    </div>
+  </div>
+
 
   <div class="overlay-container" *ngIf="!isRecordFound">
     <div class="overlay">
-      <p class="flex-item-overley">Please add data first by clicking on the edit button.</p>
+      <p class="flex-item-overley">Please add data first by clicking on the add button.</p>
       <button class="close-button" (click)="closeOverlay()">X</button>
     </div>
   </div>
 
   <!-- Show app-section-info and app-section-photos when add_data is false -->
   <app-section-info class="flex-item" [rows]="rows" *ngIf="isRecordFound"></app-section-info>
-  <app-section-photos [sectionReport]="sectionReport_" class="flex-item" *ngIf="isRecordFound"></app-section-photos>
+  <app-section-photos [images]="images" class="flex-item" *ngIf="isRecordFound"></app-section-photos>
 </div>

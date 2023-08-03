@@ -1,17 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {
-  VisualDeckReportModalComponent
-} from "../../../../../forms/visual-deck-report-modal/visual-deck-report-modal.component";
 import {BuildingLocation, Section} from "../../../../../common/models/buildingLocation";
 import {
   OrchestratorCommunicationService
 } from "../../../../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import {HttpsRequestService} from "../../../../../service/https-request.service";
-import {OrchestratorEventName} from "../../../../../orchestrator-service/models/orchestrator-event-name";
 import {ProjectQuery} from "../../../../../app-state-service/project-state/project-selector";
 import {Store} from "@ngrx/store";
 import {ProjectState, SectionState} from "../../../../../app-state-service/store/project-state-model";
+import {OrchestratorEventName} from "../../../../../orchestrator-service/models/orchestrator-event-name";
 
 @Component({
   selector: 'app-section-list',
@@ -32,7 +29,6 @@ export class SectionListComponent implements OnInit{
   public currentSection!: any;
 
   projectState!: ProjectState;
-  sectionState: SectionState = SectionState.VISUAL;
   @Output() sectionStateChange = new EventEmitter<SectionState>();
 
   constructor(private dialog: MatDialog,
@@ -40,62 +36,16 @@ export class SectionListComponent implements OnInit{
               private httpsRequestService:HttpsRequestService,
               private store: Store<any>) {
   }
-  openVisualDeckReportModal() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "600px";
-    dialogConfig.height = "700px";
-    dialogConfig.data = {
-      id: 1
-    };
-    const dialogRef = this.dialog.open(VisualDeckReportModalComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(data => {
-      this.createSection(data);
-    })
-  }
+
 
   fetchDataForGivenSectionId($event: Section) {
-    this.sectionID.emit($event._id);
     this.currentSection = $event;
-    console.log($event);
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SECTION_CLICKED, $event._id);
   }
 
   ngOnInit(): void {
     this.subscribeProjectState();
   }
-
-  private createSection(data: any) {
-    let request = {
-      "name": data.visualReportName,
-      "additionalconsiderations": data.additionalConsiderationsOrConcern,
-      "awe": data.AWE,
-      "conditionalassessment": data.conditionAssessment,
-      "createdby": "deck",
-      "eee": data.EEE,
-      "exteriorelements": data.exteriorElements,
-      "furtherinvasivereviewrequired": data.invasiveReviewRequired,
-      "lbc": data.LBC,
-      "parentid":this.location._id,
-      "parenttype": this.location.type,
-      "visualreview": data.visualReview,
-      "visualsignsofleak": data.signsOfLeaks,
-      "waterproofingelements": data.waterproofingElements,
-      "images": data.images
-    }
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/section/add';
-    // console.log(request);
-    this.httpsRequestService.postHttpData(url, request).subscribe(
-      (response:any) => {
-        // console.log(response);
-        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'added section');
-      },
-      error => {
-        console.log(error)
-      }
-    );
-  }
-
   private subscribeProjectState() {
     this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
       this.projectState = data.state;
@@ -114,13 +64,4 @@ export class SectionListComponent implements OnInit{
     console.log(this.sections)
 
   }
-
-  protected readonly ProjectState = ProjectState;
-
-  setSectionState(sectionState: SectionState) {
-    this.sectionState = sectionState;
-    this.sectionStateChange.emit(sectionState);
-  }
-
-  protected readonly SectionState = SectionState;
 }
