@@ -57,9 +57,7 @@ export class SectionListComponent implements OnInit{
   private getSections(location: BuildingLocation) {
     if (this.projectState === ProjectState.INVASIVE) {
       // TODO: Check Logic for Invasive
-      this.sections = location.invasiveSections;
-    } else {
-      this.sections = location.sections;
+      this.sections = location?.sections.filter(section => section.furtherinvasivereviewrequired.valueOf());
     }
 
   }
