@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit
   projectInfos!: Project[];
   allProjects!: Project[];
   projectState!: ProjectState;
+  isChildClickEventTriggered: boolean = false;
     constructor(private cdr: ChangeDetectorRef,
                 private httpsRequestService:HttpsRequestService,
                 private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -47,6 +48,10 @@ export class DashboardComponent implements OnInit
   }
 
   public gotoProject(projectInfo :Project): void {
+      if (this.isChildClickEventTriggered) {
+        this.isChildClickEventTriggered = false;
+          return;
+      }
     this.projectInfo = projectInfo;
     //TODO: Remove this temp solution
     projectInfo.type = 'project';
@@ -94,4 +99,9 @@ export class DashboardComponent implements OnInit
     return projects;
   }
 
+  childClickEventTriggered($event: boolean) {
+    this.isChildClickEventTriggered = $event;
+  }
+
+  protected readonly event = event;
 }

@@ -19,7 +19,11 @@
         </app-filter>
         <div class="scrollable-container mt-1">
           <div *ngFor="let projectInfo of projectInfos">
-            <app-project-info (dblclick)="gotoProject(projectInfo)" [projectInfo]=projectInfo></app-project-info>
+            <app-project-info
+              (click)="gotoProject(projectInfo)"
+              [projectInfo]=projectInfo
+              (childClickEventTriggered)="childClickEventTriggered($event)"
+            ></app-project-info>
           </div>
         </div>
       </div>
