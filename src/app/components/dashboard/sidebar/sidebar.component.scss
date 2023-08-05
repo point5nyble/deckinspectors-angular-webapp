@@ -4,7 +4,7 @@
 }
 
 .collapsed {
-  width: 50px;
+  width: 75px;
 }
 
 .collapsible {
@@ -15,7 +15,7 @@
   border: none;
   text-align: left;
   outline: none;
-  transition: background-color 0.3s ease-out;
+  transition: background-color 0.1s ease-out; /* Adjust the duration to make it smoother */
 }
 
 .collapsed .collapsible {
@@ -43,16 +43,14 @@
 }
 
 .collapsed .sidebar-content {
-  opacity: 0;
+  //opacity: 0;
 }
 
 /* Hide spans with names when the sidebar is collapsed */
 .collapsed .sidebar-content ul span {
   display: none;
+  opacity: 0;
 }
-
-
-
 
 .sidebar-content ul {
   margin: 0;
@@ -77,9 +75,22 @@
   border-radius: 13px;
 }
 
+.collapsed .sidebar-content a:hover {
+  background-color: #ED7C1C;
+  border-radius: 13px;
+  width: 40px;
+}
+
 
 .sidebar-content .active a {
   background-color: #ED7C1C;
   border-radius: 13px;
   color: #fff; /* You may want to change the text color to make it more visible */
 }
+.collapsed .sidebar-content .active a {
+  background-color: #ED7C1C;
+  border-radius: 13px;
+  color: #fff;
+  width: 40px;/* You may want to change the text color to make it more visible */
+}
+
