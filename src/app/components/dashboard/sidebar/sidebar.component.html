@@ -1,12 +1,12 @@
 <div class="container sidebar" [ngClass]="{'collapsed': isSidebarCollapsed}" (mouseleave)="collapseSidebar()">
-  <button class="collapsible" (mouseenter)="toggleSidebar()">
-    <img src="../../../assets/images/sidebar.svg" width="20px" height="20px" alt="Button Image">
-  </button>
+
+  <span class="material-icons collapsible" (mouseenter)="toggleSidebar()"> menu </span>
   <div class="sidebar-block">
       <div class="sidebar-content">
         <ul>
           <li class="active">
             <a routerLink="/dashboard" routerLinkActive="active">
+<!--              <span class="material-icons logo-image"> location_city </span>-->
               <img src="../../../assets/images/ant-design_project-outlined.png" alt="Logo 1" class="logo-image" >
               <span>Projects</span>
             </a>

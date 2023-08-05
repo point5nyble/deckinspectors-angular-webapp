@@ -9,7 +9,7 @@
   </div>
   <div class="full-width scrollable-container" *ngIf="checkIfSubProject()">
     <div *ngFor="let project of subprojectList">
-        <app-location-list-element (dblclick)="onDbClick(project)" [location]="project"
+        <app-location-list-element (click)="onDbClick(project)" [location]="project"
                       [isSubProject]="true"
                       [projectName]="project.name"
         ></app-location-list-element>
@@ -17,7 +17,7 @@
   </div>
   <div class="full-width scrollable-container" *ngIf="!checkIfSubProject()">
     <div *ngFor="let locationInfo of locationList">
-      <app-location-list-element (dblclick)="onDbClick(locationInfo)"
+      <app-location-list-element (click)="onDbClick(locationInfo)"
                     [location]="locationInfo"
                     [isSubProject]="false"
       ></app-location-list-element>

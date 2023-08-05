@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {AssignProjectModalComponent} from "../../../forms/assign-project-modal/assign-project-modal.component";
 import {UploadFilesModalComponent} from "../../../forms/upload-fiels-modal/upload-files-modal.component";
@@ -12,9 +12,11 @@ import {Project} from "../../../common/models/project";
 })
 export class ProjectInfoComponent {
   @Input() projectInfo!: Project;
+  @Output() childClickEventTriggered = new EventEmitter<boolean>();
   constructor(private dialog: MatDialog) { }
 
   openAssignProjectModal() {
+    this.childClickEventTriggered.emit(true);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -31,6 +33,7 @@ export class ProjectInfoComponent {
   }
 
   openUploadFilesModal() {
+    this.childClickEventTriggered.emit(true);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -45,6 +48,7 @@ export class ProjectInfoComponent {
   }
 
   openDownloadReportModal() {
+    this.childClickEventTriggered.emit(true);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
