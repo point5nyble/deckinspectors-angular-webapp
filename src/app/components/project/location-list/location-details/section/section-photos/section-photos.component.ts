@@ -7,7 +7,7 @@ import {InspectionReport} from "../../../../../../common/models/inspection-repor
   styleUrls: ['./section-photos.component.scss']
 })
 export class SectionPhotosComponent implements OnInit{
-  @Input() sectionReport!: InspectionReport;
+  @Input() images!: string[];
   ngOnInit(): void {
   }
 

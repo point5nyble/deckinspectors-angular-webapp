@@ -7,3 +7,9 @@ export enum ProjectState {
   VISUAL='VISUAL',
   INVASIVE='INVASIVE'
 }
+
+export enum SectionState {
+  VISUAL='VISUAL',
+  INVASIVE='INVASIVE',
+  CONCLUSIVE='CONCLUSIVE'
+}

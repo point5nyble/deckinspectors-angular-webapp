@@ -41,7 +41,6 @@ export class SubprojectComponent {
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
         // this.buildingApartments = response.item;
-        console.log(response.item);
         this.separateProject(response.item);
       },
       error => {

@@ -1,28 +1,57 @@
-.flex {
-  width: 215px;
-  background-color: #f0f0f0;
-  transition: width 0.3s ease-out;
-  flex: 1;
-  padding: 20px; /* Add padding to create space between content and container */
+.sidebar {
   display: flex;
+  flex-direction: column;
 }
 
-.sidebar-content {
+.collapsed {
+  width: 50px;
+}
+
+.collapsible {
   display: block;
-  padding-top: 20px; /* Add padding-top to create space between content and container */
-  transition: opacity 0.3s ease-out;
+  width: 100%;
+  cursor: pointer;
+  background-color: #ddd;
+  border: none;
+  text-align: left;
+  outline: none;
+  transition: background-color 0.3s ease-out;
+}
+
+.collapsed .collapsible {
+  background-color: transparent;
 }
 
 .sidebar-block{
   display: block;
   width: 175px;
-  //height: 845px;
   top: 136px;
   left: 27px;
   border-radius: 16px;
-  background-color: #FFFFFF;
+  background-color: #f0f0f0;
   flex:1;
 }
+
+.collapsed .sidebar-block {
+  background-color: transparent;
+}
+
+.sidebar-content {
+  display: block;
+  transition: opacity 0.3s ease-out;
+  padding: 10px;
+}
+
+.collapsed .sidebar-content {
+  opacity: 0;
+}
+
+/* Hide spans with names when the sidebar is collapsed */
+.collapsed .sidebar-content ul span {
+  display: none;
+}
+
+
 
 
 .sidebar-content ul {
@@ -48,44 +77,9 @@
   border-radius: 13px;
 }
 
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-/* Add this to your existing CSS */
 
 .sidebar-content .active a {
   background-color: #ED7C1C;
   border-radius: 13px;
   color: #fff; /* You may want to change the text color to make it more visible */
 }
-
-
-
-.collapsed {
-  width: 50px;
-}
-
-.collapsible {
-  display: block;
-  width: 100%;
-  //padding: 10px;
-  cursor: pointer;
-  background-color: #ddd;
-  border: none;
-  text-align: left;
-  outline: none;
-  transition: background-color 0.3s ease-out;
-}
-
-.collapsed .collapsible {
-  background-color: transparent;
-}
-
-
-
-.collapsed .sidebar-content {
-  opacity: 0;
-}
-

@@ -39,7 +39,6 @@ export class NewLocationModalComponent {
   }
 
   ngOnInit() {
-    console.log(this.data);
     this.newLocationForm = this.formBuilder.group({
       image: [this.data.process === 'edit' ? this.data.projectInfo?.url : null], // Add validators if neededthis.data.projectInfo?.url], // Add validators if needed
       name: [this.data.process === 'edit' ?this.data.projectInfo?.name : null], // Add validators if needed
@@ -104,7 +103,6 @@ export class NewLocationModalComponent {
   private createNewLocation(url: string, data: any) {
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
-        // console.log(response);
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
         this.dialogRef.close(this.newLocationForm);
 
@@ -150,7 +148,6 @@ export class NewLocationModalComponent {
       this.imageToUrlConverterService.convertImageToUrl(data).subscribe(
         (response:any) => {
           this.createLocation(response.url);
-          // console.log(response);
         },
         error => {
           console.log(error)

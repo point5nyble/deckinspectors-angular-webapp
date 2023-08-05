@@ -6,8 +6,10 @@
                       (sectionID)=fetchDataForGivenSectionId($event)
                       [location] = location>
     </app-section-list>
-    <app-section [sectionReport] = sectionReport class="report-section"
-                 [location] = location></app-section>
+    <app-section class="report-section"
+                 [location] = location
+                 [isRecordFound] = isRecordFound
+    ></app-section>
   </div>
 </div>
 
