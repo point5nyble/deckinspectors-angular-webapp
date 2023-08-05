@@ -27,15 +27,10 @@ import {
 })
 export class SectionComponent implements OnInit{
   @Input() isRecordFound!:boolean;
-  @Input() sectionState!: SectionState;
+  sectionState: SectionState = SectionState.VISUAL;
   @Input() location!:BuildingLocation;
   sectionId_!:string;
   images!: string[];
-  @Input()
-  set sectionId($event: string) {
-    console.log($event)
-    // this.fetchDataForGivenSectionId($event);
-  }
   sectionReport!: InspectionReport;
 
   @Output() sectionStateChange = new EventEmitter<SectionState>();
@@ -78,7 +73,7 @@ export class SectionComponent implements OnInit{
       url = 'https://deckinspectors-dev.azurewebsites.net/api/conclusivesection/getConclusiveSectionsByParentId';
     }
 
-
+    console.log(url, data)
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         console.log(response)
@@ -87,7 +82,8 @@ export class SectionComponent implements OnInit{
         this.isRecordFound = true;
       },
       error => {
-        if (error.error.code === 401 && error.error.message === "No Invasive Section found.") {
+        // Check this logic
+        if (error.error.code === 401 || error.error.code === 500) {
           this.isRecordFound = false;
         }
         console.log(error.error)
@@ -118,6 +114,10 @@ export class SectionComponent implements OnInit{
       lbc: "Life Expectancy Load Bearing Componenets (LBC)",
       awe: "Life Expectancy Associated Waterproofing Elements (AWE)",
       invasiveDescription: "Invasive Description",
+      aweconclusive: "AWE Conclusive",
+      conclusiveconsiderations: "Conclusive Considerations",
+      eeeconclusive: "EEE Conclusive",
+      lbcconclusive: "LBC Conclusive"
     };
   }
   private constructRows() {
@@ -127,14 +127,13 @@ export class SectionComponent implements OnInit{
       for (let key in this.englishNamesMap) {
         if (this.englishNamesMap.hasOwnProperty(key) && this.sectionReport[key] !== null && this.sectionReport[key] !== undefined) {
           const value:string = this.englishNamesMap[key];
-            console.log(value);
             this.rows.push(
               {
                 column1: value,
                 column2: this.sectionReport[key]
               }
             );
-            this.rowsMap.set(key, this.sectionReport[key]);
+            this.rowsMap.set(key, this.getFormValue(this.sectionReport[key]));
 
         }
       }
@@ -142,7 +141,7 @@ export class SectionComponent implements OnInit{
     if (this.sectionState === SectionState.INVASIVE) {
       this.images = this.sectionReport?.invasiveimages;
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
-      this.images = this.sectionReport?.images;
+      this.images = this.sectionReport?.conclusiveimages;
     } else if (this.sectionState === SectionState.VISUAL) {
       this.images = this.sectionReport?.images;
     }
@@ -216,13 +215,20 @@ export class SectionComponent implements OnInit{
     }
     let url = this.getEditUrl();
 
+    console.log(url, request)
     this.httpsRequestService.putHttpData(url, request).subscribe(
       (response:any) => {
+        // Reset to default state
+        this.rows = [];
+        this.images = [];
         console.log(response);
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'updated section');
         this.isRecordFound = true;
       },
       error => {
+        // Reset to default state
+        this.rows = [];
+        this.images = [];
         console.log(error)
         this.isRecordFound = false;
       }
@@ -239,13 +245,21 @@ export class SectionComponent implements OnInit{
       request = this.createInvasiveSectionData(data);
     }
     let url = this.getAddUrl();
+
+    console.log(url, request)
     this.httpsRequestService.postHttpData(url, request).subscribe(
       (response:any) => {
+        // Reset to default state
+        this.rows = [];
+        this.images = [];
         console.log(response);
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'added section');
         this.isRecordFound = true;
       },
       error => {
+        // Reset to default state
+        this.rows = [];
+        this.images = [];
         console.log(error)
         this.isRecordFound = false;
       }
@@ -263,51 +277,47 @@ export class SectionComponent implements OnInit{
     this.rows = [];
     this.images = [];
     this.sectionState = sectionState;
-    this.sectionStateChange.emit(sectionState);
   }
 
   private createSectionData(data: any):any {
-    console.log(data)
     return {
-      "name": data.visualReportName,
-      "additionalconsiderations": data.additionalConsiderationsOrConcern,
-      "awe": data.AWE,
-      "conditionalassessment": data.conditionAssessment,
+      "name": data?.visualReportName,
+      "additionalconsiderations": data?.additionalConsiderationsOrConcern,
+      "awe": data?.AWE,
+      "conditionalassessment": data?.conditionAssessment,
       "createdby": "deck",
-      "eee": data.EEE,
-      "exteriorelements": data.exteriorElements,
-      "furtherinvasivereviewrequired": data.invasiveReviewRequired,
-      "lbc": data.LBC,
+      "eee": data?.EEE,
+      "exteriorelements": data?.exteriorElements,
+      "furtherinvasivereviewrequired": data?.invasiveReviewRequired,
+      "lbc": data?.LBC,
       "parentid": this.location._id,
       "parenttype": this.location.type,
-      "visualreview": data.visualReview,
-      "visualsignsofleak": data.signsOfLeaks,
-      "waterproofingelements": data.waterproofingElements,
-      "images": data.images
+      "visualreview": data?.visualReview,
+      "visualsignsofleak": data?.signsOfLeaks,
+      "waterproofingelements": data?.waterproofingElements,
+      "images": data?.images
     };
   }
 
   private createInvasiveSectionData(data: any):any {
-    console.log(data)
     return {
-      "invasiveDescription": data.invasiveDescription,
+      "invasiveDescription": data?.invasiveDescription,
       "postinvasiverepairsrequired": true,
       "parentid": this.sectionId_,
-      "invasiveimages": data.invasiveimages
+      "invasiveimages": data?.invasiveimages
     };
   }
 
   private createConclusiveSectionData(data: any):any {
-    console.log(data)
     return {
-      "aweconclusive": data.AWE,
+      "aweconclusive": data?.AWE,
       "conclusiveconsiderations": "string",
-      "eeeconclusive": data.EEE,
+      "eeeconclusive": data?.EEE,
       "invasiverepairsinspectedandcompleted": true,
-      "lbcconclusive": data.LBC,
+      "lbcconclusive": data?.LBC,
       "parentid": this.sectionId_,
       "propowneragreed": true,
-      "conclusiveimages": data.images
+      "conclusiveimages": data?.conclusiveimages
     };
   }
 
@@ -337,9 +347,6 @@ export class SectionComponent implements OnInit{
 
 
   public showAddBtn() {
-    // always show add button for visual section
-    // if section is invasive or conclusive and record is not found then show add button
-    // else hide add button
     if (this.sectionState === SectionState.VISUAL) {
         return true;
     } else if ((this.sectionState === SectionState.INVASIVE || this.sectionState === SectionState.CONCLUSIVE) &&
@@ -357,5 +364,20 @@ export class SectionComponent implements OnInit{
         this.images = [];
         this.fetchDataForGivenSectionId(data);
       });
+  }
+
+  private getFormValue(sectionReportElement: any) {
+    if (typeof sectionReportElement === 'string') {
+        if (sectionReportElement === '0-1 Years') {
+          return 'one'
+        } else if (sectionReportElement === '1-4 Years') {
+          return 'four'
+        } else if (sectionReportElement === '4-7 Years') {
+          return 'seven'
+        } else if (sectionReportElement === '7+ Years') {
+          return 'sevenplus'
+        }
+    }
+    return sectionReportElement;
   }
 }

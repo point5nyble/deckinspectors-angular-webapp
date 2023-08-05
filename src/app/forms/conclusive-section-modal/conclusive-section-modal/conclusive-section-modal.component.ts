@@ -32,9 +32,9 @@ export class ConclusiveSectionModalComponent {
   ngOnInit() {
     this.conclusiveDeckReportModalForm = this.formBuilder.group({
       conclusiveconsiderations:[this.data.rowsMap?.get('conclusiveconsiderations')],
-      EEE:[this.data.rowsMap?.get('eee')],
-      LBC:[this.data.rowsMap?.get('lbc')],
-      AWE:[this.data.rowsMap?.get('awe')],
+      EEE:[this.data.rowsMap?.get('eeeconclusive')],
+      LBC:[this.data.rowsMap?.get('lbcconclusive')],
+      AWE:[this.data.rowsMap?.get('aweconclusive')],
       conclusiveimages:[this.data.images]
     });
   }
@@ -71,9 +71,9 @@ export class ConclusiveSectionModalComponent {
 
   uploadImage() {
     let data:any = {
-      'entityName': this.conclusiveDeckReportModalForm.value.visualReportName,
+      'entityName': 'conclusivefolder',
       'uploader': 'deck',
-      'containerName': this.conclusiveDeckReportModalForm.value.visualReportName.replace(' ', '').toLowerCase(),
+      'containerName': 'conclusivefolder',
     }
     const imageRequests:Observable<any>[]= [];
     this.selectedImage.forEach(file => {

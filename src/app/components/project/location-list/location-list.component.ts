@@ -45,7 +45,6 @@ export class LocationListComponent implements OnInit {
   }
 
   onDbClick(locationInfo:ProjectListElement) {
-    // console.log(locationInfo);
     if (locationInfo._id !== '') {
       if (locationInfo.type === 'subproject') {
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'subproject');
@@ -58,7 +57,6 @@ export class LocationListComponent implements OnInit {
 
   public openLocationModal():void {
     const dialogConfig = new MatDialogConfig();
-    // console.log(this.projectInfo);
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "600px";
@@ -85,7 +83,6 @@ export class LocationListComponent implements OnInit {
       this.projectInfo.name = previousState.stack[previousState.stack.length - 1].name;
       this.projectInfo.parentId = projectID;
       this.projectInfo.parenttype = previousState.stack[previousState.stack.length - 1].type?previousState.stack[previousState.stack.length - 1].type:'project';
-      // console.log(this.projectInfo);
     });
   }
 

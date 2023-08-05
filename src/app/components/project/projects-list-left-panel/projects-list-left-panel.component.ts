@@ -72,7 +72,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     // This function is called when used adds new project, subproject, location or sections
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(event => {
       setTimeout(() => {
-        // console.log("Updating project list After adding new project");
         this.fetchLeftTreeData();
       },1000)
     });
@@ -316,7 +315,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   private filterInvasiveProjects(projectList: Item[]) {
     // Iterate over all projectList and check if isInvasive is true.
     if (this.projectState === ProjectState.INVASIVE) {
-      console.log(projectList);
       projectList = projectList?.filter(project => project.isInvasive);
       projectList?.forEach(project => {
         project.nestedItems = this.filterInvasiveLocations(project.nestedItems);
@@ -330,7 +328,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
           })
         });
       })
-      console.log(projectList);
     }
     return projectList;
 

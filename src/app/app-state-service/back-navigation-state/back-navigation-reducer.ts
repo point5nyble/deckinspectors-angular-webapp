@@ -19,7 +19,6 @@ const addPreviousStateModelParams = (state: BackNavigationStateModel, project: P
   let previousState = new PreviousStateModel();
   previousState.stack = [...state.stack]
   previousState.stack.push(project);
-  console.log("Previous state pushed ->", previousState);
   return previousState;
 }
 
@@ -27,6 +26,5 @@ const removePreviousStateModelParams = (state: BackNavigationStateModel, project
   let previousState = new PreviousStateModel();
   previousState.stack = [...state.stack];
   previousState.stack.pop();
-  console.log("Previous state popped ->", previousState);
   return previousState;
 }

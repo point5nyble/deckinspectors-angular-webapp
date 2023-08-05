@@ -19,4 +19,5 @@ export interface InspectionReport {
   visualsignsofleak: boolean;
   waterproofingelements: string[];
   invasiveimages:[];
+  conclusiveimages:[];
 }

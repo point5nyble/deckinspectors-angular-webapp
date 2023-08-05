@@ -39,6 +39,7 @@ export class SectionListComponent implements OnInit{
 
 
   fetchDataForGivenSectionId($event: Section) {
+    console.log($event);
     this.currentSection = $event;
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SECTION_CLICKED, $event._id);
   }
@@ -54,14 +55,12 @@ export class SectionListComponent implements OnInit{
   }
 
   private getSections(location: BuildingLocation) {
-    console.log(location);
     if (this.projectState === ProjectState.INVASIVE) {
       // TODO: Check Logic for Invasive
       this.sections = location.invasiveSections;
     } else {
       this.sections = location.sections;
     }
-    console.log(this.sections)
 
   }
 }

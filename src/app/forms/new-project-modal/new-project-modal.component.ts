@@ -85,7 +85,6 @@ export class NewProjectModalComponent implements OnInit {
         this.imageToUrlConverterService.convertImageToUrl(data).subscribe(
           (response:any) => {
             this.createProject(response.url);
-            // console.log(response);
           },
           error => {
             console.log(error)
@@ -112,8 +111,6 @@ export class NewProjectModalComponent implements OnInit {
       if (this.data.process === 'edit') {
         let projectid = this.data.projectInfo._id === undefined ? (<any>this.data.projectInfo).id : this.data.projectInfo._id;
         let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/' + projectid;
-        console.log(url);
-        console.log(data);
         this.updateProject(url, data);
       } else {
         this.createNewProject(url, data);
@@ -123,7 +120,6 @@ export class NewProjectModalComponent implements OnInit {
     private createNewProject(url:string, data:any) {
       this.httpsRequestService.postHttpData(url, data).subscribe(
         (response:any) => {
-          // console.log(response);
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
           this.dialogRef.close(this.yourForm.value);
         },
@@ -134,7 +130,6 @@ export class NewProjectModalComponent implements OnInit {
     }
 
     private updateProject(url:string, data:any) {
-    console.log(url);
       this.httpsRequestService.putHttpData(url, data).subscribe(
         (response:any) => {
           console.log(response);

@@ -75,7 +75,6 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   private subscribeToFetchLocationsAndSubprojectList() {
     this.fetchProjectDataFromState();
     this.subscription = this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
-      // console.log(data);
       this.showSectionInfo = data;
       if (data === 'project') {
         this.fetchProjectDataFromState();
@@ -107,16 +106,15 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   private filterLocations(locations:BuildingLocation[]): BuildingLocation[] {
     if (this.projectState === ProjectState.INVASIVE) {
       // return projects.filter(project => project.isInvasive);
-      return locations.filter(location => location.invasiveSections?.length > 0);
+      return locations.filter(location => location.isInvasive);
     }
     return locations;
   }
 
   private filterSubproject(projects:Project[]): Project[] {
-    console.log(projects);
     if (this.projectState === ProjectState.INVASIVE) {
       // return projects.filter(project => project.isInvasive);
-      return projects.filter(project => project.invasiveChildren?.length > 0);
+      return projects.filter(project => project.isInvasive);
     }
     return projects;
   }

@@ -82,7 +82,6 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
   }
 
    previousBtnClicked() {
-    // console.log(this.projectInfo)
     if (this.projectInfo.type === 'subproject') {
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'project')
     } else if (this.projectInfo.type === 'location' ||
@@ -125,7 +124,6 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
       process: 'edit',
       type: this.projectType
     };
-    console.log(this.projectInfo);
     if (this.projectInfo.type === 'project') {
       const dialogRef = this.dialog.open(NewProjectModalComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(data => {
@@ -141,7 +139,6 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
     this.store.select(BackNavigation.getPreviousStateModelChain).pipe(take(1)).subscribe((previousState: any) => {
       this.projectInfo = previousState.stack[previousState.stack.length - 1];
       if (this.projectInfo.type === 'subproject') {
-        // console.log(this.projectInfo);
         this.projectType = 'subproject';
         let subprojectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
         this.fetchSubprojectDetails(subprojectid)

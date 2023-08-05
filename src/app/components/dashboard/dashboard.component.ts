@@ -89,8 +89,7 @@ export class DashboardComponent implements OnInit
 
   private filterProject(projects:Project[]): Project[] {
     if (this.projectState === ProjectState.INVASIVE) {
-      // return projects.filter(project => project.isInvasive);
-      return projects.filter(project => project.invasiveChildren?.length > 0);
+      return projects.filter(project => project.isInvasive);
     }
     return projects;
   }

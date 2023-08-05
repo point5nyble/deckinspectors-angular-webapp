@@ -18,7 +18,6 @@ export class DownloadFilesModalComponent {
               private dialogRef: MatDialogRef<DownloadFilesModalComponent>,
               @Inject(MAT_DIALOG_DATA) data : any,
               private http: HttpClient) {
-    // console.log(data);
     this.modalData = data;
     this.projectName = data.project.name;
   }
@@ -52,7 +51,6 @@ export class DownloadFilesModalComponent {
     });
     this.showLoading = !this.showLoading;
     this.http.post<any>(url, data, { headers, responseType: 'text' as 'json'}).subscribe((response: any) => {
-        console.log(response);
         this.showLoading = !this.showLoading;
         const newWindow = window.open('', '_blank');
         newWindow?.document.open();

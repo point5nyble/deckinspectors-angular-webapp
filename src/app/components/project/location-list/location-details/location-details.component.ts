@@ -18,7 +18,6 @@ import {SectionState} from "../../../../app-state-service/store/project-state-mo
 })
 export class LocationDetailsComponent implements OnInit{
   location!: BuildingLocation;
-  sectionState: SectionState = SectionState.VISUAL;
   isRecordFound:boolean = true;
   sectionId!: string;
 
@@ -33,7 +32,6 @@ export class LocationDetailsComponent implements OnInit{
   }
   fetchDataForGivenSectionId($event: string) {
     this.sectionId = $event;
-    console.log(this.sectionId);
   }
 
   fetchLocationDetails($event: string) {
@@ -81,7 +79,4 @@ export class LocationDetailsComponent implements OnInit{
     );
   }
 
-  sectionStateChange($event: SectionState) {
-    this.sectionState = $event;
-  }
 }
