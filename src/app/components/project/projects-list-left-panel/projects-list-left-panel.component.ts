@@ -125,6 +125,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       name: 'Project Common Location',
       id:'',
       collapsed: true,
+      isInvasive:true,
       nestedItems: project.locations.map((location: any) => (
         {
           name: location.locationName,
