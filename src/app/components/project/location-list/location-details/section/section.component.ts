@@ -56,6 +56,9 @@ export class SectionComponent implements OnInit{
   }
 
   private fetchDataForGivenSectionId($event: string) {
+    if ($event === undefined || $event === '') {
+        return;
+    }
     this.rows = [];
     this.sectionId_ = $event;
     let url = '';
@@ -224,6 +227,7 @@ export class SectionComponent implements OnInit{
         console.log(response);
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'updated section');
         this.isRecordFound = true;
+        this.fetchDataForGivenSectionId(this.sectionId_);
       },
       error => {
         // Reset to default state
@@ -277,6 +281,7 @@ export class SectionComponent implements OnInit{
     this.rows = [];
     this.images = [];
     this.sectionState = sectionState;
+    this.fetchDataForGivenSectionId(this.sectionId_);
   }
 
   private createSectionData(data: any):any {

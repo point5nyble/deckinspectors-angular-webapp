@@ -11,15 +11,20 @@
   display: block;
   width: 100%;
   cursor: pointer;
-  background-color: #ddd;
-  border: none;
+  background-color: #f0f0f0;
+  //border: none;
+  border-radius: 16px;
+  height: 40px;
   text-align: left;
   outline: none;
-  transition: background-color 0.1s ease-out; /* Adjust the duration to make it smoother */
+  transition: background-color 2.8s ease-out; /* Adjust the duration to make it smoother */
+  -moz-transition: background-color 2.8s ease-out; /* Adjust the duration to make it smoother */
 }
 
 .collapsed .collapsible {
   background-color: transparent;
+  width: fit-content;
+  margin: auto;
 }
 
 .sidebar-block{
@@ -38,7 +43,8 @@
 
 .sidebar-content {
   display: block;
-  transition: opacity 0.3s ease-out;
+  transition: opacity 0.8s ease-out;
+  -moz-transition: opacity 0.8s ease-out;
   padding: 10px;
 }
 
@@ -66,8 +72,10 @@
   display: block;
   padding: 5px;
   color: #333;
+  border-radius: 13px;
   text-decoration: none;
-  transition: background-color 0.3s ease-out;
+  transition: background-color 0.8s ease-out;
+  -moz-transition: background-color 0.8s ease-out;
 }
 
 .sidebar-content a:hover {

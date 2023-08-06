@@ -1,8 +1,11 @@
 <div class="container sidebar" [ngClass]="{'collapsed': isSidebarCollapsed}" (mouseleave)="collapseSidebar()">
-
   <span class="material-icons collapsible" (mouseenter)="toggleSidebar()"> menu </span>
+
+
   <div class="sidebar-block">
-      <div class="sidebar-content">
+
+      <div class="sidebar-content" (mouseleave)="collapseSidebar()">
+
         <ul>
           <li class="active">
             <a routerLink="/dashboard" routerLinkActive="active">

@@ -43,6 +43,7 @@ export class LocationDetailsComponent implements OnInit{
       this.httpsRequestService.postHttpData(url, data).subscribe(
           (response:any) => {
             this.location = response.item;
+            console.log(this.location);
           },
           error => {
               console.log(error)
