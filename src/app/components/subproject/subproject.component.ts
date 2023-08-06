@@ -50,7 +50,7 @@ export class SubprojectComponent {
   }
 
   private subscribeToProjectUpdatedEvent() {
-    this.fetchSubprojectDataFromState();
+    // this.fetchSubprojectDataFromState();
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
       this.showSectionInfo = data;
       this.fetchSubprojectDataFromState();
@@ -72,11 +72,11 @@ export class SubprojectComponent {
       subproject = item.filter((sub:any) => sub._id === this.projectInfo._id)[0];
     }
     if (this.projectState === ProjectState.INVASIVE) {
-      this.buildingApartments = subproject.invasiveChildren.filter((sub:any) => sub.type === 'apartment');
-      this.buildingCommonLocation = subproject.invasiveChildren.filter((sub:any) => sub.type === 'buildinglocation');
+      this.buildingApartments = subproject?.invasiveChildren.filter((sub:any) => sub.type === 'apartment');
+      this.buildingCommonLocation = subproject?.invasiveChildren.filter((sub:any) => sub.type === 'buildinglocation');
     } else {
-      this.buildingApartments = subproject.children.filter((sub:any) => sub.type === 'apartment');
-      this.buildingCommonLocation = subproject.children.filter((sub:any) => sub.type === 'buildinglocation');
+      this.buildingApartments = subproject?.children.filter((sub:any) => sub.type === 'apartment');
+      this.buildingCommonLocation = subproject?.children.filter((sub:any) => sub.type === 'buildinglocation');
     }
   }
 

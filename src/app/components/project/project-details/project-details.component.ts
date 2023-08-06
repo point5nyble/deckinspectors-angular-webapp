@@ -62,7 +62,6 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
-        console.log(response)
         this.projectCommonLocationList = this.filterLocations(response.item);
       },
       error => {
@@ -73,7 +72,7 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   }
 
   private subscribeToFetchLocationsAndSubprojectList() {
-    this.fetchProjectDataFromState();
+    // this.fetchProjectDataFromState();
     this.subscription = this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
       this.showSectionInfo = data;
       if (data === 'project') {

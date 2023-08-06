@@ -259,6 +259,7 @@ export class SectionComponent implements OnInit{
         console.log(response);
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'added section');
         this.isRecordFound = true;
+        this.fetchDataForGivenSectionId(this.sectionId_);
       },
       error => {
         // Reset to default state
