@@ -27,7 +27,6 @@ export class LocationDetailsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.fetchSectionList();
     this.subscribeToOnLocationClick();
   }
   fetchDataForGivenSectionId($event: string) {
@@ -35,6 +34,7 @@ export class LocationDetailsComponent implements OnInit{
   }
 
   fetchLocationDetails($event: string) {
+    console.log("From Location Details")
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationById';
       let data = {
           locationid:$event,

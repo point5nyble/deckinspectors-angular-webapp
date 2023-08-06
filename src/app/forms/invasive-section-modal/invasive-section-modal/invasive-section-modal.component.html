@@ -8,6 +8,13 @@
       <label for="description">Invasive Description</label>
       <textarea formControlName="invasiveDescription" id="description" name="invasiveDescription" rows="4"></textarea>
     </div>
+    <div class="form-field">
+      <label>Post Invasive Report required</label>
+      <div class="radio-group">
+        <label for="yes"><input formControlName="postinvasiverepairsrequired" type="radio" id="yes" value="True" name="postinvasiverepairsrequired">Yes</label>
+        <label for="no"><input formControlName="postinvasiverepairsrequired" type="radio" id="no" value="False" name="postinvasiverepairsrequired">No</label>
+      </div>
+    </div>
     <div class="form-group">
       <label class="form-label">Upload Image:</label>
       <input type="file" (change)="handleFileInput($event)" class="form-control" multiple>

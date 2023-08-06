@@ -39,6 +39,8 @@ export class SectionComponent implements OnInit{
   rows: { column1: string; column2: any }[] = [];
   rowsMap!: Map<string, string>;
   private englishNamesMap!: { [key: string]: string };
+  showConclusiveSection:boolean = false;
+  showBtn: boolean = false;
 
 
   constructor(private dialog: MatDialog,
@@ -55,6 +57,27 @@ export class SectionComponent implements OnInit{
     this.subscribeToSectionClick();
   }
 
+  private findOutConclusiveSectionStatus(sectionId: string) {
+    if (sectionId  === undefined || sectionId === '') {
+        return;
+    }
+    let url = 'https://deckinspectors-dev.azurewebsites.net/api/invasivesection/getInvasiveSectionByParentId';
+    let data: any = {
+      username: 'deck',
+      parentSectionId: sectionId
+    };
+    this.httpsRequestService.postHttpData(url, data).subscribe(
+      (response:any) => {
+        console.log(response);
+        this.showConclusiveSection = JSON.parse(response.item.postinvasiverepairsrequired.toLowerCase());
+      },
+      error => {
+        console.log(error.error)
+      }
+    );
+
+  }
+
   private fetchDataForGivenSectionId($event: string) {
     if ($event === undefined || $event === '') {
         return;
@@ -68,9 +91,11 @@ export class SectionComponent implements OnInit{
     if (this.sectionState === SectionState.VISUAL) {
       data = {...data, sectionid: $event}
       url = 'https://deckinspectors-dev.azurewebsites.net/api/section/getSectionById';
+      this.findOutConclusiveSectionStatus(this.sectionId_);
     } else if (this.sectionState === SectionState.INVASIVE) {
       data = {...data, parentSectionId: $event}
       url = 'https://deckinspectors-dev.azurewebsites.net/api/invasivesection/getInvasiveSectionByParentId';
+      this.findOutConclusiveSectionStatus(this.sectionId_);
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
       data = {...data, parentSectionId: $event}
       url = 'https://deckinspectors-dev.azurewebsites.net/api/conclusivesection/getConclusiveSectionsByParentId';
@@ -117,10 +142,14 @@ export class SectionComponent implements OnInit{
       lbc: "Life Expectancy Load Bearing Componenets (LBC)",
       awe: "Life Expectancy Associated Waterproofing Elements (AWE)",
       invasiveDescription: "Invasive Description",
+      postinvasiverepairsrequired:"Post Invasive Repairs Required",
       aweconclusive: "AWE Conclusive",
       conclusiveconsiderations: "Conclusive Considerations",
       eeeconclusive: "EEE Conclusive",
-      lbcconclusive: "LBC Conclusive"
+      lbcconclusive: "LBC Conclusive",
+      invasiverepairsinspectedandcompleted:"Invasive Repairs Inspected and Completed",
+      propowneragreed:"Prop Owner Agreed"
+
     };
   }
   private constructRows() {
@@ -165,17 +194,23 @@ export class SectionComponent implements OnInit{
     if (this.sectionState === SectionState.VISUAL) {
       const dialogRef = this.dialog.open(VisualDeckReportModalComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(data => {
-        this.editSection(data);
+        if (data !== undefined) {
+          this.editSection(data);
+        }
       })
     } else if (this.sectionState === SectionState.INVASIVE) {
       const dialogRef = this.dialog.open(InvasiveSectionModalComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(data => {
-        this.editSection(data);
+        if (data !== undefined) {
+          this.editSection(data);
+        }
       })
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
       const dialogRef = this.dialog.open(ConclusiveSectionModalComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(data => {
-        this.editSection(data);
+        if (data !== undefined) {
+          this.editSection(data);
+        }
       })
     }
   }
@@ -191,17 +226,23 @@ export class SectionComponent implements OnInit{
     if (this.sectionState === SectionState.VISUAL) {
       const dialogRef = this.dialog.open(VisualDeckReportModalComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(data => {
-        this.createSection(data);
+        if (data !== undefined) {
+            this.createSection(data);
+        }
       })
     } else if (this.sectionState === SectionState.INVASIVE) {
       const dialogRef = this.dialog.open(InvasiveSectionModalComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(data => {
-        this.createSection(data);
+        if (data !== undefined) {
+          this.createSection(data);
+        }
       })
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
       const dialogRef = this.dialog.open(ConclusiveSectionModalComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(data => {
-        this.createSection(data);
+        if (data !== undefined) {
+          this.createSection(data);
+        }
       })
     }
 
@@ -308,7 +349,7 @@ export class SectionComponent implements OnInit{
   private createInvasiveSectionData(data: any):any {
     return {
       "invasiveDescription": data?.invasiveDescription,
-      "postinvasiverepairsrequired": true,
+      "postinvasiverepairsrequired": data?.postinvasiverepairsrequired,
       "parentid": this.sectionId_,
       "invasiveimages": data?.invasiveimages
     };
@@ -317,12 +358,12 @@ export class SectionComponent implements OnInit{
   private createConclusiveSectionData(data: any):any {
     return {
       "aweconclusive": data?.AWE,
-      "conclusiveconsiderations": "string",
+      "conclusiveconsiderations": data.conclusiveconsiderations,
       "eeeconclusive": data?.EEE,
-      "invasiverepairsinspectedandcompleted": true,
+      "invasiverepairsinspectedandcompleted": data.invasiverepairsinspectedandcompleted,
       "lbcconclusive": data?.LBC,
       "parentid": this.sectionId_,
-      "propowneragreed": true,
+      "propowneragreed": data.propowneragreed,
       "conclusiveimages": data?.conclusiveimages
     };
   }
@@ -368,6 +409,7 @@ export class SectionComponent implements OnInit{
         // Reset to default state
         this.rows = [];
         this.images = [];
+        this.showBtn = true;
         this.fetchDataForGivenSectionId(data);
       });
   }
