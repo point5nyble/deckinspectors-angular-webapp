@@ -69,7 +69,7 @@ export class SectionComponent implements OnInit{
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         console.log(response);
-        this.showConclusiveSection = JSON.parse(response.item.postinvasiverepairsrequired.toLowerCase());
+        this.showConclusiveSection = JSON.parse(response?.item?.postinvasiverepairsrequired?.toLowerCase());
       },
       error => {
         console.log(error.error)
@@ -153,6 +153,7 @@ export class SectionComponent implements OnInit{
     };
   }
   private constructRows() {
+    console.log(this.sectionReport);
     this.rows = [];
     this.rowsMap = new Map<string,string>();
     if (this.sectionReport != null || this.sectionReport != undefined) {
@@ -174,10 +175,25 @@ export class SectionComponent implements OnInit{
       this.images = this.sectionReport?.invasiveimages;
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
       this.images = this.sectionReport?.conclusiveimages;
+      let propowneragreed = this.sectionReport?.propowneragreed.toLowerCase();
+      let invasiverepairsinspectedandcompleted = this.sectionReport?.invasiverepairsinspectedandcompleted.toLowerCase();
+      propowneragreed = JSON.parse(propowneragreed === undefined ? 'false' : propowneragreed);
+      invasiverepairsinspectedandcompleted = JSON.parse(invasiverepairsinspectedandcompleted === undefined ? 'false' : invasiverepairsinspectedandcompleted);
+      if (!(propowneragreed && invasiverepairsinspectedandcompleted)) {
+        this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['aweconclusive']);
+        this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['conclusiveconsiderations']);
+        this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['eeeconclusive']);
+        this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['lbcconclusive']);
+
+      }
     } else if (this.sectionState === SectionState.VISUAL) {
       this.images = this.sectionReport?.images;
     }
 
+  }
+
+  deleteElementFromArray(arr: any[], valueToDelete: string): any[] {
+    return arr.filter(item => item.column1 !== valueToDelete);
   }
 
   editVisualDeckReportModal() {
