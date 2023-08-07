@@ -66,6 +66,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
   }
 
   private fetchLocationDetails($event: string) {
+    console.log("From Project Details Upper Section")
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationById';
     let data = {
       locationid:$event,

@@ -19,7 +19,8 @@ export class ConclusiveSectionModalComponent {
   selectedImage: File[] = [];
   imagePreviewUrls: (string | ArrayBuffer | null)[] = [];
   imageControl: FormControl = new FormControl();
-
+  propowneragreed:boolean = false;
+  invasiverepairsinspectedandcompleted:boolean = false;
   constructor(private formBuilder: FormBuilder,
               private cdr: ChangeDetectorRef,
               private dialogRef: MatDialogRef<ConclusiveSectionModalComponent>,
@@ -27,6 +28,10 @@ export class ConclusiveSectionModalComponent {
               private imageToUrlConverterService : ImageToUrlConverterService) {
     this.data = data;
     this.imagePreviewUrls = this.data.images;
+    let propowneragreed = this.data.rowsMap?.get('propowneragreed').toLowerCase();
+    let invasiverepairsinspectedandcompleted = this.data.rowsMap?.get('invasiverepairsinspectedandcompleted').toLowerCase();
+    this.propowneragreed = JSON.parse(propowneragreed === undefined ? 'false' : propowneragreed);
+    this.invasiverepairsinspectedandcompleted = JSON.parse(invasiverepairsinspectedandcompleted === undefined ? 'false' : invasiverepairsinspectedandcompleted);
   }
 
   ngOnInit() {
@@ -35,8 +40,21 @@ export class ConclusiveSectionModalComponent {
       EEE:[this.data.rowsMap?.get('eeeconclusive')],
       LBC:[this.data.rowsMap?.get('lbcconclusive')],
       AWE:[this.data.rowsMap?.get('aweconclusive')],
+      invasiverepairsinspectedandcompleted:[this.data.rowsMap?.get('invasiverepairsinspectedandcompleted')],
+      propowneragreed:[this.data.rowsMap?.get('propowneragreed')],
       conclusiveimages:[this.data.images]
     });
+    // @ts-ignore
+    this.conclusiveDeckReportModalForm?.get('invasiverepairsinspectedandcompleted').valueChanges.subscribe(value => {
+      this.propowneragreed = JSON.parse(value.toLowerCase());
+      console.log(this.propowneragreed);
+    });
+    // @ts-ignore
+    this.conclusiveDeckReportModalForm?.get('propowneragreed').valueChanges.subscribe(value => {
+      this.invasiverepairsinspectedandcompleted = JSON.parse(value.toLowerCase());
+      console.log(this.invasiverepairsinspectedandcompleted);
+    });
+
   }
   close() {
     this.dialogRef.close();
@@ -118,6 +136,10 @@ export class ConclusiveSectionModalComponent {
 
   private isValidImageLink(imageUrl: string): boolean {
     return (imageUrl.startsWith("http") || imageUrl.startsWith("https"));
+  }
+
+  showContent() {
+    return this.propowneragreed.valueOf() && this.invasiverepairsinspectedandcompleted.valueOf();
   }
 }
 

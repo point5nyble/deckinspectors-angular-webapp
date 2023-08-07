@@ -20,4 +20,6 @@ export interface InspectionReport {
   waterproofingelements: string[];
   invasiveimages:[];
   conclusiveimages:[];
+  propowneragreed:string;
+  invasiverepairsinspectedandcompleted:string;
 }

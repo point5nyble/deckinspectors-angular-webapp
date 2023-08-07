@@ -29,7 +29,8 @@ export class InvasiveSectionModalComponent {
   ngOnInit() {
     this.invasiveDeckReportModalForm = this.formBuilder.group({
       invasiveDescription:[this.data.rowsMap?.get('invasiveDescription')],
-      invasiveimages:[this.data.images]
+      invasiveimages:[this.data.images],
+      postinvasiverepairsrequired:[this.data.rowsMap?.get('postinvasiverepairsrequired')],
     });
   }
   close() {
@@ -67,7 +68,7 @@ export class InvasiveSectionModalComponent {
     let data:any = {
       'entityName': 'invasivefolders',
       'uploader': 'deck',
-      'containerName': 'invasivefolders',
+      'containerName': 'invasivefolders'
     }
     const imageRequests:Observable<any>[]= [];
     this.selectedImage.forEach(file => {
