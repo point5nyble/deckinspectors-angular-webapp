@@ -1,16 +1,18 @@
-<div class="horizontal-div border border-secondary mt-2 info-section">
-  <div class="flex-item">
-    <div class="navigation-line">
-      <i class="fas fa-arrow-left" (click)="previousBtnClicked()"></i>
-      <app-navigation-component></app-navigation-component>
-      <i class="fas fa-edit" (click)="editLocation()"></i>
-    </div>
-
-    <h4 class="info-heading">{{ projectInfo.name }}</h4>
-    <p><strong>Description:</strong> {{ projectInfo.description }}</p>
-    <p *ngIf="projectType !== 'location'" class="address" style="margin-bottom: 10px;"><strong>Address:</strong> {{ projectInfo.address }}</p>
+<div class="border border-secondary info-section">
+  <div class="navigation-line">
+    <i class="fas fa-arrow-left" (click)="previousBtnClicked()"></i>
+    <app-navigation-component></app-navigation-component>
+    <i class="fas fa-edit" (click)="editLocation()"></i>
   </div>
-  <div class="image-section flex-item">
-    <img alt="image-description" src="{{ projectInfo.url }}">
+  <div class="horizontal-div  mt-2 info-section">
+    <div class="flex-item">
+      <h4 class="info-heading">{{ projectInfo.name }}</h4>
+      <p><strong>Description:</strong> {{ projectInfo.description }}</p>
+      <p *ngIf="projectType !== 'location'" class="address" style="margin-bottom: 10px;"><strong>Address:</strong> {{ projectInfo.address }}</p>
+    </div>
+    <div class="image-section flex-item">
+      <img alt="image-description" src="{{ projectInfo.url }}">
+    </div>
   </div>
 </div>
+

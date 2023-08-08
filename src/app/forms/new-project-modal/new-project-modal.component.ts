@@ -121,6 +121,7 @@ export class NewProjectModalComponent implements OnInit {
       this.httpsRequestService.postHttpData(url, data).subscribe(
         (response:any) => {
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
+
           this.dialogRef.close(this.yourForm.value);
         },
         error => {

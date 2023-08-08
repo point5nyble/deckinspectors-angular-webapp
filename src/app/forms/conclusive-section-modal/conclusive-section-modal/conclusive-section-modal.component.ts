@@ -28,13 +28,22 @@ export class ConclusiveSectionModalComponent {
               private imageToUrlConverterService : ImageToUrlConverterService) {
     this.data = data;
     this.imagePreviewUrls = this.data.images;
-    let propowneragreed = this.data.rowsMap?.get('propowneragreed').toLowerCase();
-    let invasiverepairsinspectedandcompleted = this.data.rowsMap?.get('invasiverepairsinspectedandcompleted').toLowerCase();
-    this.propowneragreed = JSON.parse(propowneragreed === undefined ? 'false' : propowneragreed);
-    this.invasiverepairsinspectedandcompleted = JSON.parse(invasiverepairsinspectedandcompleted === undefined ? 'false' : invasiverepairsinspectedandcompleted);
   }
 
   ngOnInit() {
+    let propowneragreed:boolean = JSON.parse(this.data.rowsMap?.get('propowneragreed').toLowerCase());
+    let invasiverepairsinspectedandcompleted:boolean = JSON.parse(this.data.rowsMap?.get('invasiverepairsinspectedandcompleted').toLowerCase());
+    this.propowneragreed = propowneragreed === undefined ? false : propowneragreed;
+    this.invasiverepairsinspectedandcompleted = invasiverepairsinspectedandcompleted === undefined ? false : invasiverepairsinspectedandcompleted;
+    // @ts-ignore
+    this.conclusiveDeckReportModalForm?.get('invasiverepairsinspectedandcompleted').valueChanges.subscribe(value => {
+      this.invasiverepairsinspectedandcompleted = JSON.parse(value.toLowerCase());
+    });
+    // @ts-ignore
+    this.conclusiveDeckReportModalForm?.get('propowneragreed').valueChanges.subscribe(value => {
+      this.propowneragreed = JSON.parse(value.toLowerCase());
+    });
+
     this.conclusiveDeckReportModalForm = this.formBuilder.group({
       conclusiveconsiderations:[this.data.rowsMap?.get('conclusiveconsiderations')],
       EEE:[this.data.rowsMap?.get('eeeconclusive')],
@@ -43,16 +52,6 @@ export class ConclusiveSectionModalComponent {
       invasiverepairsinspectedandcompleted:[this.data.rowsMap?.get('invasiverepairsinspectedandcompleted')],
       propowneragreed:[this.data.rowsMap?.get('propowneragreed')],
       conclusiveimages:[this.data.images]
-    });
-    // @ts-ignore
-    this.conclusiveDeckReportModalForm?.get('invasiverepairsinspectedandcompleted').valueChanges.subscribe(value => {
-      this.propowneragreed = JSON.parse(value.toLowerCase());
-      console.log(this.propowneragreed);
-    });
-    // @ts-ignore
-    this.conclusiveDeckReportModalForm?.get('propowneragreed').valueChanges.subscribe(value => {
-      this.invasiverepairsinspectedandcompleted = JSON.parse(value.toLowerCase());
-      console.log(this.invasiverepairsinspectedandcompleted);
     });
 
   }

@@ -1,13 +1,17 @@
 /* form-component.component.css */
 .form-container {
-  width: 400px;
+  width: 450px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
 .form-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  font-size: x-large;
 }
 
 .form-header h2 {
@@ -17,6 +21,8 @@
 .button-container {
   display: flex;
   gap: 10px;
+  justify-content: center;
+  margin-top: 25px;
 }
 
 .save-button,
