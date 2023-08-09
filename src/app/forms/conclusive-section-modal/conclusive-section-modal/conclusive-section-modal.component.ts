@@ -35,15 +35,8 @@ export class ConclusiveSectionModalComponent {
     let invasiverepairsinspectedandcompleted:boolean = JSON.parse(this.data.rowsMap?.get('invasiverepairsinspectedandcompleted').toLowerCase());
     this.propowneragreed = propowneragreed === undefined ? false : propowneragreed;
     this.invasiverepairsinspectedandcompleted = invasiverepairsinspectedandcompleted === undefined ? false : invasiverepairsinspectedandcompleted;
-    // @ts-ignore
-    this.conclusiveDeckReportModalForm?.get('invasiverepairsinspectedandcompleted').valueChanges.subscribe(value => {
-      this.invasiverepairsinspectedandcompleted = JSON.parse(value.toLowerCase());
-    });
-    // @ts-ignore
-    this.conclusiveDeckReportModalForm?.get('propowneragreed').valueChanges.subscribe(value => {
-      this.propowneragreed = JSON.parse(value.toLowerCase());
-    });
-
+    console.log(this.propowneragreed);
+    console.log(this.invasiverepairsinspectedandcompleted);
     this.conclusiveDeckReportModalForm = this.formBuilder.group({
       conclusiveconsiderations:[this.data.rowsMap?.get('conclusiveconsiderations')],
       EEE:[this.data.rowsMap?.get('eeeconclusive')],
@@ -53,6 +46,18 @@ export class ConclusiveSectionModalComponent {
       propowneragreed:[this.data.rowsMap?.get('propowneragreed')],
       conclusiveimages:[this.data.images]
     });
+    // @ts-ignore
+    this.conclusiveDeckReportModalForm?.get('invasiverepairsinspectedandcompleted').valueChanges.subscribe(value => {
+      console.log("Invasive Repairs Inspected and Completed ->",value);
+      this.invasiverepairsinspectedandcompleted = JSON.parse(value.toLowerCase());
+    });
+    // @ts-ignore
+    this.conclusiveDeckReportModalForm?.get('propowneragreed').valueChanges.subscribe(value => {
+      console.log("Prop Owner Agreed ->",value);
+      this.propowneragreed = JSON.parse(value.toLowerCase());
+    });
+
+
 
   }
   close() {
@@ -138,6 +143,7 @@ export class ConclusiveSectionModalComponent {
   }
 
   showContent() {
+    console.log(this.propowneragreed.valueOf() && this.invasiverepairsinspectedandcompleted.valueOf());
     return this.propowneragreed.valueOf() && this.invasiverepairsinspectedandcompleted.valueOf();
   }
 }
