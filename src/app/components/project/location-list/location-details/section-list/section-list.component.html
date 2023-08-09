@@ -7,7 +7,7 @@
         <app-section-list-element
           (click)="fetchDataForGivenSectionId(section)"
           [section]="section"
-          [isHighlighted]="section.name === this.currentSection?.name"
+          [isHighlighted]="section._id === this.currentSection?._id"
         ></app-section-list-element>
       </div>
 

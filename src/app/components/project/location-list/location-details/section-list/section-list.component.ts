@@ -39,7 +39,6 @@ export class SectionListComponent implements OnInit{
 
 
   fetchDataForGivenSectionId($event: Section) {
-    console.log($event);
     this.currentSection = $event;
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SECTION_CLICKED, $event._id);
   }
@@ -64,7 +63,13 @@ export class SectionListComponent implements OnInit{
   }
 
     private convertValueToBoolean(valueOf: string):boolean {
+    try {
       return JSON.parse(valueOf.toLowerCase());
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+
     }
 
 }
