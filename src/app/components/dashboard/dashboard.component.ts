@@ -1,14 +1,12 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {HttpsRequestService} from "../../service/https-request.service";
-import {Project} from "../../common/models/project";
-import {
-  OrchestratorCommunicationService
-} from "../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
-import {OrchestratorEventName} from "../../orchestrator-service/models/orchestrator-event-name";
-import {ObjectCloneServiceService} from "../../service/object-clone-service.service";
-import {ProjectState} from "../../app-state-service/store/project-state-model";
-import {Store} from "@ngrx/store";
-import {ProjectQuery} from "../../app-state-service/project-state/project-selector";
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { HttpsRequestService } from "../../service/https-request.service";
+import { Project } from "../../common/models/project";
+import { OrchestratorCommunicationService } from "../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
+import { OrchestratorEventName } from "../../orchestrator-service/models/orchestrator-event-name";
+import { ObjectCloneServiceService } from "../../service/object-clone-service.service";
+import { ProjectState } from "../../app-state-service/store/project-state-model";
+import { Store } from "@ngrx/store";
+import { ProjectQuery } from "../../app-state-service/project-state/project-selector";
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +21,7 @@ export class DashboardComponent implements OnInit
   allProjects!: Project[];
   projectState!: ProjectState;
   isChildClickEventTriggered: boolean = false;
+  disableInvasiveBtn: boolean = false;
     constructor(private cdr: ChangeDetectorRef,
                 private httpsRequestService:HttpsRequestService,
                 private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -58,12 +57,16 @@ export class DashboardComponent implements OnInit
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC,
       ObjectCloneServiceService.deepClone(projectInfo));
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN,'project')
+    this.disableInvasiveBtn = !this.projectInfo.isInvasive;
   }
 
   private subscribeToshowProjectInfoToggle() {
       // Show Project Screen
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
       this.showProjectInfo = data;
+      if (data === 'home') {
+        this.disableInvasiveBtn = false;
+      }
     })
   }
 
