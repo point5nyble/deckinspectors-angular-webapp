@@ -39,7 +39,6 @@ export class SectionListComponent implements OnInit{
 
 
   fetchDataForGivenSectionId($event: Section) {
-    console.log($event);
     this.currentSection = $event;
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SECTION_CLICKED, $event._id);
   }
@@ -57,9 +56,20 @@ export class SectionListComponent implements OnInit{
   private getSections(location: BuildingLocation) {
     if (this.projectState === ProjectState.INVASIVE) {
       // TODO: Check Logic for Invasive
-      this.sections = location?.sections?.filter(section => section?.furtherinvasivereviewrequired?.valueOf());
+      this.sections = location?.sections?.filter(section => this.convertValueToBoolean(section?.furtherinvasivereviewrequired?.toString()));
     } else {
       this.sections = location?.sections;
     }
   }
+
+    private convertValueToBoolean(valueOf: string):boolean {
+    try {
+      return JSON.parse(valueOf.toLowerCase());
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+
+    }
+
 }

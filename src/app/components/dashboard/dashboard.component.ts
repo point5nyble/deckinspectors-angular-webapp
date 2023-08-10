@@ -46,6 +46,20 @@ export class DashboardComponent implements OnInit
     )
   }
 
+  private fetchProjectDataToGetLastElement() {
+    this.httpsRequestService.getHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/deck').subscribe(
+      (data) => {
+        this.projectInfos = this.filterProject(data.projects);
+        this.allProjects = this.filterProject(data.projects);
+        this.projectInfo = this.getLastProject(data.projects);
+        this.gotoProject(this.projectInfo);
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
   public gotoProject(projectInfo :Project): void {
       if (this.isChildClickEventTriggered) {
         this.isChildClickEventTriggered = false;
@@ -61,7 +75,6 @@ export class DashboardComponent implements OnInit
   }
 
   private subscribeToshowProjectInfoToggle() {
-      // Show Project Screen
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
       this.showProjectInfo = data;
       if (data === 'home') {
@@ -79,7 +92,7 @@ export class DashboardComponent implements OnInit
   newProjectUploaded() {
       // add Timeout
       setTimeout(() => {
-        this.fetchProjectData();
+        this.fetchProjectDataToGetLastElement();
       },1000)
   }
 
@@ -100,6 +113,10 @@ export class DashboardComponent implements OnInit
       return projects.filter(project => project.isInvasive);
     }
     return projects;
+  }
+
+  private getLastProject(projects: Project[]) {
+      return projects[projects.length-1];
   }
 
   childClickEventTriggered($event: boolean) {
