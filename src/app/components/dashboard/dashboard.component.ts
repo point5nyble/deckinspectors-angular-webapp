@@ -7,6 +7,8 @@ import { ObjectCloneServiceService } from "../../service/object-clone-service.se
 import { ProjectState } from "../../app-state-service/store/project-state-model";
 import { Store } from "@ngrx/store";
 import { ProjectQuery } from "../../app-state-service/project-state/project-selector";
+import {LoginService} from "../login/login.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -25,10 +27,13 @@ export class DashboardComponent implements OnInit
     constructor(private cdr: ChangeDetectorRef,
                 private httpsRequestService:HttpsRequestService,
                 private orchestratorCommunicationService:OrchestratorCommunicationService,
-                private store: Store<any>) {}
+                private store: Store<any>,
+                private loginService: LoginService,
+                private router: Router) {}
 
     ngOnInit(): void {
       // this.fetchProjectData();
+      this.performUserLoginSteps();
       this.subscribeToshowProjectInfoToggle();
       this.subscribeToProjectState();
     }
@@ -124,4 +129,16 @@ export class DashboardComponent implements OnInit
   }
 
   protected readonly event = event;
+
+  private performUserLoginSteps() {
+    if (this.loginService.isLoggedIn()) {
+        this.fetchProjectData();
+    } else {
+      this.router.navigate(['/login'])
+    }
+  }
+
+  gotoHome() {
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN,'home');
+  }
 }

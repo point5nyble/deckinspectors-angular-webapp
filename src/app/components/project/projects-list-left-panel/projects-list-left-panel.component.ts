@@ -26,6 +26,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   currentSelectedItem:string = '';
   objectMap = new Map<string, any>();
   loadingScreen:boolean = true;
+  collapsed: boolean = true;
   private projectState: ProjectState = ProjectState.VISUAL;
 
 
@@ -42,6 +43,10 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     if (this.projectList !== undefined) {
       this.loadingScreen = false;
     }
+  }
+
+  toggleCollapse_() {
+    this.collapsed = !this.collapsed;
   }
 
   private fetchLeftTreeDataFromState() {

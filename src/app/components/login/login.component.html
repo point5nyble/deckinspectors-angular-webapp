@@ -1,20 +1,16 @@
 <div class="login-container">
   <div class="left-side">
     <h2>Login</h2>
-    <form>
+    <form (ngSubmit)="login()">
       <div>
         <label for="username">Username</label>
-        <input type="text" id="username" name="username">
+        <input type="text" id="username" name="username" [(ngModel)]="username">
       </div>
       <div>
         <label for="password">Password</label>
-        <input type="password" id="password" name="password">
+        <input type="password" id="password" name="password" [(ngModel)]="password">
       </div>
-      <div class="remember-me">
-        <input type="checkbox" id="rememberMe" name="rememberMe">
-        <label for="rememberMe">Remember me</label>
-      </div>
-      <button type="button" class="login-button">Login</button>
+      <button type="submit" class="login-button">Login</button>
     </form>
   </div>
   <div class="right-side">
