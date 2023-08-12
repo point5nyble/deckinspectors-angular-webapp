@@ -137,4 +137,8 @@ export class DashboardComponent implements OnInit
       this.router.navigate(['/login'])
     }
   }
+
+  gotoHome() {
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN,'home');
+  }
 }
