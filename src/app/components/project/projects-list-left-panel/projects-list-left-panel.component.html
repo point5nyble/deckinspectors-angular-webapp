@@ -1,6 +1,14 @@
-<div class="left-panel scrollable-container full-height" [style.width.px]="panelWidth" (mouseup)="startDrag($event)">
-  <app-loading-screen *ngIf="loadingScreen"></app-loading-screen>
-  <ul *ngIf="!loadingScreen" class="nested-list" style="padding-left: 5px">
+<div class="left-panel scrollable-container full-height"
+     [style.width.px]="panelWidth"
+     (mouseup)="startDrag($event)"
+     [ngClass]="{'collapsed': collapsed}">
+  <span (click)="toggleCollapse_()">
+    <i class="icon" [class.rotate-icon]="!collapsed"></i>
+   </span>
+  <app-loading-screen *ngIf="loadingScreen && !collapsed"></app-loading-screen>
+  <ul *ngIf="!loadingScreen && !collapsed"
+      class="nested-list"
+      style="padding-left: 5px">
     <ng-container *ngFor="let project of projectList">
       <li [class.collapsed]="project.collapsed">
         <span>
