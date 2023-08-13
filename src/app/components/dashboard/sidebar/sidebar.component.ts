@@ -23,4 +23,13 @@ export class SidebarComponent {
   logout() {
     this.loginService.logout();
   }
+
+  activateLink(event: Event){
+    let elements = document.getElementsByClassName("active");
+    for(let i = 0; i < elements.length; i++) {
+      elements[i].className = "";
+    }
+    (event.currentTarget as HTMLElement).className = "active";
+    console.log((event.currentTarget as HTMLElement))
+  }
 }

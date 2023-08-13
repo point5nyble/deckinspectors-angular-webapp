@@ -1,0 +1,38 @@
+form {
+    min-width:300px;
+    max-width:400px;
+    padding:20px;
+    margin:0 auto;
+    background:#ffffff59; 
+    -webkit-box-shadow: 3px 3px 23px -9px rgba(0,0,0,0.86);
+    -moz-box-shadow: 3px 3px 23px -9px rgba(0,0,0,0.86);
+    box-shadow: 3px 3px 23px -9px rgba(0,0,0,0.86);
+  }
+  
+  form input {
+    border:1px solid #eee;
+    border-radius:0 !important;
+    padding:5px 8px;
+    color:#444;
+    font-size: medium;
+  }
+  
+  form button {
+    color:#555;
+    background:#ffffffad;
+    border:1px solid #fff !important;
+    margin-top:20px;
+    border-radius:0px Important;
+  }
+  
+  form button:hover {
+    background:#fff !important;
+  }
+
+  form label {
+    font-size: small;
+  }
+  
+  .pull-right {
+    float:right;
+  }

@@ -7,15 +7,15 @@
       <div class="sidebar-content" (mouseleave)="collapseSidebar()">
 
         <ul>
-          <li class="active">
+          <li class="active" (click)="activateLink($event)">
             <a routerLink="/dashboard" routerLinkActive="active">
 <!--              <span class="material-icons logo-image"> location_city </span>-->
-              <img src="../../../assets/images/ant-design_project-outlined.png" alt="Logo 1" class="logo-image" >
+              <img src="../../../assets/images/ant-design_project-outlined-new.png" alt="Logo 1" class="logo-image" >
               <span>Projects</span>
             </a>
           </li>
-          <li>
-            <a routerLink="/" routerLinkActive="active">
+          <li (click)="activateLink($event)">
+            <a routerLink="/users" routerLinkActive="active">
               <img src="../../../assets/images/Vector.png" alt="Logo 2" class="logo-image">
               <span>Users</span>
             </a>
