@@ -49,6 +49,9 @@ import {MatSliderModule} from "@angular/material/slider";
 import {MatRadioModule} from "@angular/material/radio";
 import { InvasiveSectionModalComponent } from './forms/invasive-section-modal/invasive-section-modal/invasive-section-modal.component';
 import { ConclusiveSectionModalComponent } from './forms/conclusive-section-modal/conclusive-section-modal/conclusive-section-modal.component';
+import { UsersComponent } from './components/users/users.component';
+import { ModalComponent } from './components/common/modal/modal.component';
+import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 
 
 
@@ -83,7 +86,9 @@ import { ConclusiveSectionModalComponent } from './forms/conclusive-section-moda
     NavigationComponentComponent,
     LoadingScreenComponent,
     InvasiveSectionModalComponent,
-    ConclusiveSectionModalComponent
+    ConclusiveSectionModalComponent,
+    UsersComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -110,7 +115,7 @@ import { ConclusiveSectionModalComponent } from './forms/conclusive-section-moda
     MatSliderModule,
     MatRadioModule
   ],
-  providers: [],
+  providers: [MdbModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

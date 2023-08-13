@@ -1,0 +1,63 @@
+
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">{{title}}</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modalRef.close()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <!-- <form class="modal-form">
+      <input type="text" name="first_name" [(ngModel)]="user.first_name" placeholder="first_name"/>
+      <input type="text" name="last_name" [(ngModel)]="user.last_name" placeholder="last_name"/>
+      <input type="text" name="username" [(ngModel)]="user.username" placeholder="username"/>
+      <input type="text" name="email" [(ngModel)]="user.email" placeholder="email"/>
+      <input type="text" name="role" [(ngModel)]="user.role" placeholder="role"/>
+      <input type="text" name="access_type" [(ngModel)]="user.access_type" placeholder="access_type"/>
+  </form> -->
+
+  <div class="container">
+    <form>
+       <div class="form-group">
+        <label for="first_name">First Name :</label>
+        <input type="text" name="first_name" [(ngModel)]="user.first_name" class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label for="last_name">Last Name :</label>
+        <input type="text" name="last_name" [(ngModel)]="user.last_name" class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label for="username">Username :</label>
+        <input type="text" name="username" [(ngModel)]="user.username" class="form-control"/>
+      </div>
+      <ng-container *ngIf="formtype === 'createUser'">
+        <div class="form-group">
+          <label for="password">Password :</label>
+          <input type="text" name="password" [(ngModel)]="password" class="form-control"/>
+        </div>
+    </ng-container>
+      <div class="form-group">
+        <label for="email">Email :</label>
+        <input type="text" name="email" [(ngModel)]="user.email" class="form-control"/>
+      </div>   
+      <div class="form-group">
+        <label for="role">Role :</label>
+        <input type="text" name="role" [(ngModel)]="user.role" class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label for="access_type">Access Type :</label>
+        <input type="text" name="access_type" [(ngModel)]="user.access_type" class="form-control"/>
+      </div>
+       </form>
+  </div>
+    
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
+      Close
+    </button>
+    <button type="button" class="btn btn-primary" (click)="submit()">
+      {{buttonName}}</button>
+  </div>
