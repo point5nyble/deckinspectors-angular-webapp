@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {LoginService} from "../../login/login.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -8,12 +9,19 @@ import { Component } from '@angular/core';
 export class SidebarComponent {
   isSidebarCollapsed: boolean = true;
 
+  constructor(private loginService: LoginService) {
+  }
+
   toggleSidebar() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 
   collapseSidebar() {
     this.isSidebarCollapsed = true;
+  }
+
+  logout() {
+    this.loginService.logout();
   }
 
   activateLink(event: Event){

@@ -35,7 +35,7 @@ export class DownloadFilesModalComponent {
   }
 
   private downloadReport(reportType: string) {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/generatereporthtml';
+    let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/generatereport';
     let data = {
       "id": this.modalData.project._id,
       "sectionImageProperties": {
@@ -46,20 +46,15 @@ export class DownloadFilesModalComponent {
       "reportType": reportType
     }
     const headers = new HttpHeaders({
-      'accept': 'text/html',
+      'accept': 'application/pdf',
       'Content-Type': 'application/json'
     });
     this.showLoading = !this.showLoading;
-    this.http.post<any>(url, data, { headers, responseType: 'text' as 'json'}).subscribe((response: any) => {
+    this.http.post<any>(url, data, { headers, responseType: 'blob' as 'json'}).subscribe((response: any) => {
         this.showLoading = !this.showLoading;
-        const newWindow = window.open('', '_blank');
-        newWindow?.document.open();
-        newWindow?.document.write(response);
-        newWindow?.document.close();
-        // this.createPdf(response);
-        // const blob = new Blob([response], { type: 'application/pdf' });
-        // const downloadUrl = window.URL.createObjectURL(blob);
-        // window.open(downloadUrl);
+        const blob = new Blob([response], { type: 'application/pdf' });
+        const downloadUrl = window.URL.createObjectURL(blob);
+        window.open(downloadUrl);
         this.dialogRef.close();
         },
        error => {

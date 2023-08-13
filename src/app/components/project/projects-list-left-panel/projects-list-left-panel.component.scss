@@ -12,6 +12,11 @@
   scrollbar-width: thin;
   scrollbar-color: #888888 transparent;
 }
+
+.collapsed {
+  width: 50px!important;
+  min-width: 50px;
+}
 .scrollable-container {
   /* Override the property */
   max-height: 100%;
