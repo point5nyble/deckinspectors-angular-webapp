@@ -32,6 +32,7 @@
               <div class="col">Role</div>
               <div class="col">Access Type</div>
               <div class="col"></div>
+              <div class="col"></div>
           </div>
           <ng-container *ngFor="let user of filteredUsers">
             <div class="user">
@@ -40,7 +41,8 @@
                 <div class="col email" data-toggle="tooltip" data-placement="top" title="{{user.email}}">{{user.email}}</div>
                 <div class="col">{{user.role}}</div>
                 <div class="col">{{user.access_type}}</div>
-                <div class="col"><button (click)="updateUser(user.email)"><i class="bi bi-pen"></i></button></div>
+                <div class="col edit-btn"><button (click)="updateUser(user.email)"><i class="bi bi-pen"></i></button></div>
+                <div class="col edit-btn"><button (click)="deleteUser(user.email)"><i class="bi bi-trash"></i></button></div>
             </div>
             </ng-container>
         </div>

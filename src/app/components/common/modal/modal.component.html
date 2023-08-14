@@ -35,7 +35,7 @@
       <ng-container *ngIf="formtype === 'createUser'">
         <div class="form-group">
           <label for="password">Password :</label>
-          <input type="text" name="password" [(ngModel)]="password" class="form-control"/>
+          <input type="password" name="password" [(ngModel)]="password" class="form-control"/>
         </div>
     </ng-container>
       <div class="form-group">
@@ -44,11 +44,19 @@
       </div>   
       <div class="form-group">
         <label for="role">Role :</label>
-        <input type="text" name="role" [(ngModel)]="user.role" class="form-control"/>
+        <!-- <input type="text" name="role" [(ngModel)]="user.role" class="form-control"/> -->
+        <select class="form-select" name="role" [(ngModel)]="user.role">
+          <option>admin</option>
+          <option>user</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="access_type">Access Type :</label>
-        <input type="text" name="access_type" [(ngModel)]="user.access_type" class="form-control"/>
+        <!-- <input type="text" name="access_type" [(ngModel)]="user.access_type" class="form-control"/> -->
+        <select class="form-select" name="access_type" [(ngModel)]="user.access_type">
+          <option>both</option>
+          <option>mobile</option>
+        </select>
       </div>
        </form>
   </div>

@@ -124,4 +124,38 @@ export class UsersComponent implements OnInit {
       });
   }
   }
+
+  deleteUser = (userEmail: string) =>{
+    const res: User[] = this.allUsers.filter((item) => item.email === userEmail);
+    let user: User;
+    if (res.length>0){
+      user = res[0];
+
+      if(confirm("Are you sure?")){
+        this.httpsRequestService.postHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/user/delete', user).subscribe(
+            (data) => {
+              console.log(data);
+              (document.getElementById('success-alert') as HTMLElement).innerHTML =`<div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <strong>Success! </strong> user updated 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
+            },
+            error => {
+              console.log(error);
+              if (error.status == 201){
+                (document.getElementById('success-alert') as HTMLElement).innerHTML =`<div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <strong>Success! </strong> user deleted 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
+                this.fetchUsersData();
+              }
+              else{
+
+                (document.getElementById('success-alert') as HTMLElement).innerHTML =`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Failure! </strong> user not deleted 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
+              }
+            }
+          );
+      }
+  }
+  }
 }
