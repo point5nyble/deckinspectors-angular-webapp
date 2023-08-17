@@ -9,6 +9,8 @@ import { Store } from "@ngrx/store";
 import { ProjectQuery } from "../../app-state-service/project-state/project-selector";
 import {LoginService} from "../login/login.service";
 import {Router} from "@angular/router";
+import { UsersComponent } from '../users/users.component';
+import { User } from 'src/app/common/models/user';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,12 +40,33 @@ export class DashboardComponent implements OnInit
       this.subscribeToProjectState();
     }
 
-
   private fetchProjectData() {
-    this.httpsRequestService.getHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/deck').subscribe(
-      (data) => {
-        this.projectInfos = this.filterProject(data.projects);
-        this.allProjects = this.filterProject(data.projects);
+    this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/user/${localStorage.getItem('username')}`).subscribe(
+      (user) => {
+        if(user.role.toLowerCase() === "admin"){
+          this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/project/allProjects`).subscribe(
+            (data) => {
+              this.projectInfos = this.filterProject(data.projects);
+              this.allProjects = this.filterProject(data.projects);
+              console.log(this.projectInfos);
+            },
+            error => {
+              console.log(error);
+            }
+          )
+        }
+        else {
+    
+            this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/${localStorage.getItem('username')}`).subscribe(
+            (data) => {
+              this.projectInfos = this.filterProject(data.projects);
+              this.allProjects = this.filterProject(data.projects);
+            },
+            error => {
+              console.log(error);
+            }
+          )
+        }
       },
       error => {
         console.log(error);
@@ -52,7 +75,7 @@ export class DashboardComponent implements OnInit
   }
 
   private fetchProjectDataToGetLastElement() {
-    this.httpsRequestService.getHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/deck').subscribe(
+    this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/${localStorage.getItem('username')}`).subscribe(
       (data) => {
         this.projectInfos = this.filterProject(data.projects);
         this.allProjects = this.filterProject(data.projects);
@@ -117,7 +140,7 @@ export class DashboardComponent implements OnInit
     if (this.projectState === ProjectState.INVASIVE) {
       return projects.filter(project => project.isInvasive);
     }
-    return projects;
+    return projects.sort(this.compare);
   }
 
   private getLastProject(projects: Project[]) {
@@ -141,4 +164,13 @@ export class DashboardComponent implements OnInit
   gotoHome() {
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN,'home');
   }
+
+  compare = (a:Project, b:Project) =>{
+  let x = a._id.toLowerCase();
+  let y = b._id.toLowerCase();
+  if (x < y) {return 1;}
+  if (x > y) {return -1;}
+  return 0;
+  }
+
 }
