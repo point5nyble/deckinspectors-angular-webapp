@@ -32,7 +32,6 @@ export class DashboardComponent implements OnInit
                 private router: Router) {}
 
     ngOnInit(): void {
-      // this.fetchProjectData();
       this.performUserLoginSteps();
       this.subscribeToshowProjectInfoToggle();
       this.subscribeToProjectState();
@@ -51,6 +50,7 @@ export class DashboardComponent implements OnInit
     )
   }
 
+  // This function is to get last element and called when we add new Project and automatically navigate to that function
   private fetchProjectDataToGetLastElement() {
     this.httpsRequestService.getHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/deck').subscribe(
       (data) => {
@@ -75,15 +75,20 @@ export class DashboardComponent implements OnInit
     projectInfo.type = 'project';
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC,
       ObjectCloneServiceService.deepClone(projectInfo));
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN,'project')
-    this.disableInvasiveBtn = !this.projectInfo.isInvasive;
+    if (projectInfo.projecttype === 'multilevel') {
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN,'project')
+    } else {
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN,'location')
+    }
+    // this.disableInvasiveBtn = !this.projectInfo.isInvasive;
   }
 
   private subscribeToshowProjectInfoToggle() {
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
       this.showProjectInfo = data;
       if (data === 'home') {
-        this.disableInvasiveBtn = false;
+        // this.disableInvasiveBtn = false;
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.PROJECT_STATE_UPDATE, {state:ProjectState.VISUAL});
       }
     })
   }
