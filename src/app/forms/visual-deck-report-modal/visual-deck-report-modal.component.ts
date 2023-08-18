@@ -85,7 +85,7 @@ export class VisualDeckReportModalComponent implements OnInit {
     let data:any = {
       'entityName': this.visualDeckReportModalForm.value.visualReportName,
       'uploader': 'deck',
-      'containerName': this.visualDeckReportModalForm.value.visualReportName.replace(' ', '').toLowerCase(),
+      'containerName': this.visualDeckReportModalForm.value.visualReportName.replace(/\s+/g, '').toLowerCase(),
     }
     const imageRequests:Observable<any>[]= [];
     this.selectedImage.forEach(file => {

@@ -28,6 +28,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   loadingScreen:boolean = true;
   collapsed: boolean = true;
   private projectState: ProjectState = ProjectState.VISUAL;
+  currentProject!:any;
 
 
   constructor(private httpsRequestService: HttpsRequestService,
@@ -37,6 +38,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.subscribeCurrentProject();
     this.fetchLeftTreeDataFromState();
     this.subscribeToProjectDetailsForNameHighlight();
     this.updateProjectList();
@@ -52,7 +54,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   private fetchLeftTreeDataFromState() {
     this.store.select(LeftTreeListModelQuery.getLeftTreeList).subscribe(leftTreeData => {
       this.projectList = this.mapItemList(leftTreeData?.items);
-      this.projectList = this.filterInvasiveProjects(this.projectList);
+      this.projectList = this.filterInvasiveProjects(this.filterCurrentProject(this.projectList));
       this.createObjectMap(this.projectList,this.objectMap);
       if (this.projectList?.length === 0 || this.projectList === undefined) {
         this.fetchLeftTreeData();
@@ -64,7 +66,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   private fetchLeftTreeDataFromStateWhenCalled() {
     this.store.select(LeftTreeListModelQuery.getLeftTreeList).pipe(take(1)).subscribe(leftTreeData => {
       this.projectList = this.mapItemList(leftTreeData?.items);
-      this.projectList = this.filterInvasiveProjects(this.projectList);
+      this.projectList = this.filterInvasiveProjects(this.filterCurrentProject(this.projectList));
       this.createObjectMap(this.projectList,this.objectMap);
       if (this.projectList?.length === 0 || this.projectList === undefined) {
         this.fetchLeftTreeData();
@@ -341,5 +343,13 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   private filterInvasiveLocations(nestedItems: Item[] | undefined) {
     return nestedItems?.filter(location => location.isInvasive);
+  }
+
+  private subscribeCurrentProject() {
+    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe(res => this.currentProject = res.stack[1]);
+  }
+
+  private filterCurrentProject(projectList: Item[]) {
+    return projectList?.filter(project => project.id === this.currentProject._id);
   }
 }

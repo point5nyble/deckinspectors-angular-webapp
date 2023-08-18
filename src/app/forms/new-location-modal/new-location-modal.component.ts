@@ -79,7 +79,7 @@ export class NewLocationModalComponent {
       "type": this.data.type,
       "assignedTo":['']
     }
-    let url = '';
+    let url: string;
     // TODO: Check this logic changing this for
     if (this.data.isSubProject || this.data.type === 'subproject') {
       data["assignedTo"] = ['deck'];
@@ -103,6 +103,7 @@ export class NewLocationModalComponent {
   private createNewLocation(url: string, data: any) {
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
+        console.log(response);
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
         this.dialogRef.close(this.newLocationForm);
 
@@ -141,7 +142,7 @@ export class NewLocationModalComponent {
     let data = {
       'entityName': this.newLocationForm.value.name,
       'uploader': 'deck',
-      'containerName': this.newLocationForm.value.name.replace(' ', '').toLowerCase(),
+      'containerName': this.newLocationForm.value.name.replace(/\s+/g, '').toLowerCase(),
       'picture': this.selectedImage,
     }
     if (data.picture != null) {

@@ -12,6 +12,8 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {NewLocationModalComponent} from "../../../../forms/new-location-modal/new-location-modal.component";
 import {NewProjectModalComponent} from "../../../../forms/new-project-modal/new-project-modal.component";
 import {take} from "rxjs";
+import {ProjectState} from "../../../../app-state-service/store/project-state-model";
+import {ProjectQuery} from "../../../../app-state-service/project-state/project-selector";
 
 @Component({
   selector: 'app-project-details-upper-section',
@@ -21,6 +23,8 @@ import {take} from "rxjs";
 export class ProjectDetailsUpperSectionComponent implements OnInit{
   projectInfo!: ProjectListElement | BuildingLocation;
   projectType!: string;
+  projectState!: ProjectState;
+  disableInvasiveBtn: boolean = false;
 
   constructor(private orchestratorCommunicationService: OrchestratorCommunicationService,
               private store: Store<any>,
@@ -29,9 +33,19 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.subscribeToProjectState();
     this.subscribeToProjectInfo();
   }
-
+  private subscribeToProjectState() {
+    this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
+      this.projectState = data.state;
+      this.fetchProjectIdFromState();
+    });
+  }
+  changeProjectState() {
+    this.projectState = this.projectState === ProjectState.VISUAL ? ProjectState.INVASIVE : ProjectState.VISUAL;
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.PROJECT_STATE_UPDATE, {state:this.projectState});
+  }
   private fetchProjectDetails(projectid: string) {
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/getProjectById';
     let data = {
@@ -101,18 +115,18 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
 
 
   private subscribeToProjectInfo() {
-    this.fetchProjectFromState();
+    this.fetchProjectIdFromState();
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
-        this.fetchProjectFromState();
+        this.fetchProjectIdFromState();
     });
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
       setTimeout(() => {
-        this.fetchProjectFromState();
+        this.fetchProjectIdFromState();
       },1000)
     });
   }
 
-  editLocation() {
+  public editLocation() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -135,7 +149,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
     }
   }
 
-  private fetchProjectFromState(): void {
+  private fetchProjectIdFromState(): void {
     this.store.select(BackNavigation.getPreviousStateModelChain).pipe(take(1)).subscribe((previousState: any) => {
       this.projectInfo = previousState.stack[previousState.stack.length - 1];
       if (this.projectInfo.type === 'subproject') {
@@ -144,6 +158,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
         this.fetchSubprojectDetails(subprojectid)
       } else if (this.projectInfo.type === 'project'){
         this.projectType = 'project';
+        this.disableInvasiveBtn = !this.projectInfo.isInvasive;
         let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
         this.fetchProjectDetails(projectid);
       } else if (this.projectInfo.type === 'location' ||
