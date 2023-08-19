@@ -93,7 +93,7 @@ export class LocationListComponent implements OnInit {
 
   private extractLocationList(locations: BuildingLocation[]){
     this.locationList = [];
-    locations?.forEach(location => {
+    locations?.forEach((location, i) => {
       this.locationList.push(
         {
           _id: location._id,
@@ -152,5 +152,9 @@ export class LocationListComponent implements OnInit {
 
   dropLocation(event: CdkDragDrop<ProjectListElement[]>) {
     let res = moveItemInArray(this.locationList, event.previousIndex, event.currentIndex);
+  }
+
+  save(){
+    
   }
 }

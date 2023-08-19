@@ -9,8 +9,6 @@ import { Store } from "@ngrx/store";
 import { ProjectQuery } from "../../app-state-service/project-state/project-selector";
 import {LoginService} from "../login/login.service";
 import {Router} from "@angular/router";
-import { UsersComponent } from '../users/users.component';
-import { User } from 'src/app/common/models/user';
 
 @Component({
   selector: 'app-dashboard',
