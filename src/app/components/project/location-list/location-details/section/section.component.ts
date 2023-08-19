@@ -63,7 +63,7 @@ export class SectionComponent implements OnInit{
     }
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/invasivesection/getInvasiveSectionByParentId';
     let data: any = {
-      username: 'deck',
+      username: localStorage.getItem('username'),
       parentSectionId: sectionId
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
@@ -86,7 +86,7 @@ export class SectionComponent implements OnInit{
     this.sectionId_ = $event;
     let url = '';
     let data: any = {
-      username: 'deck'
+      username: localStorage.getItem('username')
     };
     if (this.sectionState === SectionState.VISUAL) {
       data = {...data, sectionid: $event}
