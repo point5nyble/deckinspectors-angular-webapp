@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit
   private fetchProjectData() {
     this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/user/${localStorage.getItem('username')}`).subscribe(
       (user) => {
+        localStorage.setItem('user', JSON.stringify(user));
         if(user.role.toLowerCase() === "admin"){
           this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/project/allProjects`).subscribe(
             (data) => {
