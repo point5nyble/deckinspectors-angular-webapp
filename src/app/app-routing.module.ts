@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'project-list', component:ProjectInfoComponent},
   {path: '',redirectTo: '/dashboard',pathMatch: 'full'},
   {path: 'project', component:ProjectDetailsComponent},
-  {path: 'users', component:UsersComponent}
+  {path: 'users', component: ((JSON.parse(localStorage.getItem('user')!)).role === "admin")? UsersComponent : DashboardComponent}
 
 ];
 

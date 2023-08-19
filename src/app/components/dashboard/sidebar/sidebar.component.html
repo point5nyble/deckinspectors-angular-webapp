@@ -14,7 +14,7 @@
               <span>Projects</span>
             </a>
           </li>
-          <li (click)="activateLink($event)">
+          <li (click)="activateLink($event)" *ngIf="isAdmin">
             <a routerLink="/users" routerLinkActive="active">
               <img src="../../../assets/images/Vector.png" alt="Logo 2" class="logo-image">
               <span>Users</span>

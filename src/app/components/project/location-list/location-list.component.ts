@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
+import {NgFor, NgIf} from '@angular/common';
 import {BuildingLocation} from "../../../common/models/buildingLocation";
 import {Project} from "../../../common/models/project";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
@@ -10,11 +12,14 @@ import {
 import {Store} from "@ngrx/store";
 import {ProjectListElement} from "../../../common/models/project-list-element";
 import {BackNavigation} from "../../../app-state-service/back-navigation-state/back-navigation-selector";
+import { LocationListElementModule } from './location-list-element/location-list-element.module';
 
 @Component({
   selector: 'app-location-list',
   templateUrl: './location-list.component.html',
-  styleUrls: ['./location-list.component.scss']
+  styleUrls: ['./location-list.component.scss'],
+  standalone: true,
+  imports: [CdkDropList, NgFor, CdkDrag, NgIf, LocationListElementModule]
 })
 export class LocationListComponent implements OnInit {
   @Input() header!: string;
@@ -88,7 +93,7 @@ export class LocationListComponent implements OnInit {
 
   private extractLocationList(locations: BuildingLocation[]){
     this.locationList = [];
-    locations?.forEach(location => {
+    locations?.forEach((location, i) => {
       this.locationList.push(
         {
           _id: location._id,
@@ -138,5 +143,18 @@ export class LocationListComponent implements OnInit {
         default:
             return "location";
     }
+  }
+
+  dropProject(event: CdkDragDrop<ProjectListElement[]>) {
+    let res = moveItemInArray(this.subprojectList, event.previousIndex, event.currentIndex);
+    console.log(this.subprojectList);
+  }
+
+  dropLocation(event: CdkDragDrop<ProjectListElement[]>) {
+    let res = moveItemInArray(this.locationList, event.previousIndex, event.currentIndex);
+  }
+
+  save(){
+    
   }
 }
