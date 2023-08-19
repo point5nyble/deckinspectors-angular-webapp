@@ -148,7 +148,7 @@ export class DashboardComponent implements OnInit
   }
 
   private getLastProject(projects: Project[]) {
-      return projects[projects.length-1];
+      return projects[0];
   }
 
   childClickEventTriggered($event: boolean) {

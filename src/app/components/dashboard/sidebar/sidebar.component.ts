@@ -8,7 +8,7 @@ import {LoginService} from "../../login/login.service";
 })
 export class SidebarComponent {
   isSidebarCollapsed: boolean = true;
-  isAdmin: boolean = ((JSON.parse(localStorage.getItem('user')!)).role === "admin");
+  isAdmin: boolean = ((JSON.parse(localStorage.getItem('user')!))?.role === "admin");
 
   constructor(private loginService: LoginService) {
   }
