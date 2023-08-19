@@ -8,7 +8,7 @@ import { SidebarComponent } from './components/dashboard/sidebar/sidebar.compone
 import { FilterComponent } from './components/dashboard/filter/filter.component';
 import { ProjectInfoComponent } from './components/dashboard/project-info/project-info.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { LocationListElementComponent } from './components/project/location-list/location-list-element/location-list-element.component';
+// import { LocationListElementComponent } from './components/project/location-list/location-list-element/location-list-element.component';
 import { ProjectsListLeftPanelComponent } from './components/project/projects-list-left-panel/projects-list-left-panel.component';
 import { LocationListComponent } from './components/project/location-list/location-list.component';
 import { LocationDetailsComponent } from './components/project/location-list/location-details/location-details.component';
@@ -66,7 +66,7 @@ import { MdbModalService } from 'mdb-angular-ui-kit/modal';
     DashboardComponent,
     ProjectsListLeftPanelComponent,
     // LocationListComponent,
-    LocationListElementComponent,
+    // LocationListElementComponent,
     LocationDetailsComponent,
     SectionListComponent,
     SectionComponent,
