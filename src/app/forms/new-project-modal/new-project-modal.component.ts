@@ -78,7 +78,7 @@ export class NewProjectModalComponent implements OnInit {
       let data = {
         'entityName': this.yourForm.value.name,
         'uploader': 'deck',
-        'containerName': this.yourForm.value.name.replace(' ', '').toLowerCase(),
+        'containerName': this.yourForm.value.name.replace(/\s+/g, '').toLowerCase(),
         'picture': this.selectedImage,
       }
       if (data.picture != null ) {

@@ -9,6 +9,7 @@
       <h4 class="info-heading">{{ projectInfo.name }}</h4>
       <p><strong>Description:</strong> {{ projectInfo.description }}</p>
       <p *ngIf="projectType !== 'location'" class="address" style="margin-bottom: 10px;"><strong>Address:</strong> {{ projectInfo.address }}</p>
+      <button class="btn btn-secondary" (click)="changeProjectState()" [disabled]="disableInvasiveBtn">{{projectState}}</button>
     </div>
     <div class="image-section flex-item">
       <img alt="image-description" src="{{ projectInfo.url }}">
