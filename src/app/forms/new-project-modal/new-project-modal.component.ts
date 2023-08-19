@@ -100,12 +100,12 @@ export class NewProjectModalComponent implements OnInit {
       let data = {
         "name": this.yourForm.value.name,
         "description": this.yourForm.value.description,
-        "createdBy": "deck",
+        "createdBy": localStorage.getItem('username'),
         "address": this.yourForm.value.address,
         "url": image_url,
         "projecttype": this.yourForm.value.option,
         "assignedTo": [
-          "deck"
+          localStorage.getItem('username')
         ]
       }
       if (this.data.process === 'edit') {
