@@ -7,16 +7,16 @@
       <span><i class="fas fa-bars cursor-pointer"></i></span>
     </div>
   </div>
-  <div class="full-width scrollable-container" *ngIf="checkIfSubProject()">
-    <div *ngFor="let project of subprojectList">
+  <div cdkDropList class="full-width scrollable-container example-list" *ngIf="checkIfSubProject()"  (cdkDropListDropped)="dropProject($event)">
+    <div class="example-box" *ngFor="let project of subprojectList" cdkDrag>
         <app-location-list-element (click)="onDbClick(project)" [location]="project"
                       [isSubProject]="true"
                       [projectName]="project.name"
         ></app-location-list-element>
     </div>
   </div>
-  <div class="full-width scrollable-container" *ngIf="!checkIfSubProject()">
-    <div *ngFor="let locationInfo of locationList">
+  <div cdkDropList class="full-width scrollable-container" *ngIf="!checkIfSubProject()"  (cdkDropListDropped)="dropLocation($event)">
+    <div *ngFor="let locationInfo of locationList" cdkDrag>
       <app-location-list-element (click)="onDbClick(locationInfo)"
                     [location]="locationInfo"
                     [isSubProject]="false"

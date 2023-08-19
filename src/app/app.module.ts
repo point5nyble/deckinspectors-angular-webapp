@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -64,7 +65,7 @@ import { MdbModalService } from 'mdb-angular-ui-kit/modal';
     ProjectInfoComponent,
     DashboardComponent,
     ProjectsListLeftPanelComponent,
-    LocationListComponent,
+    // LocationListComponent,
     LocationListElementComponent,
     LocationDetailsComponent,
     SectionListComponent,
@@ -113,7 +114,8 @@ import { MdbModalService } from 'mdb-angular-ui-kit/modal';
     BrowserAnimationsModule,
     MatSlideToggleModule,
     MatSliderModule,
-    MatRadioModule
+    MatRadioModule,
+    LocationListComponent
   ],
   providers: [MdbModalService],
   bootstrap: [AppComponent]
