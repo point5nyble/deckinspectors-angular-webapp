@@ -175,10 +175,10 @@ export class SectionComponent implements OnInit{
       this.images = this.sectionReport?.invasiveimages;
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
       this.images = this.sectionReport?.conclusiveimages;
-      let propowneragreed = this.sectionReport?.propowneragreed.toLowerCase();
-      let invasiverepairsinspectedandcompleted = this.sectionReport?.invasiverepairsinspectedandcompleted.toLowerCase();
-      propowneragreed = JSON.parse(propowneragreed === undefined ? 'false' : propowneragreed);
-      invasiverepairsinspectedandcompleted = JSON.parse(invasiverepairsinspectedandcompleted === undefined ? 'false' : invasiverepairsinspectedandcompleted);
+      let propowneragreed = this.sectionReport?.propowneragreed;
+      let invasiverepairsinspectedandcompleted = this.sectionReport?.invasiverepairsinspectedandcompleted;
+      propowneragreed = JSON.parse(propowneragreed === undefined ? 'false' : propowneragreed.toString());
+      invasiverepairsinspectedandcompleted = JSON.parse(invasiverepairsinspectedandcompleted === undefined ? 'false' : invasiverepairsinspectedandcompleted.toString());
       if (!(propowneragreed && invasiverepairsinspectedandcompleted)) {
         this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['aweconclusive']);
         this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['conclusiveconsiderations']);
