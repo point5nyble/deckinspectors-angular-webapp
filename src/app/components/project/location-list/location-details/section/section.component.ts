@@ -69,7 +69,7 @@ export class SectionComponent implements OnInit{
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         console.log(response);
-        this.showConclusiveSection = JSON.parse(response?.item?.postinvasiverepairsrequired?.toLowerCase());
+        this.showConclusiveSection = JSON.parse(response?.item?.postinvasiverepairsrequired);
       },
       error => {
         console.log(error.error)

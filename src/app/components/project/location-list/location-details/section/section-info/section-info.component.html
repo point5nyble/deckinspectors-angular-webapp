@@ -3,7 +3,7 @@
     <tbody>
     <tr *ngFor="let row of rows">
       <td><b>{{ row.column1 }}</b></td>
-      <td>{{ row.column2 }}</td>
+      <td>{{ row.column2 === "True" || row.column2 === "true" ? "Yes" : row.column2 === "False" || row.column2 === "false" ? "No" : row.column2 }}</td>
     </tr>
     </tbody>
   </table>

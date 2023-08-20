@@ -26,4 +26,5 @@ export interface BuildingLocation {
   invasiveSections: Section[];
   address?: string;
   isInvasive: boolean;
+  sequenceNumber?: string;
 }
