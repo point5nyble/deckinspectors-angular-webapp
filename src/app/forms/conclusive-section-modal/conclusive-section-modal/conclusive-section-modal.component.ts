@@ -44,8 +44,8 @@ export class ConclusiveSectionModalComponent {
       EEE:[this.data.rowsMap?.get('eeeconclusive')],
       LBC:[this.data.rowsMap?.get('lbcconclusive')],
       AWE:[this.data.rowsMap?.get('aweconclusive')],
-      invasiverepairsinspectedandcompleted:[this.data.rowsMap?.get('invasiverepairsinspectedandcompleted')],
-      propowneragreed:[this.data.rowsMap?.get('propowneragreed')],
+      invasiverepairsinspectedandcompleted:[this.data.rowsMap?.get('invasiverepairsinspectedandcompleted').toString()],
+      propowneragreed:[this.data.rowsMap?.get('propowneragreed').toString()],
       conclusiveimages:[this.data.images]
     });
     console.log(`FormGroup: ${this.conclusiveDeckReportModalForm}`);

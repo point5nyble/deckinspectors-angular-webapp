@@ -91,7 +91,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   }
 
   private fetchLeftTreeData() {
-      let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsMetaDataByUserName/deck';
+      let url = `https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsMetaDataByUserName/${localStorage.getItem('username')}`;
       this.httpsRequestService.getHttpData<any>(url).subscribe(
         (response: any) => {
           let fetchedProjectList: Item[] = this.convertResponseToItemList(response);
