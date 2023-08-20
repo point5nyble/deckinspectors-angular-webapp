@@ -31,8 +31,10 @@ export class ConclusiveSectionModalComponent {
   }
 
   ngOnInit() {
-    let propowneragreed:boolean = JSON.parse(this.data.rowsMap?.get('propowneragreed').toLowerCase());
-    let invasiverepairsinspectedandcompleted:boolean = JSON.parse(this.data.rowsMap?.get('invasiverepairsinspectedandcompleted').toLowerCase());
+    console.log(`rowmap: ${this.data.rowsMap}`);
+    console.log(this.data.rowsMap?.get('propowneragreed'));
+    let propowneragreed:boolean = this.data.rowsMap?.get('propowneragreed');
+    let invasiverepairsinspectedandcompleted:boolean = this.data.rowsMap?.get('invasiverepairsinspectedandcompleted');
     this.propowneragreed = propowneragreed === undefined ? false : propowneragreed;
     this.invasiverepairsinspectedandcompleted = invasiverepairsinspectedandcompleted === undefined ? false : invasiverepairsinspectedandcompleted;
     console.log(this.propowneragreed);
@@ -46,6 +48,7 @@ export class ConclusiveSectionModalComponent {
       propowneragreed:[this.data.rowsMap?.get('propowneragreed')],
       conclusiveimages:[this.data.images]
     });
+    console.log(`FormGroup: ${this.conclusiveDeckReportModalForm}`);
     // @ts-ignore
     this.conclusiveDeckReportModalForm?.get('invasiverepairsinspectedandcompleted').valueChanges.subscribe(value => {
       console.log("Invasive Repairs Inspected and Completed ->",value);
@@ -143,8 +146,7 @@ export class ConclusiveSectionModalComponent {
   }
 
   showContent() {
-    console.log(this.propowneragreed.valueOf() && this.invasiverepairsinspectedandcompleted.valueOf());
-    return this.propowneragreed.valueOf() && this.invasiverepairsinspectedandcompleted.valueOf();
+    return this.propowneragreed.valueOf();
   }
 }
 
