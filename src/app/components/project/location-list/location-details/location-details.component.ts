@@ -38,7 +38,7 @@ export class LocationDetailsComponent implements OnInit{
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationById';
       let data = {
           locationid:$event,
-          username: 'deck'
+          username: localStorage.getItem('username')
       };
       this.httpsRequestService.postHttpData(url, data).subscribe(
           (response:any) => {

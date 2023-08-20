@@ -40,7 +40,7 @@ export class DownloadFilesModalComponent {
       "id": this.modalData.project._id,
       "sectionImageProperties": {
         "compressionQuality": 100,
-        "imageFactor": 3
+        "imageFactor": this.selectedImages
       },
       "companyName": "Wicr",
       "reportType": reportType
@@ -71,7 +71,7 @@ export class DownloadFilesModalComponent {
       this.downloadReport('Visual');
     } else if ($event === 'Invasive Only Report') {
       this.downloadReport('InvasiveOnly');
-    } else if ($event == 'Final Report') {
+    } else if ($event == 'Invasive Report') {
       this.downloadReport('Invasive');
     }
   }

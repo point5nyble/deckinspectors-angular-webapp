@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit
     ngOnInit(): void {
       this.performUserLoginSteps();
       this.subscribeToshowProjectInfoToggle();
-      this.subscribeToProjectState();
+      // this.subscribeToProjectState();
     }
 
   private fetchProjectData() {
@@ -46,7 +46,6 @@ export class DashboardComponent implements OnInit
             (data) => {
               this.projectInfos = this.filterProject(data.projects);
               this.allProjects = this.filterProject(data.projects);
-              console.log(this.projectInfos);
             },
             error => {
               console.log(error);
@@ -54,7 +53,6 @@ export class DashboardComponent implements OnInit
           )
         }
         else {
-    
             this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/${localStorage.getItem('username')}`).subscribe(
             (data) => {
               this.projectInfos = this.filterProject(data.projects);
@@ -74,12 +72,34 @@ export class DashboardComponent implements OnInit
 
   // This function is to get last element and called when we add new Project and automatically navigate to that function
   private fetchProjectDataToGetLastElement() {
-    this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/${localStorage.getItem('username')}`).subscribe(
-      (data) => {
-        this.projectInfos = this.filterProject(data.projects);
-        this.allProjects = this.filterProject(data.projects);
-        this.projectInfo = this.getLastProject(data.projects);
-        this.gotoProject(this.projectInfo);
+    this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/user/${localStorage.getItem('username')}`).subscribe(
+      (user) => {
+        if(user.role.toLowerCase() === "admin"){
+          this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/project/allProjects`).subscribe(
+            (data) => {
+              this.projectInfos = this.filterProject(data.projects);
+              this.allProjects = this.filterProject(data.projects);
+              this.projectInfo = this.getRecentlyAddedProject(data.projects);
+              this.gotoProject(this.projectInfo);
+            },
+            error => {
+              console.log(error);
+            }
+          )
+        }
+        else {
+          this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/${localStorage.getItem('username')}`).subscribe(
+            (data) => {
+              this.projectInfos = this.filterProject(data.projects);
+              this.allProjects = this.filterProject(data.projects);
+              this.projectInfo = this.getRecentlyAddedProject(data.projects);
+              this.gotoProject(this.projectInfo);
+            },
+            error => {
+              console.log(error);
+            }
+          )
+        }
       },
       error => {
         console.log(error);
@@ -147,8 +167,8 @@ export class DashboardComponent implements OnInit
     return projects.sort(this.compare);
   }
 
-  private getLastProject(projects: Project[]) {
-      return projects[projects.length-1];
+  private getRecentlyAddedProject(projects: Project[]) {
+      return projects[0];
   }
 
   childClickEventTriggered($event: boolean) {

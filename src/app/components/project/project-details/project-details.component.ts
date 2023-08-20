@@ -42,7 +42,7 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/subproject/getSubprojectsDataByProjectId';
     let data = {
       projectid: projectID,
-      username: 'deck'
+      username: localStorage.getItem('username')
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
@@ -58,7 +58,7 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationsByProjectId';
     let data = {
       projectid: projectID,
-      username: 'deck'
+      username: localStorage.getItem('username')
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {

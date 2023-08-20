@@ -5,7 +5,7 @@
         <span class="name"> {{projectInfo.name }} </span>
       </div>
       <div>
-        <b>Visual Report </b> {{ projectInfo.address }} <b> Assigned To : </b> {{projectInfo.assignedto.join(',')}}
+        <b>Description: </b> {{ projectInfo.description }} <b>       Assigned To : </b> {{projectInfo.assignedto.join(',')}}
       </div>
     </div>
   </div>
@@ -16,11 +16,11 @@
         <label for="allow-offline" class="checkbox-text">Allow Offline</label>
       </div>
       <div class="icon-section">
-        <span class="bi bi-person-circle" (click)="openAssignProjectModal()"></span>
-        <span class="bi bi-upload icon" (click)="openUploadFilesModal()"></span>
-        <span class="bi bi-download icon" (click)="openDownloadReportModal()"></span>
-        <span class="bi bi-lightning icon"></span>
-        <span class="bi bi-file icon"></span>
+        <span class="bi bi-person-circle" (click)="openAssignProjectModal()" title="Assign users to project"></span>
+        <span class="bi bi-upload icon" (click)="openUploadFilesModal()" title="Upload project documents"></span>
+        <span class="bi bi-download icon" (click)="openDownloadReportModal()" title="Download project reports"></span>
+        <span class="bi bi-lightning icon" title="Mark project complete"></span>
+        <span class="bi bi-file icon" title="Move project to a folder"></span>
       </div>
     </div>
   </div>
