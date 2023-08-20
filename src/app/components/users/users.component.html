@@ -37,7 +37,7 @@
           <ng-container *ngFor="let user of filteredUsers">
             <div class="user">
                 <div class="col">{{user.first_name + " " + user.last_name}}</div>
-                <div class="col">{{user.username}}</div>
+                <div class="col username">{{user.username}}</div>
                 <div class="col email" data-toggle="tooltip" data-placement="top" title="{{user.email}}">{{user.email}}</div>
                 <div class="col">{{user.role}}</div>
                 <div class="col">{{user.access_type}}</div>
