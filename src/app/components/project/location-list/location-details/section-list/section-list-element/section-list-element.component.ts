@@ -9,5 +9,4 @@ import {Section} from "../../../../../../common/models/buildingLocation";
 export class SectionListElementComponent {
   @Input() section!: Section;
   @Input() isHighlighted!: boolean;
-  assignedTo: string= "Deck";
 }
