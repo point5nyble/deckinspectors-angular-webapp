@@ -4,6 +4,7 @@ import {AssignProjectModalComponent} from "../../../forms/assign-project-modal/a
 import {UploadFilesModalComponent} from "../../../forms/upload-fiels-modal/upload-files-modal.component";
 import {DownloadFilesModalComponent} from "../../../forms/download-files-modal/download-files-modal.component";
 import {Project} from "../../../common/models/project";
+import { HttpsRequestService } from 'src/app/service/https-request.service';
 
 @Component({
   selector: 'app-project-info',
@@ -15,6 +16,8 @@ export class ProjectInfoComponent {
   @Output() childClickEventTriggered = new EventEmitter<boolean>();
   constructor(private dialog: MatDialog) { }
 
+  isAdmin: boolean = ((JSON.parse(localStorage.getItem('user')!))?.role === "admin");
+
   openAssignProjectModal() {
     this.childClickEventTriggered.emit(true);
     const dialogConfig = new MatDialogConfig();
@@ -23,7 +26,6 @@ export class ProjectInfoComponent {
     dialogConfig.width = "400px";
     dialogConfig.height = "350px";
     dialogConfig.data = {
-      id: 1,
       project: this.projectInfo
     };
     const dialogRef = this.dialog.open(AssignProjectModalComponent, dialogConfig);

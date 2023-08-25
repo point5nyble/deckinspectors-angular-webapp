@@ -5,6 +5,7 @@
     <span class="text-muted margin-right"> <b> By: </b>{{ location.createdby }}</span>
 <!--    TODO-->
 <!--    <span class="text-muted margin-right"> <b> Assigned to: </b> {{ location.assignedTo }}</span>-->
+  <span *ngIf="isSubProject && isAdmin" class="bi bi-person-circle" (click)="openAssignProjectModal()" title="Assign users to project"></span>
   </div>
 </div>
 

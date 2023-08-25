@@ -16,7 +16,7 @@
         <label for="allow-offline" class="checkbox-text">Allow Offline</label>
       </div>
       <div class="icon-section">
-        <span class="bi bi-person-circle" (click)="openAssignProjectModal()" title="Assign users to project"></span>
+        <span *ngIf="isAdmin" class="bi bi-person-circle" (click)="openAssignProjectModal()" title="Assign users to project"></span>
         <span class="bi bi-upload icon" (click)="openUploadFilesModal()" title="Upload project documents"></span>
         <span class="bi bi-download icon" (click)="openDownloadReportModal()" title="Download project reports"></span>
         <span class="bi bi-lightning icon" title="Mark project complete"></span>
