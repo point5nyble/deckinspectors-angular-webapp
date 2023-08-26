@@ -15,7 +15,7 @@ export class AssignProjectModalComponent {
   filteredNames: any[] = [];
   searchTerm: string = '';
   projectInfo!: Project;
-  location!: ProjectListElement;
+  location!: Project;
 
   constructor(private cdr: ChangeDetectorRef,
               private dialogRef: MatDialogRef<AssignProjectModalComponent>,
@@ -29,7 +29,8 @@ export class AssignProjectModalComponent {
     if (this.names.length == 0){
     this.httpsRequestService.getHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/user/allusers').subscribe(
       (users) => {
-        this.names = users;
+        let assignedUsers = (this.location === undefined)? this.projectInfo.assignedto : this.location.assignedto;
+        this.names = users.filter((user : any) => !assignedUsers.includes(user.username));
         this.filteredNames = this.names;
       },
       error => {
@@ -50,7 +51,7 @@ export class AssignProjectModalComponent {
   }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close({isAssigned: false, apiCalled: false});
   }
 
   save() {
@@ -60,9 +61,11 @@ export class AssignProjectModalComponent {
       this.httpsRequestService.postHttpData(`https://deckinspectors-dev.azurewebsites.net/api/project/${this.projectInfo._id}/assign`, {username: user.username}).subscribe(
         (res) => {
           console.log(res);
+          this.dialogRef.close({isAssigned: true, apiCalled: true});
         },
         error => {
           console.log(error);
+          this.dialogRef.close({isAssigned: false, apiCalled: true});
         }
       )
     }
@@ -70,13 +73,14 @@ export class AssignProjectModalComponent {
       this.httpsRequestService.postHttpData(`https://deckinspectors-dev.azurewebsites.net/api/subproject/${this.location._id}/assign`, {username: user.username}).subscribe(
         (res) => {
           console.log(res);
+          this.dialogRef.close({isAssigned: true, apiCalled: true});
         },
         error => {
           console.log(error);
+          this.dialogRef.close({isAssigned: false, apiCalled: true});
         }
       )
     }
   })
-     this.dialogRef.close();
   }
 }

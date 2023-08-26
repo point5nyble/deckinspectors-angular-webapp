@@ -37,11 +37,11 @@ export class NewProjectModalComponent implements OnInit {
 
   ngOnInit() {
     this.yourForm = this.formBuilder.group({
-      image: [this.data.process === 'edit' ? this.data.projectInfo?.url: null], // Add validators if needed
-      name: [this.data.process === 'edit' ? this.data.projectInfo?.name: null], // Add validators if needed
-      address: [this.data.process === 'edit' ? this.data.projectInfo?.address: null],
-      option: [this.data.process === 'edit' ? this.data.projectInfo?.projecttype: null], // Add validators if needed
-      description: [this.data.process === 'edit' ? this.data.projectInfo?.description: null]
+      image: [this.data.process === 'edit' ? this.data.projectInfo?.url: ""], // Add validators if needed
+      name: [this.data.process === 'edit' ? this.data.projectInfo?.name: ""], // Add validators if needed
+      address: [this.data.process === 'edit' ? this.data.projectInfo?.address: ""],
+      option: [this.data.process === 'edit' ? this.data.projectInfo?.projecttype: ""], // Add validators if needed
+      description: [this.data.process === 'edit' ? this.data.projectInfo?.description: ""]
     });
   }
 
@@ -78,7 +78,7 @@ export class NewProjectModalComponent implements OnInit {
       let data = {
         'entityName': this.yourForm.value.name,
         'uploader': 'deck',
-        'containerName': this.yourForm.value.name.replace(/\s+/g, '').toLowerCase(),
+        'containerName': this.yourForm.value.name?.replace(/\s+/g, '').toLowerCase(),
         'picture': this.selectedImage,
       }
       if (data.picture != null ) {
@@ -102,7 +102,7 @@ export class NewProjectModalComponent implements OnInit {
         "description": this.yourForm.value.description,
         "createdBy": localStorage.getItem('username'),
         "address": this.yourForm.value.address,
-        "url": image_url,
+        "url": image_url=== undefined? '': image_url,
         "projecttype": this.yourForm.value.option,
         "assignedTo": [
           localStorage.getItem('username')

@@ -25,6 +25,8 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   projectBuildings!: Project[];
   private subscription!: Subscription;
   projectState!: ProjectState;
+  isProjectAssigned: boolean = false;
+  apiCalled: boolean = false;
   constructor(private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService,
               private store: Store<any> ) {
@@ -116,5 +118,13 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
       return projects.filter(project => project.isInvasive);
     }
     return projects;
+  }
+
+  projectAssigned = (event: any) =>{
+    
+    this.isProjectAssigned = event.isAssigned;
+    this.apiCalled = event.apiCalled;
+    // if (event.isAssigned && event.apiCalled)
+    //   this.fetchProjectData();
   }
 }

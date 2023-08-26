@@ -14,6 +14,7 @@ export class LocationListElementComponent {
   @Input() isSubProject!: boolean;
   @Input() projectName!: string;
   isAdmin: boolean = ((JSON.parse(localStorage.getItem('user')!))?.role === "admin");
+  @Output() projectAssignedEvent = new EventEmitter<any>();
   @Output() childClickEventTriggered = new EventEmitter<boolean>();
   constructor(private dialog: MatDialog){ }
 
@@ -29,6 +30,7 @@ export class LocationListElementComponent {
     };
     const dialogRef = this.dialog.open(AssignProjectModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
+      this.projectAssignedEvent.emit({isAssigned: data.isAssigned, apiCalled: data.apiCalled});
      })
   }
 }

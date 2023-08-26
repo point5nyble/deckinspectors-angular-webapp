@@ -24,6 +24,8 @@ export class DashboardComponent implements OnInit
   projectState!: ProjectState;
   isChildClickEventTriggered: boolean = false;
   disableInvasiveBtn: boolean = false;
+  isProjectAssigned: boolean = false;
+  apiCalled: boolean = false;
     constructor(private cdr: ChangeDetectorRef,
                 private httpsRequestService:HttpsRequestService,
                 private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -164,7 +166,7 @@ export class DashboardComponent implements OnInit
     if (this.projectState === ProjectState.INVASIVE) {
       return projects.filter(project => project.isInvasive);
     }
-    return projects.sort(this.compare);
+    return projects.filter(project => !project.iscomplete).sort(this.compare);
   }
 
   private getRecentlyAddedProject(projects: Project[]) {
@@ -190,11 +192,64 @@ export class DashboardComponent implements OnInit
   }
 
   compare = (a:Project, b:Project) =>{
-  let x = a._id.toLowerCase();
-  let y = b._id.toLowerCase();
-  if (x < y) {return 1;}
-  if (x > y) {return -1;}
-  return 0;
+    let x = a._id.toLowerCase();
+    let y = b._id.toLowerCase();
+    if (x < y) {return 1;}
+    if (x > y) {return -1;}
+    return 0;
   }
+
+  projectAssigned = (event: any) =>{
+    
+    this.isProjectAssigned = event.isAssigned;
+    this.apiCalled = event.apiCalled;
+
+    if (event.isAssigned && event.apiCalled)
+      this.fetchProjectData();
+  }
+
+  filterCompleted = (isChecked: boolean) =>{
+    if(isChecked){
+    this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/user/${localStorage.getItem('username')}`).subscribe(
+      (user) => {
+        localStorage.setItem('user', JSON.stringify(user));
+        if(user.role.toLowerCase() === "admin"){
+          this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/project/allProjects`).subscribe(
+            (data) => {
+              this.projectInfos = data.projects.filter((project: any) => project.iscomplete).sort(this.compare);
+              this.allProjects = data.projects.filter((project: any) => project.iscomplete).sort(this.compare);
+            },
+            error => {
+              console.log(error);
+            }
+          )
+        }
+        else {
+            this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsByUser/${localStorage.getItem('username')}`).subscribe(
+            (data) => {
+              this.projectInfos = data.projects.filter((project: any) => project.iscomplete).sort(this.compare);
+              this.allProjects = data.projects.filter((project: any) => project.iscomplete).sort(this.compare);
+            },
+            error => {
+              console.log(error);
+            }
+          )
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    )
+    
+  }
+  else{
+    this.fetchProjectData();
+  }
+}
+
+markedCompleted = (event: boolean) =>{
+  console.log("marked")
+  this.fetchProjectData();
+}
 
 }

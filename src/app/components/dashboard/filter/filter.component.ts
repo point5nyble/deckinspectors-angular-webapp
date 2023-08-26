@@ -8,7 +8,9 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 })
 export class FilterComponent {
   searchTerm!: string;
+  isChecked!: boolean;
   @Output() searchedTerm = new EventEmitter<string>();
+  @Output() filterCompleted = new EventEmitter<boolean>();
   @Output() newProjectUploaded = new EventEmitter<boolean>();
   constructor(private dialog: MatDialog) { }
 
@@ -32,5 +34,9 @@ export class FilterComponent {
 
   filterNames() {
       this.searchedTerm.emit(this.searchTerm);
+  }
+
+  filterCompletedProjects(){
+    this.filterCompleted.emit(this.isChecked);
   }
 }

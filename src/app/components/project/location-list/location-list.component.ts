@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
 import {NgFor, NgIf} from '@angular/common';
 import {BuildingLocation} from "../../../common/models/buildingLocation";
@@ -24,6 +24,8 @@ import { HttpsRequestService } from 'src/app/service/https-request.service';
 })
 export class LocationListComponent implements OnInit {
   @Input() header!: string;
+  @Output() projectAssignedEvent = new EventEmitter<any>();
+  ischildClickEvent!: boolean;
   @Input()
   set locations(locations: BuildingLocation[]) {
     this.extractLocationList(locations);
@@ -52,6 +54,9 @@ export class LocationListComponent implements OnInit {
   }
 
   onDbClick(locationInfo:ProjectListElement) {
+    if(this.ischildClickEvent)
+      this.ischildClickEvent = false;
+    else{
     if (locationInfo._id !== '') {
       if (locationInfo.type === 'subproject') {
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'subproject');
@@ -60,6 +65,7 @@ export class LocationListComponent implements OnInit {
       }
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, locationInfo)
     }
+  }
   }
 
   public openLocationModal():void {
@@ -127,6 +133,7 @@ export class LocationListComponent implements OnInit {
                   description: project.description,
                   name: project.name,
                   parentid: project.parentid?project.parentid:'',
+                  assignedto: project.assignedto,
                   parenttype: project.parenttype?project.parenttype:'project',
                   type: project.type?project.type:'project',
                   url: project.url,
@@ -199,5 +206,14 @@ export class LocationListComponent implements OnInit {
   save(){
     this.saveSubprojects();
     this.saveLocations();
+  }
+
+  assignProject(event: any){
+    this.projectAssignedEvent.emit({isAssigned: event.isAssigned, apiCalled: event.apiCalled});
+  }
+
+  childClickEvent(event: boolean){
+    console.log("working - child");
+    this.ischildClickEvent = true;
   }
 }

@@ -13,6 +13,8 @@
         <app-location-list-element (click)="onDbClick(project)" [location]="project"
                       [isSubProject]="true"
                       [projectName]="project.name"
+                      (projectAssignedEvent)="assignProject($event)"
+                      (childClickEventTriggered)="childClickEvent($event)"
         ></app-location-list-element>
     </div>
   </div>
@@ -21,6 +23,7 @@
       <app-location-list-element (click)="onDbClick(locationInfo)"
                     [location]="locationInfo"
                     [isSubProject]="false"
+                    (projectAssignedEvent)="assignProject($event)"
       ></app-location-list-element>
     </div>
   </div>

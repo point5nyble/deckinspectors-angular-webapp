@@ -18,6 +18,7 @@ export interface Project {
   parenttype?: string;
   type?: string;
   createdat: string;
+  iscomplete?: boolean;
   isInvasive: boolean;
   sequenceNumber?: string;
 }
