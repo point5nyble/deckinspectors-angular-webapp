@@ -6,6 +6,7 @@ export interface ProjectListElement {
   description?: string;
   name: string;
   parentid?: string;
+  assignedto?: string[];
   parenttype?: string;
   type?: string;
   url?: string;

@@ -3,7 +3,7 @@
            [(ngModel)]="searchTerm" (input)="filterNames()">
     <input type="date" placeholder="Created on">
     <label>
-      <input type="checkbox"> Completed
+      <input type="checkbox" [(ngModel)]="isChecked" (change)="filterCompletedProjects()"> Completed
     </label>
     <label>
       <input type="checkbox"> Deleted

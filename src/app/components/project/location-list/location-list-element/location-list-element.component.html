@@ -1,11 +1,11 @@
 <div class="container mb-3 mt-1 border border-secondary">
-  <div class="name"> <b> {{ location.name }} </b></div>
+  <div class="name"> <b> {{ location.name }} </b> 
+    <span *ngIf="isSubProject && isAdmin" class="bi bi-person-circle icon" (click)="openAssignProjectModal()" title="Assign users to project"></span>
+  </div>
   <div class="info">
+    <span class="text-muted margin-right"> <b> Assigned to: </b> {{ location.assignedto }}</span>
     <span class="text-muted margin-right"> <b> Created on: </b> {{location.createdat  }}</span>
     <span class="text-muted margin-right"> <b> By: </b>{{ location.createdby }}</span>
-<!--    TODO-->
-<!--    <span class="text-muted margin-right"> <b> Assigned to: </b> {{ location.assignedTo }}</span>-->
-  <span *ngIf="isSubProject && isAdmin" class="bi bi-person-circle" (click)="openAssignProjectModal()" title="Assign users to project"></span>
   </div>
 </div>
 

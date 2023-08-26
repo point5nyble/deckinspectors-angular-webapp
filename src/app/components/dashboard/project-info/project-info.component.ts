@@ -13,8 +13,10 @@ import { HttpsRequestService } from 'src/app/service/https-request.service';
 })
 export class ProjectInfoComponent {
   @Input() projectInfo!: Project;
+  @Output() projectAssignedEvent = new EventEmitter<any>();
   @Output() childClickEventTriggered = new EventEmitter<boolean>();
-  constructor(private dialog: MatDialog) { }
+  @Output() markCompletedEvent = new EventEmitter<boolean>();
+  constructor(private dialog: MatDialog, private httpsRequestService:HttpsRequestService) { }
 
   isAdmin: boolean = ((JSON.parse(localStorage.getItem('user')!))?.role === "admin");
 
@@ -30,6 +32,7 @@ export class ProjectInfoComponent {
     };
     const dialogRef = this.dialog.open(AssignProjectModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
+      this.projectAssignedEvent.emit({isAssigned: data.isAssigned, apiCalled: data.apiCalled});
      })
 
   }
@@ -63,5 +66,17 @@ export class ProjectInfoComponent {
     const dialogRef = this.dialog.open(DownloadFilesModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
     })
+  }
+
+  markComplete = () =>{
+    this.childClickEventTriggered.emit(true);
+    this.httpsRequestService.postHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/project/${this.projectInfo._id}/toggleprojectstatus/1`, {}).subscribe(
+      (data) => {
+        this.markCompletedEvent.emit(true);
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 }

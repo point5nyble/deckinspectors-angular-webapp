@@ -3,17 +3,17 @@
   <div class="close-button-container">
     <span class="close-icon" (click)="close()">&#10005;</span>
   </div>
-  <form [formGroup]="yourForm" class="modal-form">
+  <form [formGroup]="yourForm" class="modal-form" ngNativeValidate>
     <div class="form-group">
       <label class="form-label">Project Type</label>
       <div class="radio-group">
         <label class="radio-label">
-          <input type="radio" value="singlelevel" formControlName="option">
+          <input type="radio" value="singlelevel" formControlName="option" required>
           Single Level
         </label>
 
         <label class="radio-label">
-          <input type="radio" value="multilevel" formControlName="option">
+          <input type="radio" value="multilevel" formControlName="option" required>
           Multi Level
         </label>
       </div>
@@ -22,7 +22,7 @@
 
     <div class="form-group">
       <label class="form-label">Project Name:</label>
-      <input type="text" formControlName="name" class="form-control">
+      <input type="text" formControlName="name" class="form-control" required>
     </div>
 
     <div class="form-group">
@@ -46,7 +46,7 @@
 
     <mat-dialog-actions class="button-container">
       <button class="mat-raised-button close-button" (click)="close()">Close</button>
-      <button class="mat-raised-button mat-primary save-button" (click)="save()">Save</button>
+      <button type="submit" class="mat-raised-button mat-primary save-button" (click)="save()">Save</button>
     </mat-dialog-actions>
 
   </form>
