@@ -40,7 +40,7 @@ export class NewProjectModalComponent implements OnInit {
       image: [this.data.process === 'edit' ? this.data.projectInfo?.url: ""], // Add validators if needed
       name: [this.data.process === 'edit' ? this.data.projectInfo?.name: ""], // Add validators if needed
       address: [this.data.process === 'edit' ? this.data.projectInfo?.address: ""],
-      option: [this.data.process === 'edit' ? this.data.projectInfo?.projecttype: ""], // Add validators if needed
+      option: [this.data.process === 'edit' ? this.data.projectInfo?.projecttype: "multilevel"], // Add validators if needed
       description: [this.data.process === 'edit' ? this.data.projectInfo?.description: ""]
     });
   }

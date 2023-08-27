@@ -248,7 +248,6 @@ export class DashboardComponent implements OnInit
 }
 
 markedCompleted = (event: boolean) =>{
-  console.log("marked")
   this.fetchProjectData();
 }
 
