@@ -172,6 +172,7 @@ export class LocationListComponent implements OnInit {
   }
 
   saveSubprojects = () =>{
+    let count = 0;
     this.subprojectList.forEach((subproject, i) =>{
       let url = `https://deckinspectors-dev.azurewebsites.net/api/subproject/${subproject._id}`;
       let data = {"sequenceNumber": i};
@@ -179,15 +180,21 @@ export class LocationListComponent implements OnInit {
       this.httpsRequestService.putHttpData(url, data).subscribe(
         (response: any) => {
           console.log(response)
+          ++count;
         },
         error => {
-          console.log(error)
+          console.log(error);
         }
       );
     })
+
+    if (count === this.subprojectList.length){
+      alert('Sequence saved!');
+    }
   }
 
   saveLocations = () =>{
+    let count = 0;
     this.locationList.forEach((location, i) =>{
       let url = `https://deckinspectors-dev.azurewebsites.net/api/location/${location._id}`;
       let data = {"sequenceNumber": i};
@@ -195,12 +202,17 @@ export class LocationListComponent implements OnInit {
       this.httpsRequestService.putHttpData(url, data).subscribe(
         (response: any) => {
           console.log(response);
+          ++count;
         },
         error => {
-          console.log(error)
+          console.log(error);
         }
       );
     })
+
+    if (count === this.locationList.length){
+      alert('Sequence saved!');
+    }
   }
 
   save(){
