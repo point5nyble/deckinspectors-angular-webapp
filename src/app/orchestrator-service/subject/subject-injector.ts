@@ -10,6 +10,7 @@ import {AddElementToPreviousButtonLogicSubject} from "./add-element-to-previous-
 import {RemoveElementToPreviousButtonLogicSubject} from "./remove-element-to-previous-button-logic-subject";
 import {UpdateLeftTreeDataSubject} from "./update-left-tree-data-subject";
 import {SectionClickedSubject} from "./section-clicked-subject";
+import {InvasiveButtonClickSubject} from "./invasive-button-click-subject";
 
 @Injectable()
 export class SubjectInjector {
@@ -51,5 +52,8 @@ export class SubjectInjector {
     this.injector.get<SectionClickedSubject>(
       SectionClickedSubject as Type<SectionClickedSubject>
     )
+    this.injector.get<InvasiveButtonClickSubject>(
+        InvasiveButtonClickSubject as Type<InvasiveButtonClickSubject>
+      )
   }
 }

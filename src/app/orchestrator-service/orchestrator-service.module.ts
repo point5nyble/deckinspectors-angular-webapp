@@ -13,6 +13,7 @@ import {AddElementToPreviousButtonLogicSubject} from "./subject/add-element-to-p
 import {RemoveElementToPreviousButtonLogicSubject} from "./subject/remove-element-to-previous-button-logic-subject";
 import {UpdateLeftTreeDataSubject} from "./subject/update-left-tree-data-subject";
 import {SectionClickedSubject} from "./subject/section-clicked-subject";
+import {InvasiveButtonClickSubject} from "./subject/invasive-button-click-subject";
 
 
 
@@ -34,7 +35,8 @@ import {SectionClickedSubject} from "./subject/section-clicked-subject";
     AddElementToPreviousButtonLogicSubject,
     RemoveElementToPreviousButtonLogicSubject,
     UpdateLeftTreeDataSubject,
-    SectionClickedSubject
+    SectionClickedSubject,
+    InvasiveButtonClickSubject
   ]
 })
 export class OrchestratorServiceModule { }

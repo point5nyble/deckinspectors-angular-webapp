@@ -4,7 +4,7 @@ import {
   OrchestratorCommunicationService
 } from "../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import {OrchestratorEventName} from "../../orchestrator-service/models/orchestrator-event-name";
-import {updateProject} from "./project-action";
+import {updateInvasiveBtnState, updateProject} from "./project-action";
 import {ProjectQuery} from "./project-selector";
 
 @Injectable()
@@ -22,6 +22,9 @@ export class ProjectEventListenerService implements OnDestroy {
   private subscribeToProjectChangeEvents() {
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.PROJECT_STATE_UPDATE).subscribe(data => {
       this.store.dispatch(updateProject({project: data}));
+    })
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.INVASIVE_BTN_DISABLED).subscribe(data => {
+      this.store.dispatch(updateInvasiveBtnState({project: data}));
     })
   }
 
