@@ -5,7 +5,6 @@
 <!--      <span class="mr-3" *ngIf="checkIfSubProject()"><i class="fas fa-plus" (click)="openSubprojectModal()"></i></span>-->
       <span class="mr-3 cursor-pointer icon"><i class="fas fa-plus" (click)="openLocationModal()"></i></span>
       <span class="mr-3 cursor-pointer icon"><i class="fas fa-save" (click)="save()"></i></span>
-      <span class="icon"><i class="fas fa-bars cursor-pointer"></i></span>
     </div>
   </div>
   <div cdkDropList class="full-width scrollable-container" *ngIf="checkIfSubProject()"  (cdkDropListDropped)="dropProject($event)">

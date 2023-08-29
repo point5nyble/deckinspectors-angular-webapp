@@ -15,19 +15,33 @@ export class LoginService {
           username: username,
           password: password
         }
-        let url = 'https://deckinspectors-dev.azurewebsites.net/api/user/login';
-        this.httpsRequestService.postHttpData(url, data).subscribe(
-            res => {
-              console.log(res);
-              localStorage.setItem('username', username);
-              this.router.navigate(['/dashboard'])
-              return true;
-            },
-            err => {
-              console.error("Incorrect username or password");
-              return false;
-            }
-        )
+
+        this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/user/${username}`).subscribe(
+        user => {
+          let response = true;
+          if (!(["web", "both"].includes(user.access_type.toLowerCase()))){
+            console.log("user doesn't have access");
+            alert("Incorrect username or password");
+            return false;
+          }
+          let url = 'https://deckinspectors-dev.azurewebsites.net/api/user/login';
+          this.httpsRequestService.postHttpData(url, data).subscribe(
+              res => {
+                console.log(res);
+                localStorage.setItem('username', username);
+                this.router.navigate(['/dashboard'])
+              },
+              err => {
+                console.error("Incorrect username or password");
+                response = false;
+                alert("Incorrect username or password");
+              }
+          )
+          return response;
+          }, err=>{
+            console.error("Incorrect username or password");
+            alert("Incorrect username or password");
+          })
     }
 
     logout() {

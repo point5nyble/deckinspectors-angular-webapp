@@ -6,15 +6,13 @@
       </div>
       <div>
         <b>Description: </b> {{ projectInfo.description }} <b>       Assigned To : </b> {{projectInfo.assignedto.join(',')}}
+        <strong>Type: </strong><span *ngIf="projectInfo.projecttype === 'singlelevel'">Single</span>
+        <span *ngIf="projectInfo.projecttype === 'multilevel'">Multi</span>
       </div>
     </div>
   </div>
   <div>
     <div class="options-section">
-      <div class="checkbox-label">
-        <input type="checkbox" id="allow-offline" class="checkbox">
-        <label for="allow-offline" class="checkbox-text">Allow Offline</label>
-      </div>
       <div class="icon-section">
         <span *ngIf="isAdmin" class="bi bi-person-circle" (click)="openAssignProjectModal()" title="Assign users to project"></span>
         <span class="bi bi-upload icon" (click)="openUploadFilesModal()" title="Upload project documents"></span>

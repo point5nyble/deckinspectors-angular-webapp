@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit
   disableInvasiveBtn: boolean = false;
   isProjectAssigned: boolean = false;
   apiCalled: boolean = false;
+  showProjectCompleteAlert: boolean = false;
     constructor(private cdr: ChangeDetectorRef,
                 private httpsRequestService:HttpsRequestService,
                 private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -204,8 +205,10 @@ export class DashboardComponent implements OnInit
     this.isProjectAssigned = event.isAssigned;
     this.apiCalled = event.apiCalled;
 
-    if (event.isAssigned && event.apiCalled)
+    if (event.isAssigned && event.apiCalled){
       this.fetchProjectData();
+      setTimeout(this.removeNotification, 5000);
+    }
   }
 
   filterCompleted = (isChecked: boolean) =>{
@@ -249,6 +252,14 @@ export class DashboardComponent implements OnInit
 
 markedCompleted = (event: boolean) =>{
   this.fetchProjectData();
+  this.showProjectCompleteAlert = true;
+  setTimeout(this.removeNotification, 5000);
+}
+
+removeNotification = () =>{
+  this.showProjectCompleteAlert = false;
+  this.isProjectAssigned = false;
+  this.apiCalled = false;
 }
 
 }
