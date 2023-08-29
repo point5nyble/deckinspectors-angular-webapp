@@ -12,6 +12,7 @@ export enum OrchestratorEventName {
   REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC = 'remove_element_from_previous_button_logic',
   PROJECT_STATE_UPDATE = 'project_state_update',
   SECTION_CLICKED = 'section_clicked',
+  INVASIVE_BTN_DISABLED = 'invasive_btn_disabled',
 
   // TODO - Remove Unused Event
 
