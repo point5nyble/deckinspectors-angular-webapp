@@ -32,70 +32,37 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
               private dialog: MatDialog) {
   }
 
-  ngOnInit(): void {
-    this.subscribeToProjectState();
+  public ngOnInit(): void {
     this.subscribeToProjectInfo();
+    this.subscribeToProjectState();
   }
+
   private subscribeToProjectState() {
-    this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
+    this.store.select(ProjectQuery.getProjectModel).pipe(take(1)).subscribe(data => {
       this.projectState = data.state;
+      this.disableInvasiveBtn = data.isInvasiveBtnDisabled;
       this.fetchProjectIdFromState();
     });
   }
-  changeProjectState() {
+
+  private subscribeToProjectInfo() {
+    this.fetchProjectIdFromState();
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
+      this.fetchProjectIdFromState();
+    });
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
+      setTimeout(() => {
+        this.fetchProjectIdFromState();
+      },1000)
+    });
+  }
+
+  public changeProjectState() {
     this.projectState = this.projectState === ProjectState.VISUAL ? ProjectState.INVASIVE : ProjectState.VISUAL;
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.PROJECT_STATE_UPDATE, {state:this.projectState});
   }
-  private fetchProjectDetails(projectid: string) {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/getProjectById';
-    let data = {
-      projectid: projectid,
-      username: localStorage.getItem('username')
-    };
-    this.httpsRequestService.postHttpData(url, data).subscribe(
-      (response: any) => {
-        this.projectInfo = response.item;
-        this.projectInfo.type = 'project';
-      },
-      error => {
-        console.log(error)
-      }
-    );
-  }
 
-  private fetchSubprojectDetails(projectid: string) {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/subproject/getSubProjectById';
-    let data = {
-      subprojectid: projectid,
-      username: localStorage.getItem('username')
-    };
-    this.httpsRequestService.postHttpData(url, data).subscribe(
-      (response: any) => {
-        this.projectInfo = response.item;
-      },
-      error => {
-        console.log(error)
-      }
-    );
-  }
-
-  private fetchLocationDetails($event: string) {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationById';
-    let data = {
-      locationid:$event,
-      username: localStorage.getItem('username')
-    };
-    this.httpsRequestService.postHttpData(url, data).subscribe(
-      (response:any) => {
-        this.projectInfo = response.item;
-      },
-      error => {
-        console.log(error)
-      }
-    );
-  }
-
-   previousBtnClicked() {
+  public previousBtnClicked() {
     if (this.projectInfo.type === 'subproject') {
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'project')
     } else if (this.projectInfo.type === 'location' ||
@@ -111,19 +78,6 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'home');
     }
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
-  }
-
-
-  private subscribeToProjectInfo() {
-    this.fetchProjectIdFromState();
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
-        this.fetchProjectIdFromState();
-    });
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
-      setTimeout(() => {
-        this.fetchProjectIdFromState();
-      },1000)
-    });
   }
 
   public editLocation() {
@@ -161,6 +115,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
         this.disableInvasiveBtn = !this.projectInfo.isInvasive;
         let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
         this.fetchProjectDetails(projectid);
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.INVASIVE_BTN_DISABLED,{'isInvasiveBtnDisabled':this.disableInvasiveBtn});
       } else if (this.projectInfo.type === 'location' ||
         this.projectInfo.type === 'projectlocation' ||
         this.projectInfo.type === 'apartment' ||
@@ -171,5 +126,67 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
       }
     });
   }
+  private fetchProjectDetails(projectid: string) {
+    let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/getProjectById';
+    let data = {
+      projectid: projectid,
+      username: localStorage.getItem('username')
+    };
+    this.httpsRequestService.postHttpData(url, data).subscribe(
+      (response: any) => {
+        this.projectInfo = response.item;
+        this.projectInfo.type = 'project';
+      },
+      error => {
+        console.log(error)
+      }
+    );
+  }
+  private fetchSubprojectDetails(projectid: string) {
+    let url = 'https://deckinspectors-dev.azurewebsites.net/api/subproject/getSubProjectById';
+    let data = {
+      subprojectid: projectid,
+      username: localStorage.getItem('username')
+    };
+    this.httpsRequestService.postHttpData(url, data).subscribe(
+      (response: any) => {
+        this.projectInfo = response.item;
+      },
+      error => {
+        console.log(error)
+      }
+    );
+  }
+  private fetchLocationDetails($event: string) {
+    let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationById';
+    let data = {
+      locationid:$event,
+      username: localStorage.getItem('username')
+    };
+    this.httpsRequestService.postHttpData(url, data).subscribe(
+      (response:any) => {
+        this.projectInfo = response.item;
+      },
+      error => {
+        console.log(error)
+      }
+    );
+  }
 
+  public downloadExcel() {
+    let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/generateexcel';
+    let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
+    let data = {
+      projected:projectid,
+      username: localStorage.getItem('username')
+    };
+    this.httpsRequestService.postHttpData(url, data).subscribe(
+      (response:any) => {
+        console.log("Excel downloaded");
+      },
+      error => {
+        console.log(error)
+      }
+    );
+  }
 }
