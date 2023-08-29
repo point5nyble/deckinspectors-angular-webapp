@@ -14,6 +14,7 @@ import {NewProjectModalComponent} from "../../../../forms/new-project-modal/new-
 import {take} from "rxjs";
 import {ProjectState} from "../../../../app-state-service/store/project-state-model";
 import {ProjectQuery} from "../../../../app-state-service/project-state/project-selector";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-project-details-upper-section',
@@ -29,7 +30,8 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
   constructor(private orchestratorCommunicationService: OrchestratorCommunicationService,
               private store: Store<any>,
               private httpsRequestService:HttpsRequestService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private http: HttpClient) {
   }
 
   public ngOnInit(): void {
@@ -177,16 +179,22 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/generateexcel';
     let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
     let data = {
-      projected:projectid,
+      projectid:projectid,
       username: localStorage.getItem('username')
     };
-    this.httpsRequestService.postHttpData(url, data).subscribe(
-      (response:any) => {
-        console.log("Excel downloaded");
+    const headers = new HttpHeaders({
+      'accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'Content-Type': 'application/json'
+    });
+    this.http.post<any>(url, data, { headers, responseType: 'blob' as 'json'}).subscribe((response: any) => {
+      console.log(response);
+      const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const downloadUrl = window.URL.createObjectURL(blob);
+        window.open(downloadUrl);
       },
-      error => {
-        console.log(error)
-      }
-    );
+      (error:any) => {
+        console.log(error);
+        alert('Error');
+      })
   }
 }
