@@ -1,0 +1,47 @@
+ul{
+    display: flex;
+    justify-content: space-between;
+    flex:1;
+}
+.Describer{
+    border-bottom: solid #000000 0.5px;
+    align-items: last baseline;
+    flex:1;
+}
+li{
+    list-style: none;
+}
+#name{
+    padding-top:20px;
+}
+#A_User{
+    margin-left:300px;
+    padding-top:20px;
+}
+#A_Offline{
+    margin-left:100px;
+}
+#Type{
+    margin-left:50px;
+    padding-top:20px;
+}
+#As_User{
+    margin-left:70px;
+}
+#Status{
+    margin-left:100px;
+    padding-top:20px;
+}
+#Upload{
+    margin-left:110px;
+    padding-top:20px;
+}
+.Icons{
+    margin-left:15px;
+    padding-top:20px;
+}
+.Folder{
+    margin-left:10px;
+    padding-top:20px;
+    margin-right:15px;
+}
