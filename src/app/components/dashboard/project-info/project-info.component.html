@@ -19,21 +19,21 @@
           </ng-container>
       </div>
 
-      <div style="margin-left:10px;">
+      <!-- <div style="margin-left:10px;">
         <div>
-          <label for="allow-offline" class="checkbox">
+          <label for="allow-offline" class="checkbox" (click)="AllowOffline()">
             <input type="checkbox" id="allow-offline" class="checkbox__input">
             <div class="checkbox__box"></div>
           </label>
         </div>
-      </div>
+      </div> -->
 
-      <div style="margin-left:50px; width:90px;">
+      <div style="margin-left:50px; width:90px;padding-bottom:10px;">
         <span *ngIf="projectInfo.projecttype === 'singlelevel'">Single</span>
         <span *ngIf="projectInfo.projecttype === 'multilevel'">Multi</span>
       </div>
 
-      <div style="margin-left:20px;padding-bottom:20px;">
+      <div style="margin-left:20px;padding-bottom:10px;">
         <span *ngIf="isAdmin" class="bi bi-person-circle" (click)="openAssignProjectModal()" title="Assign users to project"></span>
       </div>
 
@@ -41,11 +41,13 @@
       <div style="margin-left:60px;">
         <div class="custom-select">
           <div class="select-icon">
-              <i class="fas fa-circle green-dot"></i>
+              <i class="fas fa-circle green-dot" (click)="StatusCheck()"></i>
           </div>
-          <div class="select"></div>
+          <div class="select" (click)="StatusCheck()">
+            <b >Running</b>
+          </div>
           <div class="dropdown-arrow">
-              <i class="fas fa-chevron-down"></i>
+              <i class="fas fa-chevron-down" (click)="StatusCheck()"></i>
           </div>
         </div>
       </div>
@@ -67,13 +69,12 @@
 
       <div style="margin-left:40px;">
         <!-- <span class="bi bi-file icon" title="Move project to a folder"></span> -->
-        <span class="material-symbols-outlined icon" title="Move project to a folder">folder_open</span>
+        <span class="material-symbols-outlined icon" title="Move project to a folder" (click)="folderOpen()">folder_open</span>
       </div>
 
       <div style="margin-left:40px;">
         <!-- <span class="bi bi-file icon" title="Move project to a folder"></span> -->
         <span class="bi bi-trash icon" title="Delete Project" (click)="deleteProject()"></span>
       </div>
-
 </div>
 

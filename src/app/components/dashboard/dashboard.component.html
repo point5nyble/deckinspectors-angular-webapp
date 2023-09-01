@@ -14,8 +14,9 @@
     <app-sidebar class="flex"></app-sidebar>
     <div class="container-fluid flex">
       <div *ngIf="showProjectInfo === 'home'" class="project-list-container">
-        <app-filter (searchedTerm)="projectSearch($event)" (newProjectUploaded)="newProjectUploaded()"></app-filter>
+        <app-filter (searchedTerm)="projectSearch($event)" (newProjectUploaded)="newProjectUploaded()" (filterCompleted)="filterCompleted($event)">
 
+        </app-filter>
         <div *ngIf="isProjectAssigned && apiCalled">
           <div class="alert alert-primary alert-dismissible fade show" role="alert">
             <strong>Success! </strong> Project Assigned
