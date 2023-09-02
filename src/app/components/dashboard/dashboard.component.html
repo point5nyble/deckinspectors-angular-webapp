@@ -37,7 +37,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         </div>
-        
+
         <div class="scrollable-container mt-1">
           <div *ngFor="let projectInfo of projectInfos">
             <app-project-info
@@ -46,6 +46,7 @@
               (childClickEventTriggered)="childClickEventTriggered($event)"
               (projectAssignedEvent)="projectAssigned($event)"
               (markCompletedEvent)="markedCompleted($event)"
+              (projectEventDeletedEvent)="projectEventDeletedEvent($event)"
             ></app-project-info>
           </div>
         </div>

@@ -36,7 +36,6 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
 
   public ngOnInit(): void {
     this.subscribeToProjectInfo();
-    this.subscribeToProjectState();
   }
 
   private subscribeToProjectState() {
@@ -48,13 +47,13 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
   }
 
   private subscribeToProjectInfo() {
-    this.fetchProjectIdFromState();
+    this.subscribeToProjectState();
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
-      this.fetchProjectIdFromState();
+      this.subscribeToProjectState();
     });
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
       setTimeout(() => {
-        this.fetchProjectIdFromState();
+        this.subscribeToProjectState();
       },1000)
     });
   }

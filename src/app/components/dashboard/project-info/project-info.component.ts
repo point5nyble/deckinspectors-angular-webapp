@@ -16,6 +16,7 @@ export class ProjectInfoComponent {
   @Output() projectAssignedEvent = new EventEmitter<any>();
   @Output() childClickEventTriggered = new EventEmitter<boolean>();
   @Output() markCompletedEvent = new EventEmitter<boolean>();
+  @Output() projectEventDeletedEvent = new EventEmitter<string>();
   constructor(private dialog: MatDialog, private httpsRequestService:HttpsRequestService) { }
 
   isAdmin: boolean = ((JSON.parse(localStorage.getItem('user')!))?.role === "admin");
@@ -78,5 +79,15 @@ export class ProjectInfoComponent {
         console.log(error);
       }
     )
+  }
+
+  deleteProject() {
+    this.childClickEventTriggered.emit(true);
+    let url = "https://deckinspectors-dev.azurewebsites.net/api/project/" + this.projectInfo._id;
+    this.httpsRequestService.deleteHttpData<any>(url).subscribe(data => {
+      this.projectEventDeletedEvent.emit(this.projectInfo._id);
+    }, error => {
+      console.log(error);
+    })
   }
 }

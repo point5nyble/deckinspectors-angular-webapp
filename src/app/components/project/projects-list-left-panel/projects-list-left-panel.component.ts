@@ -38,35 +38,26 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscribeCurrentProject();
+    this.subscribeToGetCurrentProjectDetails();
     this.fetchLeftTreeDataFromState();
-    this.subscribeToProjectDetailsForNameHighlight();
     this.updateProjectList();
     if (this.projectList !== undefined) {
       this.loadingScreen = false;
     }
   }
 
-  toggleCollapse_() {
-    this.collapsed = !this.collapsed;
+  private subscribeToGetCurrentProjectDetails() {
+    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
+      this.currentSelectedItem = previousState.stack[previousState.stack.length - 1].name;
+      this.currentProject = previousState.stack[1]
+    });
   }
 
   private fetchLeftTreeDataFromState() {
     this.store.select(LeftTreeListModelQuery.getLeftTreeList).subscribe(leftTreeData => {
       this.projectList = this.mapItemList(leftTreeData?.items);
-      this.projectList = this.filterInvasiveProjects(this.filterCurrentProject(this.projectList));
-      this.createObjectMap(this.projectList,this.objectMap);
-      if (this.projectList?.length === 0 || this.projectList === undefined) {
-        this.fetchLeftTreeData();
-      }
-
-    })
-  }
-
-  private fetchLeftTreeDataFromStateWhenCalled() {
-    this.store.select(LeftTreeListModelQuery.getLeftTreeList).pipe(take(1)).subscribe(leftTreeData => {
-      this.projectList = this.mapItemList(leftTreeData?.items);
-      this.projectList = this.filterInvasiveProjects(this.filterCurrentProject(this.projectList));
+      this.projectList = this.filterCurrentProject(this.projectList);
+      this.projectList = this.filterInvasiveProjects(this.projectList);
       this.createObjectMap(this.projectList,this.objectMap);
       if (this.projectList?.length === 0 || this.projectList === undefined) {
         this.fetchLeftTreeData();
@@ -89,9 +80,31 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     });
 
   }
+  private fetchLeftTreeDataFromStateWhenCalled() {
+    this.store.select(LeftTreeListModelQuery.getLeftTreeList).pipe(take(1)).subscribe(leftTreeData => {
+      this.projectList = this.mapItemList(leftTreeData?.items);
+      this.projectList = this.filterCurrentProject(this.projectList);
+      this.projectList = this.filterInvasiveProjects(this.projectList);
+      this.createObjectMap(this.projectList,this.objectMap);
+      if (this.projectList?.length === 0 || this.projectList === undefined) {
+        this.fetchLeftTreeData();
+      }
+
+    })
+  }
+
+  toggleCollapse_() {
+    this.collapsed = !this.collapsed;
+  }
+
+  toggleCollapse(item: Item): void {
+    item.collapsed = !item.collapsed;
+  }
+
 
   private fetchLeftTreeData() {
-      let url = `https://deckinspectors-dev.azurewebsites.net/api/project/getProjectsMetaDataByUserName/${localStorage.getItem('username')}`;
+      let projectid = this.currentProject?._id === undefined ? (<any>this.currentProject)?.id : this.currentProject?._id;
+      let url = `https://deckinspectors-dev.azurewebsites.net/api/project/getProjectMetadata/` + projectid;
       this.httpsRequestService.getHttpData<any>(url).subscribe(
         (response: any) => {
           let fetchedProjectList: Item[] = this.convertResponseToItemList(response);
@@ -123,6 +136,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       parentid: 'home',
       type: 'project',
       isInvasive:project.isInvasive,
+      projectType:project.projectType,
       nestedItems: this.extractNestedItems(project)
     };
   }
@@ -202,13 +216,18 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   }
 
-  openProject(item: Item) {
+  public openProject(item: Item) {
     this.currentSelectedItem = item.name;
     this.findPath(item);
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'project');
+    if (item.projectType === 'multilevel') {
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'project');
+    } else {
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'location');
+
+    }
   }
 
-  openLocation(location: Item) {
+  public openLocation(location: Item) {
     if (location.id !== '' && location?.nestedItems?.length === 0) {
         this.currentSelectedItem = location.name;
         // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(location));
@@ -216,11 +235,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'location');
     }
     }
-  private subscribeToProjectDetailsForNameHighlight() {
-    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
-        this.currentSelectedItem = previousState.stack[previousState.stack.length - 1].name;
-    });
-  }
+
 
   private mapItem(input: Item): Item {
     return {
@@ -261,9 +276,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     this.startWidth = this.panelWidth;
   }
 
-  toggleCollapse(item: Item): void {
-    item.collapsed = !item.collapsed;
-  }
 
   private createObjectMap(project: Item[], objectMap: Map<any, any>) {
     if (project === undefined) return;
@@ -345,11 +357,8 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     return nestedItems?.filter(location => location.isInvasive);
   }
 
-  private subscribeCurrentProject() {
-    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe(res => this.currentProject = res.stack[1]);
-  }
-
   private filterCurrentProject(projectList: Item[]) {
-    return projectList?.filter(project => project.id === this.currentProject._id);
+    let projectid = this.currentProject?._id === undefined ? (<any>this.currentProject)?.id : this.currentProject?._id;
+    return projectList?.filter(project => project.id === projectid);
   }
 }
