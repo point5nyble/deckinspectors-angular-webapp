@@ -36,24 +36,24 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
 
   public ngOnInit(): void {
     this.subscribeToProjectInfo();
+    this.subscribeToProjectState();
   }
 
   private subscribeToProjectState() {
-    this.store.select(ProjectQuery.getProjectModel).pipe(take(1)).subscribe(data => {
+    this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
       this.projectState = data.state;
       this.disableInvasiveBtn = data.isInvasiveBtnDisabled;
-      this.fetchProjectIdFromState();
     });
   }
 
   private subscribeToProjectInfo() {
-    this.subscribeToProjectState();
+    this.fetchProjectIdFromState();
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
-      this.subscribeToProjectState();
+      this.fetchProjectIdFromState();
     });
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
       setTimeout(() => {
-        this.subscribeToProjectState();
+        this.fetchProjectIdFromState();
       },1000)
     });
   }
@@ -116,7 +116,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
         this.disableInvasiveBtn = !this.projectInfo.isInvasive;
         let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
         this.fetchProjectDetails(projectid);
-        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.INVASIVE_BTN_DISABLED,{'isInvasiveBtnDisabled':this.disableInvasiveBtn});
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.INVASIVE_BTN_DISABLED,{isInvasiveBtnDisabled:this.disableInvasiveBtn});
       } else if (this.projectInfo.type === 'location' ||
         this.projectInfo.type === 'projectlocation' ||
         this.projectInfo.type === 'apartment' ||
