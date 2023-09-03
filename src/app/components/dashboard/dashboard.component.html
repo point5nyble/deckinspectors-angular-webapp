@@ -33,7 +33,14 @@
 
         <div *ngIf="showProjectCompleteAlert">
           <div class="alert alert-primary alert-dismissible fade show" role="alert">
-            <strong>Success! </strong> Project Completed
+            <strong>Success! </strong> Project completed
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+
+        <div *ngIf="showProjectInProgressAlert">
+          <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>Success! </strong> Project in progress
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         </div>

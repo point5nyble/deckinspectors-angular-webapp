@@ -51,6 +51,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import { InvasiveSectionModalComponent } from './forms/invasive-section-modal/invasive-section-modal/invasive-section-modal.component';
 import { ConclusiveSectionModalComponent } from './forms/conclusive-section-modal/conclusive-section-modal/conclusive-section-modal.component';
 import { UsersComponent } from './components/users/users.component';
+import { FoldersComponent } from './components/folders/folders.component';
 import { ModalComponent } from './components/common/modal/modal.component';
 import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 
@@ -89,6 +90,7 @@ import { MdbModalService } from 'mdb-angular-ui-kit/modal';
     InvasiveSectionModalComponent,
     ConclusiveSectionModalComponent,
     UsersComponent,
+    FoldersComponent,
     ModalComponent
   ],
   imports: [
