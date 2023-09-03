@@ -8,6 +8,7 @@ export interface Item {
     collapsed?: boolean;
     type?: string;
     isInvasive?: boolean;
+    projectType?:string;
     nestedItems?: Item[];
 
   }

@@ -40,10 +40,9 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
   }
 
   private subscribeToProjectState() {
-    this.store.select(ProjectQuery.getProjectModel).pipe(take(1)).subscribe(data => {
+    this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
       this.projectState = data.state;
       this.disableInvasiveBtn = data.isInvasiveBtnDisabled;
-      this.fetchProjectIdFromState();
     });
   }
 
@@ -117,7 +116,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
         this.disableInvasiveBtn = !this.projectInfo.isInvasive;
         let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
         this.fetchProjectDetails(projectid);
-        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.INVASIVE_BTN_DISABLED,{'isInvasiveBtnDisabled':this.disableInvasiveBtn});
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.INVASIVE_BTN_DISABLED,{isInvasiveBtnDisabled:this.disableInvasiveBtn});
       } else if (this.projectInfo.type === 'location' ||
         this.projectInfo.type === 'projectlocation' ||
         this.projectInfo.type === 'apartment' ||

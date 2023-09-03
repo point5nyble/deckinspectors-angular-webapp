@@ -202,7 +202,7 @@ export class DashboardComponent implements OnInit
   }
 
   projectAssigned = (event: any) =>{
-    
+
     this.isProjectAssigned = event.isAssigned;
     this.apiCalled = event.apiCalled;
 
@@ -244,7 +244,7 @@ export class DashboardComponent implements OnInit
         console.log(error);
       }
     )
-    
+
   }
   else{
     this.fetchProjectData();
@@ -269,4 +269,9 @@ removeNotification = () =>{
   this.apiCalled = false;
 }
 
+  projectEventDeletedEvent($event: string) {
+    setTimeout(() => {
+      this.fetchProjectData();
+    },1000)
+  }
 }

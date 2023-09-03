@@ -14,12 +14,24 @@ export const projectReducer = createReducer(
   })
 );
 
+// To update the state of the project
 const updateProjectParams = (state: ProjectStateModel, project: ProjectStateModel) => {
-  return {...state,...project};
+  let newState: ProjectStateModel = new ProjectStateModel();
+  if (project.state === undefined) {
+    newState.state = state.state;
+  } else {
+    newState.state = project.state;
+  }
+  newState.isInvasiveBtnDisabled = state.isInvasiveBtnDisabled;
+  console.log(newState);
+  return newState;
 }
 
+// To update the state of the invasive button
 const updateInvasiveParams = (state: ProjectStateModel, project: ProjectStateModel) => {
-  let newState = new ProjectStateModel();
+  let newState: ProjectStateModel = new ProjectStateModel();
+  newState.state = state.state;
   newState.isInvasiveBtnDisabled = project.isInvasiveBtnDisabled;
+  console.log(newState);
   return newState;
 }
