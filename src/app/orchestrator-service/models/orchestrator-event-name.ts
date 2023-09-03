@@ -10,8 +10,10 @@ export enum OrchestratorEventName {
   // Previous Button Logic
   Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC = 'add_element_to_previous_button_logic',
   REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC = 'remove_element_from_previous_button_logic',
+  // This event is used to update state of project such as invasive or visual
   PROJECT_STATE_UPDATE = 'project_state_update',
   SECTION_CLICKED = 'section_clicked',
+  // This event is used to update invasive button disable status
   INVASIVE_BTN_DISABLED = 'invasive_btn_disabled',
 
   // TODO - Remove Unused Event

@@ -38,4 +38,8 @@ export class HttpsRequestService {
       return this.http.put<T>(url, data,httpOptions);
   }
 
+  public deleteHttpData<T>(url:string): Observable<T> {
+    return this.http.delete<T>(url);
+  }
+
 }

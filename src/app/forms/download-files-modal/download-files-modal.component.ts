@@ -42,7 +42,7 @@ export class DownloadFilesModalComponent {
         "compressionQuality": 100,
         "imageFactor": this.selectedImages
       },
-      "companyName": "Wicr",
+      "companyName": this.getCompanyNameFromActiveSection(this.activeSection),
       "reportType": reportType
     }
     const headers = new HttpHeaders({
@@ -71,12 +71,20 @@ export class DownloadFilesModalComponent {
       this.downloadReport('Visual');
     } else if ($event === 'Invasive Only Report') {
       this.downloadReport('InvasiveOnly');
-    } else if ($event == 'Invasive Report') {
+    } else if ($event == 'Final Report') {
       this.downloadReport('Invasive');
     }
   }
 
   onSliderChange(event: any) {
     this.imageQuality = event.value;
+  }
+
+  private getCompanyNameFromActiveSection(activeSection: string) {
+    if (activeSection === 'deckInspector') {
+      return "DeckInspectors";
+    } else {
+      return "Wicr";
+    }
   }
 }

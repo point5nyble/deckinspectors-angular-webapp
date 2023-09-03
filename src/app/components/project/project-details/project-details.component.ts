@@ -121,7 +121,7 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   }
 
   projectAssigned = (event: any) =>{
-    
+
     this.isProjectAssigned = event.isAssigned;
     this.apiCalled = event.apiCalled;
     // if (event.isAssigned && event.apiCalled)

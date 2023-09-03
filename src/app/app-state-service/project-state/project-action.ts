@@ -6,6 +6,6 @@ export const updateProject = createAction(
 
 
 export const updateInvasiveBtnState = createAction(
-  '[ProjectModel] Project Update',
+  '[ProjectModel] Project Invasive State Update',
   props<{project: any}>());
 
