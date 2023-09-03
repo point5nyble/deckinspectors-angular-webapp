@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {BuildingLocation, Section} from "../../../../../common/models/buildingLocation";
 import {
   OrchestratorCommunicationService
@@ -19,6 +19,7 @@ export class SectionListComponent implements OnInit{
   header: string = 'Locations';
 
   @Output() sectionID = new EventEmitter<string>();
+  @Output() sectionsDeletionComplete = new EventEmitter<boolean>();
   location_!: BuildingLocation;  // @Input() location!: BuildingLocation
   sections: Section[] = [];
   @Input()
@@ -72,4 +73,18 @@ export class SectionListComponent implements OnInit{
 
     }
 
+  deleteElement($event: string) {
+    let id = $event;
+    let url = `https://deckinspectors-dev.azurewebsites.net/api/section/${id}`;
+    this.httpsRequestService.deleteHttpData(url).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.sectionsDeletionComplete.emit(true);
+      }
+      , error => {
+        console.log(error);
+      }
+    );
+
+  }
 }

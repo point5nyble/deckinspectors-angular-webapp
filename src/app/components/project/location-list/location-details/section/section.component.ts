@@ -68,7 +68,6 @@ export class SectionComponent implements OnInit{
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
-        console.log(response);
         this.showConclusiveSection = JSON.parse(response?.item?.postinvasiverepairsrequired);
       },
       error => {
@@ -101,10 +100,8 @@ export class SectionComponent implements OnInit{
       url = 'https://deckinspectors-dev.azurewebsites.net/api/conclusivesection/getConclusiveSectionsByParentId';
     }
 
-    console.log(url, data)
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
-        console.log(response)
         this.sectionReport = response.item;
         this.constructRows();
         this.isRecordFound = true;
@@ -153,7 +150,6 @@ export class SectionComponent implements OnInit{
     };
   }
   private constructRows() {
-    console.log(this.sectionReport);
     this.rows = [];
     this.rowsMap = new Map<string,string>();
     if (this.sectionReport != null || this.sectionReport != undefined) {
@@ -275,13 +271,11 @@ export class SectionComponent implements OnInit{
     }
     let url = this.getEditUrl();
 
-    console.log(url, request)
     this.httpsRequestService.putHttpData(url, request).subscribe(
       (response:any) => {
         // Reset to default state
         this.rows = [];
         this.images = [];
-        console.log(response);
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'updated section');
         this.isRecordFound = true;
         this.fetchDataForGivenSectionId(this.sectionId_);
@@ -307,13 +301,11 @@ export class SectionComponent implements OnInit{
     }
     let url = this.getAddUrl();
 
-    console.log(url, request)
     this.httpsRequestService.postHttpData(url, request).subscribe(
       (response:any) => {
         // Reset to default state
         this.rows = [];
         this.images = [];
-        console.log(response);
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'added section');
         this.isRecordFound = true;
         this.fetchDataForGivenSectionId(this.sectionId_);

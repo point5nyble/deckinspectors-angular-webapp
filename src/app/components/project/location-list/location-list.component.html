@@ -14,6 +14,7 @@
                       [projectName]="project.name"
                       (projectAssignedEvent)="assignProject($event)"
                       (childClickEventTriggered)="childClickEvent($event)"
+                                   (deleteElement)="deleteElement($event)"
         ></app-location-list-element>
     </div>
   </div>
@@ -23,6 +24,8 @@
                     [location]="locationInfo"
                     [isSubProject]="false"
                     (projectAssignedEvent)="assignProject($event)"
+                                 (deleteElement)="deleteElement($event)"
+                                 (childClickEventTriggered)="childClickEvent($event)"
       ></app-location-list-element>
     </div>
   </div>

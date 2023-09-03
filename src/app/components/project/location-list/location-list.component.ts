@@ -25,6 +25,7 @@ import { HttpsRequestService } from 'src/app/service/https-request.service';
 export class LocationListComponent implements OnInit {
   @Input() header!: string;
   @Output() projectAssignedEvent = new EventEmitter<any>();
+  @Output() projectDeletionComplete = new EventEmitter<boolean>();
   ischildClickEvent!: boolean;
   @Input()
   set locations(locations: BuildingLocation[]) {
@@ -225,7 +226,27 @@ export class LocationListComponent implements OnInit {
   }
 
   childClickEvent(event: boolean){
-    console.log("working - child");
+    console.log(event);
     this.ischildClickEvent = true;
   }
+
+  deleteElement($event: any) {
+      const id = $event.id;
+      const isSubproject = $event.isSubproject;
+      let url;
+      if (isSubproject) {
+        url = `https://deckinspectors-dev.azurewebsites.net/api/subproject/${id}`;
+      } else {
+        url = `https://deckinspectors-dev.azurewebsites.net/api/location/${id}`;
+      }
+      this.httpsRequestService.deleteHttpData(url).subscribe(
+        (response: any) => {
+          console.log(response);
+          this.projectDeletionComplete.emit(isSubproject);
+        }
+        , error => {
+          console.log(error);
+        }
+      );
+    }
 }

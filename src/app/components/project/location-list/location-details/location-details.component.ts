@@ -9,7 +9,6 @@ import {
 import {Store} from "@ngrx/store";
 import {BackNavigation} from "../../../../app-state-service/back-navigation-state/back-navigation-selector";
 import {take} from "rxjs";
-import {SectionState} from "../../../../app-state-service/store/project-state-model";
 
 @Component({
   selector: 'app-location-details',
@@ -34,7 +33,6 @@ export class LocationDetailsComponent implements OnInit{
   }
 
   fetchLocationDetails($event: string) {
-    console.log("From Location Details")
     let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationById';
       let data = {
           locationid:$event,
@@ -43,7 +41,6 @@ export class LocationDetailsComponent implements OnInit{
       this.httpsRequestService.postHttpData(url, data).subscribe(
           (response:any) => {
             this.location = response.item;
-            console.log(this.location);
           },
           error => {
               console.log(error)
@@ -80,4 +77,7 @@ export class LocationDetailsComponent implements OnInit{
     );
   }
 
+  sectionsDeletionComplete($event: boolean) {
+    this.fetchSectionList();
+  }
 }
