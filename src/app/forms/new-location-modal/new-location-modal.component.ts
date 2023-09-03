@@ -76,6 +76,7 @@ export class NewLocationModalComponent {
       "createdBy": "deck",
       "url": image_url,
       "type": this.data.type,
+      "isInvasive":false,
       "assignedTo":['']
     }
     let url: string;
