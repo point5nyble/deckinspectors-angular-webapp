@@ -73,7 +73,6 @@ export class NewLocationModalComponent {
       "description": this.newLocationForm.value.description,
       "parentid":  this.data.projectInfo?.parentId,
       "parenttype": this.data.projectInfo?.parenttype,
-      "isInvasive": true,
       "createdBy": "deck",
       "url": image_url,
       "type": this.data.type,

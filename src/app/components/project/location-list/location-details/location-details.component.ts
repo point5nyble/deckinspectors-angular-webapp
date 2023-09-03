@@ -77,4 +77,7 @@ export class LocationDetailsComponent implements OnInit{
     );
   }
 
+  sectionsDeletionComplete($event: boolean) {
+    this.fetchSectionList();
+  }
 }

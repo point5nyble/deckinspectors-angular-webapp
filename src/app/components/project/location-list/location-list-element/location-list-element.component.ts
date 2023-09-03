@@ -16,6 +16,7 @@ export class LocationListElementComponent {
   isAdmin: boolean = ((JSON.parse(localStorage.getItem('user')!))?.role === "admin");
   @Output() projectAssignedEvent = new EventEmitter<any>();
   @Output() childClickEventTriggered = new EventEmitter<boolean>();
+  @Output() deleteElement = new EventEmitter<any>();
   constructor(private dialog: MatDialog){ }
 
   openAssignProjectModal(){
@@ -32,5 +33,12 @@ export class LocationListElementComponent {
     dialogRef.afterClosed().subscribe(data => {
       this.projectAssignedEvent.emit({isAssigned: data.isAssigned, apiCalled: data.apiCalled});
      })
+  }
+
+  deleteProject() {
+    console.log("deleteProject", this.location._id)
+    this.childClickEventTriggered.emit(true);
+    const location = {id : this.location._id, isSubProject: this.isSubProject}
+    this.deleteElement.emit(location);
   }
 }

@@ -8,6 +8,7 @@
           (click)="fetchDataForGivenSectionId(section)"
           [section]="section"
           [isHighlighted]="section._id === this.currentSection?._id"
+          (deleteElement)="deleteElement($event)"
         ></app-section-list-element>
       </div>
 

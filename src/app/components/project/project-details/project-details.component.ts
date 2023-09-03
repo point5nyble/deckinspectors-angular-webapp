@@ -123,10 +123,24 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   }
 
   projectAssigned = (event: any) =>{
-
     this.isProjectAssigned = event.isAssigned;
     this.apiCalled = event.apiCalled;
     // if (event.isAssigned && event.apiCalled)
     //   this.fetchProjectData();
+  }
+
+
+  projectDeletionComplete($event: boolean) {
+    console.log($event);
+    let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
+    this.fetchLocationData(projectid);
+    this.fetchSubProjectData(projectid);
+    // $event is true when the subproject deleted process completed.
+    // else location deleted process completed.
+    if ($event) {
+      this.fetchSubProjectData(projectid);
+    } else {
+        this.fetchLocationData(projectid);
+    }
   }
 }
