@@ -23,7 +23,6 @@ const updateProjectParams = (state: ProjectStateModel, project: ProjectStateMode
     newState.state = project.state;
   }
   newState.isInvasiveBtnDisabled = state.isInvasiveBtnDisabled;
-  console.log(newState);
   return newState;
 }
 
@@ -32,6 +31,5 @@ const updateInvasiveParams = (state: ProjectStateModel, project: ProjectStateMod
   let newState: ProjectStateModel = new ProjectStateModel();
   newState.state = state.state;
   newState.isInvasiveBtnDisabled = project.isInvasiveBtnDisabled;
-  console.log(newState);
   return newState;
 }
