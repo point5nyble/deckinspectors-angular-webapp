@@ -4,7 +4,10 @@
   </div>
   <div class="icons">
     <span class="mr-3">
-        <i class="fas fa-file-pdf" (click)="downloadReport()"></i>
+        <i class="fas fa-file-pdf" (click)="downloadReport('pdf')"></i>
     </span>
+    <span class="mr-3">
+      <i class="bi bi-filetype-docx" (click)="downloadReport('docx')"></i>
+  </span>
   </div>
 </div>

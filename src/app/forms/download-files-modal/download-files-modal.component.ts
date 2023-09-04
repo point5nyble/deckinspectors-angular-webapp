@@ -35,7 +35,8 @@ export class DownloadFilesModalComponent {
     this.dialogRef.close();
   }
 
-  private downloadReport(reportType: string) {
+  private downloadReport(reportType: string, reportFormat: string) {
+    console.log("report format" + reportFormat);
     let url = environment.apiURL + '/project/generatereport';
     let data = {
       "id": this.modalData.project._id,
@@ -44,16 +45,17 @@ export class DownloadFilesModalComponent {
         "imageFactor": this.selectedImages
       },
       "companyName": this.getCompanyNameFromActiveSection(this.activeSection),
-      "reportType": reportType
+      "reportType": reportType,
+      "reportFormat": reportFormat
     }
     const headers = new HttpHeaders({
-      'accept': 'application/pdf',
+      'accept': (reportFormat == "docx")?'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : 'application/pdf',
       'Content-Type': 'application/json'
     });
     this.showLoading = !this.showLoading;
     this.http.post<any>(url, data, { headers, responseType: 'blob' as 'json'}).subscribe((response: any) => {
         this.showLoading = !this.showLoading;
-        const blob = new Blob([response], { type: 'application/pdf' });
+        const blob = new Blob([response], { type: (reportFormat == "docx")?'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : 'application/pdf' });
         const downloadUrl = window.URL.createObjectURL(blob);
         window.open(downloadUrl);
         this.dialogRef.close();
@@ -67,13 +69,13 @@ export class DownloadFilesModalComponent {
   }
 
 
-  downloadReportEvent($event: string) {
-    if ($event === 'Visual Report') {
-      this.downloadReport('Visual');
-    } else if ($event === 'Invasive Only Report') {
-      this.downloadReport('InvasiveOnly');
-    } else if ($event == 'Final Report') {
-      this.downloadReport('Invasive');
+  downloadReportEvent($event: any) {
+    if ($event.title === 'Visual Report') {
+      this.downloadReport('Visual', $event.reportFormat);
+    } else if ($event.title === 'Invasive Only Report') {
+      this.downloadReport('InvasiveOnly', $event.reportFormat);
+    } else if ($event.title == 'Final Report') {
+      this.downloadReport('Invasive', $event.reportFormat);
     }
   }
 

@@ -2,7 +2,8 @@
   <div class="name"> <b> {{ location.name }} </b>
     <div>
       <span *ngIf="isSubProject && isAdmin" class="bi bi-person-circle icon" (click)="openAssignProjectModal()" title="Assign users to project"></span>
-      <span class="bi bi-trash icon" title="Delete Project" (click)="deleteProject()"></span>
+      <span *ngIf="isSubProject" class="bi bi-trash icon" title="Delete Building" (click)="deleteProject()"></span>
+      <span *ngIf="!isSubProject" class="bi bi-trash icon" title="Delete Location" (click)="deleteProject()"></span>
     </div>
   </div>
   <div class="info">

@@ -233,7 +233,8 @@ export class LocationListComponent implements OnInit {
 
   deleteElement($event: any) {
       const id = $event.id;
-      const isSubproject = $event.isSubproject;
+      console.log($event);
+      const isSubproject = $event.isSubProject;
       let url;
       if (isSubproject) {
         url = `${environment.apiURL}/subproject/${id}`;

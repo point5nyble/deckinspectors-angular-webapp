@@ -5,9 +5,15 @@
   </div>
   <div class="form-body" [formGroup]="visualDeckReportModalForm">
     <div class="form-field">
-      <label for="name">Name</label>
-      <input formControlName="visualReportName" type="text" id="name" name="visualReportName" placeholder="Visual Report Name">
+        <label for="name">Name</label>
+        <input formControlName="visualReportName" type="text" id="name" name="visualReportName" placeholder="Visual Report Name">
     </div>
+    <!-- <div class="form-field">
+      <div class="colinear">
+      <label for="isUnitUnavailable">Is Unit Unavailable</label>
+      <input formControlName="isUnitUnavailable" type="checkbox" id="isUnitUnavailable" name="isUnitUnavailable">
+    </div>
+    </div> -->
     <div class="form-field">
       <label for="exteriorElements">Exterior Elements</label>
       <select formControlName="exteriorElements" id="exteriorElements" name="exteriorElements" multiple>
@@ -31,15 +37,15 @@
     <div class="form-field">
       <label>Any visual signs of leaks</label>
       <div class="radio-group">
-        <label for="yes"><input formControlName="signsOfLeaks" type="radio" id="yes" value="True" name="signsOfLeaks">Yes</label>
-        <label for="no"><input formControlName="signsOfLeaks" type="radio" id="no" value="False" name="signsOfLeaks">No</label>
+        <label for="yes"><input formControlName="signsOfLeaks" type="radio" id="yes" value="true" name="signsOfLeaks">Yes</label>
+        <label for="no"><input formControlName="signsOfLeaks" type="radio" id="no" value="false" name="signsOfLeaks">No</label>
       </div>
     </div>
     <div class="form-field">
       <label>Further Invasive Review Required Yes/No</label>
       <div class="radio-group">
-        <label  for="yes1"><input type="radio" id="yes1" name="invasiveReviewRequired" value="True" formControlName="invasiveReviewRequired">Yes</label>
-        <label  for="no1"><input type="radio" id="no1" name="invasiveReviewRequired" value="False" formControlName="invasiveReviewRequired">No</label>
+        <label  for="yes1"><input type="radio" id="yes1" name="invasiveReviewRequired" value="true" formControlName="invasiveReviewRequired">Yes</label>
+        <label  for="no1"><input type="radio" id="no1" name="invasiveReviewRequired" value="false" formControlName="invasiveReviewRequired">No</label>
       </div>
     </div>
     <div class="form-field">

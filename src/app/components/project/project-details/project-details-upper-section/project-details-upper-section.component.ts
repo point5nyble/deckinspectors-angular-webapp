@@ -92,7 +92,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
       id: 1,
       projectInfo:this.projectInfo,
       process: 'edit',
-      type: this.projectType
+      type: this.projectInfo.type
     };
     if (this.projectInfo.type === 'project') {
       const dialogRef = this.dialog.open(NewProjectModalComponent, dialogConfig);
@@ -103,6 +103,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
       dialogRef.afterClosed().subscribe(data => {
       })
     }
+    console.log(dialogConfig.data);
   }
 
   private fetchProjectIdFromState(): void {
@@ -127,6 +128,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
         this.fetchLocationDetails(projectid);
       }
     });
+    console.log(this.disableInvasiveBtn);
   }
   private fetchProjectDetails(projectid: string) {
     let url = environment.apiURL + '/project/getProjectById';
@@ -136,7 +138,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
-        this.projectInfo = response.item;
+        this.projectInfo = response.project;
         this.projectInfo.type = 'project';
       },
       error => {
