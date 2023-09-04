@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpsRequestService} from "../../service/https-request.service";
 import {Router} from "@angular/router";
+import { environment } from '../../environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,11 @@ export class LoginService {
           username: username,
           password: password
         }
-
-        this.httpsRequestService.getHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/user/${username}`).subscribe(
+        
+        this.httpsRequestService.getHttpData<any>(`${environment.PROD_API}/user/${username}`).subscribe(
         user => {
           let response = true;
+          console.log(response);
           if (!(["web", "both"].includes(user.access_type.toLowerCase()))){
             console.log("user doesn't have access");
             alert("Incorrect username or password");
