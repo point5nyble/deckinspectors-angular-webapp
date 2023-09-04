@@ -15,6 +15,7 @@ import {take} from "rxjs";
 import {ProjectState} from "../../../../app-state-service/store/project-state-model";
 import {ProjectQuery} from "../../../../app-state-service/project-state/project-selector";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-project-details-upper-section',
@@ -128,7 +129,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
     });
   }
   private fetchProjectDetails(projectid: string) {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/getProjectById';
+    let url = environment.apiURL + '/project/getProjectById';
     let data = {
       projectid: projectid,
       username: localStorage.getItem('username')
@@ -144,14 +145,14 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
     );
   }
   private fetchSubprojectDetails(projectid: string) {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/subproject/getSubProjectById';
+    let url = environment.apiURL + '/subproject/getSubProjectById';
     let data = {
       subprojectid: projectid,
       username: localStorage.getItem('username')
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
-        this.projectInfo = response.item;
+        this.projectInfo = response.subproject;
       },
       error => {
         console.log(error)
@@ -159,14 +160,14 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
     );
   }
   private fetchLocationDetails($event: string) {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationById';
+    let url = environment.apiURL + '/location/getLocationById';
     let data = {
       locationid:$event,
       username: localStorage.getItem('username')
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
-        this.projectInfo = response.item;
+        this.projectInfo = response.location;
       },
       error => {
         console.log(error)
@@ -175,7 +176,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
   }
 
   public downloadExcel() {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/generateexcel';
+    let url = environment.apiURL + '/project/generateexcel';
     let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
     let data = {
       projectid:projectid,

@@ -5,6 +5,7 @@ import {UploadFilesModalComponent} from "../../../forms/upload-fiels-modal/uploa
 import {DownloadFilesModalComponent} from "../../../forms/download-files-modal/download-files-modal.component";
 import {Project} from "../../../common/models/project";
 import { HttpsRequestService } from 'src/app/service/https-request.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-project-info',
@@ -71,7 +72,7 @@ export class ProjectInfoComponent {
 
   markComplete = () =>{
     this.childClickEventTriggered.emit(true);
-    this.httpsRequestService.postHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/project/${this.projectInfo._id}/toggleprojectstatus/${this.projectInfo.iscomplete ? 0 : 1}`, {}).subscribe(
+    this.httpsRequestService.postHttpData<any>(`${environment.apiURL}/project/${this.projectInfo._id}/toggleprojectstatus/${this.projectInfo.iscomplete ? 0 : 1}`, {}).subscribe(
       (data) => {
         this.markCompletedEvent.emit(!this.projectInfo.iscomplete);
       },
@@ -86,7 +87,7 @@ export class ProjectInfoComponent {
   }
   deleteProject() {
     this.childClickEventTriggered.emit(true);
-    let url = "https://deckinspectors-dev.azurewebsites.net/api/project/" + this.projectInfo._id;
+    let url = environment.apiURL + "/project/" + this.projectInfo._id;
     this.httpsRequestService.deleteHttpData<any>(url).subscribe(data => {
       this.projectEventDeletedEvent.emit(this.projectInfo._id);
     }, error => {

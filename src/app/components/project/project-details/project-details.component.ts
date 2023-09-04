@@ -12,6 +12,7 @@ import {take} from "rxjs";
 import { Subscription } from 'rxjs';
 import {ProjectQuery} from "../../../app-state-service/project-state/project-selector";
 import {ProjectState} from "../../../app-state-service/store/project-state-model";
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-project-details',
@@ -41,14 +42,14 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
 
   private fetchSubProjectData(projectID:string) {
     this.projectBuildings = [];
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/subproject/getSubprojectsDataByProjectId';
+    let url = environment.apiURL + '/subproject/getSubprojectsDataByProjectId';
     let data = {
       projectid: projectID,
       username: localStorage.getItem('username')
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
-        this.projectBuildings = this.filterSubproject(response.item);
+        this.projectBuildings = this.filterSubproject(response.subprojects);
       },
       error => {
         console.log(error)
@@ -57,14 +58,14 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   }
   private fetchLocationData(projectID:string) {
     this.projectCommonLocationList = [];
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationsByProjectId';
+    let url = environment.apiURL + '/location/getLocationsByProjectId';
     let data = {
       projectid: projectID,
       username: localStorage.getItem('username')
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
-        this.projectCommonLocationList = this.filterLocations(response.item);
+        this.projectCommonLocationList = this.filterLocations(response.locations);
       },
       error => {
         console.log(error)

@@ -1,6 +1,7 @@
 import {ChangeDetectorRef, Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-download-files-modal',
@@ -35,7 +36,7 @@ export class DownloadFilesModalComponent {
   }
 
   private downloadReport(reportType: string) {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/generatereport';
+    let url = environment.apiURL + '/project/generatereport';
     let data = {
       "id": this.modalData.project._id,
       "sectionImageProperties": {

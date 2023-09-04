@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpsRequestService} from "../../service/https-request.service";
 import {Router} from "@angular/router";
-import { environment } from '../../environment';
+import { environment } from '../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,7 @@ export class LoginService {
           username: username,
           password: password
         }
-        
-        this.httpsRequestService.getHttpData<any>(`${environment.PROD_API}/user/${username}`).subscribe(
+        this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/user/${username}`).subscribe(
         user => {
           let response = true;
           console.log(response);
@@ -26,7 +26,7 @@ export class LoginService {
             alert("Incorrect username or password");
             return false;
           }
-          let url = 'https://deckinspectors-dev.azurewebsites.net/api/user/login';
+          let url = environment.apiURL + '/user/login';
           this.httpsRequestService.postHttpData(url, data).subscribe(
               res => {
                 console.log(res);

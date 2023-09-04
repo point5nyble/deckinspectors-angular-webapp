@@ -7,6 +7,7 @@ import {
   OrchestratorCommunicationService
 } from "../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import {OrchestratorEventName} from "../../orchestrator-service/models/orchestrator-event-name";
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-new-location-modal',
@@ -83,9 +84,9 @@ export class NewLocationModalComponent {
     // TODO: Check this logic changing this for
     if (this.data.isSubProject || this.data.type === 'subproject') {
       data["assignedTo"] = ['deck'];
-      url = "https://deckinspectors-dev.azurewebsites.net/api/subproject/add"
+      url = environment.apiURL + "/subproject/add"
     } else {
-      url = 'https://deckinspectors-dev.azurewebsites.net/api/location/add';
+      url = environment.apiURL + '/location/add';
     }
 
     if (this.data.process === 'edit') {
@@ -138,7 +139,7 @@ export class NewLocationModalComponent {
   }
 
   uploadImage() {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/image/upload';
+    let url = environment.apiURL + '/image/upload';
     let data = {
       'entityName': this.newLocationForm.value.name,
       'uploader': 'deck',

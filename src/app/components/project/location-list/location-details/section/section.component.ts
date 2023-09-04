@@ -19,6 +19,7 @@ import {
 import {
   ConclusiveSectionModalComponent
 } from "../../../../../forms/conclusive-section-modal/conclusive-section-modal/conclusive-section-modal.component";
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-section',
@@ -61,7 +62,7 @@ export class SectionComponent implements OnInit{
     if (sectionId  === undefined || sectionId === '') {
         return;
     }
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/invasivesection/getInvasiveSectionByParentId';
+    let url = environment.apiURL + '/invasivesection/getInvasiveSectionByParentId';
     let data: any = {
       username: localStorage.getItem('username'),
       parentSectionId: sectionId
@@ -89,20 +90,20 @@ export class SectionComponent implements OnInit{
     };
     if (this.sectionState === SectionState.VISUAL) {
       data = {...data, sectionid: $event}
-      url = 'https://deckinspectors-dev.azurewebsites.net/api/section/getSectionById';
+      url = environment.apiURL + '/section/getSectionById';
       this.findOutConclusiveSectionStatus(this.sectionId_);
     } else if (this.sectionState === SectionState.INVASIVE) {
       data = {...data, parentSectionId: $event}
-      url = 'https://deckinspectors-dev.azurewebsites.net/api/invasivesection/getInvasiveSectionByParentId';
+      url = environment.apiURL + '/invasivesection/getInvasiveSectionByParentId';
       this.findOutConclusiveSectionStatus(this.sectionId_);
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
       data = {...data, parentSectionId: $event}
-      url = 'https://deckinspectors-dev.azurewebsites.net/api/conclusivesection/getConclusiveSectionsByParentId';
+      url = environment.apiURL + '/conclusivesection/getConclusiveSectionsByParentId';
     }
 
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
-        this.sectionReport = response.item;
+        this.sectionReport = (this.sectionState === SectionState.VISUAL)? response.section : response.section[0];
         this.constructRows();
         this.isRecordFound = true;
       },
@@ -379,11 +380,11 @@ export class SectionComponent implements OnInit{
   private getAddUrl():string {
     let url = '';
     if (this.sectionState === SectionState.VISUAL) {
-      url = 'https://deckinspectors-dev.azurewebsites.net/api/section/add';
+      url = environment.apiURL + '/section/add';
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
-      url = 'https://deckinspectors-dev.azurewebsites.net/api/conclusivesection/add';
+      url = environment.apiURL + '/conclusivesection/add';
     } else if (this.sectionState === SectionState.INVASIVE) {
-      url = 'https://deckinspectors-dev.azurewebsites.net/api/invasivesection/add';
+      url = environment.apiURL + '/invasivesection/add';
     }
     return url;
   }
@@ -391,11 +392,11 @@ export class SectionComponent implements OnInit{
   private getEditUrl():string {
     let url = '';
     if (this.sectionState === SectionState.VISUAL) {
-      url = 'https://deckinspectors-dev.azurewebsites.net/api/section/' + this.sectionReport._id;
+      url = environment.apiURL + '/section/' + this.sectionReport._id;
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
-      url = 'https://deckinspectors-dev.azurewebsites.net/api/conclusivesection/' + this.sectionReport._id;
+      url = environment.apiURL + '/conclusivesection/' + this.sectionReport._id;
     } else if (this.sectionState === SectionState.INVASIVE) {
-      url = 'https://deckinspectors-dev.azurewebsites.net/api/invasivesection/' + this.sectionReport._id;
+      url = environment.apiURL + '/invasivesection/' + this.sectionReport._id;
     }
     return url;
   }

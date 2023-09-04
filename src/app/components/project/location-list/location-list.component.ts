@@ -14,6 +14,7 @@ import {ProjectListElement} from "../../../common/models/project-list-element";
 import {BackNavigation} from "../../../app-state-service/back-navigation-state/back-navigation-selector";
 import { LocationListElementModule } from './location-list-element/location-list-element.module';
 import { HttpsRequestService } from 'src/app/service/https-request.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-location-list',
@@ -175,7 +176,7 @@ export class LocationListComponent implements OnInit {
   saveSubprojects = () =>{
     let count = 0;
     this.subprojectList.forEach((subproject, i) =>{
-      let url = `https://deckinspectors-dev.azurewebsites.net/api/subproject/${subproject._id}`;
+      let url = `${environment.apiURL}/subproject/${subproject._id}`;
       let data = {"sequenceNumber": i};
 
       this.httpsRequestService.putHttpData(url, data).subscribe(
@@ -197,7 +198,7 @@ export class LocationListComponent implements OnInit {
   saveLocations = () =>{
     let count = 0;
     this.locationList.forEach((location, i) =>{
-      let url = `https://deckinspectors-dev.azurewebsites.net/api/location/${location._id}`;
+      let url = `${environment.apiURL}/location/${location._id}`;
       let data = {"sequenceNumber": i};
 
       this.httpsRequestService.putHttpData(url, data).subscribe(
@@ -235,9 +236,9 @@ export class LocationListComponent implements OnInit {
       const isSubproject = $event.isSubproject;
       let url;
       if (isSubproject) {
-        url = `https://deckinspectors-dev.azurewebsites.net/api/subproject/${id}`;
+        url = `${environment.apiURL}/subproject/${id}`;
       } else {
-        url = `https://deckinspectors-dev.azurewebsites.net/api/location/${id}`;
+        url = `${environment.apiURL}/location/${id}`;
       }
       this.httpsRequestService.deleteHttpData(url).subscribe(
         (response: any) => {

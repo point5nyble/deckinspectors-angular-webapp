@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ImageToUrlConverterService {
     formData.append('containerName', data.containerName);
     formData.append('uploader', 'deck');
     formData.append('entityName', data.entityName);
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/image/upload';
+    let url = environment.apiURL + '/image/upload';
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data'); // Set the correct Content-Type
     return this.http.post(url, formData, { headers })

@@ -11,6 +11,7 @@ import {BackNavigation} from "../../../app-state-service/back-navigation-state/b
 import {ProjectState} from "../../../app-state-service/store/project-state-model";
 import {ProjectQuery} from "../../../app-state-service/project-state/project-selector";
 import {take} from "rxjs";
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-projects-list-left-panel',
@@ -106,7 +107,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   private fetchLeftTreeData() {
       let projectid = this.currentProject?._id === undefined ? (<any>this.currentProject)?.id : this.currentProject?._id;
-      let url = `https://deckinspectors-dev.azurewebsites.net/api/project/getProjectMetadata/` + projectid;
+      let url = `${environment.apiURL}/project/getProjectMetadata/` + projectid;
       this.httpsRequestService.getHttpData<any>(url).subscribe(
         (response: any) => {
           let fetchedProjectList: Item[] = this.convertResponseToItemList(response);
