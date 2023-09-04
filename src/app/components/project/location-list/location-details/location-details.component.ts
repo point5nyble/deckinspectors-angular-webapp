@@ -9,6 +9,7 @@ import {
 import {Store} from "@ngrx/store";
 import {BackNavigation} from "../../../../app-state-service/back-navigation-state/back-navigation-selector";
 import {take} from "rxjs";
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-location-details',
@@ -33,14 +34,14 @@ export class LocationDetailsComponent implements OnInit{
   }
 
   fetchLocationDetails($event: string) {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/location/getLocationById';
+    let url = environment.apiURL + '/location/getLocationById';
       let data = {
           locationid:$event,
           username: localStorage.getItem('username')
       };
       this.httpsRequestService.postHttpData(url, data).subscribe(
           (response:any) => {
-            this.location = response.item;
+            this.location = response.location;
           },
           error => {
               console.log(error)

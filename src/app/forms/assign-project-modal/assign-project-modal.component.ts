@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import { Project } from 'src/app/common/models/project';
 import { ProjectListElement } from 'src/app/common/models/project-list-element';
 import { HttpsRequestService } from 'src/app/service/https-request.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-assign-project-modal',
@@ -27,7 +28,7 @@ export class AssignProjectModalComponent {
 
    fetchUsers = () =>{
     if (this.names.length == 0){
-    this.httpsRequestService.getHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/user/allusers').subscribe(
+    this.httpsRequestService.getHttpData<any>(environment.apiURL + '/user/allusers').subscribe(
       (users) => {
         let assignedUsers = (this.location === undefined)? this.projectInfo.assignedto : this.location.assignedto;
         this.names = users.filter((user : any) => !assignedUsers.includes(user.username));
@@ -58,7 +59,7 @@ export class AssignProjectModalComponent {
     const assignedUsers = this.names.filter((name) => name.checked);
     assignedUsers.forEach((user, i) =>{
       if (this.location === undefined){
-      this.httpsRequestService.postHttpData(`https://deckinspectors-dev.azurewebsites.net/api/project/${this.projectInfo._id}/assign`, {username: user.username}).subscribe(
+      this.httpsRequestService.postHttpData(`${environment.apiURL}/project/${this.projectInfo._id}/assign`, {username: user.username}).subscribe(
         (res) => {
           console.log(res);
           this.dialogRef.close({isAssigned: true, apiCalled: true});
@@ -70,7 +71,7 @@ export class AssignProjectModalComponent {
       )
     }
     else{
-      this.httpsRequestService.postHttpData(`https://deckinspectors-dev.azurewebsites.net/api/subproject/${this.location._id}/assign`, {username: user.username}).subscribe(
+      this.httpsRequestService.postHttpData(`${environment.apiURL}/subproject/${this.location._id}/assign`, {username: user.username}).subscribe(
         (res) => {
           console.log(res);
           this.dialogRef.close({isAssigned: true, apiCalled: true});

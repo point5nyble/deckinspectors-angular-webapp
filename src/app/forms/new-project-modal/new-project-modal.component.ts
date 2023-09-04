@@ -7,6 +7,7 @@ import {OrchestratorEventName} from "../../orchestrator-service/models/orchestra
 import {
   OrchestratorCommunicationService
 } from "../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-new-project-modal',
@@ -96,7 +97,7 @@ export class NewProjectModalComponent implements OnInit {
 
     }
   createProject(image_url:string) {
-      let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/add';
+      let url = environment.apiURL + '/project/add';
       let data = {
         "name": this.yourForm.value.name,
         "description": this.yourForm.value.description,
@@ -110,7 +111,7 @@ export class NewProjectModalComponent implements OnInit {
       }
       if (this.data.process === 'edit') {
         let projectid = this.data.projectInfo._id === undefined ? (<any>this.data.projectInfo).id : this.data.projectInfo._id;
-        let url = 'https://deckinspectors-dev.azurewebsites.net/api/project/' + projectid;
+        let url = environment.apiURL + '/project/' + projectid;
         this.updateProject(url, data);
       } else {
         this.createNewProject(url, data);

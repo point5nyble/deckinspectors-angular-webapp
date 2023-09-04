@@ -4,6 +4,7 @@ import { Store } from "@ngrx/store";
 import { User } from 'src/app/common/models/user';
 import { ModalComponent } from '../common/modal/modal.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-user',
@@ -25,7 +26,7 @@ export class UsersComponent implements OnInit {
   }
 
   private fetchUsersData() {
-    this.httpsRequestService.getHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/user/allusers').subscribe(
+    this.httpsRequestService.getHttpData<any>(environment.apiURL + '/user/allusers').subscribe(
       (data) => {
         this.allUsers = data;
         this.filteredUsers = data;
@@ -66,7 +67,7 @@ export class UsersComponent implements OnInit {
       console.log(message);
       if (message !== undefined && message.user !== undefined){
 
-        this.httpsRequestService.postHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/user/register', user).subscribe(
+        this.httpsRequestService.postHttpData<any>(environment.apiURL + '/user/register', user).subscribe(
           (data) => {
             console.log(data);
            
@@ -101,7 +102,7 @@ export class UsersComponent implements OnInit {
         console.log(message);
         if (message !== undefined && message.user !== undefined){
 
-          this.httpsRequestService.postHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/user/update', user).subscribe(
+          this.httpsRequestService.postHttpData<any>(environment.apiURL + '/user/update', user).subscribe(
             (data) => {
               console.log(data);
             },
@@ -132,7 +133,7 @@ export class UsersComponent implements OnInit {
       user = res[0];
 
       if(confirm("Are you sure?")){
-        this.httpsRequestService.postHttpData<any>('https://deckinspectors-dev.azurewebsites.net/api/user/delete', user).subscribe(
+        this.httpsRequestService.postHttpData<any>(environment.apiURL + '/user/delete', user).subscribe(
             (data) => {
               console.log(data);
               (document.getElementById('success-alert') as HTMLElement).innerHTML =`<div class="alert alert-primary alert-dismissible fade show" role="alert">

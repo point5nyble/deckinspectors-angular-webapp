@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, Inject} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {HttpsRequestService} from "../../service/https-request.service";
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-new-subproject-modal',
@@ -51,7 +52,7 @@ export class NewSubprojectModalComponent {
   }
 
   createNewLocation(){
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/subproject/add';
+    let url = environment.apiURL + '/subproject/add';
     let data = {
       "name": this.newSubprojectForm.value.name,
       "description": this.newSubprojectForm.value.description,

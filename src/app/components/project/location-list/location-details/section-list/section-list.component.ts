@@ -9,6 +9,7 @@ import {ProjectQuery} from "../../../../../app-state-service/project-state/proje
 import {Store} from "@ngrx/store";
 import {ProjectState, SectionState} from "../../../../../app-state-service/store/project-state-model";
 import {OrchestratorEventName} from "../../../../../orchestrator-service/models/orchestrator-event-name";
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-section-list',
@@ -75,7 +76,7 @@ export class SectionListComponent implements OnInit{
 
   deleteElement($event: string) {
     let id = $event;
-    let url = `https://deckinspectors-dev.azurewebsites.net/api/section/${id}`;
+    let url = `${environment.apiURL}/section/${id}`;
     this.httpsRequestService.deleteHttpData(url).subscribe(
       (response: any) => {
         console.log(response);

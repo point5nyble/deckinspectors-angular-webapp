@@ -10,6 +10,7 @@ import {BackNavigation} from "../../app-state-service/back-navigation-state/back
 import {take} from "rxjs";
 import {ProjectQuery} from "../../app-state-service/project-state/project-selector";
 import {ProjectState} from "../../app-state-service/store/project-state-model";
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-subproject',
@@ -33,7 +34,7 @@ export class SubprojectComponent {
   }
 
   private fetchSubProjectData(projectID: string) {
-    let url = 'https://deckinspectors-dev.azurewebsites.net/api/subproject/getSubprojectsDataByProjectId';
+    let url = environment.apiURL + '/subproject/getSubprojectsDataByProjectId';
     let data = {
       projectid: projectID,
       username: localStorage.getItem('username')
@@ -41,7 +42,7 @@ export class SubprojectComponent {
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
         // this.buildingApartments = response.item;
-        this.separateProject(response.item);
+        this.separateProject(response.subprojects);
       },
       error => {
         console.log(error)
