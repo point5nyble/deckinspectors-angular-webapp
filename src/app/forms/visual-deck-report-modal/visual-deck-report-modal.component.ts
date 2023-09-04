@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ImageToUrlConverterService} from "../../service/image-to-url-converter.service";
 import {forkJoin, Observable} from "rxjs";
@@ -48,7 +48,26 @@ export class VisualDeckReportModalComponent implements OnInit {
       AWE:[this.data.rowsMap?.get('awe')],
       images:[this.data.images]
     });
+
+    console.log(this.visualDeckReportModalForm.controls['signsOfLeaks']);
+    console.log(this.visualDeckReportModalForm.controls['invasiveReviewRequired']);
+
+    // this.visualDeckReportModalForm.setValidators(this.comparisonValidator);
   }
+
+  // public comparisonValidator() : ValidatorFn{
+  //   return (group: FormGroup): ValidationErrors => {
+  //      const control1 = group.controls['myControl1'];
+  //      const control2 = group.controls['myControl2'];
+  //      if (control1.value !== control2.value) {
+  //         control2.setErrors({notEquivalent: true});
+  //      } else {
+  //         control2.setErrors(null);
+  //      }
+  //      return;
+  //   };
+  // }
+
   close() {
     this.dialogRef.close();
   }

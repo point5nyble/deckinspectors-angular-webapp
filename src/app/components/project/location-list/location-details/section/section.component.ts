@@ -69,7 +69,8 @@ export class SectionComponent implements OnInit{
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
-        this.showConclusiveSection = JSON.parse(response?.item?.postinvasiverepairsrequired);
+        console.log(response);
+        this.showConclusiveSection = JSON.parse(response?.sections[0]?.postinvasiverepairsrequired);
       },
       error => {
         console.log(error.error)
@@ -103,16 +104,17 @@ export class SectionComponent implements OnInit{
 
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
-        this.sectionReport = (this.sectionState === SectionState.VISUAL)? response.section : response.section[0];
+        this.sectionReport = (this.sectionState === SectionState.VISUAL)? response.section : response.sections[0];
         this.constructRows();
         this.isRecordFound = true;
+        console.log(response);
       },
       error => {
         // Check this logic
         if (error.error.code === 401 || error.error.code === 500) {
           this.isRecordFound = false;
         }
-        console.log(error.error)
+        console.log(error)
       }
     );
   }
@@ -171,7 +173,6 @@ export class SectionComponent implements OnInit{
     if (this.sectionState === SectionState.INVASIVE) {
       this.images = this.sectionReport?.invasiveimages;
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
-      this.images = this.sectionReport?.conclusiveimages;
       let propowneragreed = this.sectionReport?.propowneragreed;
       let invasiverepairsinspectedandcompleted = this.sectionReport?.invasiverepairsinspectedandcompleted;
       propowneragreed = JSON.parse(propowneragreed === undefined ? 'false' : propowneragreed.toString());
@@ -181,7 +182,7 @@ export class SectionComponent implements OnInit{
         this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['conclusiveconsiderations']);
         this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['eeeconclusive']);
         this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['lbcconclusive']);
-
+        this.images = [];
       }
     } else if (this.sectionState === SectionState.VISUAL) {
       this.images = this.sectionReport?.images;
@@ -300,7 +301,9 @@ export class SectionComponent implements OnInit{
     } else if (this.sectionState === SectionState.INVASIVE) {
       request = this.createInvasiveSectionData(data);
     }
+    console.log(request);
     let url = this.getAddUrl();
+    console.log(url);
 
     this.httpsRequestService.postHttpData(url, request).subscribe(
       (response:any) => {
@@ -403,6 +406,7 @@ export class SectionComponent implements OnInit{
 
 
   public showAddBtn() {
+    console.log()
     if (this.sectionState === SectionState.VISUAL) {
         return true;
     } else if ((this.sectionState === SectionState.INVASIVE || this.sectionState === SectionState.CONCLUSIVE) &&

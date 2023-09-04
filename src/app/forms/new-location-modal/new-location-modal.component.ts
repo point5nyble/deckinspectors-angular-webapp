@@ -75,11 +75,12 @@ export class NewLocationModalComponent {
       "parentid":  this.data.projectInfo?.parentId,
       "parenttype": this.data.projectInfo?.parenttype,
       "createdBy": "deck",
-      "url": image_url,
+      "url": image_url? image_url : "",
       "type": this.data.type,
       "isInvasive":false,
       "assignedTo":['']
     }
+    console.log(data);
     let url: string;
     // TODO: Check this logic changing this for
     if (this.data.isSubProject || this.data.type === 'subproject') {
