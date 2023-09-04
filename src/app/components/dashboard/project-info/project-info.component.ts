@@ -71,9 +71,9 @@ export class ProjectInfoComponent {
 
   markComplete = () =>{
     this.childClickEventTriggered.emit(true);
-    this.httpsRequestService.postHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/project/${this.projectInfo._id}/toggleprojectstatus/1`, {}).subscribe(
+    this.httpsRequestService.postHttpData<any>(`https://deckinspectors-dev.azurewebsites.net/api/project/${this.projectInfo._id}/toggleprojectstatus/${this.projectInfo.iscomplete ? 0 : 1}`, {}).subscribe(
       (data) => {
-        this.markCompletedEvent.emit(true);
+        this.markCompletedEvent.emit(!this.projectInfo.iscomplete);
       },
       error => {
         console.log(error);
@@ -81,6 +81,9 @@ export class ProjectInfoComponent {
     )
   }
 
+  moveProjectToFolder = () =>{
+    this.childClickEventTriggered.emit(true);
+  }
   deleteProject() {
     this.childClickEventTriggered.emit(true);
     let url = "https://deckinspectors-dev.azurewebsites.net/api/project/" + this.projectInfo._id;

@@ -105,7 +105,7 @@ export class NewProjectModalComponent implements OnInit {
         "url": image_url=== undefined? '': image_url,
         "projecttype": this.yourForm.value.option,
         "assignedTo": [
-          localStorage.getItem('username')
+          localStorage.getItem('username') !== undefined? localStorage.getItem('username') : "deck"
         ]
       }
       if (this.data.process === 'edit') {

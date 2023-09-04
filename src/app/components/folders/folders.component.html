@@ -1,0 +1,68 @@
+<div (click)="handleClick()" class="main-class">
+    <div class="logo-bar">
+      <div class="horizontal-frame">
+        <div class="company-logo">
+          <img src="../../../assets/images/image_1.png" width="139px" height="59.57px" alt="Button Image">
+        </div>
+        <div class="projects">
+          <!-- <img src="../../../assets/images/Users.png" width="147px" height="30px" alt="Button Image"> -->
+          <h1 class="page-heading">Files</h1>
+        </div>
+    </div>  
+</div>
+<div id="success-alert">
+</div>
+<div class="folders-container">
+    <app-sidebar class="flex"></app-sidebar>
+    <div class="folders">
+        <div class="side-view">
+          <div class="folder-btn">
+            <button (click)="addClicked()">Add</button>
+          </div>
+          <div class="folder-list">
+            <div class="folder-view"  *ngFor="let folder of folders">
+              <div class="folder-row">
+                <div class="show-subfolders-btn" (click)="expandFolder(folder._id)">+</div>
+                <i class="bi bi-folder"></i>
+                <div class="folder" (contextmenu)="subFolderMenu(folder._id)">{{folder.name}}</div>
+                <div class="folderMenu" *ngIf="showFolderMenu[folder._id]">
+                  <div (click)="addSubFolder()">Add</div>
+                  <div>Edit</div>
+                  <div>Delete</div>
+                </div>
+              </div>
+              <div *ngIf="showChildren[folder._id]" class="subfolders-view">
+                <div *ngFor="let sub of folder.children">
+                  <div class="folder-row">
+                    <div class="show-subfolders-btn" (click)="expandSubFolder(sub._id)">+</div>
+                    <i class="bi bi-folder"></i>
+                    <div class="folder" (contextmenu)="subFolderMenu(sub._id)">{{sub.name}}</div>
+                    <div class="folderMenu" *ngIf="showFolderMenu[sub._id]">
+                      <div (click)="addSubFolder()">Add</div>
+                      <div>Edit</div>
+                      <div>Delete</div>
+                    </div>
+                  </div>
+                  <div *ngIf="showSubChildren[sub._id]" class="sub-subfolders-view">
+                    <div *ngFor="let child of sub.children">
+                      <div class="folder-row">
+                      <i class="bi bi-folder"></i>
+                      <div class="folder">{{child.name}}</div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="isAddClicked" class="new-folder-area">
+              <input id="newFolderInput" name="newFolder" [(ngModel)]="newFolder"/>
+              <i class="bi bi-check" style="color: black" (click)="addFolder()"></i>
+              <i class="bi bi-x"  style="color: black" (click)="removeNewFolder()"></i>
+            </div>
+          </div>
+        </div>
+        <div class="project-view">
+        </div>
+    </div>
+  </div>
+</div>

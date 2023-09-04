@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit
   isProjectAssigned: boolean = false;
   apiCalled: boolean = false;
   showProjectCompleteAlert: boolean = false;
+  showProjectInProgressAlert: boolean = false;
     constructor(private cdr: ChangeDetectorRef,
                 private httpsRequestService:HttpsRequestService,
                 private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -250,14 +251,20 @@ export class DashboardComponent implements OnInit
   }
 }
 
-markedCompleted = (event: boolean) =>{
-  this.fetchProjectData();
-  this.showProjectCompleteAlert = true;
+markedCompleted = (completed: boolean) =>{
+  if (completed){
+    this.fetchProjectData();
+    this.showProjectCompleteAlert = true;
+  } else{
+    this.filterCompleted(true);
+    this.showProjectInProgressAlert = true;
+  }
   setTimeout(this.removeNotification, 5000);
 }
 
 removeNotification = () =>{
   this.showProjectCompleteAlert = false;
+  this.showProjectInProgressAlert = false;
   this.isProjectAssigned = false;
   this.apiCalled = false;
 }
