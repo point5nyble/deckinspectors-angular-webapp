@@ -1,4 +1,5 @@
 <div class="container" [ngClass]="{ 'highlighted-section': isHighlighted }">
   <p><b>{{ section.name }}</b></p>
+  <span class="bi bi-trash icon" title="Delete Project" (click)="deleteSection()"></span>
 </div>
 

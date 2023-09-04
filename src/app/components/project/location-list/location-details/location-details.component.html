@@ -3,6 +3,7 @@
   </app-project-details-upper-section>
   <div class="location-section">
     <app-section-list class="flex-item"
+                      (sectionsDeletionComplete)="sectionsDeletionComplete($event)"
                       (sectionID)=fetchDataForGivenSectionId($event)
                       [location] = location>
     </app-section-list>

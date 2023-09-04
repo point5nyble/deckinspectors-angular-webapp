@@ -75,8 +75,10 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     });
 
     this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
-      this.projectState = data.state;
-      this.fetchLeftTreeDataFromStateWhenCalled();
+      if (this.projectState !== data.state) {
+          this.projectState = data.state;
+          this.fetchLeftTreeDataFromStateWhenCalled();
+      }
     });
 
   }

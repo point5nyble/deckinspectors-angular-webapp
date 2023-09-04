@@ -12,8 +12,11 @@
     </app-project-details-upper-section>
     <div class="location-section">
       <app-location-list class="flex-item" header="Project Common Location"
-                         [locations]="projectCommonLocationList"></app-location-list>
+                         [locations]="projectCommonLocationList"
+                         (projectDeletionComplete)="projectDeletionComplete($event)"
+      ></app-location-list>
       <app-location-list class="flex-item ms-2" header="Project Buildings"
-                         [subproject]="projectBuildings" (projectAssignedEvent)="projectAssigned($event)"></app-location-list>
+                         [subproject]="projectBuildings" (projectAssignedEvent)="projectAssigned($event)"
+                         (projectDeletionComplete)="projectDeletionComplete($event)"></app-location-list>
     </div>
 </div>
