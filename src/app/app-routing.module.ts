@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: '',redirectTo: '/dashboard',pathMatch: 'full'},
   {path: 'project', component:ProjectDetailsComponent},
   {path: 'users', component: ((JSON.parse(localStorage.getItem('user')!))?.role === "admin")? UsersComponent : DashboardComponent},
-  {path: 'folders', component: ((JSON.parse(localStorage.getItem('user')!))?.role === "admin")? FoldersComponent : DashboardComponent}
+  // {path: 'folders', component: ((JSON.parse(localStorage.getItem('user')!))?.role === "admin")? FoldersComponent : DashboardComponent}
 ];
 
 @NgModule({
