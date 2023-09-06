@@ -32,12 +32,11 @@
         <label for="username">Username :</label>
         <input type="text" name="username" [(ngModel)]="user.username" class="form-control"/>
       </div>
-      <ng-container *ngIf="formtype === 'createUser'">
-        <div class="form-group">
-          <label for="password">Password :</label>
-          <input type="password" name="password" [(ngModel)]="password" class="form-control"/>
-        </div>
-    </ng-container>
+      
+      <div class="form-group">
+        <label for="password">New Password : (Only if password change required)</label>
+        <input type="password" name="password" [(ngModel)]="password" class="form-control"/>
+      </div>
       <div class="form-group">
         <label for="email">Email :</label>
         <input type="text" name="email" [(ngModel)]="user.email" class="form-control"/>

@@ -16,7 +16,7 @@ export class ModalComponent {
   constructor(public modalRef: MdbModalRef<ModalComponent>) {}
 
   submit = () =>{
-    if (this.formtype === "createUser")
+    if (this.password.trim() !== '')
       this.user.password = this.password;
     this.modalRef.close({user: this.user});
   }
