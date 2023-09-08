@@ -29,10 +29,10 @@ export class NewSubprojectModalComponent {
 
   ngOnInit() {
     this.newSubprojectForm = this.formBuilder.group({
-      image: [''], // Add validators if needed
-      name: [''], // Add validators if needed
+      image: [this.data.process === 'edit' ? this.data.projectInfo?.url: ""], // Add validators if needed
+      name: [this.data.process === 'edit' ? this.data.projectInfo?.name: ""], // Add validators if needed
       subProjectName: [null], // Add validators if needed
-      description: [''],
+      description: [this.data.process === 'edit' ? this.data.projectInfo?.description: ""],
       subProjectType: [],
       toggle: [false]
     });

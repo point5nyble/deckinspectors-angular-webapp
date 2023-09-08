@@ -41,10 +41,10 @@ export class NewLocationModalComponent {
 
   ngOnInit() {
     this.newLocationForm = this.formBuilder.group({
-      image: [this.data.process === 'edit' ? this.data.projectInfo?.url : null], // Add validators if neededthis.data.projectInfo?.url], // Add validators if needed
-      name: [this.data.process === 'edit' ?this.data.projectInfo?.name : null], // Add validators if needed
+      image: [this.data.process === 'edit' ? this.data.projectInfo?.url : ""], // Add validators if neededthis.data.projectInfo?.url], // Add validators if needed
+      name: [this.data.process === 'edit' ?this.data.projectInfo?.name : ""], // Add validators if needed
       subProjectName: [null], // Add validators if needed
-      description: [this.data.process === 'edit' ?this.data.projectInfo?.description: null],
+      description: [this.data.process === 'edit' ?this.data.projectInfo?.description: ""],
       subProjectType: []
     });
   }
