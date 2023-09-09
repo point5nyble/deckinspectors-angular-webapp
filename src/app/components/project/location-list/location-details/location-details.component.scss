@@ -1,3 +1,18 @@
+.hover{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 70vw;
+  z-index: 1;
+  margin-left: 7rem;
+}
+
+.alert{
+  width: 50%;
+  margin-right: 0.5rem;
+}
+
 .right-panel {
   flex: 1;
   margin-left: 15px;

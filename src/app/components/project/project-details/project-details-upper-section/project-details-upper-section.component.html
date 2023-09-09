@@ -1,7 +1,7 @@
 <div class="border border-secondary info-section">
   <div class="navigation-line">
     <i class="fas fa-arrow-left cursor-pointer" (click)="previousBtnClicked()"></i>
-    <app-navigation-component></app-navigation-component>
+    <!-- <app-navigation-component></app-navigation-component> -->
     <i class="fas fa-edit cursor-pointer" (click)="editLocation()"></i>
   </div>
   <div class="horizontal-div  mt-2 info-section">
@@ -13,7 +13,7 @@
       <button class="btn btn-secondary" (click)="downloadExcel()" *ngIf="projectInfo.type === 'project'">Download Excel</button>
     </div>
     <div class="image-section flex-item">
-      <img alt="image-description" src="{{ projectInfo.url }}">
+      <img #img [src]="projectInfo.url" (error)="img.src = '../../../assets/images/image_1.png'">      
     </div>
   </div>
 </div>

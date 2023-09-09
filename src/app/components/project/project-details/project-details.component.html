@@ -13,10 +13,12 @@
     <div class="location-section">
       <app-location-list class="flex-item" header="Project Common Location"
                          [locations]="projectCommonLocationList"
+                         [isLoading]="isLoading"
                          (projectDeletionComplete)="projectDeletionComplete($event)"
       ></app-location-list>
       <app-location-list class="flex-item ms-2" header="Project Buildings"
                          [subproject]="projectBuildings" (projectAssignedEvent)="projectAssigned($event)"
+                         [isLoading]="isLoading"
                          (projectDeletionComplete)="projectDeletionComplete($event)"></app-location-list>
     </div>
 </div>

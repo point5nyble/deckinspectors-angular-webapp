@@ -27,6 +27,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
   projectType!: string;
   projectState!: ProjectState;
   disableInvasiveBtn: boolean = false;
+  enableDefaultImage: boolean = false;
 
   constructor(private orchestratorCommunicationService: OrchestratorCommunicationService,
               private store: Store<any>,
@@ -48,6 +49,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
   }
 
   private subscribeToProjectInfo() {
+    console.log("project info running");
     this.fetchProjectIdFromState();
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
       this.fetchProjectIdFromState();
@@ -198,5 +200,9 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
         console.log(error);
         alert('Error');
       })
+  }
+
+  showDefaultImage = () =>{
+    this.enableDefaultImage = true;
   }
 }

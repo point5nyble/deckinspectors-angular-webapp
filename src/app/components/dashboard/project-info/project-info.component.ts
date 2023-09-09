@@ -6,6 +6,7 @@ import {DownloadFilesModalComponent} from "../../../forms/download-files-modal/d
 import {Project} from "../../../common/models/project";
 import { HttpsRequestService } from 'src/app/service/https-request.service';
 import { environment } from '../../../../environments/environment';
+import { DeleteConfirmationModalComponent } from '../../../forms/delete-confirmation-modal/delete-confirmation-modal.component';
 
 @Component({
   selector: 'app-project-info',
@@ -17,7 +18,7 @@ export class ProjectInfoComponent {
   @Output() projectAssignedEvent = new EventEmitter<any>();
   @Output() childClickEventTriggered = new EventEmitter<boolean>();
   @Output() markCompletedEvent = new EventEmitter<boolean>();
-  @Output() projectEventDeletedEvent = new EventEmitter<string>();
+  @Output() projectEventDeletedEvent = new EventEmitter<any>();
   constructor(private dialog: MatDialog, private httpsRequestService:HttpsRequestService) { }
 
   isAdmin: boolean = ((JSON.parse(localStorage.getItem('user')!))?.role === "admin");
@@ -51,6 +52,10 @@ export class ProjectInfoComponent {
     };
     const dialogRef = this.dialog.open(UploadFilesModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
+      //data -> array of files uploaded
+      data.forEach((file: File) => {
+
+      })
     })
   }
 
@@ -87,11 +92,20 @@ export class ProjectInfoComponent {
   }
   deleteProject() {
     this.childClickEventTriggered.emit(true);
-    let url = environment.apiURL + "/project/" + this.projectInfo._id;
-    this.httpsRequestService.deleteHttpData<any>(url).subscribe(data => {
-      this.projectEventDeletedEvent.emit(this.projectInfo._id);
-    }, error => {
-      console.log(error);
-    })
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "450px";
+    // dialogConfig.height = "140px";
+    const dialogRef = this.dialog.open(DeleteConfirmationModalComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if(data.confirmed){
+        let url = environment.apiURL + "/project/" + this.projectInfo._id;
+        this.httpsRequestService.deleteHttpData<any>(url).subscribe(data => {
+          this.projectEventDeletedEvent.emit({project_id: this.projectInfo._id, state: true});
+        }, error => {
+          console.log(error);
+        })
+      }})
   }
 }

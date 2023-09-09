@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChange} from '@angular/core';
 import {InspectionReport} from "../../../../../common/models/inspection-report";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {
@@ -30,6 +30,7 @@ export class SectionComponent implements OnInit{
   @Input() isRecordFound!:boolean;
   sectionState: SectionState = SectionState.VISUAL;
   @Input() location!:BuildingLocation;
+  @Input() isDeletedSection!: boolean;
   sectionId_!:string;
   images!: string[];
   sectionReport!: InspectionReport;
@@ -57,6 +58,17 @@ export class SectionComponent implements OnInit{
     this.subscribeProjectState();
     this.subscribeToSectionClick();
   }
+
+  ngOnChanges(changes: { [property: string]: SimpleChange }) {
+    // Extract changes to the input property by its name
+    let change: SimpleChange = changes['isDeletedSection']; 
+    if(change?.currentValue){
+      this.ngOnInit();
+    }
+    // Whenever the data in the parent changes, this method gets triggered
+    // You can act on the changes here. You will have both the previous
+    // value and the  current value here.
+}
 
   private findOutConclusiveSectionStatus(sectionId: string) {
     if (sectionId  === undefined || sectionId === '') {

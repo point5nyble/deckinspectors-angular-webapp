@@ -23,6 +23,7 @@ export class SubprojectComponent {
   buildingCommonLocation!: BuildingLocation[];
   buildingApartments!: BuildingLocation[];
   projectState!: ProjectState;
+  isLoading: boolean = false;
 
   constructor(private httpsRequestService: HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService,
@@ -39,9 +40,11 @@ export class SubprojectComponent {
       projectid: projectID,
       username: localStorage.getItem('username')
     };
+    this.isLoading = true;
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
         // this.buildingApartments = response.item;
+        this.isLoading = false;
         this.separateProject(response.subprojects);
       },
       error => {
