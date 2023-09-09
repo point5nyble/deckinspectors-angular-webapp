@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChange} from '@angular/core';
 import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
 import {NgFor, NgIf} from '@angular/common';
 import {BuildingLocation} from "../../../common/models/buildingLocation";
@@ -15,6 +15,7 @@ import {BackNavigation} from "../../../app-state-service/back-navigation-state/b
 import { LocationListElementModule } from './location-list-element/location-list-element.module';
 import { HttpsRequestService } from 'src/app/service/https-request.service';
 import { environment } from '../../../../environments/environment';
+import { DeleteConfirmationModalComponent } from '../../../forms/delete-confirmation-modal/delete-confirmation-modal.component';
 
 @Component({
   selector: 'app-location-list',
@@ -25,6 +26,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class LocationListComponent implements OnInit {
   @Input() header!: string;
+  @Input() isLoading!: boolean;
   @Output() projectAssignedEvent = new EventEmitter<any>();
   @Output() projectDeletionComplete = new EventEmitter<boolean>();
   ischildClickEvent!: boolean;
@@ -40,6 +42,8 @@ export class LocationListComponent implements OnInit {
 
   locationList: ProjectListElement[] = [];
   subprojectList: ProjectListElement[] = [];
+  isDeleteSuccess: boolean = false;
+  isDeleteFail: boolean = false;
 
   projectInfo: any;
 
@@ -51,6 +55,18 @@ export class LocationListComponent implements OnInit {
   public ngOnInit(): void {
     this.subscribeToProjectDetailsForNameHighlight();
   }
+
+//   ngOnChanges(changes: { [property: string]: SimpleChange }) {
+//     // Extract changes to the input property by its name
+//     let change: SimpleChange = changes['isLoading']; 
+//     if(change?.currentValue){
+      
+//     }
+//     // Whenever the data in the parent changes, this method gets triggered
+//     // You can act on the changes here. You will have both the previous
+//     // value and the  current value here.
+// }
+
   checkIfSubProject() : boolean {
     return (this.header === "Project Buildings");
   }
@@ -232,7 +248,16 @@ export class LocationListComponent implements OnInit {
   }
 
   deleteElement($event: any) {
-      const id = $event.id;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "450px";
+    // dialogConfig.height = "140px";
+    const dialogRef = this.dialog.open(DeleteConfirmationModalComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if(data.confirmed){
+
+        const id = $event.id;
       console.log($event);
       const isSubproject = $event.isSubProject;
       let url;
@@ -244,11 +269,24 @@ export class LocationListComponent implements OnInit {
       this.httpsRequestService.deleteHttpData(url).subscribe(
         (response: any) => {
           console.log(response);
+          this.isDeleteSuccess = true;
           this.projectDeletionComplete.emit(isSubproject);
         }
         , error => {
           console.log(error);
+          this.isDeleteFail = true;
         }
       );
+
+        setTimeout(() => {
+          this.removeNotification();
+        }, 5000);
+
+      }})
+    }
+
+    removeNotification = () =>{
+      this.isDeleteSuccess = false;
+      this.isDeleteFail = false;
     }
 }

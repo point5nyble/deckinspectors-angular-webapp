@@ -20,6 +20,10 @@ export class LocationDetailsComponent implements OnInit{
   location!: BuildingLocation;
   isRecordFound:boolean = true;
   sectionId!: string;
+  isDeletedSection!: boolean;
+  isDeleteSuccess: boolean = false;
+  isDeleteFail: boolean = false;
+  isLoading: boolean = false;
 
   constructor(private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -39,9 +43,11 @@ export class LocationDetailsComponent implements OnInit{
           locationid:$event,
           username: localStorage.getItem('username')
       };
+      this.isLoading = true;
       this.httpsRequestService.postHttpData(url, data).subscribe(
           (response:any) => {
             this.location = response.location;
+            this.isLoading = false;
           },
           error => {
               console.log(error)
@@ -79,6 +85,21 @@ export class LocationDetailsComponent implements OnInit{
   }
 
   sectionsDeletionComplete($event: boolean) {
+    if($event){
     this.fetchSectionList();
+    this.isDeletedSection = true;
+    this.isDeleteSuccess = $event;
+    }
+    else{
+      this.isDeleteFail = $event;
+    }
+    setTimeout(() => {
+      this.removeNotification();
+    }, 5000);
+  }
+
+  removeNotification = () =>{
+    this.isDeleteSuccess = false;
+    this.isDeleteFail = false;
   }
 }

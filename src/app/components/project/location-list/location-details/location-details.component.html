@@ -1,3 +1,17 @@
+<div class="hover" *ngIf="isDeleteSuccess">
+  <div class="alert alert-primary alert-dismissible fade show" role="alert">
+    <strong>Success! </strong> Deleted
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+
+<div class="hover" *ngIf="isDeleteFail">
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Failure! </strong> Not Deleted
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+
 <div class="right-panel full-height">
   <app-project-details-upper-section>
   </app-project-details-upper-section>
@@ -5,11 +19,13 @@
     <app-section-list class="flex-item"
                       (sectionsDeletionComplete)="sectionsDeletionComplete($event)"
                       (sectionID)=fetchDataForGivenSectionId($event)
+                      [isLoading]="isLoading"
                       [location] = location>
     </app-section-list>
     <app-section class="report-section"
                  [location] = location
                  [isRecordFound] = isRecordFound
+                 [isDeletedSection] = isDeletedSection
     ></app-section>
   </div>
 </div>

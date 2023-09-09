@@ -27,6 +27,8 @@ export class DashboardComponent implements OnInit
   disableInvasiveBtn: boolean = false;
   isProjectAssigned: boolean = false;
   apiCalled: boolean = false;
+  isDeleteSuccess: boolean = false;
+  isDeleteFail: boolean = false;
   showProjectCompleteAlert: boolean = false;
   showProjectInProgressAlert: boolean = false;
     constructor(private cdr: ChangeDetectorRef,
@@ -268,11 +270,20 @@ removeNotification = () =>{
   this.showProjectInProgressAlert = false;
   this.isProjectAssigned = false;
   this.apiCalled = false;
+  this.isDeleteSuccess = false;
+  this.isDeleteFail = false;
 }
 
-  projectEventDeletedEvent($event: string) {
-    setTimeout(() => {
-      this.fetchProjectData();
-    },1000)
+  projectEventDeletedEvent($event: any) {
+    if($event.state){
+      setTimeout(() => {
+        this.fetchProjectData();
+        this.isDeleteSuccess = $event.state;
+      },1000)
+  }
+  else{
+    this.isDeleteFail = $event.state;
+  }
+    setTimeout(this.removeNotification, 5000);
   }
 }

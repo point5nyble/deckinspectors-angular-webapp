@@ -54,6 +54,7 @@ import { UsersComponent } from './components/users/users.component';
 import { FoldersComponent } from './components/folders/folders.component';
 import { ModalComponent } from './components/common/modal/modal.component';
 import { MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { DeleteConfirmationModalComponent } from './forms/delete-confirmation-modal/delete-confirmation-modal.component';
 
 
 
@@ -91,7 +92,8 @@ import { MdbModalService } from 'mdb-angular-ui-kit/modal';
     ConclusiveSectionModalComponent,
     UsersComponent,
     FoldersComponent,
-    ModalComponent
+    ModalComponent,
+    DeleteConfirmationModalComponent,
   ],
   imports: [
     BrowserModule,

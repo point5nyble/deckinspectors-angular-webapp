@@ -1,6 +1,9 @@
 <div class="container-s scrollable-container">
       <div class="header-component">
-        <div class="flex-item"><b>{{ header }}</b>
+        <div class="flex-item"><span style="margin-right: 5px"><b>{{ header }}</b></span>
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </span>
         </div>
         </div>
       <div *ngFor="let section of sections">

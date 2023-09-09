@@ -1,12 +1,31 @@
 <div class="horizontal-div border border-secondary full-height">
   <div class="header-component">
-    <div class="flex-item"><b>{{ header }}</b></div>
+    <div class="flex-item"><span style="margin-right: 5px"><b>{{ header }}</b></span>
+      <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </span>
+    </div>
     <div class="icons">
 <!--      <span class="mr-3" *ngIf="checkIfSubProject()"><i class="fas fa-plus" (click)="openSubprojectModal()"></i></span>-->
       <span class="mr-3 cursor-pointer icon"><i class="fas fa-plus" (click)="openLocationModal()"></i></span>
       <span class="mr-3 cursor-pointer icon"><i class="fas fa-save" (click)="save()"></i></span>
     </div>
   </div>
+   
+  <div *ngIf="isDeleteSuccess">
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+      <strong>Success! </strong> Deleted
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <div *ngIf="isDeleteFail">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Failure! </strong> Not Deleted
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+  
   <div cdkDropList class="full-width scrollable-container" *ngIf="checkIfSubProject()"  (cdkDropListDropped)="dropProject($event)">
     <div *ngFor="let project of subprojectList" cdkDrag>
         <app-location-list-element (click)="onDbClick(project)" [location]="project"

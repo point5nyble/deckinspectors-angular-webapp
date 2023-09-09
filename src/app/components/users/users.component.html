@@ -2,7 +2,9 @@
     <div class="logo-bar">
       <div class="horizontal-frame">
         <div class="company-logo">
-          <img src="../../../assets/images/image_1.png" width="139px" height="59.57px" alt="Button Image">
+        <a routerLink="/dashboard">
+        <img class="cursor-pointer" src="../../../assets/images/image_1.png" width="139px" height="59.57px" alt="Button Image">
+      </a>
         </div>
         <div class="projects">
           <!-- <img src="../../../assets/images/Users.png" width="147px" height="30px" alt="Button Image"> -->
@@ -42,7 +44,7 @@
                 <div class="col">{{user.role}}</div>
                 <div class="col">{{user.access_type}}</div>
                 <div class="col edit-btn"><button (click)="updateUser(user.email)"><i class="bi bi-pen"></i></button></div>
-                <div class="col edit-btn"><button (click)="deleteUser(user.email)"><i class="bi bi-trash"></i></button></div>
+                <div class="col edit-btn"><button (click)="deleteUser(user)"><i class="bi bi-trash"></i></button></div>
             </div>
             </ng-container>
         </div>

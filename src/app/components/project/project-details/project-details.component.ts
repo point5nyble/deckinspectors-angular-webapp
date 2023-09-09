@@ -28,6 +28,7 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   projectState!: ProjectState;
   isProjectAssigned: boolean = false;
   apiCalled: boolean = false;
+  isLoading: boolean = false;
   constructor(private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService,
               private store: Store<any> ) {
@@ -47,9 +48,11 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
       projectid: projectID,
       username: localStorage.getItem('username')
     };
+    this.isLoading = true;
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
         this.projectBuildings = this.filterSubproject(response.subprojects);
+        this.isLoading = false;
       },
       error => {
         console.log(error)
@@ -63,9 +66,11 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
       projectid: projectID,
       username: localStorage.getItem('username')
     };
+    this.isLoading = true;
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
         this.projectCommonLocationList = this.filterLocations(response.locations);
+        this.isLoading = false;
       },
       error => {
         console.log(error)
