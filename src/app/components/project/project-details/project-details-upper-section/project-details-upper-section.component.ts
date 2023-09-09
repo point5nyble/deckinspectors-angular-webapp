@@ -52,11 +52,11 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
     console.log("project info running");
     this.fetchProjectIdFromState();
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
-      this.fetchProjectIdFromState();
+     // this.fetchProjectIdFromState();
     });
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
       setTimeout(() => {
-        this.fetchProjectIdFromState();
+       // this.fetchProjectIdFromState();
       },1000)
     });
   }
