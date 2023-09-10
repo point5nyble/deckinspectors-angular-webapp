@@ -8,12 +8,13 @@
         <label for="name">Name</label>
         <input formControlName="visualReportName" type="text" id="name" name="visualReportName" placeholder="Visual Report Name">
     </div>
-    <!-- <div class="form-field">
+    <div class="form-field">
       <div class="colinear">
-      <label for="isUnitUnavailable">Is Unit Unavailable</label>
-      <input formControlName="isUnitUnavailable" type="checkbox" id="isUnitUnavailable" name="isUnitUnavailable">
+      <label for="isUnitUnavailable">Unit Unavailable</label>
+      <input formControlName="unitUnavailable" type="checkbox" id="isUnitUnavailable" name="isUnitUnavailable" #unitUnavailable>
     </div>
-    </div> -->
+    </div>
+    <ng-container *ngIf="!unitUnavailable.checked">
     <div class="form-field">
       <label for="exteriorElements">Exterior Elements</label>
       <select formControlName="exteriorElements" id="exteriorElements" name="exteriorElements" multiple>
@@ -95,6 +96,7 @@
         <span class="close-icon-img" (click)="removeImage(i)">&times;</span>
       </div>
     </div>
+  </ng-container>
   </div>
   <div class="button-container">
     <button class="save-button" (click)="save()">Save</button>

@@ -48,9 +48,11 @@ export class LocationDetailsComponent implements OnInit{
           (response:any) => {
             this.location = response.location;
             this.isLoading = false;
+            console.log(this.location, "fetchLocationDetails");
           },
           error => {
               console.log(error)
+              this.isLoading = false;
           }
       );
   }
@@ -76,10 +78,13 @@ export class LocationDetailsComponent implements OnInit{
         if (this.location.type === 'location' ||
           this.location.type === 'projectlocation' ||
           this.location.type === 'apartment' ||
-          this.location.type === 'buildinglocation') {
+          this.location.type === 'buildinglocation'
+          ) {
           let projectid = this.location._id === undefined ? (<any>this.location).id : this.location._id;
           this.fetchLocationDetails(projectid);
         }
+        console.log(this.location, "fetchSectionList");
+        console.log(this.location.type);
       }
     );
   }

@@ -92,6 +92,7 @@ export class SectionComponent implements OnInit{
   }
 
   private fetchDataForGivenSectionId($event: string) {
+    console.log($event);
     if ($event === undefined || $event === '') {
         return;
     }
@@ -114,6 +115,8 @@ export class SectionComponent implements OnInit{
       url = environment.apiURL + '/conclusivesection/getConclusiveSectionsByParentId';
     }
 
+    console.log("fetch section");
+
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         this.sectionReport = (this.sectionState === SectionState.VISUAL)? response.section : response.sections[0];
@@ -126,7 +129,7 @@ export class SectionComponent implements OnInit{
         if (error.error.code === 401 || error.error.code === 500) {
           this.isRecordFound = false;
         }
-        console.log(error)
+        console.log(error);
       }
     );
   }
@@ -143,6 +146,7 @@ export class SectionComponent implements OnInit{
   private constructEnglishNameMap() {
     this.englishNamesMap = {
       name: "Name",
+      unitUnavailable: "unitUnavailable",
       exteriorelements: "Exterior Elements",
       waterproofingelements: "Waterproofing Elements",
       visualreview: "Visual Review",
@@ -325,6 +329,7 @@ export class SectionComponent implements OnInit{
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'added section');
         this.isRecordFound = true;
         this.fetchDataForGivenSectionId(this.sectionId_);
+        console.log(response);
       },
       error => {
         // Reset to default state
@@ -353,6 +358,7 @@ export class SectionComponent implements OnInit{
   private createSectionData(data: any):any {
     return {
       "name": data?.visualReportName,
+      "unitUnavailable": data?.unitUnavailable,
       "additionalconsiderations": data?.additionalConsiderationsOrConcern,
       "awe": data?.AWE,
       "conditionalassessment": data?.conditionAssessment,
