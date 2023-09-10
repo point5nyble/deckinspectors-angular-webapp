@@ -7,7 +7,7 @@
   <div class="name-list">
     <div *ngFor="let name of filteredNames">
       <label>
-        <input type="checkbox" [(ngModel)]="name.checked" />
+        <input type="checkbox" [(ngModel)]="name.checked" name="username"/>
         {{ name.username }}
       </label>
     </div>

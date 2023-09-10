@@ -29,12 +29,18 @@ export class AssignProjectModalComponent {
    fetchUsers = () =>{
     if (this.names.length == 0){
     this.httpsRequestService.getHttpData<any>(environment.apiURL + '/user/allusers').subscribe(
-      (users) => {
+      (users: any) => {
+        console.log(users);
         let assignedUsers = (this.location === undefined)? this.projectInfo.assignedto : this.location.assignedto;
-        this.names = users.filter((user : any) => !assignedUsers.includes(user.username));
+        this.names = users.map((user : any) => {
+          if(assignedUsers.includes(user.username))
+            user.checked = true;
+          return user;
+        });
+        console.log(this.names)
         this.filteredNames = this.names;
       },
-      error => {
+      (error: any) => {
         console.log(error);
       }
     )
@@ -57,31 +63,61 @@ export class AssignProjectModalComponent {
 
   save() {
     const assignedUsers = this.names.filter((name) => name.checked);
-    assignedUsers.forEach((user, i) =>{
+    const assignedUserUsernames = assignedUsers.map((user:any) => user.username);
+    const prevAssignedUsers = (this.location === undefined)? this.projectInfo.assignedto : this.location.assignedto;
+    const currAssigned = assignedUserUsernames.filter(username => !prevAssignedUsers.includes(username));
+    const unassignedUsers = prevAssignedUsers.filter(username => !assignedUserUsernames.includes(username));
+
+    currAssigned.forEach((username, i) =>{
       if (this.location === undefined){
-      this.httpsRequestService.postHttpData(`${environment.apiURL}/project/${this.projectInfo._id}/assign`, {username: user.username}).subscribe(
-        (res) => {
-          console.log(res);
+      this.httpsRequestService.postHttpData(`${environment.apiURL}/project/${this.projectInfo._id}/assign`, {username: username}).subscribe(
+        (res: any) => {
           this.dialogRef.close({isAssigned: true, apiCalled: true});
         },
-        error => {
-          console.log(error);
+        (error: any) => {
           this.dialogRef.close({isAssigned: false, apiCalled: true});
         }
       )
     }
     else{
-      this.httpsRequestService.postHttpData(`${environment.apiURL}/subproject/${this.location._id}/assign`, {username: user.username}).subscribe(
-        (res) => {
+      this.httpsRequestService.postHttpData(`${environment.apiURL}/subproject/${this.location._id}/assign`, {username: username}).subscribe(
+        (res: any) => {
           console.log(res);
           this.dialogRef.close({isAssigned: true, apiCalled: true});
         },
-        error => {
+        (error: any) => {
           console.log(error);
           this.dialogRef.close({isAssigned: false, apiCalled: true});
         }
       )
     }
   })
+
+  unassignedUsers.forEach((username : any) =>{
+    if (this.location === undefined){
+    this.httpsRequestService.postHttpData(`${environment.apiURL}/project/${this.projectInfo._id}/unassign`, {username: username}).subscribe(
+      (res: any) => {
+        console.log(res);
+        this.dialogRef.close({isAssigned: true, apiCalled: true});
+      },
+      (error: any) => {
+        console.log(error);
+        this.dialogRef.close({isAssigned: false, apiCalled: true});
+      }
+    )
+  }
+  else{
+    this.httpsRequestService.postHttpData(`${environment.apiURL}/subproject/${this.location._id}/unassign`, {username: username}).subscribe(
+      (res: any) => {
+        console.log(res);
+        this.dialogRef.close({isAssigned: true, apiCalled: true});
+      },
+      (error: any) => {
+        console.log(error);
+        this.dialogRef.close({isAssigned: false, apiCalled: true});
+      }
+    )
+  }
+})
   }
 }
