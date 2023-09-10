@@ -58,9 +58,9 @@ export class LocationListComponent implements OnInit {
 
 //   ngOnChanges(changes: { [property: string]: SimpleChange }) {
 //     // Extract changes to the input property by its name
-//     let change: SimpleChange = changes['isLoading']; 
+//     let change: SimpleChange = changes['isLoading'];
 //     if(change?.currentValue){
-      
+
 //     }
 //     // Whenever the data in the parent changes, this method gets triggered
 //     // You can act on the changes here. You will have both the previous

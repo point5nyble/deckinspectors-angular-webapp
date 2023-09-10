@@ -24,11 +24,11 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   projectInfo!: Project;
   projectCommonLocationList!: BuildingLocation[];
   projectBuildings!: Project[];
-  private subscription!: Subscription;
   projectState!: ProjectState;
   isProjectAssigned: boolean = false;
   apiCalled: boolean = false;
   isLoading: boolean = false;
+  private subscription:any[] = [];
   constructor(private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService,
               private store: Store<any> ) {
@@ -38,7 +38,7 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   private fetchSubProjectData(projectID:string) {
@@ -81,25 +81,29 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
 
   private subscribeToFetchLocationsAndSubprojectList() {
     // this.fetchProjectDataFromState();
-    this.subscription = this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
+    this.subscription.push(
+    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
       this.showSectionInfo = data;
       if (data === 'project') {
         this.fetchProjectDataFromState();
       }
-    });
+    }));
+    this.subscription.push(
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
       setTimeout(() => {
         this.fetchProjectDataFromState();
       },1000)
-    });
+    }));
     // This function is for Invasive or Visual
+    this.subscription.push(
     this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
       this.projectState = data.state;
       this.fetchProjectDataFromState();
-    });
+    }));
   }
 
   private fetchProjectDataFromState() {
+    this.subscription.push(
     this.store.select(BackNavigation.getPreviousStateModelChain).pipe(take(1)).subscribe((previousState: any) => {
       this.projectInfo = previousState.stack[previousState.stack.length - 1];
       if (this.projectInfo.type === 'project' && this.showSectionInfo === 'project') {
@@ -107,7 +111,7 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
         this.fetchLocationData(projectid);
         this.fetchSubProjectData(projectid);
       }
-    });
+    }));
   }
 
   private filterLocations(locations:BuildingLocation[]): BuildingLocation[] {

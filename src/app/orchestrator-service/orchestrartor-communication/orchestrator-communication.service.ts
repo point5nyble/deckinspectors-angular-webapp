@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { OrchestratorEventSubjectMapService } from "./orchestrator-event-subject-map.service";
 import { Observable } from "rxjs";
 import {SubjectInjector} from "../subject/subject-injector";
+import {OrchestratorEventName} from "../models/orchestrator-event-name";
 
 @Injectable({
   providedIn: 'root'

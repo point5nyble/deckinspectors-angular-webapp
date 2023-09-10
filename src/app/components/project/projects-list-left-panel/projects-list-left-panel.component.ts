@@ -226,14 +226,12 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'project');
     } else {
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'location');
-
     }
   }
 
   public openLocation(location: Item) {
     if (location.id !== '' && location?.nestedItems?.length === 0) {
         this.currentSelectedItem = location.name;
-        // this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Location_Click, this.mapItem(location));
         this.findPath(location);
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'location');
     }
@@ -311,6 +309,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   }
 
   private findPath(item: Item) {
+    console.log(item);
     let tempList:any[] = [];
     this.store.select(BackNavigation.getPreviousStateModelChain).subscribe(chain => {
       tempList = chain.stack;
