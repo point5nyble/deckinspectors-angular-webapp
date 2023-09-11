@@ -24,7 +24,7 @@
             <li [class.collapsed]="nestedItem.collapsed">
               <span>
                 <i class="icon cursor-pointer" [class.rotate-icon]="!nestedItem.collapsed" (click)="toggleCollapse(nestedItem)"></i>
-                <span><p>{{ nestedItem.name }}</p></span>
+                <span (click)="openProject(project)" ><p>{{ nestedItem.name }}</p></span>
               </span>
               <ul *ngIf="!nestedItem.collapsed" class="nested-list">
                 <ng-container *ngFor="let location of nestedItem.nestedItems">
@@ -43,7 +43,7 @@
                             <i *ngIf="buildingLocation.nestedItems" class="icon"
                               [class.rotate-icon]="!buildingLocation.collapsed"
                               (click)="toggleCollapse(buildingLocation)"></i>
-                            <span><p>{{ buildingLocation.name }}</p></span>
+                            <span (click)="openLocation(location)"><p>{{ buildingLocation.name }}</p></span>
                           </span>
                           <ul *ngIf="!buildingLocation.collapsed" class="nested-list">
                             <li *ngFor="let sublocation of buildingLocation.nestedItems">
