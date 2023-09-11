@@ -18,7 +18,5 @@ export enum OrchestratorEventName {
 
   // TODO - Remove Unused Event
 
-  Location_Click = 'location_click',
   Previous_Button_Click = 'previous_button_click',
-  Show_All_Projects = 'show_all_projects',
 }

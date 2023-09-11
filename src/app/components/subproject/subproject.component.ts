@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BuildingLocation} from "../../common/models/buildingLocation";
 import {HttpsRequestService} from "../../service/https-request.service";
 import {
@@ -17,13 +17,14 @@ import { environment } from '../../../environments/environment';
   templateUrl: './subproject.component.html',
   styleUrls: ['./subproject.component.scss']
 })
-export class SubprojectComponent {
+export class SubprojectComponent implements OnInit, OnDestroy{
   showSectionInfo: string = 'subproject';
   projectInfo!: any;
   buildingCommonLocation!: BuildingLocation[];
   buildingApartments!: BuildingLocation[];
   projectState!: ProjectState;
   isLoading: boolean = false;
+  private subscription:any[] = [];
 
   constructor(private httpsRequestService: HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService,
@@ -32,6 +33,10 @@ export class SubprojectComponent {
 
   ngOnInit(): void {
     this.subscribeToProjectUpdatedEvent();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   private fetchSubProjectData(projectID: string) {
@@ -55,19 +60,22 @@ export class SubprojectComponent {
 
   private subscribeToProjectUpdatedEvent() {
     // this.fetchSubprojectDataFromState();
+    this.subscription.push(
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
       this.showSectionInfo = data;
       this.fetchSubprojectDataFromState();
-    });
+    }));
+    this.subscription.push(
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
       setTimeout(() => {
         this.fetchSubprojectDataFromState();
       },1000)
-    });
+    }));
+    this.subscription.push(
     this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
       this.projectState = data.state;
       this.fetchSubprojectDataFromState();
-    });
+    }));
   }
   private separateProject(item:any) {
     // Temp solution
@@ -76,20 +84,21 @@ export class SubprojectComponent {
       subproject = item.filter((sub:any) => sub._id === this.projectInfo._id)[0];
     }
     if (this.projectState === ProjectState.INVASIVE) {
-      this.buildingApartments = subproject?.invasiveChildren.filter((sub:any) => sub.type === 'apartment');
-      this.buildingCommonLocation = subproject?.invasiveChildren.filter((sub:any) => sub.type === 'buildinglocation');
+      this.buildingApartments = subproject?.invasiveChildren?.filter((sub:any) => sub.type === 'apartment');
+      this.buildingCommonLocation = subproject?.invasiveChildren?.filter((sub:any) => sub.type === 'buildinglocation');
     } else {
-      this.buildingApartments = subproject?.children.filter((sub:any) => sub.type === 'apartment');
-      this.buildingCommonLocation = subproject?.children.filter((sub:any) => sub.type === 'buildinglocation');
+      this.buildingApartments = subproject?.children?.filter((sub:any) => sub.type === 'apartment');
+      this.buildingCommonLocation = subproject?.children?.filter((sub:any) => sub.type === 'buildinglocation');
     }
   }
 
   private fetchSubprojectDataFromState() {
+    this.subscription.push(
     this.store.select(BackNavigation.getPreviousStateModelChain).pipe(take(1)).subscribe((previousState: any) => {
       this.projectInfo = previousState.stack[previousState.stack.length - 1];
       if (this.projectInfo.type === 'subproject' && this.showSectionInfo === 'subproject') {
         this.fetchSubProjectData(this.projectInfo.parentid);
       }
-    });
+    }));
   }
 }
