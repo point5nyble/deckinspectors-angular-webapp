@@ -7,6 +7,7 @@
   width: 1069;
   height:322px;
   background-color:#FFFFFF;
+  border:solid #A79C9CB2 1px;
   padding: 10px;
   border-radius: 16px;
   margin-top:20px;
@@ -21,15 +22,22 @@
 }
 
 .image-section {
+  // max-height: 250px;
+  // max-width: 320px;
   margin-left: 20px;
   text-align: center;
 }
 .image-section img {
-  max-height: 250px;
-  max-width: 320px;
-  object-fit: contain;
+  // max-height: 250px;
+  // max-width: 320px;
+  object-fit:contain;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.Main-image-section{
+  width:320;
+  height: 250;
 }
 
 .info-heading{
@@ -81,6 +89,8 @@ button{
 
 .ProjectInformation{
   display: flex;
+  flex: 1;
   flex-direction: column;
-  justify-content: space-between;
+ justify-content: space-around;
+ padding-bottom: 10px;
 }

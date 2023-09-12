@@ -26,7 +26,10 @@
     </div>
 
     <div class="image-section flex-item">
-      <img #img [src]="projectInfo.url" (error)="img.src = '../../../assets/images/image_1.png'">
+      <div class="Main-image-section">
+        <img #img style="width: 300px; height: 200px;"   [src]="projectInfo.url" (error)="img.src = '../../../assets/images/image_1.png'">
+      </div>
+
       <div >
         <button (click)="changeProjectState()" [disabled]="disableInvasiveBtn">{{projectState}}</button>
         <button (click)="downloadExcel()" *ngIf="projectInfo.type === 'project'">Download Excel</button>
