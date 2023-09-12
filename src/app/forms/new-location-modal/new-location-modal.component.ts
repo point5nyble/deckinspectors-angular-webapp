@@ -24,6 +24,7 @@ export class NewLocationModalComponent {
   imagePreviewUrl: string | null = null;
   selectedImage: File | null = null;
   selectedFileName: string | null = null;
+  isSaving: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private cdr: ChangeDetectorRef,
@@ -65,6 +66,7 @@ export class NewLocationModalComponent {
   }
 
   save() {
+    this.isSaving = true;
     this.uploadImage();
   }
 
@@ -106,12 +108,14 @@ export class NewLocationModalComponent {
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         console.log(response);
+        this.isSaving = false;
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
         this.dialogRef.close(this.newLocationForm);
 
       },
       error => {
-        console.log(error)
+        console.log(error);
+        this.isSaving = false;
       }
     );
   }
@@ -122,10 +126,12 @@ export class NewLocationModalComponent {
         console.log(response);
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
         this.dialogRef.close(this.newLocationForm);
+        this.isSaving = false;
 
       },
       error => {
         console.log(error)
+        this.isSaving = false;
       }
     );
   }

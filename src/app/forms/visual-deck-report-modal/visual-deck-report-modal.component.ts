@@ -30,12 +30,14 @@ export class VisualDeckReportModalComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) data : any,
               private imageToUrlConverterService : ImageToUrlConverterService) {
     this.data = data;
+    console.log(data);
     this.imagePreviewUrls = this.data.images;
   }
 
   ngOnInit() {
     this.visualDeckReportModalForm = this.formBuilder.group({
       visualReportName: [this.data.rowsMap?.get('name')], // Add validators if needed
+      unitUnavailable: [this.data.rowsMap?.get('unitUnavailable')], // Add validators if needed
       exteriorElements: [this.data.rowsMap?.get('exteriorelements')], // Add validators if needed
       waterproofingElements: [this.data.rowsMap?.get('waterproofingelements')],
       visualReview:[this.data.rowsMap?.get('visualreview')],
