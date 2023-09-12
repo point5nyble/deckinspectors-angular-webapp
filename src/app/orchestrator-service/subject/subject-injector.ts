@@ -2,10 +2,8 @@ import {Injectable, Injector, Type} from "@angular/core";
 import {ProjectUpdateStateSubject} from "./project-update-state-subject";
 import {ApplicationStateChangeSubject} from "./application-state-change-subject";
 import {ShowProjectDetailsSubject} from "./show-project-details-subject";
-import {LocationClickSubject} from "./location-click-subject";
-import {PreviousButtonClickSubject} from "./previous-button-click-subject";
-import {ShowAllProjectSubject} from "./show-all-project-subject";
-import {FetchLeftTreeDataStateSubject} from "./fetch-left-tree-data-state-subject";
+ import {PreviousButtonClickSubject} from "./previous-button-click-subject";
+ import {FetchLeftTreeDataStateSubject} from "./fetch-left-tree-data-state-subject";
 import {AddElementToPreviousButtonLogicSubject} from "./add-element-to-previous-button-logic-subject";
 import {RemoveElementToPreviousButtonLogicSubject} from "./remove-element-to-previous-button-logic-subject";
 import {UpdateLeftTreeDataSubject} from "./update-left-tree-data-subject";
@@ -28,14 +26,8 @@ export class SubjectInjector {
     this.injector.get<ShowProjectDetailsSubject>(
       ShowProjectDetailsSubject as Type<ShowProjectDetailsSubject>
     )
-    this.injector.get<LocationClickSubject>(
-      LocationClickSubject as Type<LocationClickSubject>
-      )
     this.injector.get<PreviousButtonClickSubject>(
       PreviousButtonClickSubject as Type<PreviousButtonClickSubject>
-    )
-    this.injector.get<ShowAllProjectSubject>(
-      ShowAllProjectSubject as Type<ShowAllProjectSubject>
     )
     this.injector.get<FetchLeftTreeDataStateSubject>(
       FetchLeftTreeDataStateSubject as Type<FetchLeftTreeDataStateSubject>

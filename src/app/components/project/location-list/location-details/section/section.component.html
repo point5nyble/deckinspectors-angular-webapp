@@ -2,9 +2,9 @@
 
   <div class="icons">
     <div *ngIf="projectState === ProjectState.INVASIVE && showBtn" class="mr-3">
-      <button (click)="setSectionState(SectionState.VISUAL)" [ngClass]="{ 'highlighted': sectionState === SectionState.VISUAL }">Visual</button>
-      <button (click)="setSectionState(SectionState.INVASIVE)" [ngClass]="{ 'highlighted': sectionState === SectionState.INVASIVE }">Invasive</button>
-      <button *ngIf="showConclusiveSection" (click)="setSectionState(SectionState.CONCLUSIVE)" [ngClass]="{ 'highlighted': sectionState === SectionState.CONCLUSIVE }">Conclusive</button>
+      <button (click)="setSectionState(SectionState.VISUAL)" class="mr-3" [ngClass]="{ 'highlighted': sectionState === SectionState.VISUAL }">Visual</button>
+      <button (click)="setSectionState(SectionState.INVASIVE)" class="mr-3" [ngClass]="{ 'highlighted': sectionState === SectionState.INVASIVE }">Invasive</button>
+      <button *ngIf="showConclusiveSection" (click)="setSectionState(SectionState.CONCLUSIVE)" [ngClass]="{ 'highlighted': sectionState === SectionState.CONCLUSIVE }" class="mr-3">Conclusive</button>
     </div>
     <div class="add-edit">
       <div *ngIf="showAddBtn()" (click)="openVisualDeckReportModal()" class="mr-3">

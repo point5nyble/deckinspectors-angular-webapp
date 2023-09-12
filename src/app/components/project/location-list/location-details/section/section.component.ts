@@ -61,7 +61,7 @@ export class SectionComponent implements OnInit{
 
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
     // Extract changes to the input property by its name
-    let change: SimpleChange = changes['isDeletedSection']; 
+    let change: SimpleChange = changes['isDeletedSection'];
     if(change?.currentValue){
       this.ngOnInit();
     }
@@ -288,13 +288,15 @@ export class SectionComponent implements OnInit{
       request = this.createInvasiveSectionData(data);
     }
     let url = this.getEditUrl();
-
+    let isInvasive = JSON.parse(request?.furtherinvasivereviewrequired)
     this.httpsRequestService.putHttpData(url, request).subscribe(
       (response:any) => {
         // Reset to default state
+
         this.rows = [];
         this.images = [];
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'updated section');
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.INVASIVE_BTN_DISABLED,isInvasive);
         this.isRecordFound = true;
         this.fetchDataForGivenSectionId(this.sectionId_);
       },
@@ -320,13 +322,14 @@ export class SectionComponent implements OnInit{
     console.log(request);
     let url = this.getAddUrl();
     console.log(url);
-
+    let isInvasive = JSON.parse(request?.furtherinvasivereviewrequired)
     this.httpsRequestService.postHttpData(url, request).subscribe(
       (response:any) => {
         // Reset to default state
         this.rows = [];
         this.images = [];
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'added section');
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.INVASIVE_BTN_DISABLED,isInvasive);
         this.isRecordFound = true;
         this.fetchDataForGivenSectionId(this.sectionId_);
         console.log(response);

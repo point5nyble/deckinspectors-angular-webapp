@@ -50,8 +50,6 @@ export class VisualDeckReportModalComponent implements OnInit {
       AWE:[this.data.rowsMap?.get('awe')],
       images:[this.data.images]
     });
-    console.log(this.visualDeckReportModalForm.controls['signsOfLeaks']);
-    console.log(this.visualDeckReportModalForm.controls['invasiveReviewRequired']);
 
     // this.visualDeckReportModalForm.setValidators(this.comparisonValidator);
   }
