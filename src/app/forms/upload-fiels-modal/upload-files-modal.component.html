@@ -20,7 +20,7 @@
         <tr *ngFor="let item of projectFiles">
           <td>{{ item.name }}</td>
           <td>{{ item.uploader }}</td>
-          <td>{{ item.timestamp }}</td>
+          <td>{{ formatUploadTime(item.timestamp) }}</td>
           <td>
             <div class="container">
               <div class="text-center">
