@@ -65,6 +65,10 @@ button.highlighted {
   justify-content: flex-end;
 }
 
+.icons .btn {
+
+}
+
 .icons .mr-3 {
   margin-right: 10px;
 }
@@ -87,7 +91,7 @@ button.highlighted {
 
 /* Style the add and edit icons */
 .icons .fas {
-  font-size: 40px;
+  font-size: 24px;
   color: #000000; /* Saffron color */
   cursor: pointer;
 }
@@ -100,4 +104,5 @@ button.highlighted {
 
 .add-edit {
   display: flex;
+  align-items: center;
 }

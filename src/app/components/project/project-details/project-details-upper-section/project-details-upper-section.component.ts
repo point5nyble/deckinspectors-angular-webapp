@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OrchestratorEventName} from "../../../../orchestrator-service/models/orchestrator-event-name";
 import {
   OrchestratorCommunicationService
@@ -22,18 +22,25 @@ import { environment } from '../../../../../environments/environment';
   templateUrl: './project-details-upper-section.component.html',
   styleUrls: ['./project-details-upper-section.component.scss']
 })
-export class ProjectDetailsUpperSectionComponent implements OnInit{
+export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   projectInfo!: ProjectListElement | BuildingLocation;
   projectType!: string;
   projectState!: ProjectState;
   disableInvasiveBtn: boolean = false;
   enableDefaultImage: boolean = false;
+  // List of subscription
+  private subscription:any[] = [];
+  currentProjectId!: string;
 
   constructor(private orchestratorCommunicationService: OrchestratorCommunicationService,
               private store: Store<any>,
               private httpsRequestService:HttpsRequestService,
               private dialog: MatDialog,
               private http: HttpClient) {
+  }
+
+  public ngOnDestroy(): void {
+        this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   public ngOnInit(): void {
@@ -49,16 +56,21 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
   }
 
   private subscribeToProjectInfo() {
-    console.log("project info running");
     this.fetchProjectIdFromState();
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
-     // this.fetchProjectIdFromState();
-    });
-    this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
-      setTimeout(() => {
-       // this.fetchProjectIdFromState();
-      },1000)
-    });
+    this.subscription.push(
+      this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
+        if (data != 'home') {
+          this.fetchProjectIdFromState();
+        }
+      })
+    );
+    this.subscription.push(
+      this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
+        setTimeout(() => {
+          this.fetchProjectIdFromState();
+        },1000)
+      })
+    );
   }
 
   public changeProjectState() {
@@ -109,6 +121,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
   }
 
   private fetchProjectIdFromState(): void {
+    this.subscription.push(
     this.store.select(BackNavigation.getPreviousStateModelChain).pipe(take(1)).subscribe((previousState: any) => {
       this.projectInfo = previousState.stack[previousState.stack.length - 1];
       if (this.projectInfo.type === 'subproject') {
@@ -129,44 +142,53 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
         let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
         this.fetchLocationDetails(projectid);
       }
-    });
-    console.log(this.disableInvasiveBtn);
+    })
+    );
   }
   private fetchProjectDetails(projectid: string) {
-    let url = environment.apiURL + '/project/getProjectById';
-    let data = {
-      projectid: projectid,
-      username: localStorage.getItem('username')
-    };
-    this.httpsRequestService.postHttpData(url, data).subscribe(
-      (response: any) => {
-        this.projectInfo = response.project;
-        this.projectInfo.type = 'project';
-      },
-      error => {
-        console.log(error)
-      }
-    );
+    if (this.currentProjectId !== projectid) {
+      this.currentProjectId = projectid;
+      let url = environment.apiURL + '/project/getProjectById';
+      let data = {
+        projectid: projectid,
+        username: localStorage.getItem('username')
+      };
+      this.httpsRequestService.postHttpData(url, data).subscribe(
+        (response: any) => {
+          this.projectInfo = response.project;
+          this.projectInfo.type = 'project';
+        },
+        error => {
+          console.log(error)
+        }
+      );
+    }
   }
   private fetchSubprojectDetails(projectid: string) {
-    let url = environment.apiURL + '/subproject/getSubProjectById';
-    let data = {
-      subprojectid: projectid,
-      username: localStorage.getItem('username')
-    };
-    this.httpsRequestService.postHttpData(url, data).subscribe(
-      (response: any) => {
-        this.projectInfo = response.subproject;
-      },
-      error => {
-        console.log(error)
-      }
-    );
+    if (this.currentProjectId !== projectid) {
+      this.currentProjectId = projectid;
+      let url = environment.apiURL + '/subproject/getSubProjectById';
+      let data = {
+        subprojectid: projectid,
+        username: localStorage.getItem('username')
+      };
+      this.httpsRequestService.postHttpData(url, data).subscribe(
+        (response: any) => {
+          this.projectInfo = response.subproject;
+        },
+        error => {
+          console.log(error)
+        }
+      );
+    }
   }
-  private fetchLocationDetails($event: string) {
+  private fetchLocationDetails(projectid: string) {
+    if (this.currentProjectId !== projectid) {
+        this.currentProjectId = projectid;
+
     let url = environment.apiURL + '/location/getLocationById';
     let data = {
-      locationid:$event,
+      locationid:projectid,
       username: localStorage.getItem('username')
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
@@ -177,6 +199,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit{
         console.log(error)
       }
     );
+    }
   }
 
   public downloadExcel() {

@@ -10,6 +10,7 @@ import { ProjectQuery } from "../../app-state-service/project-state/project-sele
 import {LoginService} from "../login/login.service";
 import {Router} from "@angular/router";
 import { environment } from '../../../environments/environment';
+import {BackNavigation} from "../../app-state-service/back-navigation-state/back-navigation-selector";
 
 @Component({
   selector: 'app-dashboard',
@@ -41,7 +42,8 @@ export class DashboardComponent implements OnInit
     ngOnInit(): void {
       this.performUserLoginSteps();
       this.subscribeToshowProjectInfoToggle();
-      // this.subscribeToProjectState();
+      // To clear all exsting projects 
+      this.gotoHome();
     }
 
   private fetchProjectData() {
@@ -154,19 +156,6 @@ export class DashboardComponent implements OnInit
         this.fetchProjectDataToGetLastElement();
       },1000)
   }
-
-  changeProjectState() {
-    this.projectState = this.projectState === ProjectState.VISUAL ? ProjectState.INVASIVE : ProjectState.VISUAL;
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.PROJECT_STATE_UPDATE, {state:this.projectState});
-  }
-
-  private subscribeToProjectState() {
-    this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
-      this.projectState = data.state;
-      this.fetchProjectData();
-    });
-  }
-
   private filterProject(projects:Project[]): Project[] {
     if (this.projectState === ProjectState.INVASIVE) {
       return projects.filter(project => project.isInvasive);
@@ -193,6 +182,15 @@ export class DashboardComponent implements OnInit
   }
 
   gotoHome() {
+    let tempList:any[] = [];
+    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe(chain => {
+      tempList = chain.stack;
+    })
+    tempList.forEach((element:any) => {
+      if (element.name !== 'Home') {
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, '');
+      }
+    })
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN,'home');
   }
 

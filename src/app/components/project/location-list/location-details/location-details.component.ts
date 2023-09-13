@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {BuildingLocation} from "../../../../common/models/buildingLocation";
 import {HttpsRequestService} from "../../../../service/https-request.service";
 import {InspectionReport} from "../../../../common/models/inspection-report";
@@ -16,7 +16,7 @@ import { environment } from '../../../../../environments/environment';
   templateUrl: './location-details.component.html',
   styleUrls: ['./location-details.component.scss']
 })
-export class LocationDetailsComponent implements OnInit{
+export class LocationDetailsComponent implements OnInit, OnDestroy{
   location!: BuildingLocation;
   isRecordFound:boolean = true;
   sectionId!: string;
@@ -24,10 +24,16 @@ export class LocationDetailsComponent implements OnInit{
   isDeleteSuccess: boolean = false;
   isDeleteFail: boolean = false;
   isLoading: boolean = false;
+  // List of subscription
+  private subscription:any[] = [];
 
   constructor(private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
               private store: Store<any>) {
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   ngOnInit(): void {
@@ -57,17 +63,19 @@ export class LocationDetailsComponent implements OnInit{
       );
   }
   private subscribeToOnLocationClick() {
+    this.subscription.push(
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SHOW_SCREEN).subscribe(data => {
       if (data === 'location') {
         this.fetchSectionList();
       }
-    });
+    }));
     this.fetchSectionList();
+    this.subscription.push(
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(data => {
       setTimeout(() => {
         this.fetchSectionList();
       },1000)
-    });
+    }));
 
   }
 
