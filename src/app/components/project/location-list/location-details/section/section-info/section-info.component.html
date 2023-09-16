@@ -10,6 +10,11 @@
         <td><b>{{ rows[1].column1 }}</b></td>
         <td>{{ rows[1].column2 === "True" || rows[1].column2 === "true" || rows[1].column2 === true ? "Yes" : rows[1].column2 === "False" || rows[1].column2 === "false" || rows[1].column2 === false ? "No" : rows[1].column2 }}</td>
       </tr>
+
+      <tr *ngIf="rows.length>8">
+        <td><b>{{ rows[8].column1 }}</b></td>
+        <td>{{ rows[8].column2 === ""? "None" : rows[8].column2 }}</td>
+      </tr>
     </ng-container>
 
     <ng-container *ngIf="rows.length > 1 && rows[1].column2 === false">
