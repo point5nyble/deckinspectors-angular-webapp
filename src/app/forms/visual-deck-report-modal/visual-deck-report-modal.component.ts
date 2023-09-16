@@ -38,7 +38,7 @@ export class VisualDeckReportModalComponent implements OnInit {
   ngOnInit() {
     this.visualDeckReportModalForm = this.formBuilder.group({
       visualReportName: [this.data.rowsMap?.get('name'), Validators.required], // Add validators if needed
-      unitUnavailable: [this.data.rowsMap?.get('unitUnavailable')], // Add validators if needed
+      unitUnavailable: [this.data.rowsMap?.get('unitUnavailable') == "true"], // Add validators if needed
       exteriorElements: [this.data.rowsMap?.get('exteriorelements'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required], // Add validators if needed
       waterproofingElements: [this.data.rowsMap?.get('waterproofingelements'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
       visualReview:[this.data.rowsMap?.get('visualreview'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
