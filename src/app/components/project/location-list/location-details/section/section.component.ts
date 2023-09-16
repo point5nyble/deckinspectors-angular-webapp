@@ -82,7 +82,7 @@ export class SectionComponent implements OnInit{
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         console.log(response);
-        this.showConclusiveSection = JSON.parse(response?.sections[0]?.postinvasiverepairsrequired);
+        this.showConclusiveSection = response?.sections[0]?.postinvasiverepairsrequired === "Yes";
       },
       error => {
         console.log(error.error)
@@ -203,7 +203,8 @@ export class SectionComponent implements OnInit{
     } else if (this.sectionState === SectionState.VISUAL) {
       this.images = this.sectionReport?.images;
     }
-
+    console.log(this.rows);
+    console.log(this.isRecordFound);
   }
 
   deleteElementFromArray(arr: any[], valueToDelete: string): any[] {
@@ -288,7 +289,7 @@ export class SectionComponent implements OnInit{
       request = this.createInvasiveSectionData(data);
     }
     let url = this.getEditUrl();
-    let isInvasive = JSON.parse(request?.furtherinvasivereviewrequired)
+    let isInvasive = request?.furtherinvasivereviewrequired === "Yes";
     this.httpsRequestService.putHttpData(url, request).subscribe(
       (response:any) => {
         // Reset to default state
@@ -322,7 +323,7 @@ export class SectionComponent implements OnInit{
     console.log(request);
     let url = this.getAddUrl();
     console.log(url);
-    let isInvasive = JSON.parse(request?.furtherinvasivereviewrequired)
+    let isInvasive = request?.furtherinvasivereviewrequired === "Yes";
     this.httpsRequestService.postHttpData(url, request).subscribe(
       (response:any) => {
         // Reset to default state

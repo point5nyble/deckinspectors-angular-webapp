@@ -144,6 +144,11 @@ export class VisualDeckReportModalComponent implements OnInit {
     this.visualDeckReportModalForm.patchValue({
       images: imageUrls
     });
+    
+    this.visualDeckReportModalForm.patchValue({
+      conditionAssessment: this.visualDeckReportModalForm.value['conditionAssessment'].toLowerCase()
+    })
+    console.log(this.visualDeckReportModalForm.value);
     this.dialogRef.close(this.visualDeckReportModalForm.value);
   }
 
