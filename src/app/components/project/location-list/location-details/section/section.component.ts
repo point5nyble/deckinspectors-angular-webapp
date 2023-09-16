@@ -189,11 +189,12 @@ export class SectionComponent implements OnInit{
     if (this.sectionState === SectionState.INVASIVE) {
       this.images = this.sectionReport?.invasiveimages;
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
-      let propowneragreed = this.sectionReport?.propowneragreed;
-      let invasiverepairsinspectedandcompleted = this.sectionReport?.invasiverepairsinspectedandcompleted;
-      propowneragreed = JSON.parse(propowneragreed === undefined ? 'false' : propowneragreed.toString());
-      invasiverepairsinspectedandcompleted = JSON.parse(invasiverepairsinspectedandcompleted === undefined ? 'false' : invasiverepairsinspectedandcompleted.toString());
-      if (!(propowneragreed && invasiverepairsinspectedandcompleted)) {
+      let propowneragreed: any = this.sectionReport?.propowneragreed;
+      let invasiverepairsinspectedandcompleted: any = this.sectionReport?.invasiverepairsinspectedandcompleted;
+      console.log(propowneragreed);
+      console.log(invasiverepairsinspectedandcompleted);
+      this.images = this.sectionReport.conclusiveimages;
+      if (!(propowneragreed === "Yes" && invasiverepairsinspectedandcompleted === "Yes")) {
         this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['aweconclusive']);
         this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['conclusiveconsiderations']);
         this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['eeeconclusive']);
@@ -203,6 +204,7 @@ export class SectionComponent implements OnInit{
     } else if (this.sectionState === SectionState.VISUAL) {
       this.images = this.sectionReport?.images;
     }
+    console.log(this.images);
     console.log(this.rows);
     console.log(this.isRecordFound);
   }
@@ -362,19 +364,19 @@ export class SectionComponent implements OnInit{
   private createSectionData(data: any):any {
     return {
       "name": data?.visualReportName,
-      "unitUnavailable": data?.unitUnavailable,
+      "unitUnavailable": data?.unitUnavailable?.toString(),
       "additionalconsiderations": data?.additionalConsiderationsOrConcern,
       "awe": data?.AWE,
       "conditionalassessment": data?.conditionAssessment,
       "createdby": "deck",
       "eee": data?.EEE,
       "exteriorelements": data?.exteriorElements,
-      "furtherinvasivereviewrequired": data?.invasiveReviewRequired,
+      "furtherinvasivereviewrequired": (data?.invasiveReviewRequired === "Yes").toString(),
       "lbc": data?.LBC,
       "parentid": this.location._id,
       "parenttype": this.location.type,
       "visualreview": data?.visualReview,
-      "visualsignsofleak": data?.signsOfLeaks,
+      "visualsignsofleak": (data?.signsOfLeaks === "Yes").toString(),
       "waterproofingelements": data?.waterproofingElements,
       "images": data?.images
     };

@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ImageToUrlConverterService} from "../../service/image-to-url-converter.service";
 import {forkJoin, Observable} from "rxjs";
@@ -23,6 +23,7 @@ export class VisualDeckReportModalComponent implements OnInit {
   selectedImage: File[] = [];
   imagePreviewUrls: (string | ArrayBuffer | null)[] = [];
   imageControl: FormControl = new FormControl();
+  showErrors: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private cdr: ChangeDetectorRef,
@@ -30,49 +31,46 @@ export class VisualDeckReportModalComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) data : any,
               private imageToUrlConverterService : ImageToUrlConverterService) {
     this.data = data;
-    console.log(data);
-    this.imagePreviewUrls = this.data.images;
+    this.data.images = this.data.images === undefined ? [] : this.data.images;
+    this.imagePreviewUrls = JSON.parse(JSON.stringify(this.data.images));
   }
 
   ngOnInit() {
     this.visualDeckReportModalForm = this.formBuilder.group({
-      visualReportName: [this.data.rowsMap?.get('name')], // Add validators if needed
+      visualReportName: [this.data.rowsMap?.get('name'), Validators.required], // Add validators if needed
       unitUnavailable: [this.data.rowsMap?.get('unitUnavailable')], // Add validators if needed
-      exteriorElements: [this.data.rowsMap?.get('exteriorelements')], // Add validators if needed
-      waterproofingElements: [this.data.rowsMap?.get('waterproofingelements')],
-      visualReview:[this.data.rowsMap?.get('visualreview')],
-      signsOfLeaks:[this.data.rowsMap?.get('visualsignsofleak')+''],
-      invasiveReviewRequired:[this.data.rowsMap?.get('furtherinvasivereviewrequired')+''],
-      conditionAssessment: [this.data.rowsMap?.get('conditionalassessment')],
+      exteriorElements: [this.data.rowsMap?.get('exteriorelements'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required], // Add validators if needed
+      waterproofingElements: [this.data.rowsMap?.get('waterproofingelements'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
+      visualReview:[this.data.rowsMap?.get('visualreview'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
+      signsOfLeaks:[this.data.rowsMap?.get('visualsignsofleak'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
+      invasiveReviewRequired:[this.data.rowsMap?.get('furtherinvasivereviewrequired'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
+      conditionAssessment: [this.data.rowsMap?.get('conditionalassessment'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
       additionalConsiderationsOrConcern:[this.data.rowsMap?.get('additionalconsiderations')],
-      EEE:[this.data.rowsMap?.get('eee')],
-      LBC:[this.data.rowsMap?.get('lbc')],
-      AWE:[this.data.rowsMap?.get('awe')],
-      images:[this.data.images]
+      EEE:[this.data.rowsMap?.get('eee'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
+      LBC:[this.data.rowsMap?.get('lbc'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
+      AWE:[this.data.rowsMap?.get('awe'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
+      images:[this.data.images, (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required]
     });
-
-    // this.visualDeckReportModalForm.setValidators(this.comparisonValidator);
   }
 
-  // public comparisonValidator() : ValidatorFn{
-  //   return (group: FormGroup): ValidationErrors => {
-  //      const control1 = group.controls['myControl1'];
-  //      const control2 = group.controls['myControl2'];
-  //      if (control1.value !== control2.value) {
-  //         control2.setErrors({notEquivalent: true});
-  //      } else {
-  //         control2.setErrors(null);
-  //      }
-  //      return;
-  //   };
-  // }
-
   close() {
+    this.imagePreviewUrls = this.data.images;
+    this.visualDeckReportModalForm.patchValue({
+      images: this.imagePreviewUrls
+    })
     this.dialogRef.close();
   }
 
   save() {
-    this.uploadImage();
+    if(this.visualDeckReportModalForm.valid){
+      this.uploadImage();
+    }
+    else{
+      this.showErrors = true;
+      console.log("Vis errors");
+      console.log(this.visualDeckReportModalForm.errors);
+      console.log(this.visualDeckReportModalForm.valid);
+    }
   }
 
   handleFileInput(event: any) {
@@ -88,6 +86,9 @@ export class VisualDeckReportModalComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (e) => {
         this.imagePreviewUrls.push(reader.result);
+        this.visualDeckReportModalForm.patchValue({
+          images: this.imagePreviewUrls
+        })
       };
       reader.readAsDataURL(file);
     }
@@ -97,6 +98,9 @@ export class VisualDeckReportModalComponent implements OnInit {
   removeImage(index: number) {
     this.imageControl.setValue(null); // Reset the form control value if needed
     this.imagePreviewUrls.splice(index, 1);
+    this.visualDeckReportModalForm.patchValue({
+      images: this.imagePreviewUrls
+    })
   }
 
   uploadImage() {
@@ -146,7 +150,9 @@ export class VisualDeckReportModalComponent implements OnInit {
     });
     
     this.visualDeckReportModalForm.patchValue({
-      conditionAssessment: this.visualDeckReportModalForm.value['conditionAssessment'].toLowerCase()
+      conditionAssessment: this.visualDeckReportModalForm.value['conditionAssessment']? this.visualDeckReportModalForm.value['conditionAssessment'].toLowerCase() : "",
+      signsOfLeaks: (this.visualDeckReportModalForm.value['signsOfLeaks'] === "Yes").toString(),
+      invasiveReviewRequired: (this.visualDeckReportModalForm.value['invasiveReviewRequired'] === "Yes").toString()
     })
     console.log(this.visualDeckReportModalForm.value);
     this.dialogRef.close(this.visualDeckReportModalForm.value);
@@ -154,5 +160,54 @@ export class VisualDeckReportModalComponent implements OnInit {
 
   private isValidImageLink(imageUrl: string): boolean {
     return (imageUrl.startsWith("http") || imageUrl.startsWith("https"));
+  }
+
+  handleUnitUnavailable = (unitUnavailable: any) =>{
+    const imagesControl = this.visualDeckReportModalForm.get('images');
+    const exteriorElementsControl = this.visualDeckReportModalForm.get('exteriorElements');
+    const waterproofingElementsControl = this.visualDeckReportModalForm.get('waterproofingElements');
+    const visualReviewControl = this.visualDeckReportModalForm.get('visualReview');
+    const signsOfLeaksControl = this.visualDeckReportModalForm.get('signsOfLeaks');
+    const invasiveReviewRequiredControl = this.visualDeckReportModalForm.get('invasiveReviewRequired');
+    const conditionAssessmentControl = this.visualDeckReportModalForm.get('conditionAssessment');
+    const EEEControl = this.visualDeckReportModalForm.get('EEE');
+    const LBCControl = this.visualDeckReportModalForm.get('LBC');
+    const AWEControl = this.visualDeckReportModalForm.get('AWE');
+    
+    if(unitUnavailable.checked){
+      imagesControl?.clearValidators();
+      exteriorElementsControl?.clearValidators();
+      waterproofingElementsControl?.clearValidators();
+      visualReviewControl?.clearValidators();
+      signsOfLeaksControl?.clearValidators();
+      invasiveReviewRequiredControl?.clearValidators();
+      conditionAssessmentControl?.clearValidators();
+      EEEControl?.clearValidators();
+      LBCControl?.clearValidators();
+      AWEControl?.clearValidators();
+      
+    } else{
+      imagesControl?.setValidators([Validators.required]);
+      exteriorElementsControl?.setValidators([Validators.required]);
+      waterproofingElementsControl?.setValidators([Validators.required]);
+      visualReviewControl?.setValidators([Validators.required]);
+      signsOfLeaksControl?.setValidators([Validators.required]);
+      invasiveReviewRequiredControl?.setValidators([Validators.required]);
+      conditionAssessmentControl?.setValidators([Validators.required]);
+      EEEControl?.setValidators([Validators.required]);
+      LBCControl?.setValidators([Validators.required]);
+      AWEControl?.setValidators([Validators.required]);
+
+    }
+    imagesControl?.updateValueAndValidity();
+    exteriorElementsControl?.updateValueAndValidity();
+    waterproofingElementsControl?.updateValueAndValidity();
+    visualReviewControl?.updateValueAndValidity();
+    signsOfLeaksControl?.updateValueAndValidity();
+    invasiveReviewRequiredControl?.updateValueAndValidity();
+    conditionAssessmentControl?.updateValueAndValidity();
+    EEEControl?.updateValueAndValidity();
+    LBCControl?.updateValueAndValidity();
+    AWEControl?.updateValueAndValidity();
   }
 }

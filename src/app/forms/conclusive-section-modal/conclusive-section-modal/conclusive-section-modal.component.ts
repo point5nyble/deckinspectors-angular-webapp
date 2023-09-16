@@ -19,8 +19,8 @@ export class ConclusiveSectionModalComponent {
   selectedImage: File[] = [];
   imagePreviewUrls: (string | ArrayBuffer | null)[] = [];
   imageControl: FormControl = new FormControl();
-  propowneragreed:boolean = false;
-  invasiverepairsinspectedandcompleted:boolean = false;
+  propowneragreed:string = "No";
+  invasiverepairsinspectedandcompleted:string = "No";
   constructor(private formBuilder: FormBuilder,
               private cdr: ChangeDetectorRef,
               private dialogRef: MatDialogRef<ConclusiveSectionModalComponent>,
@@ -35,8 +35,8 @@ export class ConclusiveSectionModalComponent {
     console.log(this.data.rowsMap?.get('propowneragreed'));
     let propowneragreed:boolean = this.data.rowsMap?.get('propowneragreed');
     let invasiverepairsinspectedandcompleted:boolean = this.data.rowsMap?.get('invasiverepairsinspectedandcompleted');
-    this.propowneragreed = propowneragreed === undefined ? false : propowneragreed;
-    this.invasiverepairsinspectedandcompleted = invasiverepairsinspectedandcompleted === undefined ? false : invasiverepairsinspectedandcompleted;
+    this.propowneragreed = propowneragreed === undefined ? 'false' : propowneragreed.toString();
+    this.invasiverepairsinspectedandcompleted = invasiverepairsinspectedandcompleted === undefined ? 'false' : invasiverepairsinspectedandcompleted.toString();
     console.log(this.propowneragreed);
     console.log(this.invasiverepairsinspectedandcompleted);
     this.conclusiveDeckReportModalForm = this.formBuilder.group({
@@ -48,16 +48,13 @@ export class ConclusiveSectionModalComponent {
       propowneragreed:[this.data.rowsMap?.get('propowneragreed').toString()],
       conclusiveimages:[this.data.images]
     });
-    console.log(`FormGroup: ${this.conclusiveDeckReportModalForm}`);
     // @ts-ignore
     this.conclusiveDeckReportModalForm?.get('invasiverepairsinspectedandcompleted').valueChanges.subscribe(value => {
-      console.log("Invasive Repairs Inspected and Completed ->",value);
-      this.invasiverepairsinspectedandcompleted = JSON.parse(value.toLowerCase());
+      this.invasiverepairsinspectedandcompleted = value;
     });
     // @ts-ignore
     this.conclusiveDeckReportModalForm?.get('propowneragreed').valueChanges.subscribe(value => {
-      console.log("Prop Owner Agreed ->",value);
-      this.propowneragreed = JSON.parse(value.toLowerCase());
+      this.propowneragreed = value;
     });
 
 
@@ -136,7 +133,9 @@ export class ConclusiveSectionModalComponent {
       })
     }
     this.conclusiveDeckReportModalForm.patchValue({
-      conclusiveimages: imageUrls
+      conclusiveimages: imageUrls,
+      propowneragreed: (this.conclusiveDeckReportModalForm.value['propowneragreed'] === "Yes").toString(),
+      invasiverepairsinspectedandcompleted: (this.conclusiveDeckReportModalForm.value['invasiverepairsinspectedandcompleted'] === "Yes").toString()
     });
     this.dialogRef.close(this.conclusiveDeckReportModalForm.value);
   }
@@ -146,7 +145,7 @@ export class ConclusiveSectionModalComponent {
   }
 
   showContent() {
-    return this.propowneragreed.valueOf();
+    return this.propowneragreed.valueOf() === "Yes";
   }
 }
 
