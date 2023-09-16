@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input} from '@angular/core';
 
 @Component({
   selector: 'app-project-describer',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./project-describer.component.scss']
 })
 export class ProjectDescriberComponent {
-
+  // @Input() projectInfo!: Project;
+  isAdmin: boolean = ((JSON.parse(localStorage.getItem('user')!))?.role === "admin");
 }
