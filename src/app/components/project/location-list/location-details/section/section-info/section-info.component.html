@@ -15,6 +15,13 @@
     <ng-container *ngIf="rows.length > 1 && rows[1].column2 === false">
     <tr *ngFor="let row of rows">
       <td><b>{{ row.column1 }}</b></td>
+      <td>{{ row.column2 === "True" || row.column2 === "true" || row.column2 === true ? "Yes" : row.column2 === "False" || row.column2 === "false" || row.column2 === false ? "No" : row.column2 === "Futureinspection"? "Future Inspection" : row.column2 }}</td>
+    </tr>
+  </ng-container>
+
+  <ng-container *ngIf="rows.length > 1 && rows[1].column2 !== false && rows[1].column2 !== true">
+    <tr *ngFor="let row of rows">
+      <td><b>{{ row.column1 }}</b></td>
       <td>{{ row.column2 === "True" || row.column2 === "true" || row.column2 === true ? "Yes" : row.column2 === "False" || row.column2 === "false" || row.column2 === false ? "No" : row.column2 }}</td>
     </tr>
   </ng-container>
