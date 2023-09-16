@@ -67,9 +67,6 @@ export class VisualDeckReportModalComponent implements OnInit {
     }
     else{
       this.showErrors = true;
-      console.log("Vis errors");
-      console.log(this.visualDeckReportModalForm.errors);
-      console.log(this.visualDeckReportModalForm.valid);
     }
   }
 
@@ -154,7 +151,7 @@ export class VisualDeckReportModalComponent implements OnInit {
       signsOfLeaks: (this.visualDeckReportModalForm.value['signsOfLeaks'] === "Yes").toString(),
       invasiveReviewRequired: (this.visualDeckReportModalForm.value['invasiveReviewRequired'] === "Yes").toString()
     })
-    console.log(this.visualDeckReportModalForm.value);
+   
     this.dialogRef.close(this.visualDeckReportModalForm.value);
   }
 

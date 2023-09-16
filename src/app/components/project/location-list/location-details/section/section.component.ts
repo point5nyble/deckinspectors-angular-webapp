@@ -191,10 +191,8 @@ export class SectionComponent implements OnInit{
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
       let propowneragreed: any = this.sectionReport?.propowneragreed;
       let invasiverepairsinspectedandcompleted: any = this.sectionReport?.invasiverepairsinspectedandcompleted;
-      console.log(propowneragreed);
-      console.log(invasiverepairsinspectedandcompleted);
       this.images = this.sectionReport.conclusiveimages;
-      if (!(propowneragreed === "Yes" && invasiverepairsinspectedandcompleted === "Yes")) {
+      if (!(propowneragreed === "Yes")) {
         this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['aweconclusive']);
         this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['conclusiveconsiderations']);
         this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['eeeconclusive']);
@@ -204,9 +202,6 @@ export class SectionComponent implements OnInit{
     } else if (this.sectionState === SectionState.VISUAL) {
       this.images = this.sectionReport?.images;
     }
-    console.log(this.images);
-    console.log(this.rows);
-    console.log(this.isRecordFound);
   }
 
   deleteElementFromArray(arr: any[], valueToDelete: string): any[] {
@@ -364,19 +359,19 @@ export class SectionComponent implements OnInit{
   private createSectionData(data: any):any {
     return {
       "name": data?.visualReportName,
-      "unitUnavailable": data?.unitUnavailable?.toString(),
+      "unitUnavailable": data?.unitUnavailable === true,
       "additionalconsiderations": data?.additionalConsiderationsOrConcern,
       "awe": data?.AWE,
       "conditionalassessment": data?.conditionAssessment,
       "createdby": "deck",
       "eee": data?.EEE,
       "exteriorelements": data?.exteriorElements,
-      "furtherinvasivereviewrequired": (data?.invasiveReviewRequired === "Yes").toString(),
+      "furtherinvasivereviewrequired": data?.invasiveReviewRequired,
       "lbc": data?.LBC,
       "parentid": this.location._id,
       "parenttype": this.location.type,
       "visualreview": data?.visualReview,
-      "visualsignsofleak": (data?.signsOfLeaks === "Yes").toString(),
+      "visualsignsofleak": data?.signsOfLeaks,
       "waterproofingelements": data?.waterproofingElements,
       "images": data?.images
     };

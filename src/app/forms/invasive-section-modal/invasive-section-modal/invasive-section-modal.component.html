@@ -4,6 +4,9 @@
     <p><b>Invasive Report</b></p>
   </div>
   <div class="form-body" [formGroup]="invasiveDeckReportModalForm">
+    <div class="form-errors" *ngIf="showErrors && invasiveDeckReportModalForm.get('invasiveDescription')?.hasError('required')">
+      *field is required.
+    </div>
     <div class="form-field">
       <label for="description">Invasive Description</label>
       <textarea formControlName="invasiveDescription" id="description" name="invasiveDescription" rows="4"></textarea>
@@ -14,6 +17,9 @@
         <label for="yes"><input formControlName="postinvasiverepairsrequired" type="radio" id="yes" value="true" name="postinvasiverepairsrequired">Yes</label>
         <label for="no"><input formControlName="postinvasiverepairsrequired" type="radio" id="no" value="false" name="postinvasiverepairsrequired">No</label>
       </div>
+    </div>
+    <div class="form-errors" *ngIf="showErrors && invasiveDeckReportModalForm.get('invasiveimages')?.hasError('required')">
+      *field is required.
     </div>
     <div class="form-group">
       <label class="form-label">Upload Image:</label>
