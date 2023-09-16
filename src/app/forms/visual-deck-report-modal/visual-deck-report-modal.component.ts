@@ -38,7 +38,7 @@ export class VisualDeckReportModalComponent implements OnInit {
   ngOnInit() {
     this.visualDeckReportModalForm = this.formBuilder.group({
       visualReportName: [this.data.rowsMap?.get('name'), Validators.required], // Add validators if needed
-      unitUnavailable: [this.data.rowsMap?.get('unitUnavailable') == "true"], // Add validators if needed
+      unitUnavailable: [this.data.rowsMap?.get('unitUnavailable')], // Add validators if needed
       exteriorElements: [this.data.rowsMap?.get('exteriorelements'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required], // Add validators if needed
       waterproofingElements: [this.data.rowsMap?.get('waterproofingelements'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
       visualReview:[this.data.rowsMap?.get('visualreview'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
@@ -67,9 +67,6 @@ export class VisualDeckReportModalComponent implements OnInit {
     }
     else{
       this.showErrors = true;
-      console.log("Vis errors");
-      console.log(this.visualDeckReportModalForm.errors);
-      console.log(this.visualDeckReportModalForm.valid);
     }
   }
 
@@ -154,7 +151,7 @@ export class VisualDeckReportModalComponent implements OnInit {
       signsOfLeaks: (this.visualDeckReportModalForm.value['signsOfLeaks'] === "Yes").toString(),
       invasiveReviewRequired: (this.visualDeckReportModalForm.value['invasiveReviewRequired'] === "Yes").toString()
     })
-    console.log(this.visualDeckReportModalForm.value);
+   
     this.dialogRef.close(this.visualDeckReportModalForm.value);
   }
 

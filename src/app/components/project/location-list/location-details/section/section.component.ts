@@ -364,19 +364,19 @@ export class SectionComponent implements OnInit{
   private createSectionData(data: any):any {
     return {
       "name": data?.visualReportName,
-      "unitUnavailable": data?.unitUnavailable?.toString(),
+      "unitUnavailable": data?.unitUnavailable === true,
       "additionalconsiderations": data?.additionalConsiderationsOrConcern,
       "awe": data?.AWE,
       "conditionalassessment": data?.conditionAssessment,
       "createdby": "deck",
       "eee": data?.EEE,
       "exteriorelements": data?.exteriorElements,
-      "furtherinvasivereviewrequired": (data?.invasiveReviewRequired === "Yes").toString(),
+      "furtherinvasivereviewrequired": data?.invasiveReviewRequired,
       "lbc": data?.LBC,
       "parentid": this.location._id,
       "parenttype": this.location.type,
       "visualreview": data?.visualReview,
-      "visualsignsofleak": (data?.signsOfLeaks === "Yes").toString(),
+      "visualsignsofleak": data?.signsOfLeaks,
       "waterproofingelements": data?.waterproofingElements,
       "images": data?.images
     };

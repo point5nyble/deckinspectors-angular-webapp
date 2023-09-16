@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Inject} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ImageToUrlConverterService} from "../../../service/image-to-url-converter.service";
 import {forkJoin, Observable} from "rxjs";
@@ -16,6 +16,7 @@ export class InvasiveSectionModalComponent {
   selectedImage: File[] = [];
   imagePreviewUrls: (string | ArrayBuffer | null)[] = [];
   imageControl: FormControl = new FormControl();
+  showErrors: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private cdr: ChangeDetectorRef,
@@ -23,22 +24,31 @@ export class InvasiveSectionModalComponent {
               @Inject(MAT_DIALOG_DATA) data : any,
               private imageToUrlConverterService : ImageToUrlConverterService) {
     this.data = data;
-    this.imagePreviewUrls = this.data.images;
+    this.data.images = this.data.images === undefined ? [] : this.data.images;
+    this.imagePreviewUrls = JSON.parse(JSON.stringify(this.data.images));
   }
 
   ngOnInit() {
     this.invasiveDeckReportModalForm = this.formBuilder.group({
-      invasiveDescription:[this.data.rowsMap?.get('invasiveDescription')],
-      invasiveimages:[this.data.images],
+      invasiveDescription:[this.data.rowsMap?.get('invasiveDescription'), Validators.required],
+      invasiveimages:[this.data.images, Validators.required],
       postinvasiverepairsrequired:[this.data.rowsMap?.get('postinvasiverepairsrequired') + ''],
     });
   }
   close() {
+    this.imagePreviewUrls = this.data.images;
+    this.invasiveDeckReportModalForm.patchValue({
+      invasiveimages: this.imagePreviewUrls
+    })
     this.dialogRef.close();
   }
 
   save() {
-    this.uploadImage();
+    if(this.invasiveDeckReportModalForm.valid){
+      this.uploadImage();
+    }else {
+      this.showErrors = true;
+    }
   }
 
   handleFileInput(event: any) {
@@ -53,6 +63,9 @@ export class InvasiveSectionModalComponent {
       const reader = new FileReader();
       reader.onload = (e) => {
         this.imagePreviewUrls.push(reader.result);
+        this.invasiveDeckReportModalForm.patchValue({
+          invasiveimages: this.imagePreviewUrls
+        })
       };
       reader.readAsDataURL(file);
     }
@@ -62,6 +75,9 @@ export class InvasiveSectionModalComponent {
   removeImage(index: number) {
     this.imageControl.setValue(null); // Reset the form control value if needed
     this.imagePreviewUrls.splice(index, 1);
+    this.invasiveDeckReportModalForm.patchValue({
+      invasiveimages: this.imagePreviewUrls
+    })
   }
 
   uploadImage() {
