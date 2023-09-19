@@ -213,18 +213,27 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
       'accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       'Content-Type': 'application/json'
     });
-    this.http.post<any>(url, data, { headers, responseType: 'blob' as 'json'}).subscribe((response: any) => {
-      console.log(response);
-      const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      const downloadUrl = window.URL.createObjectURL(blob);
-        window.open(downloadUrl);
+    this.http.post<any>(url, data, { headers, responseType: 'blob' as 'json' }).subscribe(
+      (response: any) => {
+        console.log(response);  
+        const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });   
+        // Create the date string in the format "daythMonthYear" (e.g., "18thSept2023")
+        const currentDate = new Date();
+        const dateStr = `${currentDate.getDate()}th${currentDate.toLocaleString('default', { month: 'short' })}${currentDate.getFullYear()}`;    
+        const fileName = `${this.projectInfo.name}_${dateStr}.xlsx`;    
+        const downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(blob); 
+        downloadLink.setAttribute('download', fileName);    
+        document.body.appendChild(downloadLink);    
+        downloadLink.click();    
+        document.body.removeChild(downloadLink);
       },
-      (error:any) => {
+      (error: any) => {
         console.log(error);
         alert('Error');
-      })
+      }
+    );    
   }
-
   showDefaultImage = () =>{
     this.enableDefaultImage = true;
   }
