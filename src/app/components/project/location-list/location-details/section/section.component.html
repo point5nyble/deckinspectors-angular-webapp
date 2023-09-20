@@ -25,5 +25,5 @@
 
   <!-- Show app-section-info and app-section-photos when add_data is false -->
   <app-section-info class="flex-item" [rows]="rows" *ngIf="isRecordFound"></app-section-info>
-  <app-section-photos [images]="images" class="flex-item" *ngIf="isRecordFound"></app-section-photos>
+  <app-section-photos [images]="images" [rows]="rows" class="flex-item" *ngIf="isRecordFound"></app-section-photos>
 </div>

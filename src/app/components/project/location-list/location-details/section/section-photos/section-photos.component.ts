@@ -8,7 +8,9 @@ import {InspectionReport} from "../../../../../../common/models/inspection-repor
 })
 export class SectionPhotosComponent implements OnInit{
   @Input() images!: string[];
+  @Input() rows: { column1: string; column2: any }[] = [];
 
+  LocationName='';
   previewImage = false;
   showMask = false;
   currentLightboxImage = '';
