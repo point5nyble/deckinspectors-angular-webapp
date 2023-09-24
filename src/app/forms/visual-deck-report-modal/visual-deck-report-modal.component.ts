@@ -4,6 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ImageToUrlConverterService} from "../../service/image-to-url-converter.service";
 import {forkJoin, Observable} from "rxjs";
 import { map } from 'rxjs/operators';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 
 @Component({
@@ -25,6 +26,35 @@ export class VisualDeckReportModalComponent implements OnInit {
   imageControl: FormControl = new FormControl();
   showErrors: boolean = false;
 
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '8rem',
+    minHeight: '3rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    toolbarHiddenButtons: [
+      ['bold']
+      ],
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote",
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
+      },
+    ]
+  };
+
   constructor(private formBuilder: FormBuilder,
               private cdr: ChangeDetectorRef,
               private dialogRef: MatDialogRef<VisualDeckReportModalComponent>,
@@ -45,7 +75,7 @@ export class VisualDeckReportModalComponent implements OnInit {
       signsOfLeaks:[this.data.rowsMap?.get('visualsignsofleak'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
       invasiveReviewRequired:[this.data.rowsMap?.get('furtherinvasivereviewrequired'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
       conditionAssessment: [this.data.rowsMap?.get('conditionalassessment'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
-      additionalConsiderationsOrConcern:[this.data.rowsMap?.get('additionalconsiderations')],
+      additionalConsiderationsOrConcern:[this.data.rowsMap?.get('additionalconsiderationshtml') !== undefined? this.data.rowsMap?.get('additionalconsiderationshtml') : this.data.rowsMap?.get('additionalconsiderations')],
       EEE:[this.data.rowsMap?.get('eee'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
       LBC:[this.data.rowsMap?.get('lbc'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
       AWE:[this.data.rowsMap?.get('awe'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
@@ -145,13 +175,20 @@ export class VisualDeckReportModalComponent implements OnInit {
     this.visualDeckReportModalForm.patchValue({
       images: imageUrls
     });
+
+    const htmlText = this.visualDeckReportModalForm.value["additionalConsiderationsOrConcern"];
+    const parser = new DOMParser();
+    const parsedDocument = parser.parseFromString(htmlText, 'text/html');
+    const parsedText = parsedDocument.body.textContent || '';
     
     this.visualDeckReportModalForm.patchValue({
       conditionAssessment: this.visualDeckReportModalForm.value['conditionAssessment']? this.visualDeckReportModalForm.value['conditionAssessment'].toLowerCase() : "",
       signsOfLeaks: (this.visualDeckReportModalForm.value['signsOfLeaks'] === "Yes").toString(),
-      invasiveReviewRequired: (this.visualDeckReportModalForm.value['invasiveReviewRequired'] === "Yes").toString()
+      invasiveReviewRequired: (this.visualDeckReportModalForm.value['invasiveReviewRequired'] === "Yes").toString(),
+      additionalConsiderationsOrConcern: parsedText
     })
-   
+    this.visualDeckReportModalForm.value["additionalConsiderationsOrConcernHtml"] = htmlText;
+   console.log(this.visualDeckReportModalForm.value);
     this.dialogRef.close(this.visualDeckReportModalForm.value);
   }
 
