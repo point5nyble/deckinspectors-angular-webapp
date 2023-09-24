@@ -55,7 +55,7 @@ import { FoldersComponent } from './components/folders/folders.component';
 import { ModalComponent } from './components/common/modal/modal.component';
 import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { DeleteConfirmationModalComponent } from './forms/delete-confirmation-modal/delete-confirmation-modal.component';
-
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 @NgModule({
@@ -119,7 +119,8 @@ import { DeleteConfirmationModalComponent } from './forms/delete-confirmation-mo
     MatSlideToggleModule,
     MatSliderModule,
     MatRadioModule,
-    LocationListComponent
+    LocationListComponent,
+    AngularEditorModule
   ],
   providers: [MdbModalService],
   bootstrap: [AppComponent]

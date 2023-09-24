@@ -81,7 +81,8 @@
     </ng-container>
     <div class="form-field">
       <label for="description">Additional Considerations or Concern</label>
-      <textarea formControlName="additionalConsiderationsOrConcern" id="description" name="additionalConsiderationsOrConcern" rows="4"></textarea>
+      <!-- <textarea formControlName="additionalConsiderationsOrConcern" id="description" name="additionalConsiderationsOrConcern" rows="4"></textarea> -->
+      <angular-editor formControlName="additionalConsiderationsOrConcern" id="description" name="additionalConsiderationsOrConcern" rows="4" [config]="config"></angular-editor>
     </div>
     <ng-container *ngIf="!unitUnavailable.checked">
       <div class="form-errors" *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('EEE')?.hasError('required')">
