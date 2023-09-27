@@ -36,7 +36,31 @@ export class VisualDeckReportModalComponent implements OnInit {
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
     toolbarHiddenButtons: [
-      
+      [
+        'undo',
+        'redo',
+        
+        'strikeThrough',
+        'subscript',
+        'superscript',
+        
+        
+        'insertUnorderedList',
+        'insertOrderedList',
+        'heading',
+        'fontName'
+      ],
+      [
+        'fontSize',
+        'customClasses',
+        'link',
+        'unlink',
+        'insertImage',
+        'insertVideo',
+        'insertHorizontalRule',
+        'removeFormat',
+        'toggleEditorMode'
+      ]
       ],
     customClasses: [
       {
