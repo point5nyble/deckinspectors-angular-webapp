@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {InspectionReport} from "../../../../../../common/models/inspection-report";
-
 @Component({
   selector: 'app-section-photos',
   templateUrl: './section-photos.component.html',
@@ -9,6 +8,8 @@ import {InspectionReport} from "../../../../../../common/models/inspection-repor
 export class SectionPhotosComponent implements OnInit{
   @Input() images!: string[];
   @Input() rows: { column1: string; column2: any }[] = [];
+
+  constructor() {}
 
   LocationName='';
   previewImage = false;
@@ -39,4 +40,5 @@ export class SectionPhotosComponent implements OnInit{
     this.currentIndex = (this.currentIndex + 1) % this.images.length;
     this.currentLightboxImage = this.images[this.currentIndex];
   }
+  
 }
