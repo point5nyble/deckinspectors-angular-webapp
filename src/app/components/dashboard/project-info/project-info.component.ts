@@ -87,9 +87,9 @@ export class ProjectInfoComponent {
     )
   }
 
-  moveProjectToFolder = () =>{
-    this.childClickEventTriggered.emit(true);
-  }
+  // moveProjectToFolder = () =>{
+  //   this.childClickEventTriggered.emit(true);
+  // }
   deleteProject() {
     this.childClickEventTriggered.emit(true);
     const dialogConfig = new MatDialogConfig();
