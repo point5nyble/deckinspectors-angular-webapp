@@ -56,6 +56,7 @@ import { ModalComponent } from './components/common/modal/modal.component';
 import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { DeleteConfirmationModalComponent } from './forms/delete-confirmation-modal/delete-confirmation-modal.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ReplaceFinalreportModalComponent } from './forms/replace-finalreport-modal/replace-finalreport-modal.component';
 
 
 @NgModule({
@@ -94,6 +95,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     FoldersComponent,
     ModalComponent,
     DeleteConfirmationModalComponent,
+    ReplaceFinalreportModalComponent
   ],
   imports: [
     BrowserModule,
