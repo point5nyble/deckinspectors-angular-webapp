@@ -1,0 +1,24 @@
+<div class="container mt-5">
+  <div class="card">
+      <div class="card-header">
+          <h4>Update Final Report Template</h4>
+      </div>
+      <div class="card-body">
+          <form>
+              <div class="mb-3">
+                  <label for="fileInput" class="form-label">Choose a File:</label>
+                  <input type="file" accept=".docx, .doc" class="form-control" id="fileInput" (change)="onFileSelected($event)">
+              </div>
+              <div class="mb-3">
+                  <label for="dropdown" class="form-label">Select Company:</label>
+                  <select class="form-select" id="dropdown" name="company-name" [(ngModel)]="companyName">
+                      <option value="deck">Deck Inspectors</option>
+                      <option value="Wicr">WICR</option>
+                  </select>
+              </div>
+              <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onClose()">Close</button>
+          </form>
+      </div>
+  </div>
+</div>
