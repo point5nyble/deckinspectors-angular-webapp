@@ -16,7 +16,7 @@ export class UploadFilesModalComponent {
   projectFiles!: any[];
   projectInfo!: Project;
   isUploading : boolean = false;
-
+  isUploaded :boolean=false;
   constructor(private cdr: ChangeDetectorRef,
               private imageToUrlConverterService : ImageToUrlConverterService,
               private httpsRequestService: HttpsRequestService,
@@ -45,15 +45,18 @@ export class UploadFilesModalComponent {
     const files: FileList = event.target.files;
     // Add all the files to the fileList array
     Array.from(files).forEach(file => this.fileList.push(file));
+    this.isUploaded=true;
   }
 
   formatUploadTime(timestamp: number) {
     const date = new Date(timestamp);
     return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+    
   }
 
   removeFile(index: number) {
     this.fileList.splice(index, 1);
+    this.isUploaded=false;
   }
 
   uploadFiles () {

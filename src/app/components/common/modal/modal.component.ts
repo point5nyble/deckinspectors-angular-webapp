@@ -19,5 +19,5 @@ export class ModalComponent {
     if (this.password.trim() !== '')
       this.user.password = this.password;
     this.modalRef.close({user: this.user});
-  }
+  } 
 }

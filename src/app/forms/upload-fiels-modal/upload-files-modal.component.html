@@ -46,7 +46,7 @@
 
   <label for="fileInput" class="upload-button">Upload Files</label>
   <input type="file" id="fileInput" (change)="handleFileUpload($event)" multiple style="display: none;">
-  <div class="preview-window">
+  <div class="preview-window" *ngIf="isUploaded">
     <h3>Preview</h3>
     <ul>
       <li *ngFor="let file of fileList; let i = index" class="file-item">
@@ -64,8 +64,7 @@
         <span *ngIf="isUploading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         Save
       </button>
-      <button class="close-button" (click)="closeModal()">Close</button>
     </div>
   </div>
-  
+  <button class="close-button" (click)="closeModal()">Close</button>
 </div>
