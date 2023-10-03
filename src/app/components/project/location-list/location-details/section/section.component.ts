@@ -146,7 +146,7 @@ export class SectionComponent implements OnInit{
   private constructEnglishNameMap() {
     this.englishNamesMap = {
       name: "Name",
-      unitUnavailable: "unitUnavailable",
+      unitUnavailable: "Unit Unavailable",
       exteriorelements: "Exterior Elements",
       waterproofingelements: "Waterproofing Elements",
       visualreview: "Visual Review",
