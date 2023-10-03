@@ -32,6 +32,8 @@ export class DashboardComponent implements OnInit
   isDeleteFail: boolean = false;
   showProjectCompleteAlert: boolean = false;
   showProjectInProgressAlert: boolean = false;
+  isFileUploaded: boolean = false;  //final report template
+  isFileNotUploaded: boolean = false;  //final report template
     constructor(private cdr: ChangeDetectorRef,
                 private httpsRequestService:HttpsRequestService,
                 private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -252,6 +254,11 @@ export class DashboardComponent implements OnInit
   }
 }
 
+fileUploaded(isUploaded: boolean){
+  isUploaded? this.isFileUploaded = isUploaded : this.isFileNotUploaded = isUploaded;
+  setTimeout(this.removeNotification, 5000);
+}
+
 markedCompleted = (completed: boolean) =>{
   if (completed){
     this.fetchProjectData();
@@ -270,6 +277,8 @@ removeNotification = () =>{
   this.apiCalled = false;
   this.isDeleteSuccess = false;
   this.isDeleteFail = false;
+  this.isFileUploaded = false;
+  this.isFileNotUploaded = false;
 }
 
   projectEventDeletedEvent($event: any) {

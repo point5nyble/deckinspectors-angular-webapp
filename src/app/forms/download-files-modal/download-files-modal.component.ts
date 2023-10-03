@@ -57,7 +57,45 @@ export class DownloadFilesModalComponent {
         this.showLoading = !this.showLoading;
         const blob = new Blob([response], { type: (reportFormat == "docx")?'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : 'application/pdf' });
         const downloadUrl = window.URL.createObjectURL(blob);
-        window.open(downloadUrl);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = `${this.projectName}_${reportType}.${reportFormat}`;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        this.dialogRef.close();
+        this.dialogRef.close();
+        },
+       error => {
+         this.showLoading = !this.showLoading;
+           console.log(error);
+           alert('Error');
+           this.dialogRef.close();
+       })
+  }
+
+  downloadFinalReport(reportType: string, reportFormat: string) {
+    let url = environment.apiURL + '/project/finalreport';
+    let data = {
+     "companyName": this.getCompanyNameFromActiveSection(this.activeSection)
+    };
+    const headers = new HttpHeaders({
+      'accept': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'Content-Type': 'application/json'
+    });
+    this.showLoading = !this.showLoading;
+    this.http.post<any>(url, data, { headers, responseType: 'blob' as 'json'}).subscribe((response: any) => {
+        this.showLoading = !this.showLoading;
+        const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = `${this.projectName}_${reportType}.docx`;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
         this.dialogRef.close();
         },
        error => {
@@ -77,8 +115,12 @@ export class DownloadFilesModalComponent {
     }
     else if ($event.title === 'Invasive Only Report') {
       this.downloadReport('InvasiveOnly', $event.reportFormat);
+
+    } else if ($event.title == 'Invasive Report') {
+      this.downloadReport('Invasive', $event.reportFormat);
     } else if ($event.title == 'Final Report') {
-      this.downloadReport('FinalReport', $event.reportFormat);
+      this.downloadFinalReport('Final', $event.reportFormat);
+
     }
   }
 
