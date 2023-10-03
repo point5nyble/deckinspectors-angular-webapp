@@ -72,10 +72,13 @@ export class DownloadFilesModalComponent {
   downloadReportEvent($event: any) {
     if ($event.title === 'Visual Report') {
       this.downloadReport('Visual', $event.reportFormat);
-    } else if ($event.title === 'Invasive Only Report') {
+    }else if($event.title === 'Invasive Report') {
+      this.downloadReport('Invasive', $event.reportFormat);
+    }
+    else if ($event.title === 'Invasive Only Report') {
       this.downloadReport('InvasiveOnly', $event.reportFormat);
     } else if ($event.title == 'Final Report') {
-      this.downloadReport('Invasive', $event.reportFormat);
+      this.downloadReport('Final Report', $event.reportFormat);
     }
   }
 
