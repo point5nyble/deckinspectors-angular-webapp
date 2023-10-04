@@ -15,7 +15,8 @@ export class HttpsRequestService {
      const httpOptions = {
         headers: new HttpHeaders({
          'Content-Type': 'application/json'
-       })
+       }),
+       timeout: 600000 // 10 minutes timeout in milliseconds
      };
      return this.http.post<T>(url, data,httpOptions);
    }
