@@ -17,7 +17,7 @@
         <span *ngIf="isAdmin" class="bi bi-person-circle" (click)="openAssignProjectModal()" title="Assign users to project"></span>
         <span class="bi bi-upload icon" (click)="openUploadFilesModal()" title="Upload project documents"></span>
         <span class="bi bi-download icon" (click)="openDownloadReportModal()" title="Download project reports"></span>
-        <span *ngIf="!projectInfo.iscomplete" class="fa fa-check icon" (click)="markComplete()" title="Mark project complete"></span>
+        <span *ngIf="!projectInfo.iscomplete" class="bi bi-check2-square icon" (click)="markComplete()" title="Mark project complete"></span>
         <span *ngIf="projectInfo.iscomplete" class="bi bi-arrow-repeat" (click)="markComplete()" title="Move in progess"></span>
         <!-- <span class="bi bi-file icon" (click)="moveProjectToFolder()" title="Move project to a folder"></span> -->
         <span class="bi bi-trash icon" title="Delete Project" (click)="deleteProject()"></span>
