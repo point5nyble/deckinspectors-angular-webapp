@@ -111,6 +111,7 @@ export class UploadFilesModalComponent {
     this.reset();
     this.fetchProjectFiles();
     // this.dialogRef.close(this.fileList);
+    this.isUploaded=false;
   }
 
   closeModal() {
