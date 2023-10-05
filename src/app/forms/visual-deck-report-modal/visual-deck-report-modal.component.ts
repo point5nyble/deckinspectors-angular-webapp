@@ -93,6 +93,7 @@ export class VisualDeckReportModalComponent implements OnInit {
     this.visualDeckReportModalForm = this.formBuilder.group({
       visualReportName: [this.data.rowsMap?.get('name'), Validators.required], // Add validators if needed
       unitUnavailable: [this.data.rowsMap?.get('unitUnavailable')], // Add validators if needed
+      //additionalConsiderationsOrConcernHtml:[this.data.rowsMap?.get('additionalconsiderationshtml')===null||this.data.rowsMap?.get('additionalconsiderationshtml')===undefined?'':this.data.rowsMap?.get('additionalconsiderationshtml')],
       exteriorElements: [this.data.rowsMap?.get('exteriorelements'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required], // Add validators if needed
       waterproofingElements: [this.data.rowsMap?.get('waterproofingelements'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
       visualReview:[this.data.rowsMap?.get('visualreview'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
@@ -103,7 +104,7 @@ export class VisualDeckReportModalComponent implements OnInit {
       EEE:[this.data.rowsMap?.get('eee'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
       LBC:[this.data.rowsMap?.get('lbc'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
       AWE:[this.data.rowsMap?.get('awe'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
-      images:[this.data.images, (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required]
+      images:[this.data.images, (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required]      
     });
   }
 
@@ -199,11 +200,14 @@ export class VisualDeckReportModalComponent implements OnInit {
     this.visualDeckReportModalForm.patchValue({
       images: imageUrls
     });
-
+    var parsedText='';
     const htmlText = this.visualDeckReportModalForm.value["additionalConsiderationsOrConcern"];
-    const parser = new DOMParser();
-    const parsedDocument = parser.parseFromString(htmlText, 'text/html');
-    const parsedText = parsedDocument.body.textContent || '';
+    if (htmlText!==null) {
+      const parser = new DOMParser();
+      const parsedDocument = parser.parseFromString(htmlText, 'text/html');
+      parsedText = parsedDocument.body.textContent || '';
+    }
+    
     
     this.visualDeckReportModalForm.patchValue({
       conditionAssessment: this.visualDeckReportModalForm.value['conditionAssessment']? this.visualDeckReportModalForm.value['conditionAssessment'].toLowerCase() : "",
