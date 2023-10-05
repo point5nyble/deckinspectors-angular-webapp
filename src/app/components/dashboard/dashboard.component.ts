@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit
     ngOnInit(): void {
       this.performUserLoginSteps();
       this.subscribeToshowProjectInfoToggle();
-      // To clear all exsting projects 
+      // To clear all exsting projects
       this.gotoHome();
     }
 
@@ -141,6 +141,7 @@ export class DashboardComponent implements OnInit
       this.showProjectInfo = data;
       if (data === 'home') {
         // this.disableInvasiveBtn = false;
+        this.fetchProjectData();
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.PROJECT_STATE_UPDATE, {state:ProjectState.VISUAL});
       }
     })
