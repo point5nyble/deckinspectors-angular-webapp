@@ -95,7 +95,7 @@ export class NewLocationModalComponent {
     if (this.data.process === 'edit') {
       let projectid = this.data.projectInfo._id === undefined ? (<any>this.data.projectInfo).id : this.data.projectInfo._id;
        url = url.replace('add', projectid);
-      data["sequenceNumber"] = this.data.projectInfo.sequenceNumber;
+      data["sequenceNumber"] = this.data.sequenceNumber;
       console.log(url);
       console.log(data);
       this.updateLocation(url, data);
