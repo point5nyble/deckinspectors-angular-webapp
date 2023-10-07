@@ -34,7 +34,7 @@ export class VisualDeckReportModalComponent implements OnInit {
     placeholder: 'Enter text here...',
     translate: 'no',
     defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
+    defaultFontName: 'Nunito',
     toolbarHiddenButtons: [
       [
         'undo',
