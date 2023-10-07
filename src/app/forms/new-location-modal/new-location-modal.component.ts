@@ -71,7 +71,7 @@ export class NewLocationModalComponent {
   }
 
   createLocation(image_url?:string){
-    let data = {
+    let data: any = {
       "name": this.newLocationForm.value.name,
       "description": this.newLocationForm.value.description,
       "parentid":  this.data.projectInfo?.parentId,
@@ -95,10 +95,12 @@ export class NewLocationModalComponent {
     if (this.data.process === 'edit') {
       let projectid = this.data.projectInfo._id === undefined ? (<any>this.data.projectInfo).id : this.data.projectInfo._id;
        url = url.replace('add', projectid);
+      data["sequenceNumber"] = this.data.projectInfo.sequenceNumber;
       console.log(url);
       console.log(data);
       this.updateLocation(url, data);
     } else {
+      data["sequenceNumber"] = this.data.sequenceNumber;
       this.createNewLocation(url,data);
     }
   }
