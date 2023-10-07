@@ -80,16 +80,16 @@ export class UsersComponent implements OnInit {
           },
           error => {
             console.log(error);
-              if(error.status === 409){
+              // if(error.status === 409){
                 (document.getElementById('success-alert') as HTMLElement).innerHTML =`<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Failure! </strong> ${error.error}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
-              }
-              else{
-              (document.getElementById('success-alert') as HTMLElement).innerHTML =`<div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong>Failure! </strong> user not created 
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
-              }
+              // }
+              // else{
+              // (document.getElementById('success-alert') as HTMLElement).innerHTML =`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+              // <strong>Failure! </strong> user not created 
+              // <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
+              // }
           }
         )
       }
