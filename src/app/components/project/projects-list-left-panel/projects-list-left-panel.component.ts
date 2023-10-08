@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {Item} from 'src/app/common/models/project-tree';
 import {HttpsRequestService} from "../../../service/https-request.service";
 import {
@@ -30,6 +30,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   collapsed: boolean = false;
   private projectState: ProjectState = ProjectState.VISUAL;
   currentProject!:any;
+  @Input() projectInfo: any;
 
 
   constructor(private httpsRequestService: HttpsRequestService,
@@ -106,7 +107,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   private fetchLeftTreeData() {
       let projectid = this.currentProject?._id === undefined ? (<any>this.currentProject)?.id : this.currentProject?._id;
-      let url = `${environment.apiURL}/project/getProjectMetadata/` + projectid;
+      let url = `${environment.apiURL}/project/getProjectMetadata/` + this.projectInfo._id;
       this.httpsRequestService.getHttpData<any>(url).subscribe(
         (response: any) => {
           let fetchedProjectList: Item[] = this.convertResponseToItemList(response);

@@ -91,7 +91,7 @@
         </div>
       </div>
       <div *ngIf="showProjectInfo !== 'home'" class="horizontal-div">
-        <app-projects-list-left-panel *ngIf="showProjectInfo !== 'home'"></app-projects-list-left-panel>
+        <app-projects-list-left-panel [projectInfo]="projectInfo" *ngIf="showProjectInfo !== 'home'"></app-projects-list-left-panel>
         <app-project-details *ngIf="showProjectInfo === 'project'" class="flex-item"></app-project-details>
         <app-subproject *ngIf="showProjectInfo === 'subproject'" class="flex-item"></app-subproject>
         <app-location-details *ngIf="showProjectInfo === 'location'" class="flex-item"></app-location-details>
