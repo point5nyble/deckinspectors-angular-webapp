@@ -43,7 +43,7 @@ export class SectionComponent implements OnInit{
   private englishNamesMap!: { [key: string]: string };
   showConclusiveSection:boolean = false;
   showBtn: boolean = false;
-
+  isSaving: boolean = false;
 
   constructor(private dialog: MatDialog,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -123,12 +123,14 @@ export class SectionComponent implements OnInit{
         this.constructRows();
         this.isRecordFound = true;
         console.log(response);
+        this.isSaving = false;
       },
       error => {
         // Check this logic
         if (error.error.code === 401 || error.error.code === 500) {
           this.isRecordFound = false;
         }
+        this.isSaving = false;
         console.log(error);
       }
     );
@@ -278,6 +280,7 @@ export class SectionComponent implements OnInit{
   }
 
   private editSection(data:any) {
+    this.isSaving = true;
     let request = null;
     if (this.sectionState === SectionState.VISUAL) {
       request = this.createSectionData(data);
@@ -305,6 +308,7 @@ export class SectionComponent implements OnInit{
         this.images = [];
         console.log(error)
         this.isRecordFound = false;
+        this.isSaving = false;
       }
     );
   }

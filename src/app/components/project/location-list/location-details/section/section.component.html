@@ -15,6 +15,7 @@
       </div>
     </div>
   </div>
+  <app-loading-screen *ngIf="isSaving"></app-loading-screen>
 
   <div class="overlay-container" *ngIf="!isRecordFound">
     <div class="overlay">

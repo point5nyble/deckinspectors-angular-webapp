@@ -28,6 +28,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   projectState!: ProjectState;
   disableInvasiveBtn: boolean = false;
   enableDefaultImage: boolean = false;
+  sequenceNumber!: string | undefined;
   // List of subscription
   private subscription:any[] = [];
   currentProjectId!: string;
@@ -46,6 +47,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   public ngOnInit(): void {
     this.subscribeToProjectInfo();
     this.subscribeToProjectState();
+    this.sequenceNumber = this.projectInfo.sequenceNumber;
   }
 
   private subscribeToProjectState() {
@@ -97,6 +99,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   }
 
   public editLocation() {
+    console.log(this.projectInfo);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -106,7 +109,8 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
       id: 1,
       projectInfo:this.projectInfo,
       process: 'edit',
-      type: this.projectInfo.type
+      type: this.projectInfo.type,
+      sequenceNumber: this.sequenceNumber
     };
     if (this.projectInfo.type === 'project') {
       const dialogRef = this.dialog.open(NewProjectModalComponent, dialogConfig);
@@ -130,6 +134,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
     this.subscription.push(
     this.store.select(BackNavigation.getPreviousStateModelChain).pipe(take(1)).subscribe((previousState: any) => {
       this.projectInfo = previousState.stack[previousState.stack.length - 1];
+      console.log(this.projectInfo);
       if (this.projectInfo.type === 'subproject') {
         this.projectType = 'subproject';
         let subprojectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
