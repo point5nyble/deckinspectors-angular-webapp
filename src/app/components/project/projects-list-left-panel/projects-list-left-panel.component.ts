@@ -30,7 +30,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   collapsed: boolean = false;
   private projectState: ProjectState = ProjectState.VISUAL;
   currentProject!:any;
-  @Input() projectInfo: any;
 
 
   constructor(private httpsRequestService: HttpsRequestService,
@@ -107,7 +106,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   private fetchLeftTreeData() {
       let projectid = this.currentProject?._id === undefined ? (<any>this.currentProject)?.id : this.currentProject?._id;
-      let url = `${environment.apiURL}/project/getProjectMetadata/` + this.projectInfo._id;
+      let url = `${environment.apiURL}/project/getProjectMetadata/` + projectid;
       this.httpsRequestService.getHttpData<any>(url).subscribe(
         (response: any) => {
           let fetchedProjectList: Item[] = this.convertResponseToItemList(response);
