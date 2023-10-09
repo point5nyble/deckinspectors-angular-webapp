@@ -5,6 +5,7 @@ import { HttpsRequestService } from '../../service/https-request.service';
 import { environment } from '../../../environments/environment';
 import { Project } from '../../common/models/project';
 import { DeleteConfirmationModalComponent } from '../delete-confirmation-modal/delete-confirmation-modal.component';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-upload-files-modal',
@@ -22,7 +23,8 @@ export class UploadFilesModalComponent {
               private httpsRequestService: HttpsRequestService,
               private dialogRef: MatDialogRef<UploadFilesModalComponent>,
               private dialog: MatDialog,
-              @Inject(MAT_DIALOG_DATA) data : any) {
+              @Inject(MAT_DIALOG_DATA) data : any,
+              private clipboardService: ClipboardService) {
           this.projectInfo = data.projectInfo;      
           this.fetchProjectFiles();   
   }
@@ -116,6 +118,10 @@ export class UploadFilesModalComponent {
 
   closeModal() {
     this.dialogRef.close();
+  }
+
+  copyLink = (url: string) =>{
+    this.clipboardService.copyFromContent(url);
   }
 
   deleteDocument = (id: string) =>{

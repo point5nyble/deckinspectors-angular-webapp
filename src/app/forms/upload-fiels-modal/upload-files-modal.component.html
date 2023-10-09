@@ -9,12 +9,13 @@
           <th>Uploader</th>
           <th>Uploaded on</th>
           <th>Download</th>
+          <th>Copy</th>
           <th>Delete</th>
 
         </tr>
       </thead>
       <tbody>
-        <tr *ngIf="projectFiles.length === 0">
+        <tr *ngIf="projectFiles?.length === 0">
           <td colspan="5" class="text-center">No files found.</td>
         </tr>
         <tr *ngFor="let item of projectFiles">
@@ -27,6 +28,15 @@
                 <a href="{{item.url}}" class="btn btn-primary btn-sm">
                   <i class="fas fa-cloud-download-alt"></i>
                 </a>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="container">
+              <div class="text-center">
+                <button class="btn btn-primary btn-sm" (click)="copyLink(item.url)">
+                  <i class="fas fa-copy"></i>
+                </button>
               </div>
             </div>
           </td>

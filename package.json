@@ -28,6 +28,7 @@
     "file-saver": "^2.0.5",
     "jszip": "^3.10.1",
     "mdb-angular-ui-kit": "^5.0.0",
+    "ngx-clipboard": "^16.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "uuid": "^9.0.1",

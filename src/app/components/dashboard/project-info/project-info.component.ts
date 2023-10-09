@@ -19,6 +19,7 @@ export class ProjectInfoComponent {
   @Output() childClickEventTriggered = new EventEmitter<boolean>();
   @Output() markCompletedEvent = new EventEmitter<boolean>();
   @Output() projectEventDeletedEvent = new EventEmitter<any>();
+  @Output() isDownloading = new EventEmitter<boolean>();
   constructor(private dialog: MatDialog, private httpsRequestService:HttpsRequestService) { }
 
   isAdmin: boolean = ((JSON.parse(localStorage.getItem('user')!))?.role === "admin");
@@ -72,6 +73,7 @@ export class ProjectInfoComponent {
     };
     const dialogRef = this.dialog.open(DownloadFilesModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
+      this.isDownloading.emit(data?.isDownloading);
     })
   }
 
