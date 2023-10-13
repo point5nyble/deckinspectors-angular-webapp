@@ -77,10 +77,23 @@ export class LocationListComponent implements OnInit {
     else{
     if (locationInfo._id !== '') {
       if (locationInfo.type === 'subproject') {
+          this.subprojectList.forEach((item: ProjectListElement, index: number) => {
+            if(item._id === locationInfo._id){
+              locationInfo['sequenceNumber'] = index.toString();
+            }
+    
+          });
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'subproject');
       } else {
+        this.locationList.forEach((item: ProjectListElement, index: number) => {
+          if(item._id === locationInfo._id){
+            locationInfo['sequenceNumber'] = index.toString();
+          }
+  
+        });
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'location');
       }
+
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, locationInfo)
     }
   }
@@ -97,7 +110,8 @@ export class LocationListComponent implements OnInit {
       isSubProject: this.checkIfSubProject(),
       projectInfo: this.projectInfo,
       type: this.getType(),
-      process: 'create'
+      process: 'create',
+      sequenceNumber: this.checkIfSubProject()? this.subprojectList.length : this.locationList.length
     };
     const dialogRef = this.dialog.open(NewLocationModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {

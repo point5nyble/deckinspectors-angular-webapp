@@ -36,3 +36,22 @@ form {
   .pull-right {
     float:right;
   }
+
+  .inline{
+    display: flex;
+  }
+
+  .eyeIcon{
+    position: absolute;
+    transform: translate(1100%, -60%);
+    z-index: 100;
+  }
+
+  i{
+    color: black;
+  }
+
+  input::-ms-reveal,
+  input::-ms-clear {
+    display: none;
+  }

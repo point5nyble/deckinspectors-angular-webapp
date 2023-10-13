@@ -22,6 +22,7 @@ export class NewProjectModalComponent implements OnInit {
   selectedImage: File | null = null;
   imagePreviewUrl: string | null = null;
   selectedFileName: string | null = null;
+  isSaving: boolean = false;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -72,7 +73,8 @@ export class NewProjectModalComponent implements OnInit {
   }
 
     save() {
-    this.uploadImage();
+      this.isSaving = true;
+      this.uploadImage();
   }
 
     uploadImage() {
@@ -121,12 +123,14 @@ export class NewProjectModalComponent implements OnInit {
     private createNewProject(url:string, data:any) {
       this.httpsRequestService.postHttpData(url, data).subscribe(
         (response:any) => {
+          this.isSaving = false;
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
 
           this.dialogRef.close(this.yourForm.value);
         },
         error => {
           console.log(error)
+          this.isSaving = false;
         }
       );
     }
@@ -134,12 +138,13 @@ export class NewProjectModalComponent implements OnInit {
     private updateProject(url:string, data:any) {
       this.httpsRequestService.putHttpData(url, data).subscribe(
         (response:any) => {
-          console.log(response);
+          this.isSaving = false;
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
           this.dialogRef.close(this.yourForm.value);
         },
         error => {
           console.log(error)
+          this.isSaving = false;
         }
       );
     }

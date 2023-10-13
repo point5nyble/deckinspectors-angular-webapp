@@ -24,6 +24,7 @@ export class NewLocationModalComponent {
   imagePreviewUrl: string | null = null;
   selectedImage: File | null = null;
   selectedFileName: string | null = null;
+  isSaving: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private cdr: ChangeDetectorRef,
@@ -65,11 +66,12 @@ export class NewLocationModalComponent {
   }
 
   save() {
+    this.isSaving = true;
     this.uploadImage();
   }
 
   createLocation(image_url?:string){
-    let data = {
+    let data: any = {
       "name": this.newLocationForm.value.name,
       "description": this.newLocationForm.value.description,
       "parentid":  this.data.projectInfo?.parentId,
@@ -93,10 +95,12 @@ export class NewLocationModalComponent {
     if (this.data.process === 'edit') {
       let projectid = this.data.projectInfo._id === undefined ? (<any>this.data.projectInfo).id : this.data.projectInfo._id;
        url = url.replace('add', projectid);
+      data["sequenceNumber"] = this.data.sequenceNumber;
       console.log(url);
       console.log(data);
       this.updateLocation(url, data);
     } else {
+      data["sequenceNumber"] = this.data.sequenceNumber;
       this.createNewLocation(url,data);
     }
   }
@@ -106,12 +110,14 @@ export class NewLocationModalComponent {
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         console.log(response);
+        this.isSaving = false;
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
         this.dialogRef.close(this.newLocationForm);
 
       },
       error => {
-        console.log(error)
+        console.log(error);
+        this.isSaving = false;
       }
     );
   }
@@ -122,10 +128,12 @@ export class NewLocationModalComponent {
         console.log(response);
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
         this.dialogRef.close(this.newLocationForm);
+        this.isSaving = false;
 
       },
       error => {
         console.log(error)
+        this.isSaving = false;
       }
     );
   }

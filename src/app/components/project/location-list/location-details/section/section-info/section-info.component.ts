@@ -7,4 +7,5 @@ import {Component, Input} from '@angular/core';
 })
 export class SectionInfoComponent{
   @Input() rows: { column1: string; column2: any }[] = [];
+  constructor(){}
 }

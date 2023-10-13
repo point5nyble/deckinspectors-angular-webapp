@@ -49,6 +49,7 @@ export class SectionListComponent implements OnInit{
 
   ngOnInit(): void {
     this.subscribeProjectState();
+    console.log(this.location_);
   }
   private subscribeProjectState() {
     this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
@@ -69,6 +70,7 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
 }
 
   private getSections(location: BuildingLocation) {
+    console.log("get sections");
     if (this.projectState === ProjectState.INVASIVE) {
       // TODO: Check Logic for Invasive
       this.sections = location?.sections?.filter(section => this.convertValueToBoolean(section?.furtherinvasivereviewrequired?.toString()));

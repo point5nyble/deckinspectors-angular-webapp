@@ -63,7 +63,9 @@
       </div>
 
       <div style="margin-left:40px;">
-        <span class="bi bi-lightning icon" (click)="markComplete()" title="Mark project complete"></span>
+<!--        <span class="bi bi-lightning icon" (click)="markComplete()" title="Mark project complete"></span>-->
+        <span *ngIf="!projectInfo.iscomplete" class="bi bi-check2-square icon" (click)="markComplete()" title="Mark project complete"></span>
+        <span *ngIf="projectInfo.iscomplete" class="bi bi-arrow-repeat" (click)="markComplete()" title="Move in progess"></span>
         <!-- <span class="material-symbols-outlined">bolt</span> -->
       </div>
 

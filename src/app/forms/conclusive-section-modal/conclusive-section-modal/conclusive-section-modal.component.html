@@ -7,21 +7,27 @@
     <div class="form-field">
       <label>Property Owner Agreed</label>
       <div class="radio-group">
-        <label for="yes1"><input formControlName="propowneragreed" type="radio" id="yes1" value="true" name="propowneragreed">Yes</label>
-        <label for="no1"><input formControlName="propowneragreed" type="radio" id="no1" value="false" name="propowneragreed">No</label>
+        <label for="yes1"><input formControlName="propowneragreed" type="radio" id="yes1" value="Yes" name="propowneragreed">Yes</label>
+        <label for="no1"><input formControlName="propowneragreed" type="radio" id="no1" value="No" name="propowneragreed">No</label>
       </div>
     </div>
     <div class="form-field">
       <label>Invasive repairs inspected and completed</label>
       <div class="radio-group">
-        <label for="yes"><input formControlName="invasiverepairsinspectedandcompleted" type="radio" id="yes" value="true" name="invasiverepairsinspectedandcompleted">Yes</label>
-        <label for="no"><input formControlName="invasiverepairsinspectedandcompleted" type="radio" id="no" value="false" name="invasiverepairsinspectedandcompleted">No</label>
+        <label for="yes"><input formControlName="invasiverepairsinspectedandcompleted" type="radio" id="yes" value="Yes" name="invasiverepairsinspectedandcompleted">Yes</label>
+        <label for="no"><input formControlName="invasiverepairsinspectedandcompleted" type="radio" id="no" value="No" name="invasiverepairsinspectedandcompleted">No</label>
       </div>
     </div>
     <div *ngIf="showContent()">
+      <div class="form-errors" *ngIf="showErrors && conclusiveDeckReportModalForm.get('conclusiveconsiderations')?.hasError('required')">
+        *field is required.
+      </div>
       <div class="form-field">
         <label for="description">Conclusive Consideration</label>
         <textarea formControlName="conclusiveconsiderations" id="description" name="conclusiveconsiderations" rows="4"></textarea>
+      </div>
+      <div class="form-errors" *ngIf="showErrors && conclusiveDeckReportModalForm.get('EEE')?.hasError('required')">
+        *field is required.
       </div>
       <div class="form-field">
         <label>Life Expectancy Exterior Elevated Elements (EEE) Conclusive</label>
@@ -32,6 +38,9 @@
           <label for="7+yrs"><input type="radio" id="7+yrs" value="sevenplus" name="EEE" formControlName="EEE">7+ Years</label>
         </div>
       </div>
+      <div class="form-errors" *ngIf="showErrors && conclusiveDeckReportModalForm.get('LBC')?.hasError('required')">
+        *field is required.
+      </div>
       <div class="form-field">
         <label>Life Expectancy Load Bearing Componenets (LBC) Conclusive</label>
         <div class="radio-group">
@@ -41,6 +50,9 @@
           <label  for="7+yrs1"><input type="radio" id="7+yrs1" value="sevenplus" name="LBC" formControlName="LBC">7+ Years</label>
         </div>
       </div>
+      <div class="form-errors" *ngIf="showErrors && conclusiveDeckReportModalForm.get('AWE')?.hasError('required')">
+        *field is required.
+      </div>
       <div class="form-field">
         <label>Life Expectancy Associated Waterproofing Elements (AWE) Conclusive</label>
         <div class="radio-group">
@@ -49,6 +61,9 @@
           <label for="4-7yrsAWE"><input type="radio" id="4-7yrsAWE" value="seven" name="AWE" formControlName="AWE">4-7 Years</label>
           <label for="7+yrsAWE"><input type="radio" id="7+yrsAWE" value="sevenplus" name="AWE" formControlName="AWE">7+ Years</label>
         </div>
+      </div>
+      <div class="form-errors" *ngIf="showErrors && conclusiveDeckReportModalForm.get('conclusiveimages')?.hasError('required')">
+        *field is required.
       </div>
       <div class="form-group">
         <label class="form-label">Upload Image:</label>

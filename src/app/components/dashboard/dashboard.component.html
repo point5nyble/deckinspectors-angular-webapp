@@ -14,8 +14,12 @@
     <app-sidebar class="flex"></app-sidebar>
     <div class="container-fluid flex">
       <div *ngIf="showProjectInfo === 'home'" class="project-list-container">
-        <app-filter (searchedTerm)="projectSearch($event)" (newProjectUploaded)="newProjectUploaded()" (filterCompleted)="filterCompleted($event)">
-
+        <app-filter
+        (searchedTerm)="projectSearch($event)"
+        (newProjectUploaded)="newProjectUploaded()"
+        (filterCompleted)="filterCompleted($event)"
+        (fileUploaded)="fileUploaded($event)"
+        >
         </app-filter>
         <div *ngIf="isProjectAssigned && apiCalled">
           <div class="alert alert-primary alert-dismissible fade show" role="alert">
@@ -55,6 +59,19 @@
         <div *ngIf="isDeleteFail">
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>Failure! </strong> Project Not Deleted
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+        <div *ngIf="isFileUploaded">
+          <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>Success! </strong> File Updated
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+
+        <div *ngIf="isFileNotUploaded">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Failure! </strong> File Not Updated
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         </div>
