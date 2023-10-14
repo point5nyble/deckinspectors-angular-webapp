@@ -72,7 +72,7 @@ export class DownloadFilesModalComponent {
 
   async getReportStatus(status: boolean, waitTime: number, reportType: string, reportFormat: string, reportId: string){
     this.reportGenerationTime += waitTime;
-    if (this.reportGenerationTime >= 600){
+    if (this.reportGenerationTime >= 1200){
       this.showLoading = !this.showLoading;
            console.log('Timeout! report generation');
            alert('Error');
