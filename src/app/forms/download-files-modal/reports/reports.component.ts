@@ -60,59 +60,10 @@ export class ReportsComponent {
     this.isUploaded=false;
   }
 
-  uploadFiles () {
-    return new Promise((resolve, reject) =>{
-      if (this.fileList.length > 0) {
-        this.isUploading = true;
-        this.fileList.forEach((file: File) => {
-          let user = localStorage.getItem('username')
-          let data = {
-            'entityName': file.name,
-            'uploader': user? user: "deck",
-            'containerName': file.name?.replace(/-|\s|\./g, '').toLowerCase(),
-            'picture': file,
-          }
-          console.log(data.containerName);
-            this.imageToUrlConverterService.convertImageToUrl(data).subscribe(
-              (response:any) => {
-                // this.createProject(response.url);
-                let filePayload = {
-                  "project_id": this.projectInfo._id,
-                  "url": response.url,
-                  "name": file.name,
-                  "uploader": user? user: "deck"
-                }
-                this.httpsRequestService.postHttpData<any>(`${environment.apiURL}/projectdocuments/add`, filePayload).subscribe(
-                  (res) => {
-                    console.log(res);
-                    resolve(res);
-                  },
-                  error => {
-                    console.log(error);
-                  }
-                )
-              },
-              error => {
-                console.log(error)
-              }
-            )
   
-        })
-      }
-    })
-  }
 
   reset = () =>{
     this.fileList = [];
-  }
-
-  async save() {
-    await this.uploadFiles();
-    this.isUploading = false;
-    this.reset();
-    this.fetchProjectFiles();
-    // this.dialogRef.close(this.fileList);
-    this.isUploaded=false;
   }
 
 
@@ -131,7 +82,7 @@ export class ReportsComponent {
     dialogRef.afterClosed().subscribe(data => {
       if(data.confirmed){
         
-        this.httpsRequestService.postHttpData<any>(`${environment.apiURL}/projectdocuments/delete`, {_id: id}).subscribe(
+        this.httpsRequestService.postHttpData<any>(`${environment.apiURL}/projectreports/delete`, {_id: id}).subscribe(
           (res) => {
             console.log(res);
             this.fetchProjectFiles();
