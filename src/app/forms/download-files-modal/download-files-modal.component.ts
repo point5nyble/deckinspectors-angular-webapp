@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { environment } from '../../../environments/environment';
+import { Project } from 'src/app/common/models/project';
 
 @Component({
   selector: 'app-download-files-modal',
@@ -11,6 +12,7 @@ import { environment } from '../../../environments/environment';
 export class DownloadFilesModalComponent {
   public projectName!: string;
   private modalData!: any;
+  projectInfo!: Project;
   showLoading: boolean = false;
   reportGenerationTime = 0;
   activeSection: string = 'deckInspector'; // Variable to keep track of the active section
@@ -22,6 +24,8 @@ export class DownloadFilesModalComponent {
               private http: HttpClient) {
     this.modalData = data;
     this.projectName = data.project.name;
+    this.projectInfo = data.project;
+    console.log(this.projectInfo);
   }
 
   showSection(section: string): void {

@@ -1,0 +1,55 @@
+<!-- <div class="file-upload">
+
+  <div class="container"> -->
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>Name</th>
+          <th>Created By</th>
+          <th>Created on</th>
+          <th>Download</th>
+          <th>Copy</th>
+          <th>Delete</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="projectFiles?.length === 0">
+          <td colspan="5" class="text-center">No reports found.</td>
+        </tr>
+        <tr *ngFor="let item of projectFiles">
+          <td>{{ item.name }}</td>
+          <td>{{ item.uploader }}</td>
+          <td>{{ formatUploadTime(item.timestamp) }}</td>
+          <td>
+            <div class="container">
+              <div class="text-center">
+                <a href="{{item.url}}" class="btn btn-primary btn-sm">
+                  <i class="fas fa-cloud-download-alt"></i>
+                </a>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="container">
+              <div class="text-center">
+                <button class="btn btn-primary btn-sm" (click)="copyLink(item.url)">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="container">
+              <div class="text-center">
+                <button class="btn btn-danger btn-sm" (click)="deleteDocument(item._id)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  <!-- </div>
+</div> -->
