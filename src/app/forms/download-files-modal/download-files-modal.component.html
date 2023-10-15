@@ -7,6 +7,7 @@
     <!-- Navigation Links -->
     <span (click)="showSection('deckInspector')" [ngClass]="{ 'highlight': activeSection === 'deckInspector' }">Deck Inspectors</span>
     <span (click)="showSection('wicr')" [ngClass]="{ 'highlight': activeSection === 'wicr' }">WICR</span>
+    <span (click)="showSection('reports')" [ngClass]="{ 'highlight': activeSection === 'reports' }">Reports</span>
     <!-- <span (click)="showSection('imageSettings')" [ngClass]="{ 'highlight': activeSection === 'imageSettings' }">Image Settings</span> -->
   </div>
 
@@ -35,6 +36,13 @@
         <app-download-specific-report [title]="'Invasive Only Report'" (downloadReportEvent)="downloadReportEvent($event)" [showLoading]="showLoading"></app-download-specific-report>
         <app-download-specific-report [title]="'Final Report'" (downloadReportEvent)="downloadReportEvent($event)" [showLoading]="showLoading"></app-download-specific-report>
       </div>
+    </div>
+
+    <div *ngIf="activeSection === 'reports'">
+      <div *ngIf="showLoading">
+        <div class="download-animation"></div>
+      </div>
+      <app-reports [projectInfo]="projectInfo"></app-reports>
     </div>
 
     <!-- Image Settings -->

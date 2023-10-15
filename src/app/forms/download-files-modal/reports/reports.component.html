@@ -1,13 +1,12 @@
-<!-- file-upload.component.html -->
-<div class="file-upload">
+<!-- <div class="file-upload">
 
-  <div class="container mt-4">
+  <div class="container"> -->
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
         <tr>
           <th>Name</th>
-          <th>Uploader</th>
-          <th>Uploaded on</th>
+          <th>Created By</th>
+          <th>Created on</th>
           <th>Download</th>
           <th>Copy</th>
           <th>Delete</th>
@@ -16,7 +15,7 @@
       </thead>
       <tbody>
         <tr *ngIf="projectFiles?.length === 0">
-          <td colspan="5" class="text-center">No files found.</td>
+          <td colspan="5" class="text-center">No reports found.</td>
         </tr>
         <tr *ngFor="let item of projectFiles">
           <td>{{ item.name }}</td>
@@ -52,29 +51,5 @@
         </tr>
       </tbody>
     </table>
-  </div>
-
-  <label for="fileInput" class="upload-button">Upload Files</label>
-  <input type="file" id="fileInput" (change)="handleFileUpload($event)" multiple style="display: none;">
-  <div class="preview-window" *ngIf="isUploaded">
-    <h3>Preview</h3>
-    <ul>
-      <li *ngFor="let file of fileList; let i = index" class="file-item">
-        <span class="file-icon"><i class="far fa-file"></i></span>
-        <div class="file-details">
-          <span class="file-name">{{ file.name }}</span>
-          <span class="file-time">{{ formatUploadTime(file.lastModified) }}</span>
-        </div>
-        <span class="remove-button" (click)="removeFile(i)">&times;</span>
-      </li>
-    </ul>
-
-    <div class="button-container">
-      <button class="save-button" (click)="save()" >
-        <span *ngIf="isUploading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Save
-      </button>
-    </div>
-  </div>
-  <button class="close-button" (click)="closeModal()">Close</button>
-</div>
+  <!-- </div>
+</div> -->

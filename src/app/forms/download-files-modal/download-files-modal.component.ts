@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { environment } from '../../../environments/environment';
+import { Project } from 'src/app/common/models/project';
 
 @Component({
   selector: 'app-download-files-modal',
@@ -11,6 +12,7 @@ import { environment } from '../../../environments/environment';
 export class DownloadFilesModalComponent {
   public projectName!: string;
   private modalData!: any;
+  projectInfo!: Project;
   showLoading: boolean = false;
   reportGenerationTime = 0;
   activeSection: string = 'deckInspector'; // Variable to keep track of the active section
@@ -22,6 +24,8 @@ export class DownloadFilesModalComponent {
               private http: HttpClient) {
     this.modalData = data;
     this.projectName = data.project.name;
+    this.projectInfo = data.project;
+    console.log(this.projectInfo);
   }
 
   showSection(section: string): void {
@@ -38,49 +42,7 @@ export class DownloadFilesModalComponent {
 
   private downloadReport(reportType: string, reportFormat: string) {
     console.log("report format" + reportFormat);
-    // const reportId = uuidv4();
     let url = environment.apiURL + '/project/generatereport';
-    let data = {
-      "id": this.modalData.project._id,
-      "sectionImageProperties": {
-        "compressionQuality": 100,
-        "imageFactor": this.selectedImages
-      },
-      "companyName": this.getCompanyNameFromActiveSection(this.activeSection),
-      "reportType": reportType,
-      "reportFormat": reportFormat,
-      // "reportId": reportId,
-      "projectName": this.projectName,
-      "requestType": "init"
-    }
-    const headers = new HttpHeaders({
-      'accept': 'application/json',
-      'Content-Type': 'application/json'
-    });
-    this.showLoading = !this.showLoading;
-    this.http.post<any>(url, data, { headers, responseType: 'json'}).subscribe((response: any) => {
-        console.log(response);
-        this.getReportStatus(false, 2, reportType, reportFormat, response.reportId);
-        },
-       error => {
-         this.showLoading = !this.showLoading;
-           console.log(error);
-           alert('Error');
-           this.dialogRef.close();
-       })
-  }
-
-  async getReportStatus(status: boolean, waitTime: number, reportType: string, reportFormat: string, reportId: string){
-    this.reportGenerationTime += waitTime;
-    if (this.reportGenerationTime >= 1200){
-      this.showLoading = !this.showLoading;
-           console.log('Timeout! report generation');
-           alert('Error');
-           this.dialogRef.close();
-    }
-    if (status){
-
-      let url = environment.apiURL + '/project/generatereport';
       let data = {
         "id": this.modalData.project._id,
         "sectionImageProperties": {
@@ -90,49 +52,31 @@ export class DownloadFilesModalComponent {
         "companyName": this.getCompanyNameFromActiveSection(this.activeSection),
         "reportType": reportType,
         "reportFormat": reportFormat,
-        "reportId": reportId,
+        // "reportId": reportId,
         "projectName": this.projectName,
-        "requestType": "download"
+        "user": localStorage.getItem('username')
+        // "requestType": "download"
       }
       const headers = new HttpHeaders({
         'accept': (reportFormat == "docx")?'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : 'application/pdf',
         'Content-Type': 'application/json'
       });
 
+      // this.showLoading = !this.showLoading;
       this.http.post<any>(url, data, { headers, responseType: 'blob' as 'json'}).subscribe((response: any) => {
-
-        this.showLoading = !this.showLoading;
-        const blob = new Blob([response], { type: (reportFormat == "docx")?'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : 'application/pdf' });
-        const downloadUrl = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = downloadUrl;
-        a.download = `${this.projectName}_${reportType}.${reportFormat}`;
-        a.style.display = 'none';
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        this.dialogRef.close();
-        this.dialogRef.close();
+        // this.showLoading = !this.showLoading;
+        // const blob = new Blob([response], { type: (reportFormat == "docx")?'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : 'application/pdf' });
+        // const downloadUrl = window.URL.createObjectURL(blob);
+        // const a = document.createElement('a');
+        // a.href = downloadUrl;
+        // a.download = `${this.projectName}_${reportType}.${reportFormat}`;
+        // a.style.display = 'none';
+        // document.body.appendChild(a);
+        // a.click();
+        // window.URL.revokeObjectURL(url);
+        console.log(response);
+        this.dialogRef.close({isDownloading: true});
       })
-
-    }
-    else{
-      console.log(`Status: ${status}, Time: ${waitTime}`);
-      waitTime = (waitTime >= 60)? 60 : waitTime * 2;
-      let ms = waitTime * 1000;
-      const sleep = async (ms: number) => await new Promise((r) => setTimeout(r, ms));
-      await sleep(ms);
-      const requestBody = {
-        "reportType": reportType,
-        "reportFormat": reportFormat,
-        "reportId": reportId,
-        "projectName": this.projectName,
-      }
-      this.http.post(`${environment.apiURL}/project/getReportStatus`, requestBody).subscribe((response: any)=>{
-        this.getReportStatus(response.reportStatus, waitTime, reportType,
-          reportFormat, reportId);
-      })
-  }
   }
 
   downloadFinalReport(reportType: string, reportFormat: string) {

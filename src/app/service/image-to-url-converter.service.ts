@@ -12,7 +12,7 @@ export class ImageToUrlConverterService {
   public convertImageToUrl(data:any) {
     const formData = new FormData();
     formData.append('picture',data.picture, data.picture.name);
-    formData.append('containerName', data.containerName);
+    formData.append('containerName', data.containerName.replace(/\s+/g, '').toLowerCase());
     formData.append('uploader', 'deck');
     formData.append('entityName', data.entityName);
     let url = environment.apiURL + '/image/upload';
