@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit
   isDeleteFail: boolean = false;
   showProjectCompleteAlert: boolean = false;
   showProjectInProgressAlert: boolean = false;
+  downloadingReport: boolean = false;
   isFileUploaded: boolean = false;  //final report template
   isFileNotUploaded: boolean = false;  //final report template
     constructor(private cdr: ChangeDetectorRef,
@@ -280,6 +281,7 @@ removeNotification = () =>{
   this.isDeleteFail = false;
   this.isFileUploaded = false;
   this.isFileNotUploaded = false;
+  this.downloadingReport = false;
 }
 
   projectEventDeletedEvent($event: any) {
@@ -292,6 +294,12 @@ removeNotification = () =>{
   else{
     this.isDeleteFail = $event.state;
   }
+    setTimeout(this.removeNotification, 5000);
+  }
+
+  reportDownloadEvent($event: any){
+    console.log(`is report downloading: ${$event}`);
+    this.downloadingReport = $event;
     setTimeout(this.removeNotification, 5000);
   }
 }
