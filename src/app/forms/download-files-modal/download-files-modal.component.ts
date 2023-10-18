@@ -15,7 +15,7 @@ export class DownloadFilesModalComponent {
   projectInfo!: Project;
   showLoading: boolean = false;
   reportGenerationTime = 0;
-  activeSection: string = 'deckInspector'; // Variable to keep track of the active section
+  activeSection: string = 'e3inspections'; // Variable to keep track of the active section
   imageQuality = 50; // Default image quality value
   selectedImages = '3'; // Default selected image option
   constructor(private cdr: ChangeDetectorRef,
@@ -133,8 +133,8 @@ export class DownloadFilesModalComponent {
   }
 
   private getCompanyNameFromActiveSection(activeSection: string) {
-    if (activeSection === 'deckInspector') {
-      return "DeckInspectors";
+    if (activeSection === 'e3inspections') {
+      return "E3Inspections";
     } else {
       return "Wicr";
     }
