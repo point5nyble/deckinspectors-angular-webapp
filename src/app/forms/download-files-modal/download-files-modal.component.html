@@ -5,15 +5,15 @@
 
   <div>
     <!-- Navigation Links -->
-    <span (click)="showSection('deckInspector')" [ngClass]="{ 'highlight': activeSection === 'deckInspector' }">Deck Inspectors</span>
+    <span (click)="showSection('e3inspections')" [ngClass]="{ 'highlight': activeSection === 'e3inspections' }">E3 Inspections</span>
     <span (click)="showSection('wicr')" [ngClass]="{ 'highlight': activeSection === 'wicr' }">WICR</span>
     <span (click)="showSection('reports')" [ngClass]="{ 'highlight': activeSection === 'reports' }">Reports</span>
     <!-- <span (click)="showSection('imageSettings')" [ngClass]="{ 'highlight': activeSection === 'imageSettings' }">Image Settings</span> -->
   </div>
 
   <div class="full-width">
-    <!-- Deck Inspectors -->
-    <div *ngIf="activeSection === 'deckInspector'">
+    <!-- e3inspections -->
+    <div *ngIf="activeSection === 'e3inspections'">
       <div *ngIf="showLoading">
         <div class="download-animation"></div>
       </div>
