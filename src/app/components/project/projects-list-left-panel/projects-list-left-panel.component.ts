@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {Item} from 'src/app/common/models/project-tree';
 import {HttpsRequestService} from "../../../service/https-request.service";
 import {
@@ -27,7 +27,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   currentSelectedItem:string = '';
   objectMap = new Map<string, any>();
   loadingScreen:boolean = true;
-  collapsed: boolean = true;
+  collapsed: boolean = false;
   private projectState: ProjectState = ProjectState.VISUAL;
   currentProject!:any;
 
@@ -45,6 +45,14 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     if (this.projectList !== undefined) {
       this.loadingScreen = false;
     }
+  }
+
+  toggleCollapse_() {
+    this.collapsed = !this.collapsed;
+  }
+
+  toggleCollapse(item: Item): void {
+    item.collapsed = !item.collapsed;
   }
 
   private subscribeToGetCurrentProjectDetails() {
@@ -95,15 +103,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
     })
   }
-
-  toggleCollapse_() {
-    this.collapsed = !this.collapsed;
-  }
-
-  toggleCollapse(item: Item): void {
-    item.collapsed = !item.collapsed;
-  }
-
 
   private fetchLeftTreeData() {
       let projectid = this.currentProject?._id === undefined ? (<any>this.currentProject)?.id : this.currentProject?._id;
@@ -234,6 +233,10 @@ export class ProjectsListLeftPanelComponent implements OnInit {
         this.currentSelectedItem = location.name;
         this.findPath(location);
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'location');
+    } else if (location.type === 'subproject') {
+      this.currentSelectedItem = location.name;
+      this.findPath(location);
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'subproject');
     }
     }
 
@@ -248,6 +251,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       parentid: input?.parentid,
       type: input?.nestedItems? input?.type:'location',
       isInvasive:input?.isInvasive,
+      projectType:input?.projectType,
       nestedItems: input?.nestedItems?.map((item) => this.mapItem(item)) || []
     };
   }
@@ -309,7 +313,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   }
 
   private findPath(item: Item) {
-    console.log(item);
     let tempList:any[] = [];
     this.store.select(BackNavigation.getPreviousStateModelChain).subscribe(chain => {
       tempList = chain.stack;

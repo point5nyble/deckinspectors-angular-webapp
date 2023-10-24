@@ -1,5 +1,6 @@
-<div class="container mb-3 mt-1 border border-secondary">
-  <div class="name"> <b> {{ location.name }} </b>
+<div class="container mb-3 mt-1">
+  <div class="name">
+    <div><b> {{location.name }}</b></div>
     <div>
       <span *ngIf="isSubProject && isAdmin" class="bi bi-person-circle icon" (click)="openAssignProjectModal()" title="Assign users to project"></span>
       <span *ngIf="isSubProject" class="bi bi-trash icon" title="Delete Building" (click)="deleteProject()"></span>
@@ -7,8 +8,8 @@
     </div>
   </div>
   <div class="info">
-    <span class="text-muted margin-right"> <b> Assigned to: </b> {{ location.assignedto }}</span>
-    <span class="text-muted margin-right"> <b> By: </b>{{ location.createdby }}</span>
+    <span class="text-muted margin-right"> <b> Assigned to: </b><p>{{ location.assignedto }}</p></span>
+    <span class="text-muted margin-right"> <b> By: </b><p>{{ location.createdby }}</p></span>
   </div>
 
 </div>

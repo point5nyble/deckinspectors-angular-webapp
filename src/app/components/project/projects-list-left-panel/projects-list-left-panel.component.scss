@@ -10,6 +10,9 @@
   max-width: 700px; /* Set the maximum width if desired */
   scrollbar-width: thin;
   scrollbar-color: #888888 transparent;
+  background-color: #fff;
+  border-radius: 16px;
+  margin-top: 20px;
  
 }
 
@@ -17,9 +20,13 @@
   width: 50px!important;
   min-width: 50px;
 }
+// .collapsed::after{
+//   width: 309px!important;
+// }
 .scrollable-container {
   /* Override the property */
   max-height: 100%;
+  width: 309px;
 }
 
 .nested-list {

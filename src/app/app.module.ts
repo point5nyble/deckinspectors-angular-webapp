@@ -56,6 +56,8 @@ import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { DeleteConfirmationModalComponent } from './forms/delete-confirmation-modal/delete-confirmation-modal.component';
 import { ProjectDescriberComponent } from './components/dashboard/project-describer/project-describer.component';
 
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ReplaceFinalreportModalComponent } from './forms/replace-finalreport-modal/replace-finalreport-modal.component';
 
 
 @NgModule({
@@ -95,7 +97,8 @@ import { ProjectDescriberComponent } from './components/dashboard/project-descri
     ModalComponent,
     DeleteConfirmationModalComponent,
     ModalComponent,
-    ProjectDescriberComponent
+    ProjectDescriberComponent,
+    ReplaceFinalreportModalComponent
   ],
   imports: [
     BrowserModule,
@@ -121,7 +124,8 @@ import { ProjectDescriberComponent } from './components/dashboard/project-descri
     MatSlideToggleModule,
     MatSliderModule,
     MatRadioModule,
-    LocationListComponent
+    LocationListComponent,
+    AngularEditorModule
   ],
   providers: [MdbModalService],
   bootstrap: [AppComponent]

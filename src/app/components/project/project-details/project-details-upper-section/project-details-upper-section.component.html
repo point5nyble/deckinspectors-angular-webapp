@@ -1,28 +1,38 @@
 <div class="info-section">
-
   <div class="navigation-line">
-    <i class="fas fa-arrow-left cursor-pointer" (click)="previousBtnClicked()"></i>
-     <app-navigation-component></app-navigation-component>
-    <i class="fas fa-edit cursor-pointer" (click)="editLocation()"></i>
+    <div class="backButtonAndNavigation">
+      <i class="fas fa-arrow-left cursor-pointer" (click)="previousBtnClicked()"></i>
+      <app-navigation-component></app-navigation-component>
+    </div>
+    <div class="edit_icon">
+      <i class="fas fa-edit cursor-pointer" (click)="editLocation()"></i>
+    </div>
+   
   </div>
 
   <div class="horizontal-div  mt-2">
     <div class="ProjectInformation flex-item">
 
-      <strong>Project Name</strong>
-      <div class="info-heading">
-        {{ projectInfo.name }}
+      <div class="ProjectName">
+        <strong>Project Name</strong>
+        <div class="info-heading">
+          {{ projectInfo.name }}
+        </div>
       </div>
-
-      <strong>Description</strong>
-      <div class="DescriptionBox">
-        {{ projectInfo.description }}
+      <div class="Description">
+        <strong>Description</strong>
+        <div class="DescriptionBox">
+          {{ projectInfo.description }}
+        </div>
       </div>
-
-      <strong>Address</strong>
-      <div class="AddressBox">
-        <p *ngIf="projectType !== 'location'" class="address" style="margin-bottom: 10px;">{{ projectInfo.address }}</p>
+     
+      <div class="Address">
+        <strong>Address</strong>
+        <div class="AddressBox">
+          <p *ngIf="projectType !== 'location'" class="address" style="margin-bottom: 10px;">{{ projectInfo.address }}</p>
+        </div>
       </div>
+      
     </div>
 
     <div class="image-section flex-item">
@@ -36,6 +46,5 @@
       </div>
     </div>
   </div>
-
 </div>
 

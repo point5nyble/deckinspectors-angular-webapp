@@ -13,11 +13,16 @@ export class ModalComponent {
   user!: any;
   formtype!: string;
   password!: string;
+  showPassword: boolean = false;
   constructor(public modalRef: MdbModalRef<ModalComponent>) {}
 
   submit = () =>{
-    if (this.password.trim() !== '')
+    if (this.password?.trim() !== '')
       this.user.password = this.password;
     this.modalRef.close({user: this.user});
+  } 
+
+  togglePasswordVisibility = () =>{
+    this.showPassword = !this.showPassword;
   }
 }

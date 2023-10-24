@@ -74,8 +74,7 @@
   margin-top: 20px;
 }
 
-.save-button,
-.close-button {
+.save-button{
   padding: 10px 20px;
   margin: 0 10px;
   background-color: #4caf50;
@@ -86,5 +85,14 @@
 }
 
 .close-button {
+  padding: 10px 20px;
   background-color: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  position: absolute;
+  right:20px;
+  bottom: 20px;
 }
+

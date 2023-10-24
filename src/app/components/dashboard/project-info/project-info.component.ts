@@ -48,7 +48,7 @@ export class ProjectInfoComponent {
     dialogConfig.width = "600px";
     dialogConfig.height = "700px";
     dialogConfig.data = {
-      id: 1
+      "projectInfo": this.projectInfo
     };
     const dialogRef = this.dialog.open(UploadFilesModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
@@ -87,9 +87,9 @@ export class ProjectInfoComponent {
     )
   }
 
-  moveProjectToFolder = () =>{
-    this.childClickEventTriggered.emit(true);
-  }
+  // moveProjectToFolder = () =>{
+  //   this.childClickEventTriggered.emit(true);
+  // }
   deleteProject() {
     this.childClickEventTriggered.emit(true);
     const dialogConfig = new MatDialogConfig();
