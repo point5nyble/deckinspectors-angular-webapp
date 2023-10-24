@@ -42,7 +42,8 @@ export class DownloadFilesModalComponent {
 
   private downloadReport(reportType: string, reportFormat: string) {
     console.log("report format" + reportFormat);
-    let url = environment.apiURL + '/project/generatereport';
+    //let url = environment.apiURL + '/project/generatereport';
+    let url = "https://inspectionreportgenerator.azurewebsites.net/api/generateReport";
       let data = {
         "id": this.modalData.project._id,
         "sectionImageProperties": {
@@ -75,8 +76,9 @@ export class DownloadFilesModalComponent {
         // a.click();
         // window.URL.revokeObjectURL(url);
         console.log(response);
-        this.dialogRef.close({isDownloading: true});
-      })
+        
+      });
+      this.dialogRef.close({isDownloading: true});
   }
 
   downloadFinalReport(reportType: string, reportFormat: string) {
