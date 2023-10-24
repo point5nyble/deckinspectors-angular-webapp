@@ -5,6 +5,7 @@
       <thead class="thead-dark">
         <tr>
           <th>Name</th>
+          <th>Report Type</th>
           <th>Created By</th>
           <th>Created on</th>
           <th>Download</th>
@@ -15,10 +16,11 @@
       </thead>
       <tbody>
         <tr *ngIf="projectFiles?.length === 0">
-          <td colspan="5" class="text-center">No reports found.</td>
+          <td colspan="6" class="text-center">No reports found.</td>
         </tr>
         <tr *ngFor="let item of projectFiles">
           <td>{{ item.name }}</td>
+          <td>{{ item.reportType }}</td>
           <td>{{ item.uploader }}</td>
           <td>{{ formatUploadTime(item.timestamp) }}</td>
           <td>
