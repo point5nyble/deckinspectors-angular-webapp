@@ -57,6 +57,7 @@ import { DeleteConfirmationModalComponent } from './forms/delete-confirmation-mo
 import { ProjectDescriberComponent } from './components/dashboard/project-describer/project-describer.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ReplaceFinalreportModalComponent } from './forms/replace-finalreport-modal/replace-finalreport-modal.component';
+import { ReportsComponent } from './forms/download-files-modal/reports/reports.component';
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import { ReplaceFinalreportModalComponent } from './forms/replace-finalreport-mo
     UploadFilesModalComponent,
     DownloadFilesModalComponent,
     VisualDeckReportModalComponent,
+    ReportsComponent,
     DownloadSpecificReportComponent,
     ProjectDetailsComponent,
     NewLocationModalComponent,

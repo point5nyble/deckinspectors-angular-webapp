@@ -19,6 +19,7 @@ export class ProjectInfoComponent {
   @Output() childClickEventTriggered = new EventEmitter<boolean>();
   @Output() markCompletedEvent = new EventEmitter<boolean>();
   @Output() projectEventDeletedEvent = new EventEmitter<any>();
+  @Output() isDownloading = new EventEmitter<boolean>();
 
   constructor(private dialog: MatDialog, private httpsRequestService:HttpsRequestService) { }
 
@@ -64,7 +65,7 @@ export class ProjectInfoComponent {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "400px";
+    dialogConfig.width = "600px";
     dialogConfig.height = "500px";
     dialogConfig.data = {
       id: 1,
@@ -72,6 +73,7 @@ export class ProjectInfoComponent {
     };
     const dialogRef = this.dialog.open(DownloadFilesModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
+      this.isDownloading.emit(data?.isDownloading);
     })
   }
 

@@ -75,7 +75,18 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         </div>
+
         <app-project-describer></app-project-describer>
+
+
+        <div *ngIf="downloadingReport">
+          <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>Downloading! </strong> Please check after some time
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+
+
         <div class="scrollable-container mt-1">
           <div *ngFor="let projectInfo of projectInfos">
             <app-project-info
@@ -85,6 +96,7 @@
               (projectAssignedEvent)="projectAssigned($event)"
               (markCompletedEvent)="markedCompleted($event)"
               (projectEventDeletedEvent)="projectEventDeletedEvent($event)"
+              (isDownloading)="reportDownloadEvent($event)"
             ></app-project-info>
           </div>
         </div>
