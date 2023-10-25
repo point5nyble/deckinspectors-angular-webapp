@@ -5,5 +5,12 @@
 
 .separator {
   color: #777; /* Set the separator color */
-  margin: 0 5px; /* Add some spacing around the separator */
+  margin: 0 5px; 
+  font-weight: bold;
+  opacity: 1;/* Add some spacing around the separator */
+}
+.folder1{
+  color: #203EEA; /* Set the folder name color */
+  font-weight: bold;
+  font:inter;
 }

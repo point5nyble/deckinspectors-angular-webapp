@@ -1,27 +1,83 @@
-<div class="horizontal-div border border-secondary mt-2">
-  <div class="profile-section">
-    <div>
-      <div>
-        <span class="name"> {{projectInfo.name }} </span>
+<div class="horizontal-div  mt-2">
+      <div class="profile-section">
+          <div>
+            <b>{{projectInfo.name }} &nbsp;</b>
+          </div>
+          <div style="display: flex;">
+            <b>Description: &nbsp;</b>
+            <p>{{  projectInfo.description }}</p>
+          </div>
       </div>
-      <div>
-        <b>Description: </b> {{ projectInfo.description }} <b>       Assigned To : </b> {{projectInfo.assignedto.join(',')}}
-        <strong>Type: </strong><span *ngIf="projectInfo.projecttype === 'singlelevel'">Single</span>
+
+      <div style="color: blue;" class="AssignTo">
+          <!-- {{projectInfo.assignedto.join(',')}} -->
+          <ng-container *ngFor="let member of projectInfo.assignedto; let i = index">
+            <div *ngIf="i % 2 === 0">
+              {{ projectInfo.assignedto[i]}}&nbsp;
+              {{projectInfo.assignedto[i+1]}}
+            </div>
+          </ng-container>
+      </div>
+
+      <!-- <div style="margin-left:10px;">
+        <div>
+          <label for="allow-offline" class="checkbox" (click)="AllowOffline()">
+            <input type="checkbox" id="allow-offline" class="checkbox__input">
+            <div class="checkbox__box"></div>
+          </label>
+        </div>
+      </div> -->
+
+      <div style="margin-left:50px; width:90px;padding-bottom:10px;">
+        <span *ngIf="projectInfo.projecttype === 'singlelevel'">Single</span>
         <span *ngIf="projectInfo.projecttype === 'multilevel'">Multi</span>
       </div>
-    </div>
-  </div>
-  <div>
-    <div class="options-section">
-      <div class="icon-section">
+
+      <div style="margin-left:20px;padding-bottom:10px;">
         <span *ngIf="isAdmin" class="bi bi-person-circle" (click)="openAssignProjectModal()" title="Assign users to project"></span>
-        <span class="bi bi-upload icon" (click)="openUploadFilesModal()" title="Upload project documents"></span>
-        <span class="bi bi-download icon" (click)="openDownloadReportModal()" title="Download project reports"></span>
+      </div>
+
+      <!-- This select is for status -->
+      
+      <!-- <div style="margin-left:60px;">
+        <div class="custom-select">
+          <div class="select-icon">
+              <i class="fas fa-circle green-dot" (click)="StatusCheck()"></i>
+          </div>
+          <div class="select" (click)="StatusCheck()">
+            <b >Running</b>
+          </div>
+          <div class="dropdown-arrow">
+              <i class="fas fa-chevron-down" (click)="StatusCheck()"></i>
+          </div>
+        </div>
+      </div> -->
+
+      <div style="margin-left:100px;">
+        <!-- <span class="bi bi-upload icon" (click)="openUploadFilesModal()" title="Upload project documents"></span> -->
+        <span class="material-symbols-outlined icon" (click)="openUploadFilesModal()">upload</span>
+      </div>
+
+      <div style="margin-left:40px;">
+        <!-- <span class="bi bi-download icon" (click)="openDownloadReportModal()" title="Download project reports"></span> -->
+        <span class="material-symbols-outlined icon" (click)="openDownloadReportModal()">download</span>
+      </div>
+
+      <div style="margin-left:40px;">
+<!--        <span class="bi bi-lightning icon" (click)="markComplete()" title="Mark project complete"></span>-->
         <span *ngIf="!projectInfo.iscomplete" class="bi bi-check2-square icon" (click)="markComplete()" title="Mark project complete"></span>
         <span *ngIf="projectInfo.iscomplete" class="bi bi-arrow-repeat" (click)="markComplete()" title="Move in progess"></span>
-        <!-- <span class="bi bi-file icon" (click)="moveProjectToFolder()" title="Move project to a folder"></span> -->
+        <!-- <span class="material-symbols-outlined">bolt</span> -->
+      </div>
+
+      <div style="margin-left:40px;">
+        <!-- <span class="bi bi-file icon" title="Move project to a folder"></span> -->
+        <span class="material-symbols-outlined icon" title="Move project to a folder" (click)="folderOpen()">folder_open</span>
+      </div>
+
+      <div style="margin-left:40px;">
+        <!-- <span class="bi bi-file icon" title="Move project to a folder"></span> -->
         <span class="bi bi-trash icon" title="Delete Project" (click)="deleteProject()"></span>
       </div>
-    </div>
-  </div>
 </div>
+

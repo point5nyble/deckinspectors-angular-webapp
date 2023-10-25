@@ -8,9 +8,9 @@
     </div>
     <div class="add-edit">
       <div *ngIf="showAddBtn()" (click)="openVisualDeckReportModal()" class="mr-3">
-        <i class="fas fa-plus"></i>
+        <i class="fas fa-plus"></i>Add new
       </div>
-      <div>
+      <div class="edit-button">
         <i class="fas fa-edit edit-btn" (click)="editVisualDeckReportModal()"></i>
       </div>
     </div>
@@ -24,6 +24,7 @@
     </div>
   </div>
 
+  <div class="projectInfo">
   <!-- Show app-section-info and app-section-photos when add_data is false -->
   <app-section-info class="flex-item" [rows]="rows" *ngIf="isRecordFound"></app-section-info>
   <app-section-photos [images]="images" [rows]="rows" class="flex-item" *ngIf="isRecordFound"></app-section-photos>
