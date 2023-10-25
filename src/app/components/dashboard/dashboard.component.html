@@ -13,6 +13,11 @@
   <div class="project-container">
     <app-sidebar class="flex"></app-sidebar>
     <div class="container-fluid flex">
+      <div *ngIf="showProjectInfo === 'home'" class="AllProjectAndRefresh">
+        <div class="AllProject">All Project</div>
+        <div class="refreshIcon"><span class="bi bi-arrow-repeat"></span>&nbsp;Refresh</div>
+      </div>
+
       <div *ngIf="showProjectInfo === 'home'" class="project-list-container">
         <app-filter
         (searchedTerm)="projectSearch($event)"
