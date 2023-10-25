@@ -43,7 +43,7 @@ export class SectionComponent implements OnInit{
   private englishNamesMap!: { [key: string]: string };
   showConclusiveSection:boolean = false;
   showBtn: boolean = false;
-
+  isSaving: boolean = false;
 
   constructor(private dialog: MatDialog,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -123,12 +123,14 @@ export class SectionComponent implements OnInit{
         this.constructRows();
         this.isRecordFound = true;
         console.log(response);
+        this.isSaving = false;
       },
       error => {
         // Check this logic
         if (error.error.code === 401 || error.error.code === 500) {
           this.isRecordFound = false;
         }
+        this.isSaving = false;
         console.log(error);
       }
     );
@@ -154,6 +156,7 @@ export class SectionComponent implements OnInit{
       furtherinvasivereviewrequired: "Further Invasive Review Required",
       conditionalassessment: "Conditional Assessment",
       additionalconsiderations: "Additional Considerations or Concerns",
+      additionalconsiderationshtml: "Additional Considerations or Concerns Html",
       eee: "Life Expectancy Exterior Elevated Elements (EEE)",
       lbc: "Life Expectancy Load Bearing Componenets (LBC)",
       awe: "Life Expectancy Associated Waterproofing Elements (AWE)",
@@ -277,6 +280,7 @@ export class SectionComponent implements OnInit{
   }
 
   private editSection(data:any) {
+    this.isSaving = true;
     let request = null;
     if (this.sectionState === SectionState.VISUAL) {
       request = this.createSectionData(data);
@@ -304,6 +308,7 @@ export class SectionComponent implements OnInit{
         this.images = [];
         console.log(error)
         this.isRecordFound = false;
+        this.isSaving = false;
       }
     );
   }
@@ -361,6 +366,7 @@ export class SectionComponent implements OnInit{
       "name": data?.visualReportName,
       "unitUnavailable": data?.unitUnavailable === true,
       "additionalconsiderations": data?.additionalConsiderationsOrConcern,
+      "additionalconsiderationshtml": data?.additionalConsiderationsOrConcernHtml,
       "awe": data?.AWE,
       "conditionalassessment": data?.conditionAssessment,
       "createdby": "deck",

@@ -28,6 +28,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   projectState!: ProjectState;
   disableInvasiveBtn: boolean = false;
   enableDefaultImage: boolean = false;
+  sequenceNumber!: string | undefined;
   // List of subscription
   private subscription:any[] = [];
   currentProjectId!: string;
@@ -46,6 +47,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   public ngOnInit(): void {
     this.subscribeToProjectInfo();
     this.subscribeToProjectState();
+    this.sequenceNumber = this.projectInfo.sequenceNumber;
   }
 
   private subscribeToProjectState() {
@@ -97,6 +99,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   }
 
   public editLocation() {
+    console.log(this.projectInfo);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -106,15 +109,22 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
       id: 1,
       projectInfo:this.projectInfo,
       process: 'edit',
-      type: this.projectInfo.type
+      type: this.projectInfo.type,
+      sequenceNumber: this.sequenceNumber
     };
     if (this.projectInfo.type === 'project') {
       const dialogRef = this.dialog.open(NewProjectModalComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(data => {
+        setTimeout(() => {
+          this.fetchProjectIdFromState();
+        },1000)
       })
     } else {
       const dialogRef = this.dialog.open(NewLocationModalComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(data => {
+        setTimeout(() => {
+          this.fetchProjectIdFromState();
+        },1000)
       })
     }
     console.log(dialogConfig.data);
@@ -124,6 +134,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
     this.subscription.push(
     this.store.select(BackNavigation.getPreviousStateModelChain).pipe(take(1)).subscribe((previousState: any) => {
       this.projectInfo = previousState.stack[previousState.stack.length - 1];
+      console.log(this.projectInfo);
       if (this.projectInfo.type === 'subproject') {
         this.projectType = 'subproject';
         let subprojectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
@@ -146,7 +157,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
     );
   }
   private fetchProjectDetails(projectid: string) {
-    if (this.currentProjectId !== projectid) {
+    // if (this.currentProjectId !== projectid) {
       this.currentProjectId = projectid;
       let url = environment.apiURL + '/project/getProjectById';
       let data = {
@@ -162,10 +173,10 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
           console.log(error)
         }
       );
-    }
+    // }
   }
   private fetchSubprojectDetails(projectid: string) {
-    if (this.currentProjectId !== projectid) {
+    // if (this.currentProjectId !== projectid) {
       this.currentProjectId = projectid;
       let url = environment.apiURL + '/subproject/getSubProjectById';
       let data = {
@@ -180,10 +191,10 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
           console.log(error)
         }
       );
-    }
+    // }
   }
   private fetchLocationDetails(projectid: string) {
-    if (this.currentProjectId !== projectid) {
+    // if (this.currentProjectId !== projectid) {
         this.currentProjectId = projectid;
 
     let url = environment.apiURL + '/location/getLocationById';
@@ -199,7 +210,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
         console.log(error)
       }
     );
-    }
+    // }
   }
 
   public downloadExcel() {
@@ -215,24 +226,24 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
     });
     this.http.post<any>(url, data, { headers, responseType: 'blob' as 'json' }).subscribe(
       (response: any) => {
-        console.log(response);  
-        const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });   
+        console.log(response);
+        const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         // Create the date string in the format "daythMonthYear" (e.g., "18thSept2023")
         const currentDate = new Date();
-        const dateStr = `${currentDate.getDate()}th${currentDate.toLocaleString('default', { month: 'short' })}${currentDate.getFullYear()}`;    
-        const fileName = `${this.projectInfo.name}_${dateStr}.xlsx`;    
+        const dateStr = `${currentDate.getDate()}th${currentDate.toLocaleString('default', { month: 'short' })}${currentDate.getFullYear()}`;
+        const fileName = `${this.projectInfo.name}_${dateStr}.xlsx`;
         const downloadLink = document.createElement('a');
-        downloadLink.href = window.URL.createObjectURL(blob); 
-        downloadLink.setAttribute('download', fileName);    
-        document.body.appendChild(downloadLink);    
-        downloadLink.click();    
+        downloadLink.href = window.URL.createObjectURL(blob);
+        downloadLink.setAttribute('download', fileName);
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
         document.body.removeChild(downloadLink);
       },
       (error: any) => {
         console.log(error);
         alert('Error');
       }
-    );    
+    );
   }
   showDefaultImage = () =>{
     this.enableDefaultImage = true;

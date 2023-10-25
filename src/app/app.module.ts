@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -55,7 +54,10 @@ import { FoldersComponent } from './components/folders/folders.component';
 import { ModalComponent } from './components/common/modal/modal.component';
 import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { DeleteConfirmationModalComponent } from './forms/delete-confirmation-modal/delete-confirmation-modal.component';
-
+import { ProjectDescriberComponent } from './components/dashboard/project-describer/project-describer.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ReplaceFinalreportModalComponent } from './forms/replace-finalreport-modal/replace-finalreport-modal.component';
+import { ReportsComponent } from './forms/download-files-modal/reports/reports.component';
 
 
 @NgModule({
@@ -80,6 +82,7 @@ import { DeleteConfirmationModalComponent } from './forms/delete-confirmation-mo
     UploadFilesModalComponent,
     DownloadFilesModalComponent,
     VisualDeckReportModalComponent,
+    ReportsComponent,
     DownloadSpecificReportComponent,
     ProjectDetailsComponent,
     NewLocationModalComponent,
@@ -94,6 +97,9 @@ import { DeleteConfirmationModalComponent } from './forms/delete-confirmation-mo
     FoldersComponent,
     ModalComponent,
     DeleteConfirmationModalComponent,
+    ModalComponent,
+    ProjectDescriberComponent,
+    ReplaceFinalreportModalComponent
   ],
   imports: [
     BrowserModule,
@@ -119,7 +125,8 @@ import { DeleteConfirmationModalComponent } from './forms/delete-confirmation-mo
     MatSlideToggleModule,
     MatSliderModule,
     MatRadioModule,
-    LocationListComponent
+    LocationListComponent,
+    AngularEditorModule
   ],
   providers: [MdbModalService],
   bootstrap: [AppComponent]

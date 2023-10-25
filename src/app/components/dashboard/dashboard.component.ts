@@ -32,6 +32,9 @@ export class DashboardComponent implements OnInit
   isDeleteFail: boolean = false;
   showProjectCompleteAlert: boolean = false;
   showProjectInProgressAlert: boolean = false;
+  downloadingReport: boolean = false;
+  isFileUploaded: boolean = false;  //final report template
+  isFileNotUploaded: boolean = false;  //final report template
     constructor(private cdr: ChangeDetectorRef,
                 private httpsRequestService:HttpsRequestService,
                 private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -42,7 +45,7 @@ export class DashboardComponent implements OnInit
     ngOnInit(): void {
       this.performUserLoginSteps();
       this.subscribeToshowProjectInfoToggle();
-      // To clear all exsting projects 
+      // To clear all exsting projects
       this.gotoHome();
     }
 
@@ -139,6 +142,7 @@ export class DashboardComponent implements OnInit
       this.showProjectInfo = data;
       if (data === 'home') {
         // this.disableInvasiveBtn = false;
+        this.fetchProjectData();
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.PROJECT_STATE_UPDATE, {state:ProjectState.VISUAL});
       }
     })
@@ -252,6 +256,11 @@ export class DashboardComponent implements OnInit
   }
 }
 
+fileUploaded(isUploaded: boolean){
+  isUploaded? this.isFileUploaded = isUploaded : this.isFileNotUploaded = isUploaded;
+  setTimeout(this.removeNotification, 5000);
+}
+
 markedCompleted = (completed: boolean) =>{
   if (completed){
     this.fetchProjectData();
@@ -270,6 +279,9 @@ removeNotification = () =>{
   this.apiCalled = false;
   this.isDeleteSuccess = false;
   this.isDeleteFail = false;
+  this.isFileUploaded = false;
+  this.isFileNotUploaded = false;
+  this.downloadingReport = false;
 }
 
   projectEventDeletedEvent($event: any) {
@@ -282,6 +294,12 @@ removeNotification = () =>{
   else{
     this.isDeleteFail = $event.state;
   }
+    setTimeout(this.removeNotification, 5000);
+  }
+
+  reportDownloadEvent($event: any){
+    console.log(`is report downloading: ${$event}`);
+    this.downloadingReport = $event;
     setTimeout(this.removeNotification, 5000);
   }
 }

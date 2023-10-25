@@ -1,7 +1,9 @@
 .container {
   display: flex;
-  flex-direction: column;
-  border-radius: 5px;
+  flex:1;
+  background-color: #fff;
+  flex-direction:column;
+  border-radius: 8px;
   cursor: pointer;
 }
 
@@ -12,8 +14,20 @@
 .name{
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+.info{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
 .icon{
 font-size: larger;
+}
+p{
+  color: blue;
+}
+.text-muted{
+  display: flex;
 }
