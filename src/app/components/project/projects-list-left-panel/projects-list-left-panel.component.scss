@@ -1,15 +1,15 @@
 .left-panel {
   padding: 10px;
-  width: 200px; /* Set the initial width */
+  width: 309px;
+  height: 863px; /* Set the initial width */
   transition: width 0.3s ease; /* Add transition for smooth resizing */
   overflow-x: scroll; /* Hide horizontal overflow */
   white-space: nowrap;
   overflow-y: auto; /* Enable vertical scrolling if needed */
   resize: horizontal; /* Enable resizing */
-  min-width: 200px; /* Set the minimum width */
+  min-width: 309px; /* Set the minimum width */
   max-width: 700px; /* Set the maximum width if desired */
-  scrollbar-width: thin;
-  scrollbar-color: #888888 transparent;
+  // scrollbar-width: thin;
   background-color: #fff;
   border-radius: 16px;
   margin-top: 20px;
@@ -20,9 +20,7 @@
   width: 50px!important;
   min-width: 50px;
 }
-// .collapsed::after{
-//   width: 309px!important;
-// }
+
 .scrollable-container {
   /* Override the property */
   max-height: 100%;

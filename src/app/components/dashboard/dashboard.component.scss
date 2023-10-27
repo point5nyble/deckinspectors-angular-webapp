@@ -85,7 +85,7 @@
 .project-container{
   display: flex;
   flex: 1;
-  overflow: auto;
+  // overflow: auto;
   padding: 20px;
 }
 
@@ -127,4 +127,8 @@
 .bi-arrow-repeat{
   width: 24px;
   height: 24px;
+}
+
+.project-describer{
+  padding-top: 10px;
 }

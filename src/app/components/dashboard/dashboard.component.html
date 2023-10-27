@@ -81,7 +81,7 @@
           </div>
         </div>
 
-        <app-project-describer></app-project-describer>
+        <app-project-describer *ngIf="showProjectInfo === 'home'" class="project-describer"></app-project-describer>
 
 
         <div *ngIf="downloadingReport">
