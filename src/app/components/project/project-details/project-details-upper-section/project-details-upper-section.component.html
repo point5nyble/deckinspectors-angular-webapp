@@ -12,21 +12,27 @@
 
   <div class="horizontal-div  mt-2">
     <div class="ProjectInformation flex-item">
-
       <div class="ProjectName">
         <strong>Project Name</strong>
         <div class="info-heading">
           {{ projectInfo.name }}
         </div>
       </div>
-      <div class="Description">
+      <div class="Description" *ngIf="projectInfo.type === 'project'">
         <strong>Description</strong>
         <div class="DescriptionBox">
           {{ projectInfo.description }}
         </div>
       </div>
+
+      <div class="DescriptionSubProject" *ngIf="projectInfo.type != 'project'">
+        <strong>Description</strong>
+        <div class="DescriptionBoxSubProject">
+          {{ projectInfo.description }}
+        </div>
+      </div>
      
-      <div class="Address">
+      <div class="Address" *ngIf="projectInfo.type === 'project'">
         <strong>Address</strong>
         <div class="AddressBox">
           <p *ngIf="projectType !== 'location'" class="address" style="margin-bottom: 10px;">{{ projectInfo.address }}</p>

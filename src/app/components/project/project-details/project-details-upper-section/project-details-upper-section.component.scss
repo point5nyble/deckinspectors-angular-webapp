@@ -4,11 +4,7 @@
   padding: 10px;
   border-radius: 16px;
   width: 792;
-  height:339px;
-}
-
-.info-section {
-  margin-top:20px;
+  // height:339px;
 }
 
 .flex-item {
@@ -63,8 +59,8 @@ button{
   display: flex;
   flex: 1;
   flex-direction: column;
- justify-content: space-around;
- padding-bottom: 10px;
+//  justify-content: space-around;
+  row-gap: 10px;
 }
 
 .fa-arrow-left{
@@ -76,29 +72,42 @@ button{
   align-items: center;
 }
 
-.ProjectName{
+
+
+
+.ProjectName{   
   display: flex;
   flex-direction: column;
-  width:436px;
-  height: 68px;
+  flex:1;
+  min-width:436px;
+  max-height: 68px;
 }
+
+
 .Description{
   display: flex;
   flex-direction: column;
-  width:436px;
-  height:89px;
+  flex:1;
+  min-width:436px;
+  max-height:89px;
 }
-.Address{
+
+.Address
+{
   display: flex;
   flex-direction: column;
-  width:436px;
-  width:68px;
+  flex:1;
+  min-width:436px;
+  max-width:68px;
 }
+ 
+
 
 
 .DescriptionBox{
-  width:436px;
-  height:63px;
+  min-width:436px;
+  max-height:63px;
+  flex:1;
   border:solid #A79C9CB2 1px;
   border-radius:8px;
   padding:12px, 19px, 12px, 19px;
@@ -106,8 +115,11 @@ button{
 }
 
 .AddressBox{
-  width:436px;
-  height:42px;
+  display: flex;
+  flex-direction: column;
+  min-width:436px;
+  max-height:42px;
+  flex:1;
   border:solid #A79C9CB2 1px;
   border-radius:10px;
   padding:12px, 19px, 12px, 19px;
@@ -115,8 +127,9 @@ button{
 }
 
 .info-heading{
-  width: 436px;
-    height:42px;
+    min-width: 436px;
+    max-height:42px;
+    flex:1;
     border:solid #A79C9CB2 1px;
     border-radius:8px;
     padding:10px;
@@ -133,3 +146,24 @@ button{
   background-color: #FFFFFF;
   border-radius: 8px;
 }
+
+.DescriptionSubProject{
+  display: flex;
+  flex-direction: column;
+  min-width:436px;
+  max-height:179px;
+  flex:1;
+}
+
+.DescriptionBoxSubProject{
+  display: flex;
+  flex-direction: column;
+  min-width:436px;
+  max-height:153px;
+  padding: 10px;
+  flex:1;
+  border:solid #A79C9CB2 1px;
+  border-radius: 8px;
+}
+
+
