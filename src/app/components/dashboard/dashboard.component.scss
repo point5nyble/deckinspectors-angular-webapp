@@ -70,7 +70,8 @@
   display: flex;
   justify-content: end;
   align-items: center;
-  height: 62px;
+  background-color:#FFFFFF;
+  height: 116px;
   width: 100%;
 }
 
@@ -81,10 +82,11 @@
   height: 100%;
 }
 
-.project-container {
+.project-container{
   display: flex;
   flex: 1;
-  overflow: auto;
+  // overflow: auto;
+  padding: 20px;
 }
 
 .project-list-container {
@@ -95,4 +97,42 @@
 
 .flex {
   display: flex;
+}
+
+.container-fluid{
+  flex-direction: column;
+}
+
+.AllProjectAndRefresh{
+  padding-bottom:10px;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  justify-content: space-between;
+}
+.AllProject{
+  color:#110F4F;
+  font-size: 20px;
+  font-weight: 700;
+  // font: sans;
+}
+
+.refreshIcon{
+  // font: inter;
+  color: #8B8888;
+  font-size: 18.2px;
+  font-weight: 600;
+}
+
+.bi-arrow-repeat{
+  width: 24px;
+  height: 24px;
+}
+
+.project-describer{
+  padding-top: 10px;
+}
+
+.projectInfo{
+  max-height: 600px;
 }

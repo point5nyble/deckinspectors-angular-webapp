@@ -1,5 +1,5 @@
 <div class="main-class">
-  <div class="logo-bar">
+  <div class="logo-bar" *ngIf="showProjectInfo === 'home'">
     <div class="horizontal-frame">
       <div class="company-logo">
         <img class="cursor-pointer" src="../../../assets/images/image_1.png" width="139px" height="59.57px" alt="Button Image" (click)="gotoHome()">
@@ -13,6 +13,11 @@
   <div class="project-container">
     <app-sidebar class="flex"></app-sidebar>
     <div class="container-fluid flex">
+      <div *ngIf="showProjectInfo === 'home'" class="AllProjectAndRefresh">
+        <div class="AllProject">All Project</div>
+        <div class="refreshIcon"><span class="bi bi-arrow-repeat"></span>&nbsp;Refresh</div>
+      </div>
+
       <div *ngIf="showProjectInfo === 'home'" class="project-list-container">
         <app-filter
         (searchedTerm)="projectSearch($event)"
@@ -76,7 +81,7 @@
           </div>
         </div>
 
-        <app-project-describer></app-project-describer>
+        <app-project-describer *ngIf="showProjectInfo === 'home'" class="project-describer"></app-project-describer>
 
 
         <div *ngIf="downloadingReport">
@@ -87,7 +92,7 @@
         </div>
 
 
-        <div class="scrollable-container mt-1">
+        <div class="scrollable-container mt-1 projectInfo">
           <div *ngFor="let projectInfo of projectInfos">
             <app-project-info
               (click)="gotoProject(projectInfo)"
