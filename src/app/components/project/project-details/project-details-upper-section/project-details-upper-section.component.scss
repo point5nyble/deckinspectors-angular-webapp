@@ -60,8 +60,8 @@ button{
   display: flex;
   flex: 1;
   flex-direction: column;
- justify-content: space-around;
- padding-bottom: 10px;
+//  justify-content: space-around;
+  row-gap: 10px;
 }
 
 .fa-arrow-left{
@@ -73,24 +73,33 @@ button{
   align-items: center;
 }
 
-.ProjectName{
+
+
+
+.ProjectName{   
   display: flex;
   flex-direction: column;
   width:100%;
   max-height: 68px;
 }
+
+
 .Description{
   display: flex;
   flex-direction: column;
   width:100%;
   max-height:89px;
 }
-.Address{
+
+.Address
+{
   display: flex;
   flex-direction: column;
   width:100%;
   max-height:68px;
 }
+ 
+
 
 
 .DescriptionBox{
