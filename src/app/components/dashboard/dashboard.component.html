@@ -4,18 +4,15 @@
       <div class="company-logo">
         <img class="cursor-pointer" src="../../../assets/images/image_1.png" width="139px" height="59.57px" alt="Button Image" (click)="gotoHome()">
       </div>
-      <div class="projects">
-        <img src="../../../assets/images/Projects.png" width="161px" height="36px" alt="Button Image">
-      </div>
     </div>
 <!--    <button class="btn btn-secondary" (click)="changeProjectState()" [disabled]="disableInvasiveBtn">{{projectState}}</button>-->
   </div>
   <div class="project-container">
     <app-sidebar class="flex"></app-sidebar>
     <div class="container-fluid flex">
+
       <div *ngIf="showProjectInfo === 'home'" class="AllProjectAndRefresh">
         <div class="AllProject">All Project</div>
-        <div class="refreshIcon"><span class="bi bi-arrow-repeat"></span>&nbsp;Refresh</div>
       </div>
 
       <div *ngIf="showProjectInfo === 'home'" class="project-list-container">
@@ -92,7 +89,7 @@
         </div>
 
 
-        <div class="scrollable-container mt-1">
+        <div class="scrollable-container  projectInfoContainer">
           <div *ngFor="let projectInfo of projectInfos">
             <app-project-info
               (click)="gotoProject(projectInfo)"

@@ -19,17 +19,25 @@
           {{ projectInfo.name }}
         </div>
       </div>
-      <div class="Description">
+
+      <div class="Description" *ngIf="projectType !== 'location'">
         <strong>Description</strong>
         <div class="DescriptionBox">
           {{ projectInfo.description }}
         </div>
       </div>
+
+      <div class="DescriptionLocation" *ngIf="projectType === 'location'">
+        <strong>Description</strong>
+        <div class="DescriptionBoxLocation">
+          {{ projectInfo.description }}
+        </div>
+      </div>
      
-      <div class="Address">
+      <div class="Address" *ngIf="projectType !== 'location'">
         <strong>Address</strong>
         <div class="AddressBox">
-          <p *ngIf="projectType !== 'location'" class="address" style="margin-bottom: 10px;">{{ projectInfo.address }}</p>
+          <p  class="address" style="margin-bottom: 10px;">{{ projectInfo.address }}</p>
         </div>
       </div>
       

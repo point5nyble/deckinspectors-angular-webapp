@@ -5,11 +5,12 @@
   transition: 0.3s;
   background-color: #fff;
   border: solid #fff 2px;
-  border-radius: 10px;
+  // border-radius: 10px;
   /* Add padding to the top */
   padding: 20px 10px 10px;
   justify-content: space-between;
   cursor: pointer;
+  border-bottom: solid #A7A5A5 2px;
 }
 
 .horizontal-div:hover {
