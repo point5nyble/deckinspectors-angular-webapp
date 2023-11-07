@@ -1,4 +1,4 @@
-<div class="horizontal-div  mt-2">
+<div class="horizontal-div">
       <div class="profile-section">
           <div>
             <b>{{projectInfo.name }} &nbsp;</b>
@@ -53,28 +53,23 @@
         </div>
       </div> -->
 
-      <div style="margin-left:100px;">
+      <div style="margin-left:90px;">
         <!-- <span class="bi bi-upload icon" (click)="openUploadFilesModal()" title="Upload project documents"></span> -->
         <span class="material-symbols-outlined icon" (click)="openUploadFilesModal()">upload</span>
       </div>
 
-      <div style="margin-left:40px;">
+      <div style="margin-left:50px;">
         <!-- <span class="bi bi-download icon" (click)="openDownloadReportModal()" title="Download project reports"></span> -->
         <span class="material-symbols-outlined icon" (click)="openDownloadReportModal()">download</span>
       </div>
 
-      <div style="margin-left:40px;">
+      <div style="margin-left:50px;">
 <!--        <span class="bi bi-lightning icon" (click)="markComplete()" title="Mark project complete"></span>-->
         <span *ngIf="!projectInfo.iscomplete" class="bi bi-check2-square icon" (click)="markComplete()" title="Mark project complete"></span>
         <span *ngIf="projectInfo.iscomplete" class="bi bi-arrow-repeat" (click)="markComplete()" title="Move in progess"></span>
         <!-- <span class="material-symbols-outlined">bolt</span> -->
       </div>
-
-      <!-- <div style="margin-left:40px;">
-        <span class="material-symbols-outlined icon" title="Move project to a folder" (click)="folderOpen()">folder_open</span>
-      </div> -->
-
-      <div style="margin-left:40px;">
+      <div style="margin-left:30px;">
         <!-- <span class="bi bi-file icon" title="Move project to a folder"></span> -->
         <span class="bi bi-trash icon" title="Delete Project" (click)="deleteProject()"></span>
       </div>

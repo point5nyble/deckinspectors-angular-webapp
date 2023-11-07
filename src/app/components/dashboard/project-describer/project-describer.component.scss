@@ -10,20 +10,20 @@ ul{
     display: flex;
     align-items: center;
     justify-content: center;
-    justify-content: space-between;
+    justify-content: space-around;
     flex:1;
 }
 li{
     list-style: none;
 }
 #A_User{
-    margin-left:300px;
+    margin-left:270px;
 }
 #A_Offline{
     margin-left:100px;
 }
 #Type{
-    margin-left:120px;
+    margin-left:140px;
 }
 #As_User{
     width:130px;
@@ -32,10 +32,7 @@ li{
     margin-left:20px;
 }
 .Icons{
-    margin-left:15px;
-}
-.Folder{
-    margin-left:10px;
+    margin-left:5px;
 }
 
 p{

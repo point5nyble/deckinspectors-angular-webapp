@@ -71,7 +71,7 @@
   justify-content: end;
   align-items: center;
   background-color:#FFFFFF;
-  height: 116px;
+  height: 62px;
   width: 100%;
 }
 
@@ -85,14 +85,18 @@
 .project-container{
   display: flex;
   flex: 1;
-  // overflow: auto;
-  padding: 20px;
+  overflow: hidden;
+  padding: 10px;
 }
 
 .project-list-container {
   display: flex;
   flex-direction: column;
   flex: 1;
+  background-color: #ffff;
+  min-width:1115px;
+  min-height: 781px;
+  border-radius: 16px;
 }
 
 .flex {
@@ -104,11 +108,7 @@
 }
 
 .AllProjectAndRefresh{
-  padding-bottom:10px;
-  display: flex;
-  align-items: center;
-  justify-content:center;
-  justify-content: space-between;
+  padding-left: 10px;
 }
 .AllProject{
   color:#110F4F;
@@ -117,22 +117,18 @@
   // font: sans;
 }
 
-.refreshIcon{
-  // font: inter;
-  color: #8B8888;
-  font-size: 18.2px;
-  font-weight: 600;
-}
-
 .bi-arrow-repeat{
   width: 24px;
   height: 24px;
 }
 
 .project-describer{
-  padding-top: 10px;
+  background-color: #E8F2FF;
+  max-height: 32px;
+  padding-top: 5px;
 }
 
-.projectInfo{
-  max-height: 600px;
+.projectInfoContainer{
+  max-height: 700px;
+  row-gap:0px;
 }
