@@ -9,7 +9,7 @@
           </div>
       </div>
 
-      <div style="color: blue;" class="AssignTo">
+      <div class="AssignTo">
           <!-- {{projectInfo.assignedto.join(',')}} -->
           <ng-container *ngFor="let member of projectInfo.assignedto; let i = index">
             <div *ngIf="i % 2 === 0">
@@ -28,13 +28,15 @@
         </div>
       </div> -->
 
-      <div style="margin-left:50px; width:90px;padding-bottom:10px;">
+      <div  style="margin-left:50px; width:90px;padding-bottom:10px;">
         <span *ngIf="projectInfo.projecttype === 'singlelevel'">Single</span>
         <span *ngIf="projectInfo.projecttype === 'multilevel'">Multi</span>
       </div>
 
-      <div style="margin-left:20px;padding-bottom:10px;">
+      <div class="AssignUser" (click)="openAssignProjectModal()">
         <span *ngIf="isAdmin" class="bi bi-person-circle" (click)="openAssignProjectModal()" title="Assign users to project"></span>
+        <span class="AssignUsertext">Assign User&nbsp;</span>
+        <span class="fas fa-chevron-down"></span>
       </div>
 
       <!-- This select is for status -->
@@ -53,7 +55,7 @@
         </div>
       </div> -->
 
-      <div style="margin-left:90px;">
+      <div style="margin-left:70px;">
         <!-- <span class="bi bi-upload icon" (click)="openUploadFilesModal()" title="Upload project documents"></span> -->
         <span class="material-symbols-outlined icon" (click)="openUploadFilesModal()">upload</span>
       </div>
