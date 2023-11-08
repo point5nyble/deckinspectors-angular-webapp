@@ -175,6 +175,9 @@ export class SectionComponent implements OnInit{
     this.rows = [];
     this.rowsMap = new Map<string,string>();
     if (this.sectionReport != null || this.sectionReport != undefined) {
+      if (this.sectionReport['additionalconsiderationshtml'] === null || this.sectionReport['additionalconsiderationshtml'] === undefined){
+        this.sectionReport['additionalconsiderationshtml'] = this.sectionReport['additionalconsiderations'];
+      }
       for (let key in this.englishNamesMap) {
         if (this.englishNamesMap.hasOwnProperty(key) && this.sectionReport[key] !== null && this.sectionReport[key] !== undefined) {
           const value:string = this.englishNamesMap[key];
