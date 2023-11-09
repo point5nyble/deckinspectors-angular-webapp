@@ -6,36 +6,22 @@
   min-width: 792px;
   max-height:339px;
 }
-
-
 .flex-item {
   flex: 1;
 }
-
 .flex-item p {
   margin: 0;
 }
-
 .image-section {
-  // max-height: 250px;
-  // max-width: 320px;
-  margin-left: 20px;
   text-align: center;
 }
-.image-section img {
-  // max-height: 250px;
-  // max-width: 320px;
+.Main-image-section img{
+  max-width: 300px; 
+  max-height: 200px;
   object-fit:contain;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
-.Main-image-section{
-  width:320;
-  height: 250;
-}
-
-
 .navigation-line {
   display: flex;
   justify-content: space-between;
@@ -60,8 +46,8 @@ button{
   display: flex;
   flex: 1;
   flex-direction: column;
-//  justify-content: space-around;
-  row-gap: 10px;
+  row-gap: 15px;
+  min-width:60%;
 }
 
 .fa-arrow-left{
@@ -107,7 +93,7 @@ button{
   height:63px;
   border:solid #A79C9CB2 1px;
   border-radius:8px;
-  padding:12px, 19px, 12px, 19px;
+  padding:5PX;
   color:#666666BF;
 }
 
@@ -116,9 +102,9 @@ button{
   height:42px;
   border:solid #A79C9CB2 1px;
   border-radius:10px;
-  padding:12px, 19px, 12px, 19px;
+  padding-left:5px;
   color:#666666BF;
-  overflow: auto;
+  overflow:hidden;
 }
 
 .info-heading{
@@ -126,9 +112,8 @@ button{
     height:42px;
     border:solid #A79C9CB2 1px;
     border-radius:8px;
-    padding:10px;
     color:#666666BF;
-    padding: 12px, 19px, 12px, 19px;
+    padding: 5px;
  }
 
 .edit_icon{
@@ -153,6 +138,6 @@ button{
   height:140px;
   border:solid #A79C9CB2 1px;
   border-radius:8px;
-  padding:12px, 19px, 12px, 19px;
+  padding:5px;
   color:#666666BF;
 }
