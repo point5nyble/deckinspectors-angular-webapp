@@ -11,6 +11,8 @@
   justify-content: space-between;
   cursor: pointer;
   border-bottom: solid #A7A5A5 2px;
+  min-height:95px;
+  max-height: 95px;
 }
 
 .horizontal-div:hover {
@@ -58,7 +60,9 @@
   cursor: pointer;
   opacity:0.9;
 }
-
+.fas:hover{
+  color: #007bff;
+}
 .select{
   width: 200px;
   height: 50px;
@@ -113,7 +117,10 @@
 }
 
 .AssignTo{
-  width:200px;
+  width:150px;
+  max-height: 50px;
+  color: blue;
+  overflow: clip;
 }
 .profile-section{
   display: flex;
@@ -122,4 +129,25 @@
   margin-right: 20px;
   width: 400px;
 }
+
+.AssignUser{
+  padding-bottom:10px;
+  width:135px;
+  height: 40px;
+  border: solid #AAA9A9 1px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding:5px;
+}
+
+.AssignUsertext{
+  font-size: 13px;
+  color:#6D6A6A;
+}
+.AssignUsertext:hover{
+  color:#007bff;
+}
+
 
