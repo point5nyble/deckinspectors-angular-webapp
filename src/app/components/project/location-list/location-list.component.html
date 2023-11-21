@@ -1,6 +1,7 @@
-<div class="horizontal-div border border-secondary full-height">
+<div class="horizontal-div  full-height">
   <div class="header-component">
-    <div class="flex-item"><span style="margin-right: 5px"><b>{{ header }}</b></span>
+    <div class="flex-item">
+      <div>{{ header }}</div>
       <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
         <span class="visually-hidden">Loading...</span>
       </span>
@@ -26,7 +27,7 @@
     </div>
   </div>
   
-  <div cdkDropList class="full-width scrollable-container" *ngIf="checkIfSubProject()"  (cdkDropListDropped)="dropProject($event)">
+  <div cdkDropList class="full-width locationInfo scrollable-container" *ngIf="checkIfSubProject()"  (cdkDropListDropped)="dropProject($event)">
     <div *ngFor="let project of subprojectList" cdkDrag>
         <app-location-list-element (click)="onDbClick(project)" [location]="project"
                       [isSubProject]="true"
@@ -37,7 +38,7 @@
         ></app-location-list-element>
     </div>
   </div>
-  <div cdkDropList class="full-width scrollable-container" *ngIf="!checkIfSubProject()"  (cdkDropListDropped)="dropLocation($event)">
+  <div cdkDropList class="full-width locationInfo scrollable-container" *ngIf="!checkIfSubProject()"  (cdkDropListDropped)="dropLocation($event)">
     <div *ngFor="let locationInfo of locationList" cdkDrag>
       <app-location-list-element (click)="onDbClick(locationInfo)"
                     [location]="locationInfo"

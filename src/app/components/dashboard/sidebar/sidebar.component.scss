@@ -1,18 +1,28 @@
 .sidebar {
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
+  background-color: #ffff;
+  border-radius: 16px;
+  max-height: 863px;
+}
+a{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  color: #797575;
+  font-weight: 600;
+  font-size: 15.06px;
 }
 
 .collapsed {
-  width: 75px;
+  width: 96px;
 }
 
 .collapsible {
   display: block;
   width: 100%;
   cursor: pointer;
-  background-color: #f0f0f0;
-  //border: none;
   border-radius: 16px;
   height: 40px;
   text-align: left;
@@ -29,11 +39,10 @@
 
 .sidebar-block{
   display: block;
-  width: 175px;
+  width: 235px;
   top: 136px;
   left: 27px;
   border-radius: 16px;
-  background-color: #f0f0f0;
   flex:1;
 }
 
@@ -71,7 +80,7 @@
 .sidebar-content a {
   display: block;
   padding: 5px;
-  color: #333;
+  color: #797575;
   border-radius: 13px;
   text-decoration: none;
   transition: background-color 0.8s ease-out;

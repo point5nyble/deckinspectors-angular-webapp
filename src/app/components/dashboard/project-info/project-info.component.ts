@@ -19,17 +19,19 @@ export class ProjectInfoComponent {
   @Output() childClickEventTriggered = new EventEmitter<boolean>();
   @Output() markCompletedEvent = new EventEmitter<boolean>();
   @Output() projectEventDeletedEvent = new EventEmitter<any>();
+  @Output() isDownloading = new EventEmitter<boolean>();
+
   constructor(private dialog: MatDialog, private httpsRequestService:HttpsRequestService) { }
 
   isAdmin: boolean = ((JSON.parse(localStorage.getItem('user')!))?.role === "admin");
-
+  Status:String='false';
   openAssignProjectModal() {
     this.childClickEventTriggered.emit(true);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "400px";
-    dialogConfig.height = "350px";
+    dialogConfig.height = "600px";
     dialogConfig.data = {
       project: this.projectInfo
     };
@@ -37,7 +39,6 @@ export class ProjectInfoComponent {
     dialogRef.afterClosed().subscribe(data => {
       this.projectAssignedEvent.emit({isAssigned: data.isAssigned, apiCalled: data.apiCalled});
      })
-
   }
 
   openUploadFilesModal() {
@@ -48,7 +49,7 @@ export class ProjectInfoComponent {
     dialogConfig.width = "600px";
     dialogConfig.height = "700px";
     dialogConfig.data = {
-      id: 1
+      "projectInfo": this.projectInfo
     };
     const dialogRef = this.dialog.open(UploadFilesModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
@@ -64,7 +65,7 @@ export class ProjectInfoComponent {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = "400px";
+    dialogConfig.width = "600px";
     dialogConfig.height = "500px";
     dialogConfig.data = {
       id: 1,
@@ -72,6 +73,7 @@ export class ProjectInfoComponent {
     };
     const dialogRef = this.dialog.open(DownloadFilesModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
+      this.isDownloading.emit(data?.isDownloading);
     })
   }
 
@@ -87,9 +89,9 @@ export class ProjectInfoComponent {
     )
   }
 
-  moveProjectToFolder = () =>{
-    this.childClickEventTriggered.emit(true);
-  }
+  // moveProjectToFolder = () =>{
+  //   this.childClickEventTriggered.emit(true);
+  // }
   deleteProject() {
     this.childClickEventTriggered.emit(true);
     const dialogConfig = new MatDialogConfig();
@@ -107,5 +109,13 @@ export class ProjectInfoComponent {
           console.log(error);
         })
       }})
+  }
+  StatusCheck(){
+    this.childClickEventTriggered.emit(true);
+    this.Status='true';
+  }
+
+  folderOpen(){
+    this.childClickEventTriggered.emit(true);
   }
 }

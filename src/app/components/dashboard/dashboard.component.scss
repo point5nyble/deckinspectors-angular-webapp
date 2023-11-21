@@ -1,6 +1,7 @@
 .dashboard-container {
   display: flex;
   flex-direction: row;
+  flex: 1;
 }
 
 .horizontal-frame {
@@ -9,7 +10,6 @@
   justify-content: flex-start;
   height: 62px;
   width: 100%;
-  background-color: #FFF;
 }
 
 .company-logo {
@@ -71,29 +71,64 @@
   display: flex;
   justify-content: end;
   align-items: center;
+  background-color:#FFFFFF;
   height: 62px;
   width: 100%;
-  background-color: #FFF;
 }
 
 .main-class {
   display: flex;
+  flex: 1;
   flex-direction: column;
+  background-color: #E8F2FF;
   height: 100%;
 }
 
-.project-container {
+.project-container{
   display: flex;
   flex: 1;
-  overflow: auto;
+  overflow: hidden;
+  padding: 10px;
 }
 
 .project-list-container {
   display: flex;
   flex-direction: column;
   flex: 1;
+  background-color: #ffff;
+  min-width:1115px;
+  min-height: 781px;
+  border-radius: 16px;
 }
 
 .flex {
   display: flex;
+}
+
+.container-fluid{
+  flex-direction: column;
+}
+
+.AllProjectAndRefresh{
+  padding-left: 10px;
+}
+.AllProject{
+  color:#110F4F;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.bi-arrow-repeat{
+  width: 24px;
+  height: 24px;
+}
+
+.project-describer{
+  background-color: #E8F2FF;
+  max-height: 32px;
+  padding-top: 5px;
+}
+
+.projectInfoContainer{
+  max-height: 700px;
 }

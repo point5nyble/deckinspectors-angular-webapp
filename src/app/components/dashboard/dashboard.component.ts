@@ -10,6 +10,7 @@ import { ProjectQuery } from "../../app-state-service/project-state/project-sele
 import {LoginService} from "../login/login.service";
 import {Router} from "@angular/router";
 import { environment } from '../../../environments/environment';
+import {BackNavigation} from "../../app-state-service/back-navigation-state/back-navigation-selector";
 
 @Component({
   selector: 'app-dashboard',
@@ -31,6 +32,9 @@ export class DashboardComponent implements OnInit
   isDeleteFail: boolean = false;
   showProjectCompleteAlert: boolean = false;
   showProjectInProgressAlert: boolean = false;
+  downloadingReport: boolean = false;
+  isFileUploaded: boolean = false;  //final report template
+  isFileNotUploaded: boolean = false;  //final report template
     constructor(private cdr: ChangeDetectorRef,
                 private httpsRequestService:HttpsRequestService,
                 private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -41,7 +45,8 @@ export class DashboardComponent implements OnInit
     ngOnInit(): void {
       this.performUserLoginSteps();
       this.subscribeToshowProjectInfoToggle();
-      // this.subscribeToProjectState();
+      // To clear all exsting projects
+      this.gotoHome();
     }
 
   private fetchProjectData() {
@@ -137,6 +142,7 @@ export class DashboardComponent implements OnInit
       this.showProjectInfo = data;
       if (data === 'home') {
         // this.disableInvasiveBtn = false;
+        this.fetchProjectData();
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.PROJECT_STATE_UPDATE, {state:ProjectState.VISUAL});
       }
     })
@@ -154,19 +160,6 @@ export class DashboardComponent implements OnInit
         this.fetchProjectDataToGetLastElement();
       },1000)
   }
-
-  changeProjectState() {
-    this.projectState = this.projectState === ProjectState.VISUAL ? ProjectState.INVASIVE : ProjectState.VISUAL;
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.PROJECT_STATE_UPDATE, {state:this.projectState});
-  }
-
-  private subscribeToProjectState() {
-    this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
-      this.projectState = data.state;
-      this.fetchProjectData();
-    });
-  }
-
   private filterProject(projects:Project[]): Project[] {
     if (this.projectState === ProjectState.INVASIVE) {
       return projects.filter(project => project.isInvasive);
@@ -193,6 +186,15 @@ export class DashboardComponent implements OnInit
   }
 
   gotoHome() {
+    let tempList:any[] = [];
+    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe(chain => {
+      tempList = chain.stack;
+    })
+    tempList.forEach((element:any) => {
+      if (element.name !== 'Home') {
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, '');
+      }
+    })
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN,'home');
   }
 
@@ -254,6 +256,11 @@ export class DashboardComponent implements OnInit
   }
 }
 
+fileUploaded(isUploaded: boolean){
+  isUploaded? this.isFileUploaded = isUploaded : this.isFileNotUploaded = isUploaded;
+  setTimeout(this.removeNotification, 5000);
+}
+
 markedCompleted = (completed: boolean) =>{
   if (completed){
     this.fetchProjectData();
@@ -272,6 +279,9 @@ removeNotification = () =>{
   this.apiCalled = false;
   this.isDeleteSuccess = false;
   this.isDeleteFail = false;
+  this.isFileUploaded = false;
+  this.isFileNotUploaded = false;
+  this.downloadingReport = false;
 }
 
   projectEventDeletedEvent($event: any) {
@@ -284,6 +294,12 @@ removeNotification = () =>{
   else{
     this.isDeleteFail = $event.state;
   }
+    setTimeout(this.removeNotification, 5000);
+  }
+
+  reportDownloadEvent($event: any){
+    console.log(`is report downloading: ${$event}`);
+    this.downloadingReport = $event;
     setTimeout(this.removeNotification, 5000);
   }
 }

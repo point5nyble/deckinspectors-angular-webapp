@@ -1,8 +1,10 @@
 /* CSS */
 .container {
-  background-color: #f7f7f7;
+  width: 174px;
+  height: 50px;
+  background-color: #ffff;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease; /* Add a transition effect for smoother highlight */
   cursor: pointer;
@@ -14,4 +16,11 @@
 .highlighted-section {
   background-color: #e0e0e0;
   font-weight: bold;
+}
+
+b{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 15px;
 }

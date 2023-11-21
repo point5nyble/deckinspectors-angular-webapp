@@ -2,7 +2,7 @@
   display: flex;
   flex: 1;
   gap: 20px;
-  background-color: #f7f7f7;
+  background-color: #E8F2FF;
   padding: 20px;
   border-radius: 5px;
   flex-direction: column;
@@ -19,6 +19,7 @@
   margin-bottom: 10px;
   align-items: baseline;
   width: 100%;
+  background-color: #ffff;
 }
 .icons {
   display: flex;
@@ -49,13 +50,8 @@
 }
 
 button.highlighted {
-  //background-color: yellow;
   background-color: #e0e0e0;
   font-weight: bold;
 }
 
-
-.highlighted-section {
-
-}
 

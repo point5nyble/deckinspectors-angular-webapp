@@ -3,14 +3,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  background-color: #f0f0f0;
-  border-radius: 4px;
+  background-color: #ffff;
+  border-radius: 16px;
+  height: 80px;
 }
 
 .horizontal-div input[type="text"],
 .horizontal-div input[type="date"] {
   padding: 8px;
-  border: none;
+  // border: none;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -21,7 +22,7 @@
 
 .horizontal-div button {
   background-color: transparent;
-  border: none;
+  // border: none;
   cursor: pointer;
   transition: color 0.3s ease;
 }
@@ -41,3 +42,23 @@
   transform: translate(-50%, -50%);
   z-index: 9999;
 }
+
+.buttonAddnew{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border:1px solid #ED7C1C;
+  border-radius: 8px;
+  color: #ED7C1C;
+  width:124px;
+  height:50px;
+}
+
+.horizontal-div input[type="text"]{
+  width: 334px;
+  height: 50px;
+  border: solid #A8A4A4 1px;
+  border-radius:8px;
+  padding: 13px, 69px, 13px, 28px;
+}
+

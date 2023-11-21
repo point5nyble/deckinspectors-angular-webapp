@@ -43,7 +43,7 @@ export class SectionComponent implements OnInit{
   private englishNamesMap!: { [key: string]: string };
   showConclusiveSection:boolean = false;
   showBtn: boolean = false;
-
+  isSaving: boolean = false;
 
   constructor(private dialog: MatDialog,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -82,7 +82,7 @@ export class SectionComponent implements OnInit{
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         console.log(response);
-        this.showConclusiveSection = JSON.parse(response?.sections[0]?.postinvasiverepairsrequired);
+        this.showConclusiveSection = response?.sections[0]?.postinvasiverepairsrequired === "Yes";
       },
       error => {
         console.log(error.error)
@@ -92,6 +92,7 @@ export class SectionComponent implements OnInit{
   }
 
   private fetchDataForGivenSectionId($event: string) {
+    console.log($event);
     if ($event === undefined || $event === '') {
         return;
     }
@@ -114,19 +115,23 @@ export class SectionComponent implements OnInit{
       url = environment.apiURL + '/conclusivesection/getConclusiveSectionsByParentId';
     }
 
+    console.log("fetch section");
+
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         this.sectionReport = (this.sectionState === SectionState.VISUAL)? response.section : response.sections[0];
         this.constructRows();
         this.isRecordFound = true;
         console.log(response);
+        this.isSaving = false;
       },
       error => {
         // Check this logic
         if (error.error.code === 401 || error.error.code === 500) {
           this.isRecordFound = false;
         }
-        console.log(error)
+        this.isSaving = false;
+        console.log(error);
       }
     );
   }
@@ -143,6 +148,7 @@ export class SectionComponent implements OnInit{
   private constructEnglishNameMap() {
     this.englishNamesMap = {
       name: "Name",
+      unitUnavailable: "Unit Unavailable",
       exteriorelements: "Exterior Elements",
       waterproofingelements: "Waterproofing Elements",
       visualreview: "Visual Review",
@@ -150,6 +156,7 @@ export class SectionComponent implements OnInit{
       furtherinvasivereviewrequired: "Further Invasive Review Required",
       conditionalassessment: "Conditional Assessment",
       additionalconsiderations: "Additional Considerations or Concerns",
+      additionalconsiderationshtml: "Additional Considerations or Concerns Html",
       eee: "Life Expectancy Exterior Elevated Elements (EEE)",
       lbc: "Life Expectancy Load Bearing Componenets (LBC)",
       awe: "Life Expectancy Associated Waterproofing Elements (AWE)",
@@ -168,6 +175,9 @@ export class SectionComponent implements OnInit{
     this.rows = [];
     this.rowsMap = new Map<string,string>();
     if (this.sectionReport != null || this.sectionReport != undefined) {
+      if (this.sectionReport['additionalconsiderationshtml'] === null || this.sectionReport['additionalconsiderationshtml'] === undefined){
+        this.sectionReport['additionalconsiderationshtml'] = this.sectionReport['additionalconsiderations'];
+      }
       for (let key in this.englishNamesMap) {
         if (this.englishNamesMap.hasOwnProperty(key) && this.sectionReport[key] !== null && this.sectionReport[key] !== undefined) {
           const value:string = this.englishNamesMap[key];
@@ -185,11 +195,10 @@ export class SectionComponent implements OnInit{
     if (this.sectionState === SectionState.INVASIVE) {
       this.images = this.sectionReport?.invasiveimages;
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
-      let propowneragreed = this.sectionReport?.propowneragreed;
-      let invasiverepairsinspectedandcompleted = this.sectionReport?.invasiverepairsinspectedandcompleted;
-      propowneragreed = JSON.parse(propowneragreed === undefined ? 'false' : propowneragreed.toString());
-      invasiverepairsinspectedandcompleted = JSON.parse(invasiverepairsinspectedandcompleted === undefined ? 'false' : invasiverepairsinspectedandcompleted.toString());
-      if (!(propowneragreed && invasiverepairsinspectedandcompleted)) {
+      let propowneragreed: any = this.sectionReport?.propowneragreed;
+      let invasiverepairsinspectedandcompleted: any = this.sectionReport?.invasiverepairsinspectedandcompleted;
+      this.images = this.sectionReport.conclusiveimages;
+      if (!(propowneragreed === "Yes")) {
         this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['aweconclusive']);
         this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['conclusiveconsiderations']);
         this.rows = this.deleteElementFromArray(this.rows, this.englishNamesMap['eeeconclusive']);
@@ -199,7 +208,6 @@ export class SectionComponent implements OnInit{
     } else if (this.sectionState === SectionState.VISUAL) {
       this.images = this.sectionReport?.images;
     }
-
   }
 
   deleteElementFromArray(arr: any[], valueToDelete: string): any[] {
@@ -275,6 +283,7 @@ export class SectionComponent implements OnInit{
   }
 
   private editSection(data:any) {
+    this.isSaving = true;
     let request = null;
     if (this.sectionState === SectionState.VISUAL) {
       request = this.createSectionData(data);
@@ -284,7 +293,7 @@ export class SectionComponent implements OnInit{
       request = this.createInvasiveSectionData(data);
     }
     let url = this.getEditUrl();
-    let isInvasive = JSON.parse(request?.furtherinvasivereviewrequired)
+    let isInvasive = request?.furtherinvasivereviewrequired === "Yes";
     this.httpsRequestService.putHttpData(url, request).subscribe(
       (response:any) => {
         // Reset to default state
@@ -302,6 +311,7 @@ export class SectionComponent implements OnInit{
         this.images = [];
         console.log(error)
         this.isRecordFound = false;
+        this.isSaving = false;
       }
     );
   }
@@ -318,7 +328,7 @@ export class SectionComponent implements OnInit{
     console.log(request);
     let url = this.getAddUrl();
     console.log(url);
-    let isInvasive = JSON.parse(request?.furtherinvasivereviewrequired)
+    let isInvasive = request?.furtherinvasivereviewrequired === "Yes";
     this.httpsRequestService.postHttpData(url, request).subscribe(
       (response:any) => {
         // Reset to default state
@@ -328,6 +338,7 @@ export class SectionComponent implements OnInit{
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.INVASIVE_BTN_DISABLED,isInvasive);
         this.isRecordFound = true;
         this.fetchDataForGivenSectionId(this.sectionId_);
+        console.log(response);
       },
       error => {
         // Reset to default state
@@ -356,7 +367,9 @@ export class SectionComponent implements OnInit{
   private createSectionData(data: any):any {
     return {
       "name": data?.visualReportName,
+      "unitUnavailable": data?.unitUnavailable === true,
       "additionalconsiderations": data?.additionalConsiderationsOrConcern,
+      "additionalconsiderationshtml": data?.additionalConsiderationsOrConcernHtml,
       "awe": data?.AWE,
       "conditionalassessment": data?.conditionAssessment,
       "createdby": "deck",

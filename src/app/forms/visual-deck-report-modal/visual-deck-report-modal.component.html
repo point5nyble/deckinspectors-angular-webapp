@@ -4,27 +4,40 @@
     <p><b>Visual Deck/Waterproofing Report</b></p>
   </div>
   <div class="form-body" [formGroup]="visualDeckReportModalForm">
+    <div class="form-errors" *ngIf="showErrors && visualDeckReportModalForm.get('visualReportName')?.hasError('required')">
+      *field is required.
+    </div>
     <div class="form-field">
         <label for="name">Name</label>
         <input formControlName="visualReportName" type="text" id="name" name="visualReportName" placeholder="Visual Report Name">
     </div>
-    <!-- <div class="form-field">
+    <div class="form-field">
       <div class="colinear">
-      <label for="isUnitUnavailable">Is Unit Unavailable</label>
-      <input formControlName="isUnitUnavailable" type="checkbox" id="isUnitUnavailable" name="isUnitUnavailable">
+      <label for="isUnitUnavailable">Unit Unavailable</label>
+      <input (change)="handleUnitUnavailable(unitUnavailable)" formControlName="unitUnavailable" type="checkbox" id="isUnitUnavailable" name="isUnitUnavailable" #unitUnavailable>
     </div>
-    </div> -->
+    </div>
+    <ng-container *ngIf="!unitUnavailable.checked">
+      <div class="form-errors" *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('exteriorElements')?.hasError('required')">
+        *field is required.
+      </div>
     <div class="form-field">
       <label for="exteriorElements">Exterior Elements</label>
       <select formControlName="exteriorElements" id="exteriorElements" name="exteriorElements" multiple>
         <option *ngFor="let option of exteriorElementsOptions" [value]="option">{{ option }}</option>
       </select>
     </div>
+    <div class="form-errors" *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('waterproofingElements')?.hasError('required')">
+      *field is required.
+    </div>
     <div class="form-field">
       <label for="waterproofingElements">Waterproofing Elements</label>
       <select formControlName="waterproofingElements" id="waterproofingElements" name="waterproofingElements" multiple>
         <option *ngFor="let option of waterproofingElements" [value]="option">{{ option }}</option>
       </select>
+    </div>
+    <div class="form-errors" *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('visualReview')?.hasError('required')">
+      *field is required.
     </div>
     <div class="form-field">
       <label>Visual Review</label>
@@ -34,32 +47,47 @@
         <label for="fair"><input formControlName="visualReview" type="radio" id="fair" name="visualReview" value="Fair">Fair</label>
       </div>
     </div>
+    <div class="form-errors" *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('signsOfLeaks')?.hasError('required')">
+      *field is required.
+    </div>
     <div class="form-field">
       <label>Any visual signs of leaks</label>
       <div class="radio-group">
-        <label for="yes"><input formControlName="signsOfLeaks" type="radio" id="yes" value="true" name="signsOfLeaks">Yes</label>
-        <label for="no"><input formControlName="signsOfLeaks" type="radio" id="no" value="false" name="signsOfLeaks">No</label>
+        <label for="yes"><input formControlName="signsOfLeaks" type="radio" id="yes" value="Yes" name="signsOfLeaks">Yes</label>
+        <label for="no"><input formControlName="signsOfLeaks" type="radio" id="no" value="No" name="signsOfLeaks">No</label>
       </div>
+    </div>
+    <div class="form-errors" *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('invasiveReviewRequired')?.hasError('required')">
+      *field is required.
     </div>
     <div class="form-field">
       <label>Further Invasive Review Required Yes/No</label>
       <div class="radio-group">
-        <label  for="yes1"><input type="radio" id="yes1" name="invasiveReviewRequired" value="true" formControlName="invasiveReviewRequired">Yes</label>
-        <label  for="no1"><input type="radio" id="no1" name="invasiveReviewRequired" value="false" formControlName="invasiveReviewRequired">No</label>
+        <label  for="yes1"><input type="radio" id="yes1" name="invasiveReviewRequired" value="Yes" formControlName="invasiveReviewRequired">Yes</label>
+        <label  for="no1"><input type="radio" id="no1" name="invasiveReviewRequired" value="No" formControlName="invasiveReviewRequired">No</label>
       </div>
+    </div>
+    <div class="form-errors" *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('conditionAssessment')?.hasError('required')">
+      *field is required.
     </div>
     <div class="form-field">
       <label>Condition Assessment</label>
       <div class="radio-group">
         <label for="pass"><input type="radio" id="pass" value="Pass" name="conditionAssessment" formControlName="conditionAssessment">Pass</label>
         <label for="fail"><input type="radio" id="fail" value="Fail" name="conditionAssessment" formControlName="conditionAssessment">Fail</label>
-        <label for="future_inspection"><input type="radio" value="future_inspection" id="future_inspection" name="conditionAssessment" formControlName="conditionAssessment">Future Inspection</label>
+        <label for="future_inspection"><input type="radio" value="Futureinspection" id="future_inspection" name="conditionAssessment" formControlName="conditionAssessment">Future Inspection</label>
       </div>
     </div>
+    </ng-container>
     <div class="form-field">
       <label for="description">Additional Considerations or Concern</label>
-      <textarea formControlName="additionalConsiderationsOrConcern" id="description" name="additionalConsiderationsOrConcern" rows="4"></textarea>
+      <!-- <textarea formControlName="additionalConsiderationsOrConcern" id="description" name="additionalConsiderationsOrConcern" rows="4"></textarea> -->
+      <angular-editor formControlName="additionalConsiderationsOrConcern" id="description" name="additionalConsiderationsOrConcern" rows="4" [config]="config"></angular-editor>
     </div>
+    <ng-container *ngIf="!unitUnavailable.checked">
+      <div class="form-errors" *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('EEE')?.hasError('required')">
+        *field is required.
+      </div>
     <div class="form-field">
       <label>Life Expectancy Exterior Elevated Elements (EEE)</label>
       <div class="radio-group">
@@ -68,6 +96,9 @@
         <label for="4-7yrs"><input type="radio" id="4-7yrs" value="seven" name="EEE" formControlName="EEE">4-7 Years</label>
         <label for="7+yrs"><input type="radio" id="7+yrs" value="sevenplus" name="EEE" formControlName="EEE">7+ Years</label>
       </div>
+    </div>
+    <div class="form-errors" *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('LBC')?.hasError('required')">
+      *field is required.
     </div>
     <div class="form-field">
       <label>Life Expectancy Load Bearing Componenets (LBC)</label>
@@ -78,6 +109,9 @@
         <label  for="7+yrs1"><input type="radio" id="7+yrs1" value="sevenplus" name="LBC" formControlName="LBC">7+ Years</label>
       </div>
     </div>
+    <div class="form-errors" *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('AWE')?.hasError('required')">
+      *field is required.
+    </div>
     <div class="form-field">
       <label>Life Expectancy Associated Waterproofing Elements (AWE)</label>
       <div class="radio-group">
@@ -87,6 +121,9 @@
         <label for="7+yrsAWE"><input type="radio" id="7+yrsAWE" value="sevenplus" name="AWE" formControlName="AWE">7+ Years</label>
       </div>
     </div>
+    <div class="form-errors" *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('images')?.hasError('required')">
+      *field is required.
+    </div>
     <div class="form-group">
       <label class="form-label">Upload Image:</label>
       <input type="file" (change)="handleFileInput($event)" class="form-control" multiple>
@@ -95,6 +132,7 @@
         <span class="close-icon-img" (click)="removeImage(i)">&times;</span>
       </div>
     </div>
+  </ng-container>
   </div>
   <div class="button-container">
     <button class="save-button" (click)="save()">Save</button>

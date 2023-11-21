@@ -1,28 +1,33 @@
 .left-panel {
-  background-color: #f0f0f0;
   padding: 10px;
-  width: 200px; /* Set the initial width */
+  width: 309px;
+  height: 863px; /* Set the initial width */
   transition: width 0.3s ease; /* Add transition for smooth resizing */
   overflow-x: scroll; /* Hide horizontal overflow */
   white-space: nowrap;
   overflow-y: auto; /* Enable vertical scrolling if needed */
   resize: horizontal; /* Enable resizing */
-  min-width: 200px; /* Set the minimum width */
+  min-width: 309px; /* Set the minimum width */
   max-width: 700px; /* Set the maximum width if desired */
   scrollbar-width: thin;
-  scrollbar-color: #888888 transparent;
+  background-color: #fff;
+  border-radius: 16px; 
 }
 
 .collapsed {
-  width: 50px!important;
-  min-width: 50px;
+  width:96px!important;
+  min-width: 96px;
 }
+
 .scrollable-container {
   /* Override the property */
   max-height: 100%;
+  width: 309px;
 }
 
 .nested-list {
+  color: #434242;
+  font-weight: 500;
   list-style-type: none;
   padding-left: 25px;
 }
@@ -30,30 +35,14 @@
 .nested-list li {
   position: relative;
   cursor: pointer;
-  margin-bottom: 5px;
+  //margin-bottom: 5px;
 }
 
-.nested-list li::before {
-  //content: "";
-  position: absolute;
-  left: -15px;
-  top: 0;
-  width: 0;
-  height: 100%;
-  border-left: 1px solid #ccc;
-}
-
-.nested-list li.collapsed::before {
-  //content: "";
-}
 
 .nested-list span {
   display: inline-block;
 }
 
-.nested-list ul {
-  margin-top: 5px;
-}
 
 .icon {
   /* Add styles for the icon */
@@ -71,5 +60,48 @@
 }
 
 .highlighted {
-  font-weight: bold;
+  font-weight: 700;
+}
+
+.projectname{
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+ul li{
+  position: relative;
+}
+
+ul li::before{
+  position: absolute;
+  left: -15px;
+  top:0px;
+  border-bottom:2px dotted #666666;
+  content: "";
+  width:15px;
+  height: 1.25em;
+}
+ul li::after{
+  position: absolute;
+  left: -15px;
+  top:0px;
+  border-left: 2px dotted #666666;
+  content: "";
+  width:8px;
+  height: 100%;
+}
+
+ul li:last-child::after{
+  display: none;
+}
+ul li:last-child::before{
+  border-left: 2px dotted #666666;
+}
+.firstelements::before{
+  display: none;
+}
+
+.create_new_folder{
+  color: chocolate;
 }

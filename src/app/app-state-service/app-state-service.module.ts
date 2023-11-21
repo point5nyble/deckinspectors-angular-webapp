@@ -18,7 +18,7 @@ import {BackNavigationEventListenerService} from "./back-navigation-state/back-n
     ProjectEventListenerService,
     PreviousStateEventListenerService,
     LeftTreeItemsStateEventListenerService,
-    BackNavigationEventListenerService
+    BackNavigationEventListenerService,
   ]
 })
 export class AppStateServiceModule {

@@ -3,12 +3,12 @@
     flex-direction: column;
     justify-content: center;
     gap: 20px;
-    background-color: #f7f7f7;
+    background-color: #ffff;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     flex: 1;
-  }
+}
 
 .flex-item {
     flex: 1;
@@ -20,8 +20,6 @@
 }
 .edit-btn {
   font-size: 24px;
-  display: flex;
-  flex-direction: row-reverse;
 }
 
 .overlay-container {
@@ -63,12 +61,11 @@ button.highlighted {
 .icons {
   display: flex;
   justify-content: flex-end;
+  background-color: #E8F2FF;
+  height: 72px;
+  padding-right:20px;
+  border-radius: 16px;
 }
-
-.icons .btn {
-
-}
-
 .icons .mr-3 {
   margin-right: 10px;
 }
@@ -105,4 +102,38 @@ button.highlighted {
 .add-edit {
   display: flex;
   align-items: center;
+}
+
+.mr-3{
+  background-color: #ED7C1C;
+  width: 138px;
+  height:50px;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Plusbotton{
+  color: #fff;
+}
+
+.edit-button{
+  width:44px;
+  height: 46px;
+  background-color: #fff;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.projectInfo{
+  background-color: #E8F2FF;
+  padding: 10px;
+  border-radius: 16px;
 }

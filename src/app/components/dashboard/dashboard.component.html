@@ -4,18 +4,24 @@
       <div class="company-logo">
         <img class="cursor-pointer" src="../../../assets/images/image_1.png" width="139px" height="59.57px" alt="Button Image" (click)="gotoHome()">
       </div>
-      <div class="projects">
-        <img src="../../../assets/images/Projects.png" width="161px" height="36px" alt="Button Image">
-      </div>
     </div>
 <!--    <button class="btn btn-secondary" (click)="changeProjectState()" [disabled]="disableInvasiveBtn">{{projectState}}</button>-->
   </div>
   <div class="project-container">
     <app-sidebar class="flex"></app-sidebar>
     <div class="container-fluid flex">
-      <div *ngIf="showProjectInfo === 'home'" class="project-list-container">
-        <app-filter (searchedTerm)="projectSearch($event)" (newProjectUploaded)="newProjectUploaded()" (filterCompleted)="filterCompleted($event)">
 
+      <div *ngIf="showProjectInfo === 'home'" class="AllProjectAndRefresh">
+        <div class="AllProject">All Project</div>
+      </div>
+
+      <div *ngIf="showProjectInfo === 'home'" class="project-list-container">
+        <app-filter
+        (searchedTerm)="projectSearch($event)"
+        (newProjectUploaded)="newProjectUploaded()"
+        (filterCompleted)="filterCompleted($event)"
+        (fileUploaded)="fileUploaded($event)"
+        >
         </app-filter>
         <div *ngIf="isProjectAssigned && apiCalled">
           <div class="alert alert-primary alert-dismissible fade show" role="alert">
@@ -58,8 +64,32 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         </div>
+        <div *ngIf="isFileUploaded">
+          <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>Success! </strong> File Updated
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
 
-        <div class="scrollable-container mt-1">
+        <div *ngIf="isFileNotUploaded">
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Failure! </strong> File Not Updated
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+
+        <app-project-describer *ngIf="showProjectInfo === 'home'" class="project-describer"></app-project-describer>
+
+
+        <div *ngIf="downloadingReport">
+          <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>Downloading! </strong> Please check after some time
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+
+
+        <div class="scrollable-container  projectInfoContainer">
           <div *ngFor="let projectInfo of projectInfos">
             <app-project-info
               (click)="gotoProject(projectInfo)"
@@ -68,6 +98,7 @@
               (projectAssignedEvent)="projectAssigned($event)"
               (markCompletedEvent)="markedCompleted($event)"
               (projectEventDeletedEvent)="projectEventDeletedEvent($event)"
+              (isDownloading)="reportDownloadEvent($event)"
             ></app-project-info>
           </div>
         </div>

@@ -12,8 +12,10 @@
 
 .location-section {
   flex: 1;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 10px;
   display: flex;
   overflow: auto;
+  background-color: #ffff;
+  padding: 10px;
+  border-radius: 16px;
 }

@@ -1,0 +1,46 @@
+
+.Describer{
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex:1;
+}
+ul{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+    flex:1;
+    color: #8C8C8C;
+    font-weight: 400;
+}
+li{
+    list-style: none;
+}
+#A_User{
+    margin-left:270px;
+}
+#A_Offline{
+    margin-left:100px;
+}
+#Type{
+    margin-left:100px;
+}
+#As_User{
+    margin-left:40px;
+    width:130px;
+}
+#Upload{
+    margin-left:60px;
+}
+.Icons{
+    margin-left:5px;
+}
+
+p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+}

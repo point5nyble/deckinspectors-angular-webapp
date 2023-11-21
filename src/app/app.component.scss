@@ -1,9 +1,14 @@
 :host div {
-    border: 10px solid black;
+    // border: 10px solid black;
   }
 
 body, html {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+div{
+ flex: 1;
+ min-width: 100%;
+ min-height: 100%;
 }
