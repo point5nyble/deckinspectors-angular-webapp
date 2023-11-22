@@ -1,10 +1,9 @@
 .horizontal-div {
   display: flex;
   background-color:#FFFFFF;
-  padding: 10px;
   border-radius: 16px;
-  min-width: 792px;
   max-height:339px;
+  padding: 15px;
 }
 .flex-item {
   flex: 1;
@@ -13,52 +12,64 @@
   margin: 0;
 }
 .image-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 299px;
+  max-height: 281px;
   text-align: center;
 }
-.Main-image-section img{
-  max-width: 300px; 
-  max-height: 200px;
+.image-section img{
+  max-width: 299px; 
+  max-height: 206px;
   object-fit:contain;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .navigation-line {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  font-size: 24px;
+  padding-bottom: 5px;
 }
 
-button{
-  width:138;
+.invasiveBtn{
+  width:138px;
   height:50px;
+  margin-top: 5px;
   background-color:#ED7C1C;
   border-radius: 8px;
   border-color: #ED7C1C;
-  margin: 10px;
+  font-size: 18.2px;
+  color: #FFFFFF;
 }
 
-.button:hover {
+.invasiveBtn:hover {
   background-color: #5a6268;
   border-color: #545b62;
 }
 
 .ProjectInformation{
   display: flex;
-  flex: 1;
   flex-direction: column;
-  row-gap: 15px;
+  justify-content: space-between;
+  flex: 1;
+  max-height: 337px;
+  //row-gap: 15px;
   min-width:60%;
 }
 
-.fa-arrow-left{
-  margin-right: 20px;
-}
+
 .backButtonAndNavigation{
   display: flex;
-  justify-content: center;
   align-items: center;
+  column-gap:10px;
 }
 
+.backButtonAndNavigation span{
+   font-size: 17.52px;
+}
 
 
 
@@ -67,6 +78,9 @@ button{
   flex-direction: column;
   width:100%;
   max-height: 68px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #797575;
 }
 
 
@@ -75,6 +89,9 @@ button{
   flex-direction: column;
   width:100%;
   max-height:89px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #797575;
 }
 
 .Address
@@ -83,18 +100,22 @@ button{
   flex-direction: column;
   width:100%;
   max-height:68px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #797575;
 }
  
 
 
 
 .DescriptionBox{
-  min-width:436px;
+  width:100%;
   height:63px;
   border:solid #A79C9CB2 1px;
   border-radius:8px;
-  padding:5PX;
+  padding:5px;
   color:#666666BF;
+  font-weight: 400;
 }
 
 .AddressBox{
@@ -103,41 +124,69 @@ button{
   border:solid #A79C9CB2 1px;
   border-radius:10px;
   padding-left:5px;
-  color:#666666BF;
+  font-size: 16px;
+  font-weight: 400;
+  color: #797575;
   overflow:hidden;
 }
 
 .info-heading{
-  min-width: 436px;
+  width:100%;
     height:42px;
     border:solid #A79C9CB2 1px;
     border-radius:8px;
-    color:#666666BF;
+    font-size: 16px;
+    font-weight: 400;
+    color: #797575;
     padding: 5px;
  }
 
 .edit_icon{
   display: flex;
   align-items: center;
+  column-gap: 10px;
+  border-radius: 8px;
+}
+.edit_icon i{
+  display: flex;
+  align-items: center;
   justify-content: center;
   width: 44px;
   height: 40px;
+  color:#646161;
   background-color: #FFFFFF;
   border-radius: 8px;
 }
-
+.edit_icon button{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 212px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  border: none;
+  font-size: 16px;
+  font-weight:500;
+  color:#4F4D4D;
+}
 .DescriptionLocation{
   display: flex;
   flex-direction: column;
   width:100%;
-  max-height:150px;
+  max-height:179px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #797575;
 }
 
 .DescriptionBoxLocation{
-  min-width:436px;
-  height:140px;
+  width:100%;
+  height:153px;
   border:solid #A79C9CB2 1px;
   border-radius:8px;
   padding:5px;
-  color:#666666BF;
+  font-size: 16px;
+  font-weight: 400;
+  color: #797575;
 }

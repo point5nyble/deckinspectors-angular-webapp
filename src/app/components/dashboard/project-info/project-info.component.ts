@@ -31,7 +31,7 @@ export class ProjectInfoComponent {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "400px";
-    dialogConfig.height = "350px";
+    dialogConfig.height = "600px";
     dialogConfig.data = {
       project: this.projectInfo
     };

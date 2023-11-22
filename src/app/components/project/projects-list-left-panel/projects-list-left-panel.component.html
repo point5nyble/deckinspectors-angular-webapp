@@ -3,53 +3,63 @@
      (mouseup)="startDrag($event)"
      [ngClass]="{'collapsed': collapsed}">
   <span (click)="toggleCollapse_()" class="cursor-pointer">
-    <i class="icon" [class.rotate-icon]="!collapsed"></i>
+    <i class="icon" [class.rotate-icon]="!collapsed"></i>  
    </span>
   <app-loading-screen *ngIf="loadingScreen && !collapsed"></app-loading-screen>
   <ul *ngIf="!loadingScreen && !collapsed"
       class="nested-list"
       style="padding-left: 5px">
     <ng-container *ngFor="let project of projectList">
-      <li [class.collapsed]="project.collapsed">
-        <span>
-          <i class="icon cursor-pointer" [class.rotate-icon]="!project.collapsed" (click)="toggleCollapse(project)"></i>
-          <span (click)="openProject(project)">
-            <p [ngClass]="{'highlighted': currentSelectedItem === project.name}">
+      <li [class.collapsed]="project.collapsed" class="firstelements">
+        
+        <div class="projectname ">
+          <span class="material-symbols-outlined  create_new_folder">create_new_folder</span>
+          <span (click)="openProject(project)" [ngClass]="{'highlighted': currentSelectedItem === project.name}">
               {{ project.name }}
-            </p>
           </span>
-        </span>
+          <span style="margin-top:7px;"><i class="icon cursor-pointer" [class.rotate-icon]="!project.collapsed" (click)="toggleCollapse(project)"></i></span>
+        </div>
+
         <ul *ngIf="!project.collapsed" class="nested-list">
           <ng-container *ngFor="let nestedItem of project.nestedItems">
             <li [class.collapsed]="nestedItem.collapsed">
-              <span>
-                <i class="icon cursor-pointer" [class.rotate-icon]="!nestedItem.collapsed" (click)="toggleCollapse(nestedItem)"></i>
-                <span (click)="openProject(project)" ><p>{{ nestedItem.name }}</p></span>
-              </span>
+              <div class="projectname">
+                <span class="material-symbols-outlined"> folder</span>
+                <span (click)="openProject(project)" >{{ nestedItem.name }}</span>
+                <span style="margin-top:9px;"><i class="icon cursor-pointer" [class.rotate-icon]="!nestedItem.collapsed" (click)="toggleCollapse(nestedItem)"></i></span>
+              </div>
               <ul *ngIf="!nestedItem.collapsed" class="nested-list">
                 <ng-container *ngFor="let location of nestedItem.nestedItems">
                   <li [class.collapsed]="location.collapsed">
-                    <span>
-                      <i *ngIf="!(location.nestedItems?.length===0)" class="icon cursor-pointer" [class.rotate-icon]="!location.collapsed"
-                         (click)="toggleCollapse(location)"></i>
-                    </span>
-                    <span (click)="openLocation(location)">
-                      <p [ngClass]="{'highlighted': currentSelectedItem === location.name}">{{ location.name }}</p>
-                    </span>
+                    <div class="projectname">
+                      <span class="material-symbols-outlined">draft</span>
+                      <span (click)="openLocation(location)" [ngClass]="{'highlighted': currentSelectedItem === location.name}">
+                        {{ location.name }}
+                      </span>
+                      <span style="margin-top: 9px;">
+                        <i *ngIf="!(location.nestedItems?.length===0)" class="icon cursor-pointer" [class.rotate-icon]="!location.collapsed"
+                          (click)="toggleCollapse(location)"></i>
+                      </span>
+                  </div>
                     <ul *ngIf="!location.collapsed" class="nested-list">
                       <ng-container *ngFor="let buildingLocation of location.nestedItems">
                         <li [class.collapsed]="buildingLocation.collapsed">
-                          <span>
-                            <i *ngIf="buildingLocation.nestedItems" class="icon"
-                              [class.rotate-icon]="!buildingLocation.collapsed"
-                              (click)="toggleCollapse(buildingLocation)"></i>
-                            <span (click)="openLocation(location)"><p>{{ buildingLocation.name }}</p></span>
-                          </span>
+                            <div class="projectname">
+                              <span class="material-symbols-outlined">draft</span>
+                              <span (click)="openLocation(location)">{{ buildingLocation.name }}</span>
+                              <span style="margin-top:9px;">
+                                <i *ngIf="buildingLocation.nestedItems" class="icon"
+                                  [class.rotate-icon]="!buildingLocation.collapsed"
+                                  (click)="toggleCollapse(buildingLocation)"></i>
+                              </span>
+                            </div>
                           <ul *ngIf="!buildingLocation.collapsed" class="nested-list">
                             <li *ngFor="let sublocation of buildingLocation.nestedItems">
-                              <span (click)="openLocation(sublocation)">
-                                <p [ngClass]="{'highlighted': currentSelectedItem === sublocation.name}">{{ sublocation.name }}</p>
-                              </span>
+                              
+                                <span (click)="openLocation(sublocation)" [ngClass]="{'highlighted': currentSelectedItem === sublocation.name}" style="margin-top: 6px;">
+                                {{ sublocation.name }}
+                                </span>
+                              
                             </li>
                           </ul>
                         </li>

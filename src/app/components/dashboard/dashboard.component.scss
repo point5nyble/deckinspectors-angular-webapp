@@ -1,6 +1,7 @@
 .dashboard-container {
   display: flex;
   flex-direction: row;
+  flex: 1;
 }
 
 .horizontal-frame {
@@ -77,6 +78,7 @@
 
 .main-class {
   display: flex;
+  flex: 1;
   flex-direction: column;
   background-color: #E8F2FF;
   height: 100%;
@@ -114,7 +116,6 @@
   color:#110F4F;
   font-size: 20px;
   font-weight: 700;
-  // font: sans;
 }
 
 .bi-arrow-repeat{
@@ -130,5 +131,4 @@
 
 .projectInfoContainer{
   max-height: 700px;
-  row-gap:0px;
 }

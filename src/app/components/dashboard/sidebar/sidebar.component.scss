@@ -6,6 +6,14 @@
   border-radius: 16px;
   max-height: 863px;
 }
+a{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  color: #797575;
+  font-weight: 600;
+  font-size: 15.06px;
+}
 
 .collapsed {
   width: 96px;

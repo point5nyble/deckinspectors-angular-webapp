@@ -1,40 +1,42 @@
 <div class="info-section">
   <div class="navigation-line">
     <div class="backButtonAndNavigation">
-      <i class="fas fa-arrow-left cursor-pointer" (click)="previousBtnClicked()"></i>
+      
+      <span class="fas fa-arrow-left cursor-pointer" (click)="previousBtnClicked()"></span>
       <app-navigation-component></app-navigation-component>
     </div>
     <div class="edit_icon">
+      <button (click)="downloadExcel()" *ngIf="projectInfo.type === 'project'">Download Excel <span class="material-symbols-outlined icon">download</span></button>
       <i class="fas fa-edit cursor-pointer" (click)="editLocation()"></i>
     </div>
    
   </div>
 
-  <div class="horizontal-div  mt-2">
+  <div class="horizontal-div">
     <div class="ProjectInformation flex-item">
       <div class="ProjectName">
-        <strong>Project Name</strong>
+        <p>Project Name</p>
         <div class="info-heading">
           {{ projectInfo.name }}
         </div>
       </div>
 
       <div class="Description" *ngIf="projectType !== 'location'">
-        <strong>Description</strong>
+        <p>Description</p>
         <div class="DescriptionBox">
           {{ projectInfo.description }}
         </div>
       </div>
 
       <div class="DescriptionLocation" *ngIf="projectType === 'location'">
-        <strong>Description</strong>
+        <p>Description</p>
         <div class="DescriptionBoxLocation">
           {{ projectInfo.description }}
         </div>
       </div>
      
       <div class="Address" *ngIf="projectType !== 'location'">
-        <strong>Address</strong>
+        <p>Address</p>
         <div class="AddressBox">
           <p  class="address" style="margin-bottom: 10px;">{{ projectInfo.address }}</p>
         </div>
@@ -43,13 +45,8 @@
     </div>
 
     <div class="image-section flex-item">
-      <div class="Main-image-section">
         <img #img [src]="projectInfo.url" (error)="img.src = '../../../assets/images/image_1.png'">
-      </div>
-      <div >
-        <button (click)="changeProjectState()" [disabled]="disableInvasiveBtn">{{projectState}}</button>
-        <button (click)="downloadExcel()" *ngIf="projectInfo.type === 'project'">Download Excel</button>
-      </div>
+        <button class="invasiveBtn" (click)="changeProjectState()" [disabled]="disableInvasiveBtn">{{projectState}}</button>
     </div>
   </div>
 </div>

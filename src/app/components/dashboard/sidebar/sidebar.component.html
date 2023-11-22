@@ -11,13 +11,13 @@
             <a routerLink="/dashboard" routerLinkActive="active" (mouseenter)="toggleSidebar()">
 <!--              <span class="material-icons logo-image"> location_city </span>-->
               <img src="../../../assets/images/ant-design_project-outlined-new.png" alt="Logo 1" class="logo-image" >
-              <span>Projects</span>
+              <span>&nbsp;&nbsp;Projects</span>
             </a>
           </li>
           <li (click)="activateLink($event)" *ngIf="isAdmin">
             <a routerLink="/users" routerLinkActive="active">
               <img src="../../../assets/images/Vector.png" alt="Logo 2" class="logo-image">
-              <span>Users</span>
+              <span>&nbsp;&nbsp;&nbsp;Users</span>
             </a>
           </li>
           <!-- <li (click)="activateLink($event)" *ngIf="isAdmin">
@@ -29,7 +29,7 @@
           <li>
             <a routerLink="/login" routerLinkActive="active" (click)="logout()">
               <img src="../../../assets/images/ion_log-out.png" alt="Logo 4" class="logo-image">
-              <span>Sign Out</span>
+              <span>&nbsp;Sign Out</span>
             </a>
           </li>
         </ul>

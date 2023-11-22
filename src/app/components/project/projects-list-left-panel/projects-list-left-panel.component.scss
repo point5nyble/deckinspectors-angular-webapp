@@ -26,6 +26,8 @@
 }
 
 .nested-list {
+  color: #434242;
+  font-weight: 500;
   list-style-type: none;
   padding-left: 25px;
 }
@@ -33,25 +35,14 @@
 .nested-list li {
   position: relative;
   cursor: pointer;
-  margin-bottom: 5px;
+  //margin-bottom: 5px;
 }
 
-.nested-list li::before {
-  position: absolute;
-  left: -15px;
-  top: 0;
-  width: 0;
-  height: 100%;
-  border-left: 1px solid #ccc;
-}
 
 .nested-list span {
   display: inline-block;
 }
 
-.nested-list ul {
-  margin-top: 5px;
-}
 
 .icon {
   /* Add styles for the icon */
@@ -65,9 +56,52 @@
 }
 
 .rotate-icon {
-  transform: rotate(180deg); /* Rotate the icon 90 degrees when the item is opened */
+  transform: rotate(90deg); /* Rotate the icon 90 degrees when the item is opened */
 }
 
 .highlighted {
-  font-weight: bold;
+  font-weight: 700;
+}
+
+.projectname{
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+ul li{
+  position: relative;
+}
+
+ul li::before{
+  position: absolute;
+  left: -15px;
+  top:0px;
+  border-bottom:2px dotted #666666;
+  content: "";
+  width:15px;
+  height: 1.25em;
+}
+ul li::after{
+  position: absolute;
+  left: -15px;
+  top:0px;
+  border-left: 2px dotted #666666;
+  content: "";
+  width:8px;
+  height: 100%;
+}
+
+ul li:last-child::after{
+  display: none;
+}
+ul li:last-child::before{
+  border-left: 2px dotted #666666;
+}
+.firstelements::before{
+  display: none;
+}
+
+.create_new_folder{
+  color: chocolate;
 }

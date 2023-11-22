@@ -27,7 +27,7 @@
 
 .icon {
   font-size: 24px;
-  color: #333;
+  color: #666666;
   margin-right: 10px;
   cursor: pointer;
 }
@@ -39,7 +39,8 @@
 .bi {
   display: inline-block;
   font-size: 24px;
-  color: #333;
+  color:#6D6A6A;
+  font-weight: 400;
   margin-right: 10px;
   cursor: pointer;
 }
@@ -63,63 +64,14 @@
 .fas:hover{
   color: #007bff;
 }
-.select{
-  width: 200px;
-  height: 50px;
-  border: solid black 2px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.custom-select {
-  position: relative;
-  display: inline-block;
-}
 
-.select-icon,
-.dropdown-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
 
-.select-icon {
-  left: 10px;
-}
-
-.dropdown-arrow {
-  right: 10px;
-}
-
-.green-dot {
-  color: #00cc00; /* Green color */
-  margin-right: 5px;
-}
-
-.custom-select select {
-  appearance: none;
-  padding: 8px 30px 8px 30px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
-  font-size: 14px;
-  color: #333;
-  cursor: pointer;
-}
-.custom-select select:focus {
-  outline: none;
-  border-color: #2196F3;
-}
-.custom-select option {
-  padding: 8px;
-  font-size: 14px;
-}
 
 .AssignTo{
   width:150px;
   max-height: 50px;
-  color: blue;
+  color: #203EEA;
+  font-weight: 400;
   overflow: clip;
 }
 .profile-section{
@@ -149,5 +101,25 @@
 .AssignUsertext:hover{
   color:#007bff;
 }
+.description{
+  display: flex;
+  color: #6D6A6A;
+  font-weight:400;
+}
+.description div{
+    color: #000000;
+    font-weight: 500;
+}
 
+.projectName{
+  color: #000000;
+  font-weight: 500;
+}
 
+.typeSection{
+  margin-left:50px;
+  width:90px;
+  padding-bottom:10px;
+  color:#6D6A6A;
+  font-weight: 400;
+}
