@@ -1,21 +1,17 @@
-<div class="container sidebar" [ngClass]="{'collapsed': isSidebarCollapsed}" (mouseleave)="collapseSidebar()">
-  <span class="material-icons collapsible" (mouseenter)="toggleSidebar()"> menu </span>
-
-
+<div class="container sidebar" [ngClass]="{'collapsed': isSidebarCollapsed}" >
   <div class="sidebar-block">
-
-      <div class="sidebar-content" (mouseleave)="collapseSidebar()">
+      <div class="sidebar-content"  (mouseenter)="toggleSidebar()" (mouseleave)="collapseSidebar()">
 
         <ul>
           <li class="active" (click)="activateLink($event)">
-            <a routerLink="/dashboard" routerLinkActive="active" (mouseenter)="toggleSidebar()">
+            <a routerLink="/dashboard" routerLinkActive="active">
 <!--              <span class="material-icons logo-image"> location_city </span>-->
               <img src="../../../assets/images/ant-design_project-outlined-new.png" alt="Logo 1" class="logo-image" >
               <span>&nbsp;&nbsp;Projects</span>
             </a>
           </li>
-          <li (click)="activateLink($event)" *ngIf="isAdmin">
-            <a routerLink="/users" routerLinkActive="active">
+          <li  (click)="activateLink($event)" *ngIf="isAdmin" >
+            <a routerLink="/users" routerLinkActive="active" >
               <img src="../../../assets/images/Vector.png" alt="Logo 2" class="logo-image">
               <span>&nbsp;&nbsp;&nbsp;Users</span>
             </a>
@@ -27,7 +23,7 @@
             </a>
           </li> -->
           <li>
-            <a routerLink="/login" routerLinkActive="active" (click)="logout()">
+            <a  routerLink="/login" routerLinkActive="active" (click)="logout()">
               <img src="../../../assets/images/ion_log-out.png" alt="Logo 4" class="logo-image">
               <span>&nbsp;Sign Out</span>
             </a>

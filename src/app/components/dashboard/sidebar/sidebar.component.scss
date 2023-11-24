@@ -89,7 +89,13 @@ a{
 
 .sidebar-content a:hover {
   background-color: #ED7C1C;
-  border-radius: 13px;
+  border-radius: 12.55px;
+  width: 192.91px;
+  height: 50.97px;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  color: #fff;
 }
 
 .collapsed .sidebar-content a:hover {
@@ -99,15 +105,17 @@ a{
 }
 
 
-.sidebar-content .active a {
-  background-color: #ED7C1C;
-  border-radius: 13px;
-  color: #fff; /* You may want to change the text color to make it more visible */
-}
+
 .collapsed .sidebar-content .active a {
   background-color: #ED7C1C;
-  border-radius: 13px;
+  border-radius: 8px;
   color: #fff;
-  width: 40px;/* You may want to change the text color to make it more visible */
+  width: 63px;/* You may want to change the text color to make it more visible */
+  height: 51px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left:-10px;
 }
 
