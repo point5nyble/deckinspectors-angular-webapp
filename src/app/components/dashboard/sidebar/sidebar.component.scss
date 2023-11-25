@@ -16,7 +16,7 @@ a{
 }
 
 .collapsed {
-  width: 96px;
+  max-width:80px;
 }
 
 .collapsible {
@@ -39,9 +39,9 @@ a{
 
 .sidebar-block{
   display: block;
-  width: 235px;
+  max-width: 193px;
   top: 136px;
-  left: 27px;
+  left:5px;
   border-radius: 16px;
   flex:1;
 }
@@ -54,7 +54,7 @@ a{
   display: block;
   transition: opacity 0.8s ease-out;
   -moz-transition: opacity 0.8s ease-out;
-  padding: 10px;
+  //padding: 10px;
 }
 
 .collapsed .sidebar-content {
@@ -68,7 +68,7 @@ a{
 }
 
 .sidebar-content ul {
-  margin: 0;
+  margin-top:20px;
   padding: 0;
 }
 
@@ -94,7 +94,6 @@ a{
   height: 50.97px;
   display: flex;
   align-items: center;
-  padding-left: 30px;
   color: #fff;
 }
 
@@ -110,12 +109,12 @@ a{
   background-color: #ED7C1C;
   border-radius: 8px;
   color: #fff;
-  width: 63px;/* You may want to change the text color to make it more visible */
-  height: 51px;
+  width: 50px;/* You may want to change the text color to make it more visible */
+  height:41px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  left:-10px;
+  left:-5px;
 }
 

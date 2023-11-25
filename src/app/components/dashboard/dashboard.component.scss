@@ -81,7 +81,7 @@
   flex: 1;
   flex-direction: column;
   background-color: #E8F2FF;
-  height: 100%;
+  min-height:800px;
 }
 
 .project-container{
@@ -97,7 +97,7 @@
   flex: 1;
   background-color: #ffff;
   min-width:1115px;
-  min-height: 781px;
+  max-height: 781px;
   border-radius: 16px;
 }
 
@@ -130,5 +130,5 @@
 }
 
 .projectInfoContainer{
-  max-height: 700px;
+  max-height: 600px;
 }

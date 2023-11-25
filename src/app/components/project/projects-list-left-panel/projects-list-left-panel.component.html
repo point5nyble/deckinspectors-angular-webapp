@@ -2,19 +2,18 @@
      [style.width.px]="panelWidth"
      (mouseup)="startDrag($event)"
      [ngClass]="{'collapsed': collapsed}">
-  <span (click)="toggleCollapse_()" class="cursor-pointer">
-    <i class="icon" [class.rotate-icon]="!collapsed"></i>  
+  <span (click)="toggleCollapse_()" class="cursor-pointer initialcollaps" >
+    <i *ngIf="!collapsed" class="icon" [class.rotate-icon]="!collapsed"></i>  
+    <span *ngIf="collapsed" class="material-symbols-outlined  create_new_folder">create_new_folder</span>
    </span>
   <app-loading-screen *ngIf="loadingScreen && !collapsed"></app-loading-screen>
   <ul *ngIf="!loadingScreen && !collapsed"
-      class="nested-list"
-      style="padding-left: 5px">
+      class="nested-list startingtreefrom">
     <ng-container *ngFor="let project of projectList">
-      <li [class.collapsed]="project.collapsed" class="firstelements">
-        
+      <li [class.collapsed]="project.collapsed" class="firstelements">        
         <div class="projectname" style="color:#000000;font-weight: 600;">
           <span class="material-symbols-outlined  create_new_folder">create_new_folder</span>
-          <span (click)="openProject(project)" [ngClass]="{'highlighted': currentSelectedItem === project.name}">
+          <span (click)="openProject(project)" [ngClass]="{'highlighted': currentSelectedItem === project.name}" (click)="toggleCollapse(project)">
               {{ project.name }}
           </span>
           <span style="margin-top:7px;"><i class="icon cursor-pointer" [class.rotate-icon]="!project.collapsed" (click)="toggleCollapse(project)"></i></span>
@@ -25,7 +24,7 @@
             <li [class.collapsed]="nestedItem.collapsed">
               <div class="projectname" style="color: #434242;font-weight: 500px;">
                 <span class="material-symbols-outlined"> folder</span>
-                <span (click)="openProject(project)" >{{ nestedItem.name }}</span>
+                <span (click)="openProject(project)" (click)="toggleCollapse(nestedItem)">{{ nestedItem.name }}</span>
                 <span style="margin-top:9px;"><i class="icon cursor-pointer" [class.rotate-icon]="!nestedItem.collapsed" (click)="toggleCollapse(nestedItem)"></i></span>
               </div>
               <ul *ngIf="!nestedItem.collapsed" class="nested-list">
@@ -33,7 +32,7 @@
                   <li [class.collapsed]="location.collapsed">
                     <div class="projectname" style="color: #5D5C5C;font-weight: 400;font-size: 16px;">
                       <span class="material-symbols-outlined">draft</span>
-                      <span (click)="openLocation(location)" [ngClass]="{'highlighted': currentSelectedItem === location.name}">
+                      <span (click)="openLocation(location)" [ngClass]="{'highlighted': currentSelectedItem === location.name}" (click)="toggleCollapse(location)">
                         {{ location.name }}
                       </span>
                       <span style="margin-top: 9px;">
@@ -46,7 +45,7 @@
                         <li [class.collapsed]="buildingLocation.collapsed">
                             <div class="projectname">
                               <span class="material-symbols-outlined">draft</span>
-                              <span (click)="openLocation(location)">{{ buildingLocation.name }}</span>
+                              <span (click)="openLocation(location)" (click)="toggleCollapse(buildingLocation)">{{ buildingLocation.name }}</span>
                               <span style="margin-top:9px;">
                                 <i *ngIf="buildingLocation.nestedItems" class="icon"
                                   [class.rotate-icon]="!buildingLocation.collapsed"
@@ -56,8 +55,8 @@
                           <ul *ngIf="!buildingLocation.collapsed" class="nested-list"   style="color:#4F4D4D;font-weight:500;font-size: 12px;">
                             <li *ngFor="let sublocation of buildingLocation.nestedItems">
                               
-                                <span (click)="openLocation(sublocation)" [ngClass]="{'highlighted': currentSelectedItem === sublocation.name}" style="margin-top: 6px;">
-                                {{ sublocation.name }}
+                                <span (click)="openLocation(sublocation)" [ngClass]="{'highlighted': currentSelectedItem === sublocation.name}" style="margin-top: 4px;">
+                                &nbsp;{{ sublocation.name }}
                                 </span>
                               
                             </li>
