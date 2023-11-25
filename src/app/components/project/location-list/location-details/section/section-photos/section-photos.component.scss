@@ -1,6 +1,18 @@
+.photo-list{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left:7px;
+  padding-right: 7px;
+}
 .photo-list ul {
   list-style-type: none;
-  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #E8F2FF;
+  min-width: 642px;
+  border-radius: 16px;
 }
 
 .photo-list .image-row {
@@ -16,20 +28,19 @@
 .photo-list li {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  justify-content: center;
   background-color: #ffff;
   padding: 5px;
   border-radius: 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  justify-content: center;
+ 
 }
 
 .photo-list img {
   width: 250px;
   height: 200px;
   object-fit: cover;
-  margin-right: 10px;
-  border-radius: 5px;
+  border-radius:16px;
 }
 
 

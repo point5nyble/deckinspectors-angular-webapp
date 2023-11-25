@@ -15,17 +15,19 @@
   <app-project-details-upper-section>
   </app-project-details-upper-section>
   <div class="location-section">
-    <app-section-list class="flex-item"
-                      (sectionsDeletionComplete)="sectionsDeletionComplete($event)"
-                      (sectionID)=fetchDataForGivenSectionId($event)
-                      [isLoading]="isLoading"
-                      [location] = location>
-    </app-section-list>
-    <app-section class="report-section"
-                 [location] = location
-                 [isRecordFound] = isRecordFound
-                 [isDeletedSection] = isDeletedSection
-    ></app-section>
+    <div>
+      <app-section-list class="flex-item section-list"
+                        (sectionsDeletionComplete)="sectionsDeletionComplete($event)"
+                        (sectionID)=fetchDataForGivenSectionId($event)
+                        [isLoading]="isLoading"
+                        [location] = location>
+      </app-section-list>
+      <app-section class="report-section"
+                  [location] = location
+                  [isRecordFound] = isRecordFound
+                  [isDeletedSection] = isDeletedSection
+      ></app-section>
+    </div>
   </div>
 </div>
 
