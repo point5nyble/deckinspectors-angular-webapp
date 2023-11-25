@@ -12,7 +12,7 @@
   </div>
   <app-loading-screen *ngIf="isSaving"></app-loading-screen>
   <div class="projectInfo">
-    <div  class="mr-4">
+    <div *ngIf="projectState === ProjectState.INVASIVE && showBtn" class="mr-4">
       <button (click)="setSectionState(SectionState.VISUAL)"  [ngClass]="{ 'highlighted': sectionState === SectionState.VISUAL }">Visual</button>
       <button (click)="setSectionState(SectionState.INVASIVE)"  [ngClass]="{ 'highlighted': sectionState === SectionState.INVASIVE }">Invasive</button>
       <button *ngIf="showConclusiveSection" (click)="setSectionState(SectionState.CONCLUSIVE)" [ngClass]="{ 'highlighted': sectionState === SectionState.CONCLUSIVE }" >Conclusive</button>
