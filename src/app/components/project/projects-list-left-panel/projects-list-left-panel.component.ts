@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
 import {Item} from 'src/app/common/models/project-tree';
 import {HttpsRequestService} from "../../../service/https-request.service";
 import {
@@ -11,7 +11,7 @@ import {BackNavigation} from "../../../app-state-service/back-navigation-state/b
 import {ProjectState} from "../../../app-state-service/store/project-state-model";
 import {ProjectQuery} from "../../../app-state-service/project-state/project-selector";
 import {take} from "rxjs";
-import { environment } from '../../../../environments/environment';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-projects-list-left-panel',
@@ -21,15 +21,16 @@ import { environment } from '../../../../environments/environment';
 export class ProjectsListLeftPanelComponent implements OnInit {
   @Output() showPartInfo = new EventEmitter<boolean>();
   projectList: Item[] = [];
+  oldProjectList: Item[] = [];
   panelWidth: number = 200; // Initial panel width
   startX: number = 0;
   startWidth: number = 0;
-  currentSelectedItem:string = '';
+  currentSelectedItem: string = '';
   objectMap = new Map<string, any>();
-  loadingScreen:boolean = true;
+  loadingScreen: boolean = true;
   collapsed: boolean = false;
   private projectState: ProjectState = ProjectState.VISUAL;
-  currentProject!:any;
+  currentProject!: any;
 
 
   constructor(private httpsRequestService: HttpsRequestService,
@@ -56,7 +57,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   }
 
   private subscribeToGetCurrentProjectDetails() {
-    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
+    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState: any) => {
       this.currentSelectedItem = previousState.stack[previousState.stack.length - 1].name;
       this.currentProject = previousState.stack[1]
     });
@@ -67,7 +68,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       this.projectList = this.mapItemList(leftTreeData?.items);
       this.projectList = this.filterCurrentProject(this.projectList);
       this.projectList = this.filterInvasiveProjects(this.projectList);
-      this.createObjectMap(this.projectList,this.objectMap);
+      this.createObjectMap(this.projectList, this.objectMap);
       if (this.projectList?.length === 0 || this.projectList === undefined) {
         this.fetchLeftTreeData();
       }
@@ -80,23 +81,24 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.UPDATE_LEFT_TREE_DATA).subscribe(event => {
       setTimeout(() => {
         this.fetchLeftTreeData();
-      },1000)
+      }, 1000)
     });
 
     this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
       if (this.projectState !== data.state) {
-          this.projectState = data.state;
-          this.fetchLeftTreeDataFromStateWhenCalled();
+        this.projectState = data.state;
+        this.fetchLeftTreeDataFromStateWhenCalled();
       }
     });
 
   }
+
   private fetchLeftTreeDataFromStateWhenCalled() {
     this.store.select(LeftTreeListModelQuery.getLeftTreeList).pipe(take(1)).subscribe(leftTreeData => {
       this.projectList = this.mapItemList(leftTreeData?.items);
       this.projectList = this.filterCurrentProject(this.projectList);
       this.projectList = this.filterInvasiveProjects(this.projectList);
-      this.createObjectMap(this.projectList,this.objectMap);
+      this.createObjectMap(this.projectList, this.objectMap);
       if (this.projectList?.length === 0 || this.projectList === undefined) {
         this.fetchLeftTreeData();
       }
@@ -105,77 +107,82 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   }
 
   private fetchLeftTreeData() {
-      let projectid = this.currentProject?._id === undefined ? (<any>this.currentProject)?.id : this.currentProject?._id;
-      let url = `${environment.apiURL}/project/getProjectMetadata/` + projectid;
-      this.httpsRequestService.getHttpData<any>(url).subscribe(
-        (response: any) => {
-          let fetchedProjectList: Item[] = this.convertResponseToItemList(response);
-          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Left_Tree_Data, fetchedProjectList);
-          this.loadingScreen = false;
-        },
-        error => {
-          this.loadingScreen = false;
-          console.log(error)
-        }
-      );
+    this.oldProjectList = this.projectList;
+    let projectid = this.currentProject?._id === undefined ? (<any>this.currentProject)?.id : this.currentProject?._id;
+    let url = `${environment.apiURL}/project/getProjectMetadata/` + projectid;
+    this.httpsRequestService.getHttpData<any>(url).subscribe(
+      (response: any) => {
+        let fetchedProjectList: Item[] = this.convertResponseToItemList(response);
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Left_Tree_Data, fetchedProjectList);
+        this.loadingScreen = false;
+      },
+      error => {
+        this.loadingScreen = false;
+        console.log(error)
+      }
+    );
   }
 
-  private convertResponseToItemList(response: any):Item[] {
-    let fetchedProjectList:Item[] = [];
+  private convertResponseToItemList(response: any): Item[] {
+    let fetchedProjectList: Item[] = [];
     this.objectMap.clear();
     response.item.forEach((project: any) => {
       fetchedProjectList.push(this.extractProject(project));
     })
+    console.log(fetchedProjectList);
     return fetchedProjectList;
   }
+
   private extractProject(project: any): Item {
     return {
       name: project.name,
-      id:project.id,
+      id: project.id,
       description: project.description,
       address: project.address,
-      collapsed: true,
+      collapsed: this.getCollapsedStatus(project.id),
       parentid: 'home',
       type: 'project',
-      isInvasive:project.isInvasive,
-      projectType:project.projectType,
+      isInvasive: project.isInvasive,
+      projectType: project.projectType,
       nestedItems: this.extractNestedItems(project)
     };
   }
 
   private extractNestedItems(project: any): Item[] {
+    let projectCommonLocationCollapsibleStatus = this.getCollapsedStatus('Project Common Location');
+    console.log(projectCommonLocationCollapsibleStatus);
     let locations: Item = {
       name: 'Project Common Location',
-      id:'',
-      collapsed: true,
-      isInvasive:true,
+      id: '',
+      collapsed: projectCommonLocationCollapsibleStatus,
+      isInvasive: true,
       nestedItems: project.locations.map((location: any) => (
         {
           name: location.locationName,
-          id:location.locationId,
-          parentid:project.id,
-          isInvasive:location.isInvasive
+          id: location.locationId,
+          parentid: project.id,
+          isInvasive: location.isInvasive
         }
       ))
     };
 
 
     let subProject: Item[] = project.subProjects.map((subProject: any) => (
-        {
-          name: subProject.name,
-          id:subProject._id,
-          collapsed: true,
-          parentid:project.id,
-          type: "subproject",
-          isInvasive:true,
-          nestedItems: this.extractSubProjectLocation(subProject)
-        }))
+      {
+        name: subProject.name,
+        id: subProject._id,
+        collapsed: this.getCollapsedStatus(subProject._id),
+        parentid: project.id,
+        type: "subproject",
+        isInvasive: true,
+        nestedItems: this.extractSubProjectLocation(subProject)
+      }))
 
     let projectBuildings: Item = {
       name: 'Project Buildings',
-      id:'',
-      collapsed: true,
-      isInvasive:true,
+      id: '',
+      collapsed: this.getCollapsedStatus('Project Buildings'),
+      isInvasive: true,
       nestedItems: subProject
     }
 
@@ -185,32 +192,32 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   private extractSubProjectLocation(subProject: any): Item[] {
     let buildingLocation: Item = {
       name: 'Building Location',
-      collapsed: true,
-      id:'',
-      isInvasive:true,
+      collapsed: this.getCollapsedStatus('Building Location'),
+      id: '',
+      isInvasive: true,
       nestedItems: []
     };
     let apartments: Item = {
       name: 'Apartments',
-      collapsed: true,
-      id:'',
-      isInvasive:true,
+      collapsed: this.getCollapsedStatus('Apartments'),
+      id: '',
+      isInvasive: true,
       nestedItems: []
     };
     subProject.subProjectLocations.forEach((location_: any) => {
       if (location_.locationType === 'buildinglocation') {
         buildingLocation.nestedItems?.push({
           name: location_.locationName,
-          id:location_.locationId,
-          parentid:subProject._id,
-          isInvasive:location_.isInvasive
+          id: location_.locationId,
+          parentid: subProject._id,
+          isInvasive: location_.isInvasive
         })
       } else {
         apartments.nestedItems?.push({
           name: location_.locationName,
-          id:location_.locationId,
-          parentid:subProject._id,
-          isInvasive:location_.isInvasive
+          id: location_.locationId,
+          parentid: subProject._id,
+          isInvasive: location_.isInvasive
         })
       }
     })
@@ -230,15 +237,15 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   public openLocation(location: Item) {
     if (location.id !== '' && location?.nestedItems?.length === 0) {
-        this.currentSelectedItem = location.name;
-        this.findPath(location);
-        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'location');
+      this.currentSelectedItem = location.name;
+      this.findPath(location);
+      this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'location');
     } else if (location.type === 'subproject') {
       this.currentSelectedItem = location.name;
       this.findPath(location);
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'subproject');
     }
-    }
+  }
 
 
   private mapItem(input: Item): Item {
@@ -249,9 +256,9 @@ export class ProjectsListLeftPanelComponent implements OnInit {
       address: input?.address,
       collapsed: input?.collapsed,
       parentid: input?.parentid,
-      type: input?.nestedItems? input?.type:'location',
-      isInvasive:input?.isInvasive,
-      projectType:input?.projectType,
+      type: input?.nestedItems ? input?.type : 'location',
+      isInvasive: input?.isInvasive,
+      projectType: input?.projectType,
       nestedItems: input?.nestedItems?.map((item) => this.mapItem(item)) || []
     };
   }
@@ -285,50 +292,50 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   private createObjectMap(project: Item[], objectMap: Map<any, any>) {
     if (project === undefined) return;
     project.forEach((project: any) => {
-        objectMap.set(project.id, project);
-        project.nestedItems.forEach((nestedItem: any) => {
+      objectMap.set(project.id, project);
+      project.nestedItems.forEach((nestedItem: any) => {
+        objectMap.set(nestedItem.id, nestedItem);
+        if (nestedItem.nestedItems) {
+          nestedItem.nestedItems.forEach((nestedItem: any) => {
             objectMap.set(nestedItem.id, nestedItem);
             if (nestedItem.nestedItems) {
-                nestedItem.nestedItems.forEach((nestedItem: any) => {
+              nestedItem.nestedItems.forEach((nestedItem: any) => {
+                objectMap.set(nestedItem.id, nestedItem);
+                if (nestedItem.nestedItems) {
+                  nestedItem.nestedItems.forEach((nestedItem: any) => {
                     objectMap.set(nestedItem.id, nestedItem);
                     if (nestedItem.nestedItems) {
-                        nestedItem.nestedItems.forEach((nestedItem: any) => {
-                            objectMap.set(nestedItem.id, nestedItem);
-                            if (nestedItem.nestedItems) {
-                                nestedItem.nestedItems.forEach((nestedItem: any) => {
-                                    objectMap.set(nestedItem.id, nestedItem);
-                                    if (nestedItem.nestedItems) {
-                                        nestedItem.nestedItems.forEach((nestedItem: any) => {
-                                            objectMap.set(nestedItem.id, nestedItem);
-                                        })
-                                    }
-                                })
-                            }
-                        })
+                      nestedItem.nestedItems.forEach((nestedItem: any) => {
+                        objectMap.set(nestedItem.id, nestedItem);
+                      })
                     }
-                })
+                  })
+                }
+              })
             }
-        })
+          })
+        }
+      })
     });
   }
 
   private findPath(item: Item) {
-    let tempList:any[] = [];
+    let tempList: any[] = [];
     this.store.select(BackNavigation.getPreviousStateModelChain).subscribe(chain => {
       tempList = chain.stack;
     })
-    tempList.forEach((element:any) => {
+    tempList.forEach((element: any) => {
       if (element.name !== 'Home') {
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, '');
       }
     })
     let path = [];
-    let parent:string | undefined = item.parentid;
+    let parent: string | undefined = item.parentid;
     path.push(item);
     while (parent !== 'home' && parent != null) {
-        let parentItem = this.objectMap.get(parent);
-        path.push(parentItem);
-        parent = parentItem.parentid;
+      let parentItem = this.objectMap.get(parent);
+      path.push(parentItem);
+      parent = parentItem.parentid;
     }
     while (path.length != 0) {
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, this.mapItem(path.pop()));
@@ -366,4 +373,32 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     let projectid = this.currentProject?._id === undefined ? (<any>this.currentProject)?.id : this.currentProject?._id;
     return projectList?.filter(project => project.id === projectid);
   }
+
+  private getCollapsedStatus(projectId: string) {
+    if (this.oldProjectList === undefined) return true;
+    if (this.oldProjectList?.length === 0) return true;
+    if (this.oldProjectList[0].id === projectId) return this.oldProjectList[0].collapsed;
+    if (this.oldProjectList[0].nestedItems?.length !== 0) {
+      for (const nestedItem of this.oldProjectList[0].nestedItems || []) {
+        // If projectid is Project Buildings or Project Common Location
+        if (nestedItem.name === projectId) {
+          return nestedItem.collapsed;
+        }
+        if (nestedItem.nestedItems?.length !== 0) {
+          for (const nestedItem1 of nestedItem.nestedItems || []) {
+            if (nestedItem1.id === projectId) {
+              return nestedItem1.collapsed;
+            }
+            if (nestedItem1.nestedItems?.length !== 0) {
+              for (const nestedItem2 of nestedItem1.nestedItems || []) {
+                if (nestedItem2.name === projectId) return nestedItem2.collapsed;
+              }
+            }
+          }
+        }
+      }
+    }
+    return true;
+  }
+
 }

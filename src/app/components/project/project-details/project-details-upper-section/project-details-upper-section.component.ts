@@ -168,6 +168,8 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
         (response: any) => {
           this.projectInfo = response.project;
           this.projectInfo.type = 'project';
+          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
+          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
         },
         error => {
           console.log(error)
@@ -186,6 +188,8 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
       this.httpsRequestService.postHttpData(url, data).subscribe(
         (response: any) => {
           this.projectInfo = response.subproject;
+          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
+          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
         },
         error => {
           console.log(error)
@@ -205,6 +209,8 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         this.projectInfo = response.location;
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
       },
       error => {
         console.log(error)

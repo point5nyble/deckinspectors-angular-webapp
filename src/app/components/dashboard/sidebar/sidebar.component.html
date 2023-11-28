@@ -1,11 +1,11 @@
-<div class="container sidebar" [ngClass]="{'collapsed': isSidebarCollapsed}" >
+<div class="container sidebar" [ngClass]="{'collapsed': isSidebarCollapsed}" (mouseleave)="collapseSidebar()">
   <div class="sidebar-block">
-      <div class="sidebar-content"  (mouseenter)="toggleSidebar()" (mouseleave)="collapseSidebar()">
+      <div class="sidebar-content"  (mouseenter)="toggleSidebar()" >
 
         <ul>
           <li class="active" (click)="activateLink($event)">
             <a routerLink="/dashboard" routerLinkActive="active">
-<!--              <span class="material-icons logo-image"> location_city </span>-->
+             <!-- <span class="material-icons logo-image"> location_city </span> -->
               <img src="../../../assets/images/ant-design_project-outlined-new.png" alt="Logo 1" class="logo-image" >
               <span>&nbsp;&nbsp;Projects</span>
             </a>
