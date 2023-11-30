@@ -10,9 +10,10 @@ ul{
     display: flex;
     align-items: center;
     justify-content: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     flex:1;
     color: #8C8C8C;
+    font-size: 14px;
     font-weight: 400;
 }
 li{
@@ -32,12 +33,8 @@ li{
     width:130px;
 }
 #Upload{
-    margin-left:60px;
+    margin-left:40px;
 }
-.Icons{
-    margin-left:5px;
-}
-
 p{
     display: flex;
     align-items: center;

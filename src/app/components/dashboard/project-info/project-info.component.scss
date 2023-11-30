@@ -25,25 +25,19 @@
   align-items: center;
 }
 
-.icon {
-  font-size: 24px;
-  color: #666666;
-  margin-right: 10px;
-  cursor: pointer;
-}
+
 
 .icon:hover {
   color: #007bff;
 }
-
-.bi {
-  display: inline-block;
-  font-size: 24px;
-  color:#6D6A6A;
-  font-weight: 400;
-  margin-right: 10px;
-  cursor: pointer;
-}
+// .bi {
+//   display: inline-block;
+//   font-size: 24px;
+//   color:#6D6A6A;
+//   font-weight: 400;
+//   margin-right: 10px;
+//   cursor: pointer;
+// }
 
 .bi:hover {
   color: #007bff;
@@ -52,19 +46,22 @@
 .bi-check{
   font-size: 30px;
 }
-.fa {
+.fas{
   display: inline-block;
-  font-size: 24px;
-  color: #333;
-  margin-right: 10px;
-  margin-top: 8px;
+  font-size: 15px;
+  color: #666666B2;
   cursor: pointer;
-  opacity:0.9;
 }
 .fas:hover{
   color: #007bff;
 }
-
+.icon {
+  font-size: 20px;
+  color:#6D6A6A;
+  margin-right: 10px;
+  cursor: pointer;
+  font-weight:900;
+}
 
 
 .AssignTo{

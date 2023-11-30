@@ -1,18 +1,37 @@
 .horizontal-div {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content:space-around;
   padding: 10px;
   background-color: #ffff;
   border-radius: 16px;
   height: 80px;
 }
+input[type="text"] {
+  all: unset;
+}
+.horizontal-div div{
+  display: flex;
+}
+.horizontal-div div i{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width:44px;
+  height:52px;
+  color: #666666;
+  border: solid #A8A4A4 1px;
+  border-top-right-radius:8px;
+  border-bottom-right-radius:8px;
+  border-left: none;
+}
 
-.horizontal-div input[type="text"],
+  
 .horizontal-div input[type="date"] {
   padding: 8px;
-  // border: none;
-  border-radius: 4px;
+  border:solid #A8A4A4 1px;
+  color: #8C8C8C;
+  border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -31,9 +50,7 @@
   font-size: 18px;
 }
 
-.horizontal-div button:hover {
-  color: #007bff;
-}
+
 
 .custom-dialog-container {
   position: fixed;
@@ -55,10 +72,54 @@
 }
 
 .horizontal-div input[type="text"]{
-  width: 334px;
+  width: 290px;
   height: 50px;
   border: solid #A8A4A4 1px;
-  border-radius:8px;
+  border-top-left-radius:8px;
+  border-bottom-left-radius:8px;
+  border-right: none;
   padding: 13px, 69px, 13px, 28px;
+  padding-left:10px;
 }
 
+.replaceFinalReportTemplate{
+  border:1px solid #8B8888;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  color: #ED7C1C;
+  width:124px;
+  height:50px;
+}
+h6{
+   margin-top: 8px;
+}
+
+label{
+  color: #8B8888;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  column-gap:5px;  
+}
+
+label input{
+  min-width: 18px;
+  min-height: 18px;  
+}
+
+label input:checked{
+  background: #ED7C1C;
+}
+
+.replaceFinalReportTemplate h6{
+  color: #8B8888;
+  font-weight: 600;
+}
+.replaceFinalReportTemplate h6:hover{
+  color: #007bff;
+}
+.horizontal-div button:hover {
+  color: #007bff;
+}
