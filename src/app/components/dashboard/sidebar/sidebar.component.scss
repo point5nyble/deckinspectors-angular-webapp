@@ -40,7 +40,7 @@ a{
 
 .sidebar-block{
   display: block;
-  max-width: 193px;
+  min-width: 193px;
   top: 136px;
   left:5px;
   border-radius: 16px;
@@ -57,11 +57,6 @@ a{
   -moz-transition: opacity 0.8s ease-out;
   //padding: 10px;
 }
-
-.collapsed .sidebar-content {
-  //opacity: 0;
-}
-
 /* Hide spans with names when the sidebar is collapsed */
 .collapsed .sidebar-content ul span {
   display: none;
@@ -80,6 +75,8 @@ a{
 
 .sidebar-content a {
   display: block;
+  display: flex;
+  align-items: center;
   padding: 5px;
   color: #797575;
   border-radius: 13px;
@@ -98,18 +95,10 @@ a{
   color: #fff;
 }
 
-.collapsed .sidebar-content a:hover {
-  background-color: #ED7C1C;
-  border-radius: 13px;
-  width: 40px;
-}
-
-
-
 .collapsed .sidebar-content .active a {
   background-color: #ED7C1C;
   border-radius: 8px;
-  color: #fff;
+  color: #ffff;
   width: 50px;/* You may want to change the text color to make it more visible */
   height:41px;
   display: flex;
@@ -117,4 +106,7 @@ a{
   justify-content: center;
   position: relative;
   left:-5px;
+}
+i{
+  font-size:27px;
 }

@@ -9,8 +9,8 @@
   transition: background-color 0.3s ease; /* Add a transition effect for smoother highlight */
   cursor: pointer;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .highlighted-section {
@@ -18,9 +18,12 @@
   font-weight: bold;
 }
 
-b{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 15px;
+p{
+  color: #000000;
+  font-weight: 500;
+  font-size: 18px;
+  width: 90%;
+  height:25px;
+  overflow: clip;
+  padding:5px;
 }

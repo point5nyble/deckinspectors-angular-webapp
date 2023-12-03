@@ -45,9 +45,11 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   }
 
   public ngOnInit(): void {
+    // console.log(this.disableInvasiveBtn);
     this.subscribeToProjectInfo();
     this.subscribeToProjectState();
     this.sequenceNumber = this.projectInfo.sequenceNumber;
+    
   }
 
   private subscribeToProjectState() {
@@ -76,6 +78,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   }
 
   public changeProjectState() {
+    // console.log("test button")
     this.projectState = this.projectState === ProjectState.VISUAL ? ProjectState.INVASIVE : ProjectState.VISUAL;
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.PROJECT_STATE_UPDATE, {state:this.projectState});
   }

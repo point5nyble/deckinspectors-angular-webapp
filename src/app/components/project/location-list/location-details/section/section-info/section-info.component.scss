@@ -1,14 +1,23 @@
 .table {
-  border-radius: 5px;
   overflow: hidden; /* Hide overflow if table exceeds the container */
 }
 
-.table td {
-  padding: 10px;
+tr{
+  max-height: 24px;
+}
+td{
+  color: #525252;
+  font-weight: 400;
+  font-size: 14px;
+}
+p{
+  color:#393838;
+  font-weight:500;
+  font-size: 14px;
 }
 
 .table tbody tr:nth-child(even) {
-  background-color: #f7f7f7; /* Alternate row background color */
+  background-color: #ffff; /* Alternate row background color */
 }
 
 .table tbody tr:hover {
@@ -16,6 +25,7 @@
 }
 
 .scrollable-container {
+  border-radius:16px;
   overflow-x: hidden;
   background-color: #ffff;
 }
