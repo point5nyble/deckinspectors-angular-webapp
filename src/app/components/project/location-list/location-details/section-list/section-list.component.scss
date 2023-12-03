@@ -35,14 +35,19 @@
   align-items: center;
   justify-content: center;
   height: 72px;
-  border-bottom: solid #ffff 7px;
+  border-bottom: solid #ffff 10px;
   padding-left: 5px;
 }
 
 .header-component div{
+  display: flex;
   padding:5px;
+  width: 324px;
   height:40px;
-  border-radius: 8px;
+  color:#000000;
+  font-weight: 700;
+  font-size: 18px;
+  border-radius:  8px;
   background-color: #ffff;
 }
 

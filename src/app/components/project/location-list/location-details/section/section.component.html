@@ -3,7 +3,7 @@
   <div class="icons">
     <div class="add-edit">
       <div *ngIf="showAddBtn()" (click)="openVisualDeckReportModal()" class="mr-3">
-        <i class="fas fa-plus"></i>Add new
+        <i class="fas fa-plus"></i><h6>Add new</h6>
       </div>
       <div class="edit-button">
         <i class="fas fa-edit edit-btn" (click)="editVisualDeckReportModal()"></i>
@@ -19,7 +19,7 @@
     </div>
     <div class="overlay-container" *ngIf="!isRecordFound">
       <div class="overlay">
-        <p class="flex-item-overley">Please add data first by clicking on the add button.</p>
+        <p class="flex-item-overley">Please add data first by clicking on the Add new button.</p>
         <div class="close-button" (click)="closeOverlay()">X</div>
       </div>
     </div>

@@ -7,12 +7,13 @@
   border: solid #fff 2px;
   // border-radius: 10px;
   /* Add padding to the top */
-  padding: 20px 10px 10px;
+  padding: 10px 10px 10px;
   justify-content: space-between;
   cursor: pointer;
   border-bottom: solid #A7A5A5 2px;
-  min-height:95px;
-  max-height: 95px;
+  min-height:75px;
+  max-height:75px;
+  flex: 1;
 }
 
 .horizontal-div:hover {
@@ -58,9 +59,9 @@
 .icon {
   font-size: 20px;
   color:#6D6A6A;
+  font-weight: 400;
   margin-right: 10px;
   cursor: pointer;
-  font-weight:900;
 }
 
 
@@ -74,9 +75,9 @@
 .profile-section{
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  margin-right: 20px;
-  width: 400px;
+  width: 420px;
+  padding-right: 10px;
+  padding-top: 20px;
 }
 
 .AssignUser{
@@ -101,6 +102,7 @@
 .description{
   display: flex;
   color: #6D6A6A;
+  column-gap: 10px;
   font-weight:400;
 }
 .description div{
@@ -109,14 +111,35 @@
 }
 
 .projectName{
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
   color: #000000;
   font-weight: 500;
 }
-
+.projectName div span{ 
+  font-size: 19px;
+}
+.projectName div{
+  display: flex;
+  align-items:center;
+  color: #666666CC;
+  padding-bottom: 5px;
+}
+.projectName p{
+  width: 135px;
+  height:18px;
+  overflow: clip;
+}
 .typeSection{
   margin-left:50px;
   width:90px;
-  padding-bottom:10px;
   color:#6D6A6A;
   font-weight: 400;
+}
+
+.description p{
+  width:100%;
+  height:20px;
+  overflow: clip;
 }

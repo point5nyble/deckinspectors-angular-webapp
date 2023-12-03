@@ -3,8 +3,8 @@
       <div class="sidebar-content" >
 
         <ul (mouseenter)="toggleSidebar()">
-          <li class="active" (click)="activateLink($event)">
-            <a routerLink="/dashboard" routerLinkActive="active">
+          <li class="active" (click)="activateLink($event)" >
+            <a routerLink="/dashboard" routerLinkActive="active"  (click)="gotoHome()">
               <i class="material-symbols-outlined">location_city</i>
               <span>&nbsp;Projects</span>
             </a>
