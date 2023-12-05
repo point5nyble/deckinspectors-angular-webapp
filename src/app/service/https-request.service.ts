@@ -9,14 +9,15 @@ export class HttpsRequestService {
 
   constructor(private http: HttpClient) {}
   public getHttpData<T>(url:string): Observable<T> {
-      return this.http.get<T>(url);
+      return this.http.get<T>(url, {withCredentials: true});
   }
    public postHttpData<T>(url:string, data:any): Observable<T> {
      const httpOptions = {
         headers: new HttpHeaders({
          'Content-Type': 'application/json'
        }),
-       timeout: 600000 // 10 minutes timeout in milliseconds
+       timeout: 600000, // 10 minutes timeout in milliseconds
+       withCredentials: true
      };
      return this.http.post<T>(url, data,httpOptions);
    }
@@ -25,7 +26,8 @@ export class HttpsRequestService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'multipart/form-data'
-      })
+      }),
+      withCredentials: true
     };
     return this.http.post<T>(url, data,httpOptions);
   }
@@ -34,13 +36,14 @@ export class HttpsRequestService {
     const httpOptions = {
           headers: new HttpHeaders({
               'Content-Type': 'application/json'
-          })
+          }),
+          withCredentials: true
       };
       return this.http.put<T>(url, data,httpOptions);
   }
 
   public deleteHttpData<T>(url:string): Observable<T> {
-    return this.http.delete<T>(url);
+    return this.http.delete<T>(url, {withCredentials: true});
   }
 
 }
