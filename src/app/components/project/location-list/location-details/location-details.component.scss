@@ -23,24 +23,32 @@
 
 .report-section {
   flex: 1;
-  margin-left: 15px;
   overflow-x: auto;
   display: flex;
   flex-direction: column;
+  border-bottom-right-radius:16px;
 }
 
 .location-section {
   flex: 1;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  background-color: #E8F2FF;
+  margin-top:10px;
   display: flex;
   overflow: auto;
+  background-color: #ffff;
+  padding:10px; 
+  border-radius: 16px;
 }
 
-.flex-item {
+.section-list {
   display: flex;
   flex-direction: column;
-  max-width: 350px;
+  max-width:200px;
   flex: 1;
+}
+
+.location-section div{
+  display: flex;
+  background-color:#E8F2FF;
+  min-width:100%;
+  border-radius: 16px;
 }

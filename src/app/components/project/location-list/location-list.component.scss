@@ -27,13 +27,19 @@
   flex: 1;
 }
 
+.flex-item div{
+  font-size: 18px;
+  color: #000000;
+  font-weight: 700;
+}
+
 .icons {
   display: flex;
   align-items: center;
   margin-top: 10px;  
 }
 
-.icons i {
+.icons i{
   margin-right: 10px;
 }
 

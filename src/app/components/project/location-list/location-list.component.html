@@ -1,6 +1,7 @@
 <div class="horizontal-div  full-height">
   <div class="header-component">
-    <div class="flex-item"><span style="margin-right: 5px"><strong>{{ header }}</strong></span>
+    <div class="flex-item">
+      <div>{{ header }}</div>
       <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
         <span class="visually-hidden">Loading...</span>
       </span>
@@ -30,6 +31,7 @@
     <div *ngFor="let project of subprojectList" cdkDrag>
         <app-location-list-element (click)="onDbClick(project)" [location]="project"
                       [isSubProject]="true"
+                      [header]="header"
                       [projectName]="project.name"
                       (projectAssignedEvent)="assignProject($event)"
                       (childClickEventTriggered)="childClickEvent($event)"
@@ -42,6 +44,7 @@
       <app-location-list-element (click)="onDbClick(locationInfo)"
                     [location]="locationInfo"
                     [isSubProject]="false"
+                    [header]="header"
                     (projectAssignedEvent)="assignProject($event)"
                                  (deleteElement)="deleteElement($event)"
                                  (childClickEventTriggered)="childClickEvent($event)"

@@ -1,14 +1,20 @@
-<div class="horizontal-div">
-    <input type="text" placeholder="Search by name"
+<div class="horizontal-div"> 
+    <div>
+      <input type="text" placeholder="Search by name"
            [(ngModel)]="searchTerm" (input)="filterNames()">
-    <input type="date" placeholder="Created on">
+      <i class="material-symbols-outlined">
+        search
+      </i>
+    </div>
+    <input type="date"  placeholder="Created on">
     <label>
       <input type="checkbox" [(ngModel)]="isChecked" (change)="filterCompletedProjects()"> Completed
     </label>
+    <button (click)="replaceFinalReportTemplate()" class="replaceFinalReportTemplate" title="upload final report template">
+      <i class="bi bi-file-earmark-arrow-up" style="font-size: 25px;" ></i><h6>&nbsp;Upload</h6>
+    </button>
     <button (click)="openModal()" class="buttonAddnew">
-      <i class="bi bi-plus" style='font-size:30px;'></i>Add new
+      <i class="bi bi-plus" style='font-size:25px;'></i><h6 id="upload">&nbsp;Add new</h6>
     </button>
-    <button (click)="replaceFinalReportTemplate()">
-      <i class="bi bi-file-earmark-arrow-up" title="upload final report template"></i>
-    </button>
+    
   </div>

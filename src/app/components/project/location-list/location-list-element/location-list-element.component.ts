@@ -12,6 +12,7 @@ import { AssignProjectModalComponent } from 'src/app/forms/assign-project-modal/
 export class LocationListElementComponent {
   @Input() location!: ProjectListElement;
   @Input() isSubProject!: boolean;
+  @Input() header!:string;
   @Input() projectName!: string;
   isAdmin: boolean = ((JSON.parse(localStorage.getItem('user')!))?.role === "admin");
   @Output() projectAssignedEvent = new EventEmitter<any>();

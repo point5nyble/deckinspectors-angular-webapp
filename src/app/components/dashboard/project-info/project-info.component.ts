@@ -14,14 +14,25 @@ import { DeleteConfirmationModalComponent } from '../../../forms/delete-confirma
   styleUrls: ['./project-info.component.scss']
 })
 export class ProjectInfoComponent {
-  @Input() projectInfo!: Project;
+  @Input() projectInfo!: Project;  
+  createdDate: Date = new Date();
+  months: string[] = [
+    'Jan', 'Feb', 'Mar', 'April', 'May', 'Jun', 'Jul',
+    'Aug', 'Sept', 'Oct', 'Nove', 'Dec'
+];
+day: number =this.createdDate.getDate();
+monthIndex: number =this.createdDate.getMonth();
+year: number =this.createdDate.getFullYear();
+  //createdDate:string[]=(this.projectInfo.createdat).split(' ');
+  formattedDate: string = `${this.months[this.monthIndex]} ${this.day}, ${this.year}`;
   @Output() projectAssignedEvent = new EventEmitter<any>();
   @Output() childClickEventTriggered = new EventEmitter<boolean>();
   @Output() markCompletedEvent = new EventEmitter<boolean>();
   @Output() projectEventDeletedEvent = new EventEmitter<any>();
   @Output() isDownloading = new EventEmitter<boolean>();
+  
+  constructor(private dialog: MatDialog, private httpsRequestService:HttpsRequestService) {}
 
-  constructor(private dialog: MatDialog, private httpsRequestService:HttpsRequestService) { }
 
   isAdmin: boolean = ((JSON.parse(localStorage.getItem('user')!))?.role === "admin");
   Status:String='false';
@@ -31,7 +42,7 @@ export class ProjectInfoComponent {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "400px";
-    dialogConfig.height = "350px";
+    dialogConfig.height = "600px";
     dialogConfig.data = {
       project: this.projectInfo
     };

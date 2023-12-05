@@ -18,6 +18,8 @@
 }
 
 .modal-title {
+  color: #8B8888;
+  font-weight: 600;
   font-size: 24px;
   margin-bottom: 20px;
 }
@@ -27,14 +29,16 @@
 }
 
 .form-label {
+  color: #797575;
+  font-weight: 500;
   font-weight: bold;
 }
 
 .form-control {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid #A79C9CB2;
+  border-radius:8px;
 }
 
 .submit-button {
@@ -113,21 +117,37 @@ textarea {
 }
 
 .mat-raised-button.mat-primary {
-  background-color: #007bff;
-  color: #fff;
+  border:1px solid #8B8888;
+  border-radius: 8px;
+  color: #ED7C1C;
+  background-color: #ffff;
+  width:114px;
+  height:40px;
 }
 
 .mat-raised-button.mat-primary:hover {
   background-color: #0056b3;
+  color: #ffff;
 }
 
 
 .close-button {
+  border:1px solid #8B8888;
+  color: #6D6A6A;
+  border-radius: 8px;
+  background-color: #ffff;
+  width:114px;
+  height:40px;
   order: 1; /* Moves the button to the left */
 }
 
 .save-button {
   order: 2; /* Moves the button to the right */
+}
+
+h6{
+  font-size: 18px;
+  margin-bottom:5px;
 }
 
 .close-button-container {

@@ -1,11 +1,15 @@
 <div class="horizontal-div">
       <div class="profile-section">
-          <div>
-            <b>{{projectInfo.name }} &nbsp;</b>
+          <div class="projectName">
+            <p style="text-transform: capitalize;">{{projectInfo.name }}</p>
+            <div><span class="material-symbols-outlined">calendar_month</span>
+              {{formattedDate}}
+              <!-- {{projectInfo.createdat}} -->
+            </div>
           </div>
-          <div style="display: flex;">
-            <b>Description: &nbsp;</b>
-            <p>{{  projectInfo.description }}</p>
+          <div class="description">
+            <div style="text-transform: capitalize;">{{projectInfo.projecttype}}&nbsp;</div>
+            <p>{{  projectInfo.address }}</p>
           </div>
       </div>
 
@@ -28,13 +32,13 @@
         </div>
       </div> -->
 
-      <div  style="margin-left:50px; width:90px;padding-bottom:10px;">
+      <div  class="typeSection">
         <span *ngIf="projectInfo.projecttype === 'singlelevel'">Single</span>
         <span *ngIf="projectInfo.projecttype === 'multilevel'">Multi</span>
       </div>
 
       <div class="AssignUser" (click)="openAssignProjectModal()">
-        <span *ngIf="isAdmin" class="bi bi-person-circle" (click)="openAssignProjectModal()" title="Assign users to project"></span>
+        <span *ngIf="isAdmin" class="bi bi-person-circle icon" (click)="openAssignProjectModal()" title="Assign users to project"></span>
         <span class="AssignUsertext">Assign User&nbsp;</span>
         <span class="fas fa-chevron-down"></span>
       </div>
@@ -57,22 +61,19 @@
 
       <div style="margin-left:70px;">
         <!-- <span class="bi bi-upload icon" (click)="openUploadFilesModal()" title="Upload project documents"></span> -->
-        <span class="material-symbols-outlined icon" (click)="openUploadFilesModal()">upload</span>
+        <span class="material-symbols-outlined icon"  (click)="openUploadFilesModal()" title="Upload project documents"style="font-size:24px;margin-top:7px;">upload</span>
       </div>
 
       <div style="margin-left:50px;">
         <!-- <span class="bi bi-download icon" (click)="openDownloadReportModal()" title="Download project reports"></span> -->
-        <span class="material-symbols-outlined icon" (click)="openDownloadReportModal()">download</span>
+        <span class="material-symbols-outlined icon" (click)="openDownloadReportModal()" title="Download project reports" style="font-size:24px;margin-top:7px;">download </span>
       </div>
 
       <div style="margin-left:50px;">
-<!--        <span class="bi bi-lightning icon" (click)="markComplete()" title="Mark project complete"></span>-->
         <span *ngIf="!projectInfo.iscomplete" class="bi bi-check2-square icon" (click)="markComplete()" title="Mark project complete"></span>
-        <span *ngIf="projectInfo.iscomplete" class="bi bi-arrow-repeat" (click)="markComplete()" title="Move in progess"></span>
-        <!-- <span class="material-symbols-outlined">bolt</span> -->
+        <span *ngIf="projectInfo.iscomplete" class="bi bi-arrow-repeat icon" (click)="markComplete()" title="Move in progess"></span>
       </div>
       <div style="margin-left:30px;">
-        <!-- <span class="bi bi-file icon" title="Move project to a folder"></span> -->
         <span class="bi bi-trash icon" title="Delete Project" (click)="deleteProject()"></span>
       </div>
 </div>

@@ -7,12 +7,13 @@
   border: solid #fff 2px;
   // border-radius: 10px;
   /* Add padding to the top */
-  padding: 20px 10px 10px;
+  padding: 10px 10px 10px;
   justify-content: space-between;
   cursor: pointer;
   border-bottom: solid #A7A5A5 2px;
-  min-height:95px;
-  max-height: 95px;
+  min-height:75px;
+  max-height:75px;
+  flex: 1;
 }
 
 .horizontal-div:hover {
@@ -25,24 +26,19 @@
   align-items: center;
 }
 
-.icon {
-  font-size: 24px;
-  color: #333;
-  margin-right: 10px;
-  cursor: pointer;
-}
+
 
 .icon:hover {
   color: #007bff;
 }
-
-.bi {
-  display: inline-block;
-  font-size: 24px;
-  color: #333;
-  margin-right: 10px;
-  cursor: pointer;
-}
+// .bi {
+//   display: inline-block;
+//   font-size: 24px;
+//   color:#6D6A6A;
+//   font-weight: 400;
+//   margin-right: 10px;
+//   cursor: pointer;
+// }
 
 .bi:hover {
   color: #007bff;
@@ -51,83 +47,37 @@
 .bi-check{
   font-size: 30px;
 }
-.fa {
+.fas{
   display: inline-block;
-  font-size: 24px;
-  color: #333;
-  margin-right: 10px;
-  margin-top: 8px;
+  font-size: 15px;
+  color: #666666B2;
   cursor: pointer;
-  opacity:0.9;
 }
 .fas:hover{
   color: #007bff;
 }
-.select{
-  width: 200px;
-  height: 50px;
-  border: solid black 2px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.custom-select {
-  position: relative;
-  display: inline-block;
-}
-
-.select-icon,
-.dropdown-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.select-icon {
-  left: 10px;
-}
-
-.dropdown-arrow {
-  right: 10px;
-}
-
-.green-dot {
-  color: #00cc00; /* Green color */
-  margin-right: 5px;
-}
-
-.custom-select select {
-  appearance: none;
-  padding: 8px 30px 8px 30px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
-  font-size: 14px;
-  color: #333;
+.icon {
+  font-size: 20px;
+  color:#6D6A6A;
+  font-weight: 400;
+  margin-right: 10px;
   cursor: pointer;
 }
-.custom-select select:focus {
-  outline: none;
-  border-color: #2196F3;
-}
-.custom-select option {
-  padding: 8px;
-  font-size: 14px;
-}
+
 
 .AssignTo{
   width:150px;
   max-height: 50px;
-  color: blue;
+  color: #203EEA;
+  font-weight: 400;
   overflow: clip;
 }
 .profile-section{
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  margin-right: 20px;
-  width: 400px;
+  width: 420px;
+  padding-right: 10px;
+  padding-top: 20px;
 }
 
 .AssignUser{
@@ -149,5 +99,47 @@
 .AssignUsertext:hover{
   color:#007bff;
 }
+.description{
+  display: flex;
+  color: #6D6A6A;
+  column-gap: 10px;
+  font-weight:400;
+}
+.description div{
+    color: #000000;
+    font-weight: 500;
+}
 
+.projectName{
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  color: #000000;
+  font-weight: 500;
+}
+.projectName div span{ 
+  font-size: 19px;
+}
+.projectName div{
+  display: flex;
+  align-items:center;
+  color: #666666CC;
+  padding-bottom: 5px;
+}
+.projectName p{
+  width: 135px;
+  height:18px;
+  overflow: clip;
+}
+.typeSection{
+  margin-left:50px;
+  width:90px;
+  color:#6D6A6A;
+  font-weight: 400;
+}
 
+.description p{
+  width:100%;
+  height:20px;
+  overflow: clip;
+}

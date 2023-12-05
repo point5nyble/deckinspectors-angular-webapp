@@ -45,9 +45,11 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   }
 
   public ngOnInit(): void {
+    // console.log(this.disableInvasiveBtn);
     this.subscribeToProjectInfo();
     this.subscribeToProjectState();
     this.sequenceNumber = this.projectInfo.sequenceNumber;
+    
   }
 
   private subscribeToProjectState() {
@@ -76,6 +78,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   }
 
   public changeProjectState() {
+    // console.log("test button")
     this.projectState = this.projectState === ProjectState.VISUAL ? ProjectState.INVASIVE : ProjectState.VISUAL;
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.PROJECT_STATE_UPDATE, {state:this.projectState});
   }
@@ -168,6 +171,8 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
         (response: any) => {
           this.projectInfo = response.project;
           this.projectInfo.type = 'project';
+          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
+          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
         },
         error => {
           console.log(error)
@@ -186,6 +191,8 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
       this.httpsRequestService.postHttpData(url, data).subscribe(
         (response: any) => {
           this.projectInfo = response.subproject;
+          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
+          this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
         },
         error => {
           console.log(error)
@@ -205,6 +212,8 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         this.projectInfo = response.location;
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.Add_ELEMENT_TO_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
       },
       error => {
         console.log(error)

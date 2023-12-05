@@ -4,6 +4,7 @@
   background-color: #fff;
   flex-direction:column;
   border-radius: 8px;
+  height: 86px;
   cursor: pointer;
 }
 
@@ -16,18 +17,41 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.locationName{
+  font-size:16px;
+  color: #2F2E2E;
+  font-weight: 500;
+}
 .info{
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top:20px;
 }
-
+.info span{
+  color:#5D5C5C;
+  font-size: 12px;
+  font-weight: 400;
+}
 .icon{
 font-size: larger;
 }
-p{
-  color: blue;
-}
+
 .text-muted{
   display: flex;
+}
+
+span p{
+  color:#203EEA;
+  font-weight: 500;
+  font-size: 14px;
+}
+.assignUser{
+  margin-right: 10px;
+}
+.bi-trash{
+  color:#646161;
+}
+.bi-person-circle{
+  color:#646161;
 }

@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {LoginService} from "../../login/login.service";
+import { BackNavigation } from 'src/app/app-state-service/back-navigation-state/back-navigation-selector';
+import { OrchestratorEventName } from 'src/app/orchestrator-service/models/orchestrator-event-name';
+import { Store } from '@ngrx/store';
+import { OrchestratorCommunicationService } from 'src/app/orchestrator-service/orchestrartor-communication/orchestrator-communication.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,10 +11,12 @@ import {LoginService} from "../../login/login.service";
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+  
+
   isSidebarCollapsed: boolean = true;
   isAdmin: boolean = ((JSON.parse(localStorage.getItem('user')!))?.role === "admin");
-
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService,private store: Store<any>
+    ,private orchestratorCommunicationService:OrchestratorCommunicationService) {
   }
 
   toggleSidebar() {
@@ -32,5 +38,18 @@ export class SidebarComponent {
     }
     (event.currentTarget as HTMLElement).className = "active";
     console.log((event.currentTarget as HTMLElement))
+  }
+
+  gotoHome() {
+    let tempList:any[] = [];
+    this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((chain: { stack: any[]; }) => {
+      tempList = chain.stack;
+    })
+    tempList.forEach((element:any) => {
+      if (element.name !== 'Home') {
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, '');
+      }
+    })
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN,'home');
   }
 }

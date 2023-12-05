@@ -1,7 +1,7 @@
 <!-- form-component.component.html -->
 <div class="form-container">
   <div class="form-header">
-    <p><b>Visual Deck/Waterproofing Report</b></p>
+    <h4>Visual Deck/Waterproofing Report</h4>
   </div>
   <div class="form-body" [formGroup]="visualDeckReportModalForm">
     <div class="form-errors" *ngIf="showErrors && visualDeckReportModalForm.get('visualReportName')?.hasError('required')">

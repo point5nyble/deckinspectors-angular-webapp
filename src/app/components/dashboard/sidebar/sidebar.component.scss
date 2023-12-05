@@ -7,8 +7,17 @@
   max-height: 863px;
 }
 
+a{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  color: #797575;
+  font-weight: 600;
+  font-size: 15.06px;
+}
+
 .collapsed {
-  width: 96px;
+  max-width:80px;
 }
 
 .collapsible {
@@ -31,9 +40,9 @@
 
 .sidebar-block{
   display: block;
-  width: 235px;
+  min-width: 193px;
   top: 136px;
-  left: 27px;
+  left:5px;
   border-radius: 16px;
   flex:1;
 }
@@ -46,13 +55,8 @@
   display: block;
   transition: opacity 0.8s ease-out;
   -moz-transition: opacity 0.8s ease-out;
-  padding: 10px;
+  //padding: 10px;
 }
-
-.collapsed .sidebar-content {
-  //opacity: 0;
-}
-
 /* Hide spans with names when the sidebar is collapsed */
 .collapsed .sidebar-content ul span {
   display: none;
@@ -60,7 +64,7 @@
 }
 
 .sidebar-content ul {
-  margin: 0;
+  margin-top:20px;
   padding: 0;
 }
 
@@ -71,6 +75,8 @@
 
 .sidebar-content a {
   display: block;
+  display: flex;
+  align-items: center;
   padding: 5px;
   color: #797575;
   border-radius: 13px;
@@ -81,25 +87,26 @@
 
 .sidebar-content a:hover {
   background-color: #ED7C1C;
-  border-radius: 13px;
+  border-radius: 12.55px;
+  width: 192.91px;
+  height: 50.97px;
+  display: flex;
+  align-items: center;
+  color: #fff;
 }
 
-.collapsed .sidebar-content a:hover {
-  background-color: #ED7C1C;
-  border-radius: 13px;
-  width: 40px;
-}
-
-
-.sidebar-content .active a {
-  background-color: #ED7C1C;
-  border-radius: 13px;
-  color: #fff; /* You may want to change the text color to make it more visible */
-}
 .collapsed .sidebar-content .active a {
   background-color: #ED7C1C;
-  border-radius: 13px;
-  color: #fff;
-  width: 40px;/* You may want to change the text color to make it more visible */
+  border-radius: 8px;
+  color: #ffff;
+  width: 50px;/* You may want to change the text color to make it more visible */
+  height:41px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left:-5px;
 }
-
+i{
+  font-size:27px;
+}
