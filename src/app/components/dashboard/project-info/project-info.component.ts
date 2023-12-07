@@ -15,16 +15,7 @@ import { DeleteConfirmationModalComponent } from '../../../forms/delete-confirma
 })
 export class ProjectInfoComponent {
   @Input() projectInfo!: Project;  
-  createdDate: Date = new Date();
-  months: string[] = [
-    'Jan', 'Feb', 'Mar', 'April', 'May', 'Jun', 'Jul',
-    'Aug', 'Sept', 'Oct', 'Nove', 'Dec'
-];
-day: number =this.createdDate.getDate();
-monthIndex: number =this.createdDate.getMonth();
-year: number =this.createdDate.getFullYear();
-  //createdDate:string[]=(this.projectInfo.createdat).split(' ');
-  formattedDate: string = `${this.months[this.monthIndex]} ${this.day}, ${this.year}`;
+  formattedDate!: string;
   @Output() projectAssignedEvent = new EventEmitter<any>();
   @Output() childClickEventTriggered = new EventEmitter<boolean>();
   @Output() markCompletedEvent = new EventEmitter<boolean>();
@@ -33,7 +24,17 @@ year: number =this.createdDate.getFullYear();
   
   constructor(private dialog: MatDialog, private httpsRequestService:HttpsRequestService) {}
 
-
+  ngOnInit(): void{
+      let createdDate= new Date(this.projectInfo.createdat);
+      let months: string[] = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
+      'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+  ];
+  let day: number =createdDate.getDate();
+  let monthIndex: number =createdDate.getMonth();
+  let year: number =createdDate.getFullYear();
+  this.formattedDate= `${months[monthIndex]} ${day}, ${year}`;
+  }
   isAdmin: boolean = ((JSON.parse(localStorage.getItem('user')!))?.role === "admin");
   Status:String='false';
   openAssignProjectModal() {

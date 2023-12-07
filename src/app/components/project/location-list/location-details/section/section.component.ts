@@ -444,6 +444,17 @@ export class SectionComponent implements OnInit{
     return false;
   }
 
+  public showEditBtn(){
+    console.log()
+    if (this.sectionState === SectionState.VISUAL) {
+        return true;
+    } else if ((this.sectionState === SectionState.INVASIVE || this.sectionState === SectionState.CONCLUSIVE) &&
+                this.isRecordFound) {
+        return true;
+    }
+    return false;
+  }
+
   private subscribeToSectionClick() {
     this.orchestratorCommunicationService.getSubscription(OrchestratorEventName.SECTION_CLICKED).subscribe(
       (data:any) => {
