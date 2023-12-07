@@ -90,20 +90,21 @@ export class VisualDeckReportModalComponent implements OnInit {
   }
 
   ngOnInit() {
+    const unitUnavailableCheck = [null, undefined, true];
     this.visualDeckReportModalForm = this.formBuilder.group({
       visualReportName: [this.data.rowsMap?.get('name'), Validators.required], // Add validators if needed
       unitUnavailable: [this.data.rowsMap?.get('unitUnavailable')], // Add validators if needed
       //additionalConsiderationsOrConcernHtml:[this.data.rowsMap?.get('additionalconsiderationshtml')===null||this.data.rowsMap?.get('additionalconsiderationshtml')===undefined?'':this.data.rowsMap?.get('additionalconsiderationshtml')],
-      exteriorElements: [this.data.rowsMap?.get('exteriorelements'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required], // Add validators if needed
-      waterproofingElements: [this.data.rowsMap?.get('waterproofingelements'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
-      visualReview:[this.data.rowsMap?.get('visualreview'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
-      signsOfLeaks:[this.data.rowsMap?.get('visualsignsofleak'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
-      invasiveReviewRequired:[this.data.rowsMap?.get('furtherinvasivereviewrequired'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
-      conditionAssessment: [this.data.rowsMap?.get('conditionalassessment'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
+      exteriorElements: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? []: this.data.rowsMap?.get('exteriorelements'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required], // Add validators if needed
+      waterproofingElements: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? []: this.data.rowsMap?.get('waterproofingelements'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required],
+      visualReview:[unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? "": this.data.rowsMap?.get('visualreview'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required],
+      signsOfLeaks:[unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? false: this.data.rowsMap?.get('visualsignsofleak'), (this.data.rowsMap?.get('unitUnavailable'))? false: Validators.required],
+      invasiveReviewRequired:[unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? false: this.data.rowsMap?.get('furtherinvasivereviewrequired'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
+      conditionAssessment: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? "": this.data.rowsMap?.get('conditionalassessment'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required],
       additionalConsiderationsOrConcern:[this.data.rowsMap?.get('additionalconsiderationshtml') !== undefined? this.data.rowsMap?.get('additionalconsiderationshtml') : this.data.rowsMap?.get('additionalconsiderations')],
-      EEE:[this.data.rowsMap?.get('eee'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
-      LBC:[this.data.rowsMap?.get('lbc'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
-      AWE:[this.data.rowsMap?.get('awe'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
+      EEE:[unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? "": this.data.rowsMap?.get('eee'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required],
+      LBC:[unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? "": this.data.rowsMap?.get('lbc'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required],
+      AWE:[unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? "": this.data.rowsMap?.get('awe'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required],
       images:[this.data.images, (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required]      
     });
   }
