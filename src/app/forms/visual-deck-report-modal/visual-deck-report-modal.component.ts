@@ -95,8 +95,8 @@ export class VisualDeckReportModalComponent implements OnInit {
       visualReportName: [this.data.rowsMap?.get('name'), Validators.required], // Add validators if needed
       unitUnavailable: [this.data.rowsMap?.get('unitUnavailable')], // Add validators if needed
       //additionalConsiderationsOrConcernHtml:[this.data.rowsMap?.get('additionalconsiderationshtml')===null||this.data.rowsMap?.get('additionalconsiderationshtml')===undefined?'':this.data.rowsMap?.get('additionalconsiderationshtml')],
-      exteriorElements: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? "": this.data.rowsMap?.get('exteriorelements'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required], // Add validators if needed
-      waterproofingElements: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? "": this.data.rowsMap?.get('waterproofingelements'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required],
+      exteriorElements: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? []: this.data.rowsMap?.get('exteriorelements'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required], // Add validators if needed
+      waterproofingElements: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? []: this.data.rowsMap?.get('waterproofingelements'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required],
       visualReview:[unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? "": this.data.rowsMap?.get('visualreview'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required],
       signsOfLeaks:[unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? false: this.data.rowsMap?.get('visualsignsofleak'), (this.data.rowsMap?.get('unitUnavailable'))? false: Validators.required],
       invasiveReviewRequired:[unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? false: this.data.rowsMap?.get('furtherinvasivereviewrequired'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
