@@ -10,6 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   background-color: #E8F2FF;
   min-width: 642px;
   border-radius: 16px;
@@ -43,9 +44,9 @@
   border-radius:16px;
 }
 
-
-img{
+li:hover{
   cursor: pointer;
+  opacity:0.8;
 }
 
 
