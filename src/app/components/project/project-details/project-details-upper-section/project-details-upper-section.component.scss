@@ -2,8 +2,10 @@
   display: flex;
   background-color:#FFFFFF;
   border-radius: 16px;
-  max-height:339px;
+  min-height:270px;
+  max-height:339px ;
   padding: 15px;
+  column-gap: 10px;
 }
 .flex-item {
   flex: 1;
@@ -16,6 +18,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  justify-content: space-evenly;
   max-width: 299px;
   max-height: 281px;
   text-align: center;
@@ -25,7 +28,7 @@
   max-height: 206px;
   object-fit:contain;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
 .navigation-line {
   display: flex;
@@ -37,17 +40,18 @@
 .invasiveBtn{
   width:138px;
   height:50px;
-  margin-top: 5px;
+  margin-top:10px;
   background-color:#ED7C1C;
   border-radius: 8px;
   border-color: #ED7C1C;
   font-size: 18.2px;
+  font-weight: 500;
   color: #FFFFFF;
 }
 
 .invasiveBtn:hover {
-  background-color: #5a6268;
-  border-color: #545b62;
+  opacity: 0.8;
+  box-shadow: 0px 4px 4px #e3af81;
 }
 
 .ProjectInformation{
@@ -170,6 +174,16 @@
   font-weight:500;
   color:#4F4D4D;
 }
+
+.edit_icon button:hover{
+  opacity:0.8;
+  box-shadow:5px 5px 5px lightblue;
+}
+.edit_icon i:hover{
+  opacity:0.8;
+  box-shadow:2px 2px 3px lightblue;
+}
+
 .DescriptionLocation{
   display: flex;
   flex-direction: column;
