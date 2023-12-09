@@ -85,7 +85,7 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
 
     let fl = false;
     this.sections.forEach(section => {
-      if (section.sequenceNumber === undefined){
+      if (section.sequenceNo === undefined){
         console.log(section);
         fl = true;
       }
@@ -98,7 +98,7 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
       });
     }else{
       this.sections.sort((a, b) => {
-        return parseInt(String(a.sequenceNumber)) - parseInt(String(b.sequenceNumber))
+        return parseInt(String(a.sequenceNo)) - parseInt(String(b.sequenceNo))
       });
     }
   }
@@ -147,7 +147,7 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
   save(){
     this.sections.forEach(async (section, i) =>{
       let url = `${environment.apiURL}/section/${section._id}`;
-      let data = {"sequenceNumber": i};
+      let data = {"sequenceNo": i};
 
       await this.httpsRequestService.putHttpData(url, data).subscribe(
         (response: any) => {
