@@ -11,11 +11,16 @@ import {ProjectState, SectionState} from "../../../../../app-state-service/store
 import {OrchestratorEventName} from "../../../../../orchestrator-service/models/orchestrator-event-name";
 import { environment } from '../../../../../../environments/environment';
 import { DeleteConfirmationModalComponent } from '../../../../../forms/delete-confirmation-modal/delete-confirmation-modal.component';
+import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
+import {NgClass, NgFor, NgIf} from '@angular/common';
+import { SectionListElementComponent } from './section-list-element/section-list-element.component';
 
 @Component({
   selector: 'app-section-list',
   templateUrl: './section-list.component.html',
   styleUrls: ['./section-list.component.scss'],
+  standalone: true,
+  imports: [CdkDropList, NgFor, CdkDrag, NgIf, NgClass, SectionListElementComponent]
 })
 export class SectionListComponent implements OnInit{
   header: string = 'Locations';
@@ -114,5 +119,9 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
         );
 
       }})
+  }
+
+  dropSection(event: CdkDragDrop<Section[]>) {
+    let res = moveItemInArray(this.sections, event.previousIndex, event.currentIndex);
   }
 }

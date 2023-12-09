@@ -6,7 +6,8 @@
           </span>
         </div>
       </div>
-      <div *ngFor="let section of sections">
+  <div cdkDropList  class="full-width scrollable-container" (cdkDropListDropped)="dropSection($event)">
+      <div *ngFor="let section of sections" cdkDrag>
         <app-section-list-element
           (click)="fetchDataForGivenSectionId(section)"
           [section]="section"
@@ -14,7 +15,7 @@
           (deleteElement)="deleteElement($event)"
         ></app-section-list-element>
       </div>
-
+  </div>
 </div>
 
 
