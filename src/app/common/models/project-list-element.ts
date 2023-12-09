@@ -12,5 +12,5 @@ export interface ProjectListElement {
   url?: string;
   address?: string;
   isInvasive?: boolean;
-  sequenceNumber?: string;
+  sequenceNo?: string;
 }
