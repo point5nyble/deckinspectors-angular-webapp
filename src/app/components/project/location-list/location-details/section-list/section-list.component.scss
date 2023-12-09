@@ -28,7 +28,8 @@
 
 .flex-item {
   flex: 1; /* Each item grows to occupy the available space */
-  align-content: center;
+  display: flex;
+  justify-content: space-between;
 }
 .header-component{
   display: flex;

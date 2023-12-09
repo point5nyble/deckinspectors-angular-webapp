@@ -82,6 +82,25 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
     } else {
       this.sections = location?.sections;
     }
+
+    let fl = false;
+    this.sections.forEach(section => {
+      if (section.sequenceNumber === undefined){
+        console.log(section);
+        fl = true;
+      }
+    });
+    
+    if (fl){
+      console.log("sorting");
+      this.sections.sort((a, b) => {
+        return String(a._id).localeCompare(String(b._id));
+      });
+    }else{
+      this.sections.sort((a, b) => {
+        return parseInt(String(a.sequenceNumber)) - parseInt(String(b.sequenceNumber))
+      });
+    }
   }
 
     private convertValueToBoolean(valueOf: string):boolean {
@@ -123,5 +142,24 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
 
   dropSection(event: CdkDragDrop<Section[]>) {
     let res = moveItemInArray(this.sections, event.previousIndex, event.currentIndex);
+  }
+
+  save(){
+    this.sections.forEach(async (section, i) =>{
+      let url = `${environment.apiURL}/section/${section._id}`;
+      let data = {"sequenceNumber": i};
+
+      await this.httpsRequestService.putHttpData(url, data).subscribe(
+        (response: any) => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+      if (i == this.sections.length - 1){
+        alert('Sequence saved!');
+      }
+    })
   }
 }

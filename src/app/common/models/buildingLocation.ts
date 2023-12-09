@@ -7,6 +7,7 @@ export interface Section {
   conditionalassessment: string;
   visualreview: string;
   coverUrl?: string;
+  sequenceNumber?: string;
 }
 
 export interface BuildingLocation {
