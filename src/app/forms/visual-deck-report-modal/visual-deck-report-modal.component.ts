@@ -25,6 +25,7 @@ export class VisualDeckReportModalComponent implements OnInit {
   imagePreviewUrls: (string | ArrayBuffer | null)[] = [];
   imageControl: FormControl = new FormControl();
   showErrors: boolean = false;
+  isSaving: boolean = false;
 
   config: AngularEditorConfig = {
     editable: true,
@@ -119,6 +120,7 @@ export class VisualDeckReportModalComponent implements OnInit {
 
   save() {
     if(this.visualDeckReportModalForm.valid){
+      this.isSaving = true;
       this.uploadImage();
     }
     else{
@@ -175,10 +177,13 @@ export class VisualDeckReportModalComponent implements OnInit {
       .subscribe(
         (imageUrls: string[]) => {
           this.addImagesUrlIfAny(imageUrls);
-
+          this.isSaving = false;
+          
         },
         (error) => {
           console.log(error);
+          this.isSaving = false;
+
         }
       );
     if (imageRequests.length === 0) {
