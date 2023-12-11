@@ -28,7 +28,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   projectState!: ProjectState;
   disableInvasiveBtn: boolean = false;
   enableDefaultImage: boolean = false;
-  sequenceNumber!: string | undefined;
+  sequenceNo!: string | undefined;
   // List of subscription
   private subscription:any[] = [];
   currentProjectId!: string;
@@ -48,7 +48,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
     // console.log(this.disableInvasiveBtn);
     this.subscribeToProjectInfo();
     this.subscribeToProjectState();
-    this.sequenceNumber = this.projectInfo.sequenceNumber;
+    this.sequenceNo = this.projectInfo.sequenceNo;
     
   }
 
@@ -113,7 +113,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
       projectInfo:this.projectInfo,
       process: 'edit',
       type: this.projectInfo.type,
-      sequenceNumber: this.sequenceNumber
+      sequenceNo: this.sequenceNo
     };
     if (this.projectInfo.type === 'project') {
       const dialogRef = this.dialog.open(NewProjectModalComponent, dialogConfig);

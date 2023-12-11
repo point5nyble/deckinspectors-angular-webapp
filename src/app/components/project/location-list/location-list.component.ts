@@ -79,7 +79,7 @@ export class LocationListComponent implements OnInit {
       if (locationInfo.type === 'subproject') {
           this.subprojectList.forEach((item: ProjectListElement, index: number) => {
             if(item._id === locationInfo._id){
-              locationInfo['sequenceNumber'] = index.toString();
+              locationInfo['sequenceNo'] = index.toString();
             }
     
           });
@@ -87,7 +87,7 @@ export class LocationListComponent implements OnInit {
       } else {
         this.locationList.forEach((item: ProjectListElement, index: number) => {
           if(item._id === locationInfo._id){
-            locationInfo['sequenceNumber'] = index.toString();
+            locationInfo['sequenceNo'] = index.toString();
           }
   
         });
@@ -112,7 +112,7 @@ export class LocationListComponent implements OnInit {
       type: this.getType(),
       header:this.header,
       process: 'create',
-      sequenceNumber: this.checkIfSubProject()? this.subprojectList.length : this.locationList.length
+      sequenceNo: this.checkIfSubProject()? this.subprojectList.length : this.locationList.length
     };
     const dialogRef = this.dialog.open(NewLocationModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
@@ -147,11 +147,11 @@ export class LocationListComponent implements OnInit {
           parenttype: location.parenttype,
           type: location.type,
           url: location.url,
-          sequenceNumber: location.sequenceNumber
+          sequenceNo: location.sequenceNo
         }
         );
 
-        if (location.sequenceNumber === undefined){
+        if (location.sequenceNo === undefined){
           console.log(location);
           fl = true;
         }
@@ -164,7 +164,7 @@ export class LocationListComponent implements OnInit {
       });
     }else{
       this.locationList.sort((a, b) => {
-        return parseInt(String(a.sequenceNumber)) - parseInt(String(b.sequenceNumber))
+        return parseInt(String(a.sequenceNo)) - parseInt(String(b.sequenceNo))
       });
     }
     
@@ -186,11 +186,11 @@ export class LocationListComponent implements OnInit {
                   parenttype: project.parenttype?project.parenttype:'project',
                   type: project.type?project.type:'project',
                   url: project.url,
-                  sequenceNumber: project.sequenceNumber
+                  sequenceNo: project.sequenceNo
               }
           );
 
-          if (project.sequenceNumber === undefined){
+          if (project.sequenceNo === undefined){
             console.log(project);
             fl = true;
           }
@@ -203,7 +203,7 @@ export class LocationListComponent implements OnInit {
         });
       }else{
         this.subprojectList.sort((a, b) => {
-          return parseInt(String(a.sequenceNumber)) - parseInt(String(b.sequenceNumber))
+          return parseInt(String(a.sequenceNo)) - parseInt(String(b.sequenceNo))
         });
       }
   }
@@ -236,7 +236,7 @@ export class LocationListComponent implements OnInit {
     let count = 0;
     this.subprojectList.forEach((subproject, i) =>{
       let url = `${environment.apiURL}/subproject/${subproject._id}`;
-      let data = {"sequenceNumber": i};
+      let data = {"sequenceNo": i};
 
       this.httpsRequestService.putHttpData(url, data).subscribe(
         (response: any) => {
@@ -258,7 +258,7 @@ export class LocationListComponent implements OnInit {
     let count = 0;
     this.locationList.forEach((location, i) =>{
       let url = `${environment.apiURL}/location/${location._id}`;
-      let data = {"sequenceNumber": i};
+      let data = {"sequenceNo": i};
 
       this.httpsRequestService.putHttpData(url, data).subscribe(
         (response: any) => {

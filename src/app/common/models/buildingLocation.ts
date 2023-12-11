@@ -7,6 +7,7 @@ export interface Section {
   conditionalassessment: string;
   visualreview: string;
   coverUrl?: string;
+  sequenceNo?: string;
 }
 
 export interface BuildingLocation {
@@ -26,5 +27,5 @@ export interface BuildingLocation {
   invasiveSections: Section[];
   address?: string;
   isInvasive: boolean;
-  sequenceNumber?: string;
+  sequenceNo?: string;
 }
