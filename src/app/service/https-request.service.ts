@@ -9,7 +9,7 @@ export class HttpsRequestService {
 
   constructor(private http: HttpClient) {}
   public getHttpData<T>(url:string): Observable<T> {
-      return this.http.get<T>(url, {withCredentials: true});
+      return this.http.get<T>(url);
   }
    public postHttpData<T>(url:string, data:any): Observable<T> {
      const httpOptions = {
@@ -17,7 +17,7 @@ export class HttpsRequestService {
          'Content-Type': 'application/json'
        }),
        timeout: 600000, // 10 minutes timeout in milliseconds
-       withCredentials: true
+      //  withCredentials: true
      };
      return this.http.post<T>(url, data,httpOptions);
    }
@@ -27,7 +27,7 @@ export class HttpsRequestService {
       headers: new HttpHeaders({
         'Content-Type': 'multipart/form-data'
       }),
-      withCredentials: true
+      // withCredentials: true
     };
     return this.http.post<T>(url, data,httpOptions);
   }
@@ -37,13 +37,13 @@ export class HttpsRequestService {
           headers: new HttpHeaders({
               'Content-Type': 'application/json'
           }),
-          withCredentials: true
+          // withCredentials: true
       };
       return this.http.put<T>(url, data,httpOptions);
   }
 
   public deleteHttpData<T>(url:string): Observable<T> {
-    return this.http.delete<T>(url, {withCredentials: true});
+    return this.http.delete<T>(url);
   }
 
 }
