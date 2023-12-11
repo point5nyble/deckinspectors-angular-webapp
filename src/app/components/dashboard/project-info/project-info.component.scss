@@ -70,6 +70,7 @@
   max-height: 50px;
   color: #203EEA;
   font-weight: 400;
+  text-transform: capitalize;
   overflow: clip;
 }
 .profile-section{
@@ -91,6 +92,7 @@
   justify-content: space-between;
   padding:5px;
 }
+
 
 .AssignUsertext{
   font-size: 13px;
@@ -128,7 +130,7 @@
 }
 .projectName p{
   width: 135px;
-  height:18px;
+  height:24px;
   overflow: clip;
 }
 .typeSection{

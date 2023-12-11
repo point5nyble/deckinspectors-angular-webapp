@@ -31,8 +31,13 @@
     </div>
   </div>
   <div class="button-container">
-    <button class="save-button" (click)="save()">Save</button>
-    <button class="close-button" (click)="close()">Close</button>
+    <div class="form-errors" *ngIf="showErrors && !invasiveDeckReportModalForm.valid">
+      *Fill all mandatory fields.
+    </div>
+    <div class="inside-button-container">
+      <button class="save-button" (click)="save()">Save</button>
+      <button class="close-button" (click)="close()">Close</button>
+    </div>
   </div>
 </div>
 

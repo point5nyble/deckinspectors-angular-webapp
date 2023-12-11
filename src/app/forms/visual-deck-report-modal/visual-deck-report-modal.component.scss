@@ -23,6 +23,12 @@ h4{
 }
 
 .button-container {
+  gap: 10px;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.inside-button-container{
   display: flex;
   gap: 10px;
   justify-content: center;

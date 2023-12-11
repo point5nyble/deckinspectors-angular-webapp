@@ -110,6 +110,7 @@ export class LocationListComponent implements OnInit {
       isSubProject: this.checkIfSubProject(),
       projectInfo: this.projectInfo,
       type: this.getType(),
+      header:this.header,
       process: 'create',
       sequenceNumber: this.checkIfSubProject()? this.subprojectList.length : this.locationList.length
     };

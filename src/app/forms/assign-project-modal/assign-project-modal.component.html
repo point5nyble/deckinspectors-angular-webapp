@@ -1,15 +1,16 @@
 <div class="form-container">
-  <h2>Assign Project</h2>
-  <div class="search-container">
-    <input type="text" placeholder="Search" [(ngModel)]="searchTerm" (input)="filterNames()" />
-    <button (click)="refreshList()"><i class="bi bi-arrow-clockwise"></i></button>
-  </div>
-  <div class="name-list">
-    <div *ngFor="let name of filteredNames">
-      <label>
-        <input type="checkbox" [(ngModel)]="name.checked" name="username"/>
-        {{ name.username }}
-      </label>
+  <div>
+    <h2>Assign Project</h2>
+    <div class="search-container">
+      <input type="text" placeholder="Search" [(ngModel)]="searchTerm" (input)="filterNames()" />
+      <i class="material-symbols-outlined">search</i>
+      <span class="material-symbols-outlined" (click)="refreshList()">refresh</span>
+    </div>
+    <div class="name-list">
+        <label *ngFor="let name of filteredNames">
+          <input type="checkbox" [(ngModel)]="name.checked" name="username"/>
+          {{ name.username }}
+        </label>
     </div>
   </div>
   <mat-dialog-actions>

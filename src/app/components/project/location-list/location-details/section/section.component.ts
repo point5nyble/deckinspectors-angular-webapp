@@ -44,7 +44,6 @@ export class SectionComponent implements OnInit{
   showConclusiveSection:boolean = false;
   showBtn: boolean = false;
   isSaving: boolean = false;
-
   constructor(private dialog: MatDialog,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
               private httpsRequestService:HttpsRequestService,

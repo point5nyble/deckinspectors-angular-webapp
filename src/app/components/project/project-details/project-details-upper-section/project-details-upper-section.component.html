@@ -15,7 +15,9 @@
   <div class="horizontal-div">
     <div class="ProjectInformation flex-item">
       <div class="ProjectName">
-        <p style="text-transform: capitalize;">{{ projectInfo.type}}&nbsp;Name</p>
+        <p style="text-transform: capitalize;"> 
+         {{projectInfo.type==="project"? "Project Name":projectInfo.type==="subproject"?"Building Name":projectInfo.type==="apartment"?"Apartment Name":"Location Name"}}
+        </p>
         <div class="info-heading">
           {{ projectInfo.name }}
         </div>
