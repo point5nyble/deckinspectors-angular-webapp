@@ -76,7 +76,12 @@
     </div>
   </div>
   <div class="button-container">
-    <button class="save-button" (click)="save()">Save</button>
+    <button *ngIf="!isSaving" class="mat-raised-button mat-primary save-button" (click)="save()"><h6>Save</h6></button>
+
+      <button *ngIf="isSaving" class="mat-raised-button mat-primary save-button" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Saving...
+      </button>
     <button class="close-button" (click)="close()">Close</button>
   </div>
 </div>

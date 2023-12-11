@@ -11,11 +11,16 @@ import {ProjectState, SectionState} from "../../../../../app-state-service/store
 import {OrchestratorEventName} from "../../../../../orchestrator-service/models/orchestrator-event-name";
 import { environment } from '../../../../../../environments/environment';
 import { DeleteConfirmationModalComponent } from '../../../../../forms/delete-confirmation-modal/delete-confirmation-modal.component';
+import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
+import {NgClass, NgFor, NgIf} from '@angular/common';
+import { SectionListElementComponent } from './section-list-element/section-list-element.component';
 
 @Component({
   selector: 'app-section-list',
   templateUrl: './section-list.component.html',
   styleUrls: ['./section-list.component.scss'],
+  standalone: true,
+  imports: [CdkDropList, NgFor, CdkDrag, NgIf, NgClass, SectionListElementComponent]
 })
 export class SectionListComponent implements OnInit{
   header: string = 'Locations';
@@ -77,6 +82,25 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
     } else {
       this.sections = location?.sections;
     }
+
+    let fl = false;
+    this.sections.forEach(section => {
+      if (section.sequenceNo === undefined){
+        console.log(section);
+        fl = true;
+      }
+    });
+    
+    if (fl){
+      console.log("sorting");
+      this.sections.sort((a, b) => {
+        return String(a._id).localeCompare(String(b._id));
+      });
+    }else{
+      this.sections.sort((a, b) => {
+        return parseInt(String(a.sequenceNo)) - parseInt(String(b.sequenceNo))
+      });
+    }
   }
 
     private convertValueToBoolean(valueOf: string):boolean {
@@ -114,5 +138,28 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
         );
 
       }})
+  }
+
+  dropSection(event: CdkDragDrop<Section[]>) {
+    let res = moveItemInArray(this.sections, event.previousIndex, event.currentIndex);
+  }
+
+  save(){
+    this.sections.forEach(async (section, i) =>{
+      let url = `${environment.apiURL}/section/${section._id}`;
+      let data = {"sequenceNo": i};
+
+      await this.httpsRequestService.putHttpData(url, data).subscribe(
+        (response: any) => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+      if (i == this.sections.length - 1){
+        alert('Sequence saved!');
+      }
+    })
   }
 }

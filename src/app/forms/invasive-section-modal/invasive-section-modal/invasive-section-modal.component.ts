@@ -17,6 +17,7 @@ export class InvasiveSectionModalComponent {
   imagePreviewUrls: (string | ArrayBuffer | null)[] = [];
   imageControl: FormControl = new FormControl();
   showErrors: boolean = false;
+  isSaving: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private cdr: ChangeDetectorRef,
@@ -45,6 +46,7 @@ export class InvasiveSectionModalComponent {
 
   save() {
     if(this.invasiveDeckReportModalForm.valid){
+      this.isSaving = true;
       this.uploadImage();
     }else {
       this.showErrors = true;
@@ -99,10 +101,11 @@ export class InvasiveSectionModalComponent {
       .subscribe(
         (imageUrls: string[]) => {
           this.addImagesUrlIfAny(imageUrls);
-
+          this.isSaving = false;
         },
         (error) => {
           console.log(error);
+          this.isSaving = false;
         }
       );
     if (imageRequests.length === 0) {

@@ -22,6 +22,7 @@ export class ConclusiveSectionModalComponent {
   propowneragreed:string = "No";
   invasiverepairsinspectedandcompleted:string = "No";
   showErrors: boolean = false;
+  isSaving: boolean = false;
   constructor(private formBuilder: FormBuilder,
               private cdr: ChangeDetectorRef,
               private dialogRef: MatDialogRef<ConclusiveSectionModalComponent>,
@@ -70,7 +71,8 @@ export class ConclusiveSectionModalComponent {
 
   save() {
     if(this.conclusiveDeckReportModalForm.valid){
-    this.uploadImage();
+      this.isSaving = true;
+      this.uploadImage();
     } else{
       this.showErrors = true;
     }
@@ -124,10 +126,11 @@ export class ConclusiveSectionModalComponent {
       .subscribe(
         (imageUrls: string[]) => {
           this.addImagesUrlIfAny(imageUrls);
-
+          this.isSaving = false;
         },
         (error) => {
           console.log(error);
+          this.isSaving = false;
         }
       );
     if (imageRequests.length === 0) {
