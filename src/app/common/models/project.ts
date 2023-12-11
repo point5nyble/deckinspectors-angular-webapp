@@ -20,5 +20,5 @@ export interface Project {
   createdat: string;
   iscomplete?: boolean;
   isInvasive: boolean;
-  sequenceNumber?: string;
+  sequenceNo?: string;
 }
