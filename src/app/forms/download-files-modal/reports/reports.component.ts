@@ -71,13 +71,16 @@ export class ReportsComponent {
     this.clipboardService.copyFromContent(url);
   }
 
-  deleteDocument = (id: string) =>{
+  deleteDocument = (id: string,name:string) =>{
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "450px";
-    // dialogConfig.height = "140px";
+    dialogConfig.height = "230px";
+    dialogConfig.data={
+      name:name
+    }
     const dialogRef = this.dialog.open(DeleteConfirmationModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
       if(data.confirmed){
