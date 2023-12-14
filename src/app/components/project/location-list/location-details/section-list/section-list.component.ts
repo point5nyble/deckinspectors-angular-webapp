@@ -113,18 +113,21 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
 
     }
 
-  deleteElement($event: string) {
+  deleteElement($event: any) {
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "450px";
+    dialogConfig.height="230px";
+    dialogConfig.data={
+      name:$event.name
+    }
     // dialogConfig.height = "140px";
     const dialogRef = this.dialog.open(DeleteConfirmationModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
       if(data.confirmed){
-
-        let id = $event;
+        let id = $event._id;
         let url = `${environment.apiURL}/section/${id}`;
         this.httpsRequestService.deleteHttpData(url).subscribe(
           (response: any) => {

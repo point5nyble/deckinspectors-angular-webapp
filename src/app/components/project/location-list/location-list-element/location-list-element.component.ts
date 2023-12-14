@@ -28,7 +28,7 @@ export class LocationListElementComponent {
     dialogConfig.width = "400px";
     dialogConfig.height = "350px";
     dialogConfig.data = {
-      location: this.location
+      location: this.location,
     };
     const dialogRef = this.dialog.open(AssignProjectModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
@@ -39,7 +39,7 @@ export class LocationListElementComponent {
   deleteProject() {
     console.log("deleteProject", this.location._id)
     this.childClickEventTriggered.emit(true);
-    const location = {id : this.location._id, isSubProject: this.isSubProject}
+    const location = {id : this.location._id, isSubProject: this.isSubProject,name:this.location.name}
     this.deleteElement.emit(location);
   }
 }

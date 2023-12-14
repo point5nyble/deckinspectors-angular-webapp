@@ -71,6 +71,7 @@
   color: #203EEA;
   font-weight: 400;
   overflow: clip;
+  text-transform: capitalize;
 }
 .profile-section{
   display: flex;
@@ -128,7 +129,7 @@
 }
 .projectName p{
   width: 135px;
-  height:18px;
+  height:23px;
   overflow: clip;
 }
 .typeSection{

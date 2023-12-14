@@ -7,10 +7,14 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
   styleUrls: ['./delete-confirmation-modal.component.scss']
 })
 export class DeleteConfirmationModalComponent {
+  name!:any;
   constructor(private dialogRef: MatDialogRef<DeleteConfirmationModalComponent>,
-    @Inject(MAT_DIALOG_DATA) data : any){}
+    @Inject(MAT_DIALOG_DATA) data : any){
+      this.name=data.name;
+    }
 
   close =(status: boolean)=>{
+    console.log(this.name);
     this.dialogRef.close({confirmed: status});
   }
 }
