@@ -111,7 +111,8 @@ export class LocationListComponent implements OnInit {
       projectInfo: this.projectInfo,
       type: this.getType(),
       process: 'create',
-      sequenceNo: this.checkIfSubProject()? this.subprojectList.length : this.locationList.length
+      sequenceNo: this.checkIfSubProject()? this.subprojectList.length : this.locationList.length,
+      header:this.header
     };
     const dialogRef = this.dialog.open(NewLocationModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
@@ -294,7 +295,10 @@ export class LocationListComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "450px";
-    // dialogConfig.height = "140px";
+    dialogConfig.height = "230px";
+    dialogConfig.data={
+      name:$event.name
+    }
     const dialogRef = this.dialog.open(DeleteConfirmationModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
       if(data.confirmed){

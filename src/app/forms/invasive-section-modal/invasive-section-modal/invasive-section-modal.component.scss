@@ -19,10 +19,15 @@
 }
 
 .button-container {
+  gap: 10px;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+.inside-button-container{
   display: flex;
   gap: 10px;
-  justify-content: center;
-  margin-top: 25px;
+  justify-content:space-around;
+  margin-top: 10px;
 }
 
 .save-button,

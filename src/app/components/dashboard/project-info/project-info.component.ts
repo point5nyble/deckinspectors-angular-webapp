@@ -110,6 +110,10 @@ export class ProjectInfoComponent {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "450px";
+    dialogConfig.height="230px"
+    dialogConfig.data={
+      name:this.projectInfo.name
+    }
     // dialogConfig.height = "140px";
     const dialogRef = this.dialog.open(DeleteConfirmationModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {

@@ -12,7 +12,10 @@ h4{
   font-size: 24px;
 }
 .form-header {
+  position:sticky;
+  top:0px;
   display: flex;
+  background-color: #ffff;
   justify-content: center;
   align-items: center;
   font-size: x-large;
@@ -23,10 +26,23 @@ h4{
 }
 
 .button-container {
-  display: flex;
+  position: sticky;
+  bottom:0px;
+  background-color: #fff;
   gap: 10px;
   justify-content: center;
   margin-top: 25px;
+}
+
+.inside-button-container{
+  display: flex;
+  gap: 10px;
+  justify-content:space-around;
+  margin-top: 10px;
+}
+
+.button-container .form-errors{
+  margin-left: 50px;
 }
 
 .save-button,

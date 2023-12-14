@@ -12,9 +12,10 @@ import { CommonModule } from '@angular/common';
 export class SectionListElementComponent {
   @Input() section!: Section;
   @Input() isHighlighted!: boolean;
-  @Output() deleteElement = new EventEmitter<string>();
+  @Output() deleteElement = new EventEmitter<any>();
   deleteSection() {
     console.log("deleteSection", this.section._id)
-    this.deleteElement.emit(this.section._id);
+    let sectionData={_id:this.section._id,name:this.section.name}
+    this.deleteElement.emit(sectionData);
   }
 }

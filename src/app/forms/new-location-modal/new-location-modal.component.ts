@@ -25,7 +25,7 @@ export class NewLocationModalComponent {
   selectedImage: File | null = null;
   selectedFileName: string | null = null;
   isSaving: boolean = false;
-
+  header!:string;
   constructor(private formBuilder: FormBuilder,
               private cdr: ChangeDetectorRef,
               private dialogRef: MatDialogRef<NewLocationModalComponent>,
@@ -38,6 +38,7 @@ export class NewLocationModalComponent {
     this.isSubProject = data.isSubProject;
     this.data = data;
     this.imagePreviewUrl = this.data.projectInfo?.url;
+    this.header=data.header;
   }
 
   ngOnInit() {

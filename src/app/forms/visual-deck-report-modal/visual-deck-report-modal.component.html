@@ -1,8 +1,8 @@
 <!-- form-component.component.html -->
+<div class="form-header">
+  <h4>Visual Deck/Waterproofing Report</h4>
+</div>
 <div class="form-container">
-  <div class="form-header">
-    <h4>Visual Deck/Waterproofing Report</h4>
-  </div>
   <div class="form-body" [formGroup]="visualDeckReportModalForm">
     <div class="form-errors" *ngIf="showErrors && visualDeckReportModalForm.get('visualReportName')?.hasError('required')">
       *field is required.
@@ -134,9 +134,13 @@
     </div>
   </ng-container>
   </div>
-  <div class="button-container">
+</div>
+<div class="button-container">
+  <div class="form-errors" *ngIf="showErrors && !unitUnavailable.checked && !visualDeckReportModalForm.valid">
+    *Fill all mandatory fields.
+  </div>
+  <div class="inside-button-container">
     <button *ngIf="!isSaving" class="mat-raised-button mat-primary save-button" (click)="save()"><h6>Save</h6></button>
-
       <button *ngIf="isSaving" class="mat-raised-button mat-primary save-button" type="button" disabled>
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         Saving...
