@@ -139,7 +139,10 @@ export class UsersComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "400px";
-    // dialogConfig.height = "150px";
+    dialogConfig.height = "230px";
+    dialogConfig.data={
+      name:deleteUser.first_name+" "+deleteUser.last_name
+    }
     const dialogRef = this.dialog.open(DeleteConfirmationModalComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
       if(data.confirmed){
