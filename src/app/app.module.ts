@@ -58,6 +58,7 @@ import { ProjectDescriberComponent } from './components/dashboard/project-descri
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ReplaceFinalreportModalComponent } from './forms/replace-finalreport-modal/replace-finalreport-modal.component';
 import { ReportsComponent } from './forms/download-files-modal/reports/reports.component';
+import { HeaderComponent } from './components/dashboard/header/header.component';
 
 
 @NgModule({
@@ -98,7 +99,8 @@ import { ReportsComponent } from './forms/download-files-modal/reports/reports.c
     DeleteConfirmationModalComponent,
     ModalComponent,
     ProjectDescriberComponent,
-    ReplaceFinalreportModalComponent
+    ReplaceFinalreportModalComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

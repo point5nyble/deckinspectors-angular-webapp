@@ -53,6 +53,8 @@ a{
 
 .sidebar-content {
   display: block;
+  padding-left: 5px;
+
   transition: opacity 0.8s ease-out;
   -moz-transition: opacity 0.8s ease-out;
   //padding: 10px;
@@ -109,4 +111,15 @@ a{
 }
 i{
   font-size:27px;
+}
+
+.company-logo {
+  margin-left: 5px;
+  height: 100px;
+  // margin-left: 74px; /* Adjust the margin as needed */
+}
+
+.collapsed .company-logo {
+  height: 50px;
+  width: 50px;
 }

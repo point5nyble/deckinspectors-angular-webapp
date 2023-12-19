@@ -80,8 +80,11 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  background-color: #E8F2FF;
-  min-height:800px;
+  // background-color: #E8F2FF;
+  background-color: #E4E9FD;
+  // background-image: -webkit-linear-gradient(65deg, #E4E9FD 50%, #ED7C1C 50%);
+  min-height: 1000px;
+  // min-height:800px;
 }
 
 .project-container{
@@ -95,26 +98,31 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  background-color: #ffff;
+  // background-color: #E8F2FF;
+  background-color: rgba(255, 0, 0, 0);
   max-height: 781px;
   border-radius: 16px;
 }
 
-.flex {
+.sideBar {
   display: flex;
+  // margin-top: 90px;
 }
 
 .container-fluid{
   flex-direction: column;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .AllProjectAndRefresh{
   padding-left: 10px;
 }
 .AllProject{
-  color:#110F4F;
-  font-size: 20px;
+  color: #110f4f;
+  font-size: 40px;
   font-weight: 700;
+  margin-bottom: 30px;
 }
 
 .bi-arrow-repeat{
@@ -123,7 +131,7 @@
 }
 
 .project-describer{
-  background-color: #E8F2FF;
+  background-color: #FFFF;
   max-height: 32px;
   padding-top: 5px;
 }

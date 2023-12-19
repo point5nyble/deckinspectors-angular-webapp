@@ -1,0 +1,70 @@
+// .project-container{
+//   display: flex;
+//   flex: 1;
+//   overflow: hidden;
+//   padding: 10px;
+//   justify-content: space-between;
+// }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-buttons{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // margin-left: 500px;
+}
+
+.AllProjectAndRefresh {
+  display: flex;
+  align-items: center;
+}
+
+.AllProject{
+  color: #110f4f;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  width: 300px;
+  // margin-right: 200px;
+  // padding-right: 200px;
+}
+
+.container-fluid{
+  flex-direction: row;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.buttonAddnew{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border:1px solid #ED7C1C;
+  background-color: #ED7C1C;
+  border-radius: 8px;
+  color: white;
+  width:124px;
+  height:50px;
+  margin-bottom: 30px;
+}
+
+.replaceFinalReportTemplate{
+  border:1px solid #ED7C1C;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  color: #ED7C1C;
+  font-weight: 600;
+  width:124px;
+  height:50px;
+  margin-bottom: 30px;
+  margin-right: 20px;
+}
+
+

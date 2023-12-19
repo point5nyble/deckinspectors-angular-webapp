@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { HttpsRequestService } from "../../service/https-request.service";
 import { Project } from "../../common/models/project";
 import { OrchestratorCommunicationService } from "../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
@@ -11,12 +11,16 @@ import {LoginService} from "../login/login.service";
 import {Router} from "@angular/router";
 import { environment } from '../../../environments/environment';
 import {BackNavigation} from "../../app-state-service/back-navigation-state/back-navigation-selector";
+// import { NewProjectModalComponent } from 'src/app/forms/new-project-modal/new-project-modal.component';
+// import { ReplaceFinalreportModalComponent } from 'src/app/forms/replace-finalreport-modal/replace-finalreport-modal.component';
+// import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+
 export class DashboardComponent implements OnInit
 {
   showProjectInfo: string = 'home';
@@ -35,6 +39,8 @@ export class DashboardComponent implements OnInit
   downloadingReport: boolean = false;
   isFileUploaded: boolean = false;  //final report template
   isFileNotUploaded: boolean = false;  //final report template
+  // @Output() newProjectUploaded = new EventEmitter<boolean>();
+  // @Output() fileUploaded = new EventEmitter<boolean>();
     constructor(private cdr: ChangeDetectorRef,
                 private httpsRequestService:HttpsRequestService,
                 private orchestratorCommunicationService:OrchestratorCommunicationService,
@@ -48,6 +54,7 @@ export class DashboardComponent implements OnInit
       // To clear all exsting projects
       this.gotoHome();
     }
+    
 
   private fetchProjectData() {
     this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/user/${localStorage.getItem('username')}`).subscribe(

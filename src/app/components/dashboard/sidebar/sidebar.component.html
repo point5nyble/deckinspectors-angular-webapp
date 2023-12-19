@@ -1,34 +1,39 @@
 <div class="container sidebar" [ngClass]="{'collapsed': isSidebarCollapsed}" (mouseleave)="collapseSidebar()">
   <div class="sidebar-block">
-      <div class="sidebar-content" >
+    <div class="horizontal-frame">
+      <div class="company-logo">
+        <img class="cursor-pointer company-logo" src="../../../assets/images/image_1.png" width="139px" height="59.57px"
+          alt="Button Image" (click)="gotoHome()">
+      </div>
+    </div>
+    <div class="sidebar-content">
 
-        <ul (mouseenter)="toggleSidebar()">
-          <li class="active" (click)="activateLink($event)" >
-            <a routerLink="/dashboard" routerLinkActive="active"  (click)="gotoHome()">
-              <i class="material-symbols-outlined">location_city</i>
-              <span>&nbsp;Projects</span>
-            </a>
-          </li>
-          <li  (click)="activateLink($event)" *ngIf="isAdmin" >
-            <a routerLink="/users" routerLinkActive="active" >
-              <i class="material-symbols-outlined">group</i>
-              <span>&nbsp;Users</span>
-            </a>
-          </li>
-          <!-- <li (click)="activateLink($event)" *ngIf="isAdmin">
+      <ul (mouseenter)="toggleSidebar()">
+        <li class="active" (click)="activateLink($event)">
+          <a routerLink="/dashboard" routerLinkActive="active" (click)="gotoHome()">
+            <i class="material-symbols-outlined">location_city</i>
+            <span>&nbsp;Projects</span>
+          </a>
+        </li>
+        <li (click)="activateLink($event)" *ngIf="isAdmin">
+          <a routerLink="/users" routerLinkActive="active">
+            <i class="material-symbols-outlined">group</i>
+            <span>&nbsp;Users</span>
+          </a>
+        </li>
+        <!-- <li (click)="activateLink($event)" *ngIf="isAdmin">
             <a routerLink="" routerLinkActive="active">
               <img src="../../../assets/images/mdi_files.png" alt="Logo 3" class="logo-image">
               <span>Files</span>
             </a>
           </li> -->
-          <li>
-            <a  routerLink="/login" routerLinkActive="active" (click)="logout()">
-              <i class="material-symbols-outlined">logout</i>
-              <span>&nbsp;Sign Out</span>
-            </a>
-          </li>
-        </ul>
-      </div>
+        <li>
+          <a routerLink="/login" routerLinkActive="active" (click)="logout()">
+            <i class="material-symbols-outlined">logout</i>
+            <span>&nbsp;Sign Out</span>
+          </a>
+        </li>
+      </ul>
     </div>
+  </div>
 </div>
-
