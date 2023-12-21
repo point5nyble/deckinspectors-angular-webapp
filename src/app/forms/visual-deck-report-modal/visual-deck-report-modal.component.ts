@@ -16,7 +16,7 @@ export class VisualDeckReportModalComponent implements OnInit {
   data: any;
   visualDeckReportModalForm!: FormGroup;
   exteriorElementsOptions = [
-    'Decks', 'Porches / Entry', 'Stairs', 'Stairs Landing', 'Walkways', 'Railings', 'Integrations', 'Door Threshold'
+    'Decks', 'Porches/Entry', 'Stairs', 'Stairs Landing', 'Walkways', 'Railings', 'Integrations', 'Door Threshold','Stucco Interface'
   ];
   waterproofingElements = [
     'Flashings', 'Waterproofing', 'Coatings','Sealants'
