@@ -33,8 +33,8 @@ export class InvasiveSectionModalComponent {
     this.invasiveDeckReportModalForm = this.formBuilder.group({
       invasiveDescription:[this.data.rowsMap?.get('invasiveDescription'), Validators.required],
       invasiveimages:[this.data.images, Validators.required],
-      postinvasiverepairsrequired:[this.data.rowsMap?.get('postinvasiverepairsrequired') + ''],
-    });
+      postinvasiverepairsrequired:[this.data.rowsMap?.get('postinvasiverepairsrequired')+'']
+    });  
   }
   close() {
     this.imagePreviewUrls = this.data.images;
