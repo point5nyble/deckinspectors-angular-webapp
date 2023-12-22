@@ -29,11 +29,9 @@ export class ReportsComponent {
   }
 
   fetchProjectFiles = () =>{
-    console.log("running");
     this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/projectreports/${this.projectInfo._id}`).subscribe(
       (res) => {
         this.projectFiles = res;
-        console.log(res);
       },
       error => {
         this.projectFiles = [];
@@ -87,7 +85,6 @@ export class ReportsComponent {
         
         this.httpsRequestService.postHttpData<any>(`${environment.apiURL}/projectreports/delete`, {_id: id}).subscribe(
           (res) => {
-            console.log(res);
             this.fetchProjectFiles();
           },
           error => {

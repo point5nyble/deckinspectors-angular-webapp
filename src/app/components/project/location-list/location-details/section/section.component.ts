@@ -81,7 +81,6 @@ export class SectionComponent implements OnInit{
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
-        console.log(response);
         this.showConclusiveSection = response?.sections[0]?.postinvasiverepairsrequired === "Yes";
       },
       error => {
@@ -92,7 +91,6 @@ export class SectionComponent implements OnInit{
   }
 
   private fetchDataForGivenSectionId($event: string) {
-    console.log($event);
     if ($event === undefined || $event === '') {
         return;
     }
@@ -115,14 +113,12 @@ export class SectionComponent implements OnInit{
       url = environment.apiURL + '/conclusivesection/getConclusiveSectionsByParentId';
     }
 
-    console.log("fetch section");
 
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         this.sectionReport = (this.sectionState === SectionState.VISUAL)? response.section : response.sections[0];
         this.constructRows();
         this.isRecordFound = true;
-        console.log(response);
         this.isSaving = false;
       },
       error => {
@@ -325,9 +321,7 @@ export class SectionComponent implements OnInit{
     } else if (this.sectionState === SectionState.INVASIVE) {
       request = this.createInvasiveSectionData(data);
     }
-    console.log(request);
     let url = this.getAddUrl();
-    console.log(url);
     let isInvasive = request?.furtherinvasivereviewrequired === "Yes";
     this.httpsRequestService.postHttpData(url, request).subscribe(
       (response:any) => {
@@ -338,7 +332,6 @@ export class SectionComponent implements OnInit{
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.INVASIVE_BTN_DISABLED,isInvasive);
         this.isRecordFound = true;
         this.fetchDataForGivenSectionId(this.sectionId_);
-        console.log(response);
       },
       error => {
         // Reset to default state

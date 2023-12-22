@@ -21,7 +21,6 @@ export class SectionPhotosComponent implements OnInit{
   }
 
   openPreviewImage(index: number): void {
-    console.log("Index is"+index);
     this.previewImage = true;
     this.currentIndex = index;
     this.currentLightboxImage = this.images[index];

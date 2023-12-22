@@ -55,7 +55,6 @@ export class SectionListComponent implements OnInit{
 
   ngOnInit(): void {
     this.subscribeProjectState();
-    console.log(this.location_);
   }
   private subscribeProjectState() {
     this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
@@ -76,7 +75,6 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
 }
 
   private getSections(location: BuildingLocation) {
-    console.log("get sections");
     if (this.projectState === ProjectState.INVASIVE) {
       // TODO: Check Logic for Invasive
       this.sections = location?.sections?.filter(section => this.convertValueToBoolean(section?.furtherinvasivereviewrequired?.toString()));
@@ -130,7 +128,6 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
         let url = `${environment.apiURL}/section/${id}`;
         this.httpsRequestService.deleteHttpData(url).subscribe(
           (response: any) => {
-            console.log(response);
             this.sectionsDeletionComplete.emit(true);
           }
           , error => {
@@ -153,7 +150,6 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
 
       await this.httpsRequestService.putHttpData(url, data).subscribe(
         (response: any) => {
-          console.log(response);
         },
         error => {
           console.log(error);
@@ -191,9 +187,7 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
     if (this.projectState === ProjectState.VISUAL) {
       request = this.createSectionData(data);
     }
-    console.log(request);
     let url = environment.apiURL + '/section/add';
-    console.log(url);
     let isInvasive = request?.furtherinvasivereviewrequired === "Yes";
     this.httpsRequestService.postHttpData(url, request).subscribe(
       (response:any) => {
@@ -201,7 +195,6 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'added section');
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.INVASIVE_BTN_DISABLED,isInvasive);
         this.fetchDataForGivenSectionId({...request, _id: response.id});
-        console.log(response);
       },
       error => {
         console.log(error)

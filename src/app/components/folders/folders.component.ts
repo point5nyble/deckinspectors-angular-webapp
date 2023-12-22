@@ -40,7 +40,6 @@ export class FoldersComponent  implements OnInit
 
   addFolder = () =>{
     if(this.newFolder.trim() !== ""){
-      console.log("creating " + this.newFolder);
       this.folders.push({_id: "", name: this.newFolder, children: []})
       this.removeNewFolder();
     }
