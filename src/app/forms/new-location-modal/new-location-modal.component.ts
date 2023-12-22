@@ -77,7 +77,7 @@ export class NewLocationModalComponent {
       "description": this.newLocationForm.value.description,
       "parentid":  this.data.projectInfo?.parentId,
       "parenttype": this.data.projectInfo?.parenttype,
-      "createdBy": "deck",
+      "createdBy": localStorage.getItem('username'),
       "url": image_url? image_url : "",
       "type": this.data.type,
       "isInvasive":false,
@@ -87,7 +87,7 @@ export class NewLocationModalComponent {
     let url: string;
     // TODO: Check this logic changing this for
     if (this.data.isSubProject || this.data.type === 'subproject') {
-      data["assignedTo"] = ['deck'];
+      data["assignedTo"] = [localStorage.getItem('username')];
       url = environment.apiURL + "/subproject/add"
     } else {
       url = environment.apiURL + '/location/add';

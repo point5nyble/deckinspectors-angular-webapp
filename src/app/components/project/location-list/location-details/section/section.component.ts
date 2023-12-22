@@ -372,7 +372,7 @@ export class SectionComponent implements OnInit{
       "additionalconsiderationshtml": data?.additionalConsiderationsOrConcernHtml,
       "awe": data?.AWE,
       "conditionalassessment": data?.conditionAssessment,
-      "createdby": "deck",
+      "createdby": localStorage.getItem('username'),
       "eee": data?.EEE,
       "exteriorelements": data?.exteriorElements,
       "furtherinvasivereviewrequired": data?.invasiveReviewRequired,
