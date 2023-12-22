@@ -30,14 +30,12 @@ export class AssignProjectModalComponent {
     if (this.names.length == 0){
     this.httpsRequestService.getHttpData<any>(environment.apiURL + '/user/allusers').subscribe(
       (users: any) => {
-        console.log(users);
         let assignedUsers = (this.location === undefined)? this.projectInfo.assignedto : this.location.assignedto;
         this.names = users.map((user : any) => {
           if(assignedUsers.includes(user.username))
             user.checked = true;
           return user;
         });
-        console.log(this.names)
         this.filteredNames = this.names;
       },
       (error: any) => {
@@ -82,7 +80,6 @@ export class AssignProjectModalComponent {
     else{
       this.httpsRequestService.postHttpData(`${environment.apiURL}/subproject/${this.location._id}/assign`, {username: username}).subscribe(
         (res: any) => {
-          console.log(res);
           this.dialogRef.close({isAssigned: true, apiCalled: true});
         },
         (error: any) => {
@@ -97,7 +94,6 @@ export class AssignProjectModalComponent {
     if (this.location === undefined){
     this.httpsRequestService.postHttpData(`${environment.apiURL}/project/${this.projectInfo._id}/unassign`, {username: username}).subscribe(
       (res: any) => {
-        console.log(res);
         this.dialogRef.close({isAssigned: true, apiCalled: true});
       },
       (error: any) => {
@@ -109,7 +105,6 @@ export class AssignProjectModalComponent {
   else{
     this.httpsRequestService.postHttpData(`${environment.apiURL}/subproject/${this.location._id}/unassign`, {username: username}).subscribe(
       (res: any) => {
-        console.log(res);
         this.dialogRef.close({isAssigned: true, apiCalled: true});
       },
       (error: any) => {

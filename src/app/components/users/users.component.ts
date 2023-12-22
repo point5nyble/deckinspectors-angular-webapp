@@ -66,12 +66,10 @@ export class UsersComponent implements OnInit {
     });
 
     this.modalRef.onClose.subscribe((message: any) => {
-      console.log(message);
       if (message !== undefined && message.user !== undefined){
 
         this.httpsRequestService.postHttpData<any>(environment.apiURL + '/user/register', user).subscribe(
           (data) => {
-            console.log(data);
            
             (document.getElementById('success-alert') as HTMLElement).innerHTML =`<div class="alert alert-primary alert-dismissible fade show" role="alert">
             <strong>Success! </strong> user created 
@@ -106,12 +104,10 @@ export class UsersComponent implements OnInit {
       });
 
       this.modalRef.onClose.subscribe((message: any) => {
-        console.log(message);
         if (message !== undefined && message.user !== undefined){
 
           this.httpsRequestService.postHttpData<any>(environment.apiURL + '/user/update', user).subscribe(
             (data) => {
-              console.log(data);
             },
             error => {
               console.log(error);
@@ -148,7 +144,6 @@ export class UsersComponent implements OnInit {
       if(data.confirmed){
         this.httpsRequestService.postHttpData<any>(environment.apiURL + '/user/delete', deleteUser).subscribe(
           (data) => {
-            console.log(data);
             (document.getElementById('success-alert') as HTMLElement).innerHTML =`<div class="alert alert-primary alert-dismissible fade show" role="alert">
               <strong>Success! </strong> user updated 
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;

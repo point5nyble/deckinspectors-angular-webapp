@@ -59,9 +59,9 @@ export class NewSubprojectModalComponent {
       "parentid": this.data.projectInfo.parentId,
       "parenttype": this.data.projectInfo.parenttype,
       "isInvasive": true,
-      "createdBy": 'deck',
+      "createdBy": localStorage.getItem('username'),
       "url": this.newSubprojectForm.value.image,
-      "assignedTo" : ['deck']
+      "assignedTo" : [localStorage.getItem('username')]
     }
   }
 

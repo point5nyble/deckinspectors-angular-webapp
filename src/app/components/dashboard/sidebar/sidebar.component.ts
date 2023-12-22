@@ -37,7 +37,6 @@ export class SidebarComponent {
       elements[i].className = "";
     }
     (event.currentTarget as HTMLElement).className = "active";
-    console.log((event.currentTarget as HTMLElement))
   }
 
   gotoHome() {
