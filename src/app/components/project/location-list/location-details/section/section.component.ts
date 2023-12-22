@@ -105,7 +105,7 @@ export class SectionComponent implements OnInit{
     if (this.sectionState === SectionState.VISUAL) {
       data = {...data, sectionid: $event}
       url = environment.apiURL + '/section/getSectionById';
-      this.findOutConclusiveSectionStatus(this.sectionId_);
+      // this.findOutConclusiveSectionStatus(this.sectionId_);
     } else if (this.sectionState === SectionState.INVASIVE) {
       data = {...data, parentSectionId: $event}
       url = environment.apiURL + '/invasivesection/getInvasiveSectionByParentId';
@@ -434,10 +434,7 @@ export class SectionComponent implements OnInit{
 
 
   public showAddBtn() {
-    console.log()
-    if (this.sectionState === SectionState.VISUAL) {
-        return true;
-    } else if ((this.sectionState === SectionState.INVASIVE || this.sectionState === SectionState.CONCLUSIVE) &&
+   if ((this.sectionState === SectionState.INVASIVE || this.sectionState === SectionState.CONCLUSIVE) &&
                 !this.isRecordFound) {
         return true;
     }
@@ -445,10 +442,9 @@ export class SectionComponent implements OnInit{
   }
 
   public showEditBtn(){
-    console.log()
-    if (this.sectionState === SectionState.VISUAL) {
+    if (this.rows.length > 0 && this.sectionState === SectionState.VISUAL) {
         return true;
-    } else if ((this.sectionState === SectionState.INVASIVE || this.sectionState === SectionState.CONCLUSIVE) &&
+    } else if (this.rows.length > 0 && (this.sectionState === SectionState.INVASIVE || this.sectionState === SectionState.CONCLUSIVE) &&
                 this.isRecordFound) {
         return true;
     }
