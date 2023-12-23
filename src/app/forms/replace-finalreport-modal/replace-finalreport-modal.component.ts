@@ -43,7 +43,6 @@ export class ReplaceFinalreportModalComponent {
    
     this.http.post(`${environment.apiURL}/project/replacefinalreporttemplate`, formData, { headers }).subscribe(
       (response) => {
-        console.log('File uploaded successfully:', response);
         this.dialogRef.close({uploadStatus: true});
       },
       (error) => {

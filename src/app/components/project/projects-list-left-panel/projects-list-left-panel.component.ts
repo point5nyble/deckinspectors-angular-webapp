@@ -129,7 +129,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     response.item.forEach((project: any) => {
       fetchedProjectList.push(this.extractProject(project));
     })
-    console.log(fetchedProjectList);
     return fetchedProjectList;
   }
 
@@ -150,7 +149,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   private extractNestedItems(project: any): Item[] {
     let projectCommonLocationCollapsibleStatus = this.getCollapsedStatus('Project Common Location');
-    console.log(projectCommonLocationCollapsibleStatus);
     let locations: Item = {
       name: 'Project Common Location',
       id: '',

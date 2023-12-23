@@ -34,8 +34,6 @@ export class ConclusiveSectionModalComponent {
   }
 
   ngOnInit() {
-    console.log(`rowmap: ${this.data.rowsMap}`);
-    console.log(this.data.rowsMap?.get('propowneragreed'));
     let propowneragreed:boolean = this.data.rowsMap?.get('propowneragreed');
     let invasiverepairsinspectedandcompleted:boolean = this.data.rowsMap?.get('invasiverepairsinspectedandcompleted');
     this.propowneragreed = propowneragreed === undefined ? 'false' : propowneragreed.toString();

@@ -222,7 +222,6 @@ export class VisualDeckReportModalComponent implements OnInit {
       additionalConsiderationsOrConcern: parsedText
     })
     this.visualDeckReportModalForm.value["additionalConsiderationsOrConcernHtml"] = htmlText;
-   console.log(this.visualDeckReportModalForm.value);
     this.dialogRef.close(this.visualDeckReportModalForm.value);
   }
 
