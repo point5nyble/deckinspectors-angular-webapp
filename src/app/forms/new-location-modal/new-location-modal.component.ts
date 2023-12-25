@@ -77,17 +77,16 @@ export class NewLocationModalComponent {
       "description": this.newLocationForm.value.description,
       "parentid":  this.data.projectInfo?.parentId,
       "parenttype": this.data.projectInfo?.parenttype,
-      "createdBy": "deck",
+      "createdBy": localStorage.getItem('username'),
       "url": image_url? image_url : "",
       "type": this.data.type,
       "isInvasive":false,
       "assignedTo":['']
     }
-    console.log(data);
     let url: string;
     // TODO: Check this logic changing this for
     if (this.data.isSubProject || this.data.type === 'subproject') {
-      data["assignedTo"] = ['deck'];
+      data["assignedTo"] = [localStorage.getItem('username')];
       url = environment.apiURL + "/subproject/add"
     } else {
       url = environment.apiURL + '/location/add';
@@ -97,8 +96,6 @@ export class NewLocationModalComponent {
       let projectid = this.data.projectInfo._id === undefined ? (<any>this.data.projectInfo).id : this.data.projectInfo._id;
        url = url.replace('add', projectid);
       data["sequenceNo"] = this.data.sequenceNo;
-      console.log(url);
-      console.log(data);
       this.updateLocation(url, data);
     } else {
       data["sequenceNo"] = this.data.sequenceNo;
@@ -110,7 +107,6 @@ export class NewLocationModalComponent {
   private createNewLocation(url: string, data: any) {
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
-        console.log(response);
         this.isSaving = false;
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
         this.dialogRef.close(this.newLocationForm);
@@ -126,7 +122,6 @@ export class NewLocationModalComponent {
   private updateLocation(url: string, data: any) {
     this.httpsRequestService.putHttpData(url, data).subscribe(
       (response:any) => {
-        console.log(response);
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
         this.dialogRef.close(this.newLocationForm);
         this.isSaving = false;

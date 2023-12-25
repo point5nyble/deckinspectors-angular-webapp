@@ -20,9 +20,7 @@ export class LoginService {
         this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/user/${username}`).subscribe(
         user => {
           let response = true;
-          console.log(response);
           if (!(["web", "both"].includes(user.access_type.toLowerCase()))){
-            console.log("user doesn't have access");
             alert("Incorrect username or password");
             return false;
           }

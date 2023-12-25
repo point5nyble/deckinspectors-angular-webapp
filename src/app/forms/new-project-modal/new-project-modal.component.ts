@@ -107,9 +107,7 @@ export class NewProjectModalComponent implements OnInit {
         "address": this.yourForm.value.address,
         "url": image_url=== undefined? '': image_url,
         "projecttype": this.yourForm.value.option,
-        "assignedTo": [
-          localStorage.getItem('username') !== undefined? localStorage.getItem('username') : "deck"
-        ]
+        "assignedTo": [localStorage.getItem('username')]
       }
       if (this.data.process === 'edit') {
         let projectid = this.data.projectInfo._id === undefined ? (<any>this.data.projectInfo).id : this.data.projectInfo._id;

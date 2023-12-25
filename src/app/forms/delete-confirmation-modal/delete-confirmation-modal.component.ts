@@ -14,7 +14,6 @@ export class DeleteConfirmationModalComponent {
     }
 
   close =(status: boolean)=>{
-    console.log(this.name);
     this.dialogRef.close({confirmed: status});
   }
 }

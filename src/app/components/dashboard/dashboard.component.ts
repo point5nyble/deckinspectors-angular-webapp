@@ -298,7 +298,6 @@ removeNotification = () =>{
   }
 
   reportDownloadEvent($event: any){
-    console.log(`is report downloading: ${$event}`);
     this.downloadingReport = $event;
     setTimeout(this.removeNotification, 5000);
   }

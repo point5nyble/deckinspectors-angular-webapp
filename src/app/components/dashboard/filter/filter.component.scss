@@ -83,6 +83,7 @@ input[type="text"] {
   padding-left:10px;
 }
 
+
 .replaceFinalReportTemplate{
   border:1px solid #8B8888;
   display: flex;
@@ -117,4 +118,29 @@ label input:checked{
 
 .horizontal-div button:hover {
   color: #007bff;
+}
+
+@media screen and (max-width:1000px)
+{
+  .horizontal-div input[type="text"]{
+    width: auto;
+    height: auto;
+    //flex:1;
+  }
+  .horizontal-div input[type="date"] {
+    width: auto;
+    height: auto;
+    //flex:1;
+  }
+  .buttonAddnew{
+    width: auto;
+    height: auto;
+    //flex:1;
+  }
+
+  .replaceFinalReportTemplate{
+    width: auto;
+    height: auto;
+    //flex:1;
+  }
 }

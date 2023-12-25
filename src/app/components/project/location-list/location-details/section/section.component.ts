@@ -81,7 +81,6 @@ export class SectionComponent implements OnInit{
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
-        console.log(response);
         this.showConclusiveSection = response?.sections[0]?.postinvasiverepairsrequired === "Yes";
       },
       error => {
@@ -92,7 +91,6 @@ export class SectionComponent implements OnInit{
   }
 
   private fetchDataForGivenSectionId($event: string) {
-    console.log($event);
     if ($event === undefined || $event === '') {
         return;
     }
@@ -105,7 +103,7 @@ export class SectionComponent implements OnInit{
     if (this.sectionState === SectionState.VISUAL) {
       data = {...data, sectionid: $event}
       url = environment.apiURL + '/section/getSectionById';
-      this.findOutConclusiveSectionStatus(this.sectionId_);
+      // this.findOutConclusiveSectionStatus(this.sectionId_);
     } else if (this.sectionState === SectionState.INVASIVE) {
       data = {...data, parentSectionId: $event}
       url = environment.apiURL + '/invasivesection/getInvasiveSectionByParentId';
@@ -115,14 +113,12 @@ export class SectionComponent implements OnInit{
       url = environment.apiURL + '/conclusivesection/getConclusiveSectionsByParentId';
     }
 
-    console.log("fetch section");
 
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         this.sectionReport = (this.sectionState === SectionState.VISUAL)? response.section : response.sections[0];
         this.constructRows();
         this.isRecordFound = true;
-        console.log(response);
         this.isSaving = false;
       },
       error => {
@@ -325,9 +321,7 @@ export class SectionComponent implements OnInit{
     } else if (this.sectionState === SectionState.INVASIVE) {
       request = this.createInvasiveSectionData(data);
     }
-    console.log(request);
     let url = this.getAddUrl();
-    console.log(url);
     let isInvasive = request?.furtherinvasivereviewrequired === "Yes";
     this.httpsRequestService.postHttpData(url, request).subscribe(
       (response:any) => {
@@ -338,7 +332,6 @@ export class SectionComponent implements OnInit{
         this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.INVASIVE_BTN_DISABLED,isInvasive);
         this.isRecordFound = true;
         this.fetchDataForGivenSectionId(this.sectionId_);
-        console.log(response);
       },
       error => {
         // Reset to default state
@@ -372,7 +365,7 @@ export class SectionComponent implements OnInit{
       "additionalconsiderationshtml": data?.additionalConsiderationsOrConcernHtml,
       "awe": data?.AWE,
       "conditionalassessment": data?.conditionAssessment,
-      "createdby": "deck",
+      "createdby": localStorage.getItem('username'),
       "eee": data?.EEE,
       "exteriorelements": data?.exteriorElements,
       "furtherinvasivereviewrequired": data?.invasiveReviewRequired,
@@ -434,10 +427,7 @@ export class SectionComponent implements OnInit{
 
 
   public showAddBtn() {
-    console.log()
-    if (this.sectionState === SectionState.VISUAL) {
-        return true;
-    } else if ((this.sectionState === SectionState.INVASIVE || this.sectionState === SectionState.CONCLUSIVE) &&
+   if ((this.sectionState === SectionState.INVASIVE || this.sectionState === SectionState.CONCLUSIVE) &&
                 !this.isRecordFound) {
         return true;
     }
@@ -445,10 +435,9 @@ export class SectionComponent implements OnInit{
   }
 
   public showEditBtn(){
-    console.log()
-    if (this.sectionState === SectionState.VISUAL) {
+    if (this.rows.length > 0 && this.sectionState === SectionState.VISUAL) {
         return true;
-    } else if ((this.sectionState === SectionState.INVASIVE || this.sectionState === SectionState.CONCLUSIVE) &&
+    } else if (this.rows.length > 0 && (this.sectionState === SectionState.INVASIVE || this.sectionState === SectionState.CONCLUSIVE) &&
                 this.isRecordFound) {
         return true;
     }

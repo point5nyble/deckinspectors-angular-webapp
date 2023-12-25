@@ -37,7 +37,6 @@ export class LocationListElementComponent {
   }
 
   deleteProject() {
-    console.log("deleteProject", this.location._id)
     this.childClickEventTriggered.emit(true);
     const location = {id : this.location._id, isSubProject: this.isSubProject,name:this.location.name}
     this.deleteElement.emit(location);

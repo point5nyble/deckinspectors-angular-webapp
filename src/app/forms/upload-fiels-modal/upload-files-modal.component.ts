@@ -30,11 +30,9 @@ export class UploadFilesModalComponent {
   }
 
   fetchProjectFiles = () =>{
-    console.log("running");
     this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/projectdocuments/${this.projectInfo._id}`).subscribe(
       (res) => {
         this.projectFiles = res;
-        console.log(res);
       },
       error => {
         this.projectFiles = [];
@@ -73,7 +71,6 @@ export class UploadFilesModalComponent {
             'containerName': file.name?.replace(/-|\s|\./g, '').toLowerCase(),
             'picture': file,
           }
-          console.log(data.containerName);
             this.imageToUrlConverterService.convertImageToUrl(data).subscribe(
               (response:any) => {
                 // this.createProject(response.url);
@@ -85,7 +82,6 @@ export class UploadFilesModalComponent {
                 }
                 this.httpsRequestService.postHttpData<any>(`${environment.apiURL}/projectdocuments/add`, filePayload).subscribe(
                   (res) => {
-                    console.log(res);
                     resolve(res);
                   },
                   error => {
@@ -140,7 +136,6 @@ export class UploadFilesModalComponent {
         
         this.httpsRequestService.postHttpData<any>(`${environment.apiURL}/projectdocuments/delete`, {_id: id}).subscribe(
           (res) => {
-            console.log(res);
             this.fetchProjectFiles();
           },
           error => {
