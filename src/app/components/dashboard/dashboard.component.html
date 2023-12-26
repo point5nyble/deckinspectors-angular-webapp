@@ -23,6 +23,12 @@
         (fileUploaded)="fileUploaded($event)"
         >
         </app-filter>
+        <div *ngIf="notificationRecieved">
+          <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>Report Available! </strong>{{notificationMessage}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
         <div *ngIf="isProjectAssigned && apiCalled">
           <div class="alert alert-primary alert-dismissible fade show" role="alert">
             <strong>Success! </strong> Project Assigned
@@ -83,7 +89,7 @@
 
         <div *ngIf="downloadingReport">
           <div class="alert alert-primary alert-dismissible fade show" role="alert">
-            <strong>Downloading! </strong> Please check after some time
+            <strong>Creating Report! </strong> Please check after some time
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         </div>

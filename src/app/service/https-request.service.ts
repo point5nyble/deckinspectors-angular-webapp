@@ -11,6 +11,10 @@ export class HttpsRequestService {
   public getHttpData<T>(url:string): Observable<T> {
       return this.http.get<T>(url);
   }
+  public getHttpTextData(url:string): Observable<string> {
+    return this.http.get(url,{ responseType: 'text' });
+}
+  
    public postHttpData<T>(url:string, data:any): Observable<T> {
      const httpOptions = {
         headers: new HttpHeaders({
