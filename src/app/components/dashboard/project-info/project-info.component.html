@@ -58,21 +58,21 @@
         </div>
       </div> -->
 
-      <div style="margin-left:70px;">
+      <div>
         <!-- <span class="bi bi-upload icon" (click)="openUploadFilesModal()" title="Upload project documents"></span> -->
         <span class="material-symbols-outlined icon"  (click)="openUploadFilesModal()" title="Upload project documents"style="font-size:24px;margin-top:7px;">upload</span>
       </div>
 
-      <div style="margin-left:50px;">
+      <div >
         <!-- <span class="bi bi-download icon" (click)="openDownloadReportModal()" title="Download project reports"></span> -->
         <span class="material-symbols-outlined icon" (click)="openDownloadReportModal()" title="Download project reports" style="font-size:24px;margin-top:7px;">download </span>
       </div>
 
-      <div style="margin-left:50px;">
+      <div >
         <span *ngIf="!projectInfo.iscomplete" class="bi bi-check2-square icon" (click)="markComplete()" title="Mark project complete"></span>
         <span *ngIf="projectInfo.iscomplete" class="bi bi-arrow-repeat icon" (click)="markComplete()" title="Move in progess"></span>
       </div>
-      <div style="margin-left:30px;">
+      <div>
         <span class="bi bi-trash icon" title="Delete Project" (click)="deleteProject()"></span>
       </div>
 </div>

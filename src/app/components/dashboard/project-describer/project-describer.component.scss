@@ -11,29 +11,32 @@ ul{
     align-items: center;
     justify-content: center;
     justify-content: space-evenly;
-    flex:1;
+    flex:1 1;
     color: #8C8C8C;
-    font-size: 14px;
+    font-size:14px;
     font-weight: 400;
 }
 li{
     list-style: none;
 }
-#A_User{
-    margin-left:270px;
+#name{
+    width: 30%;
+    flex-shrink:1;
 }
-#A_Offline{
-    margin-left:100px;
+#A_User{
+width:16%;
+    //float:left;
 }
 #Type{
-    margin-left:100px;
+    width:6%;
+    //float: right;
 }
 #As_User{
-    margin-left:40px;
-    width:130px;
+    //margin-left:40px;
+    width:15%;
 }
 #Upload{
-    margin-left:40px;
+    width:5%;
 }
 p{
     display: flex;

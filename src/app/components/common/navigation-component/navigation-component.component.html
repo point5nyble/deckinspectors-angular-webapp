@@ -1,11 +1,11 @@
 <div class="path">
   <ng-container *ngFor="let folder of path; let last = last">
-    <ng-container>
+    <ng-container *ngIf="!last">
       <span class="folder">{{ folder.name }}</span>
       <i class="fas fa-chevron-right"></i>
     </ng-container>
-    <!-- <ng-container *ngIf="last">
+    <ng-container *ngIf="last">
       <span class="folder1">{{ folder.name }}</span>
-    </ng-container> -->
+    </ng-container>
   </ng-container>
 </div>

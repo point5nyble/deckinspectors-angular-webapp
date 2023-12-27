@@ -9,13 +9,10 @@ import {BackNavigation} from "../../../app-state-service/back-navigation-state/b
 })
 export class NavigationComponentComponent implements OnInit{
   path!:any[];
-  //last!:number;
   constructor(private store: Store<any>) {
   }
-
   ngOnInit(): void {
     this.store.select(BackNavigation.getPreviousStateModelChain).subscribe(res => this.path = res.stack);
-    //this.last=this.path.length;
   }
 
 }
