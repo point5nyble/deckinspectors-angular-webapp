@@ -1,0 +1,64 @@
+<!-- counters.component.html
+
+<div class="statistics-section">
+  <div class="counter-item">
+    <p>Total Projects</p>
+    <span class="stat-num">{{ totalProjects }}</span>
+  </div>
+  <div class="counter-item">
+    <p>Completed Projects</p>
+    <span class="stat-num">{{ completedProjects }}</span>
+  </div>
+  <div class="counter-item">
+    <p>Ongoing Projects</p>
+    <span class="stat-num">{{ ongoingProjects }}</span>
+  </div>
+</div> -->
+
+
+<!-- <p>header works!</p> -->
+<div>
+  <div class="header">
+
+    <div *ngIf="showProjectInfo === 'home'" class="AllProjectAndRefresh">
+      <div class="AllProject">All Projects</div>
+    </div>
+
+    <div>
+      <!-- <app-counterss
+      [totalProjects]="totalProjects"
+      [completedProjects]="completedProjects"
+      [ongoingProjects]="ongoingProjects"
+    ></app-counterss> -->
+
+      <div class="statistics-section">
+        <div class="counter-item">
+          <p>Total Projects</p>
+          <span class="stat-num">{{ totalProjects }}</span>
+        </div>
+        <div class="counter-item">
+          <p>Completed Projects</p>
+          <span class="stat-num">{{ completedProjects }}</span>
+        </div>
+        <div class="counter-item">
+          <p>Ongoing Projects</p>
+          <span class="stat-num">{{ ongoingProjects }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-buttons">
+      <button (click)="replaceFinalReportTemplate()" class="replaceFinalReportTemplate"
+        title="upload final report template">
+        <i class="bi bi-file-earmark-arrow-up" style="font-size: 25px"></i>
+        <h6 style="margin-top: 6px">&nbsp;Upload</h6>
+      </button>
+
+      <button (click)="openModal()" class="buttonAddnew">
+        <i class="bi bi-plus" style='font-size:25px;'></i>
+        <h6 id="upload" style="margin-top: 6px">&nbsp;Add new</h6>
+      </button>
+    </div>
+
+  </div>
+</div>

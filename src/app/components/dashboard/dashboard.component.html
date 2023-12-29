@@ -3,16 +3,22 @@
     <div class="horizontal-frame">
       <div class="company-logo">
         <img class="cursor-pointer" src="../../../assets/images/image_1.png" width="139px" height="59.57px" alt="Button Image" (click)="gotoHome()">
-      </div>
+      </div>+
     </div>
 <!--    <button class="btn btn-secondary" (click)="changeProjectState()" [disabled]="disableInvasiveBtn">{{projectState}}</button>-->
-  <!-- </div> --> -->
+  <!-- </div> --> 
   <div class="project-container">
     <app-sidebar class="flex sideBar"></app-sidebar>
     <div class="container-fluid flex">
 
-      <app-header></app-header>
+      <!-- <app-header></app-header> -->
 
+
+      <app-counterss
+      [totalProjects]="totalProjects"
+      [completedProjects]="completedProjects"
+      [ongoingProjects]="ongoingProjects"
+    ></app-counterss>
       <!-- <div *ngIf="showProjectInfo === 'home'" class="AllProjectAndRefresh">
         <div class="AllProject">All Projects</div>
       </div> -->

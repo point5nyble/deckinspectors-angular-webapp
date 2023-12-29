@@ -1,5 +1,51 @@
+.user-icon {
+  height: 50px;
+  width: 50px;
+  font-size: 45px;
+  border-style: groove;
+  border-radius: 100%;
+  align-items: center;
+  margin: 0 auto; /* Add this to center the icon horizontally */
+}
+
+.user-details {
+  align-items: center;
+  text-align: center; /* Center the text */
+  margin-top: 0px;
+}
+
+.user-details p.name {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 5px;
+}
+
+.user-details p.role {
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.user-details p {
+  line-height: 1;
+}
+
+.container.sidebar .user-icon,
+.container.sidebar .user-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.container.sidebar.collapsed .user-icon
+{
+  margin-left: 0px;
+}
+
+
 .sidebar {
-  padding-top: 20px;
+  padding-top: 10px;
   display: flex;
   flex-direction: column;
   background-color: #ffff;
@@ -54,7 +100,6 @@ a{
 .sidebar-content {
   display: block;
   padding-left: 5px;
-
   transition: opacity 0.8s ease-out;
   -moz-transition: opacity 0.8s ease-out;
   //padding: 10px;
@@ -123,3 +168,21 @@ i{
   height: 50px;
   width: 50px;
 }
+
+.container.sidebar.collapsed .user-details {
+  display: none;
+}
+
+.user-section
+{
+  margin-top: 370px;
+  margin-bottom: 15px;
+}
+
+// .container.sidebar .user-icon {
+//   display: none;
+// }
+
+// .container.sidebar.collapsed .user-icon {
+//   display: block;
+// }

@@ -59,6 +59,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ReplaceFinalreportModalComponent } from './forms/replace-finalreport-modal/replace-finalreport-modal.component';
 import { ReportsComponent } from './forms/download-files-modal/reports/reports.component';
 import { HeaderComponent } from './components/dashboard/header/header.component';
+import { CounterssComponent } from './components/dashboard/counterss/counterss.component';
 
 
 @NgModule({
@@ -100,7 +101,8 @@ import { HeaderComponent } from './components/dashboard/header/header.component'
     ModalComponent,
     ProjectDescriberComponent,
     ReplaceFinalreportModalComponent,
-    HeaderComponent
+    HeaderComponent,
+    CounterssComponent
   ],
   imports: [
     BrowserModule,

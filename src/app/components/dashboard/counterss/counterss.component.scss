@@ -1,3 +1,40 @@
+/* counters.component.scss */
+
+.statistics-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  // margin-top: 20px;
+  padding: 10px;
+  background-color: #ffff;
+  // border: 1px solid #ccc;
+}
+
+.counter-item {
+  text-align: center; 
+  padding-left: 30px;
+  padding-right: 30px;/* Center text within each counter item */
+}
+
+.counter-item p {
+  margin: 0;
+  font-size: 20px;
+}
+
+// .counter-item span {
+//   display: block; /* Make the number appear on a new line */
+//   font-weight: bold; /* Optional: Make the number bold or adjust styling as needed */
+// }
+
+.stat-num
+{
+  display: block; /* Make the number appear on a new line */
+  font-weight: bold; 
+  font-size: 30px;
+  color: #ED7C1C;
+}
+
+
 // .project-container{
 //   display: flex;
 //   flex: 1;
@@ -10,6 +47,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 0px;
 }
 
 .header-buttons{

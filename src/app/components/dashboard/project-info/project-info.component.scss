@@ -16,20 +16,23 @@
   // flex: 1;
   margin-top: 12px;
   margin-bottom: 12px;
+  // padding-left: 12px;
+  margin-left: 12px;
   border-radius: 15px;
 }
 
 .horizontal-div:hover {
-  background-color: #f7f7f7;
-  filter: brightness(98%);
+  // background-color: #f7f7f7;
+  // filter: brightness(98%);
+  border-left-style: solid;
+  border-left-width: 8px;
+  border-color: #ED7C1C;
 }
 
 .options-section {
   display: flex;
   align-items: center;
 }
-
-
 
 .icon:hover {
   color: #007bff;
@@ -121,18 +124,22 @@
   color: #000000;
   font-weight: 500;
 }
-.projectName div span{ 
-  font-size: 19px;
-}
+
+// .projectName div span{ 
+
+// }
 .projectName div{
   display: flex;
   align-items:center;
   color: #666666CC;
-  padding-bottom: 5px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  // padding-bottom: 5px;
 }
 .projectName p{
   width: 135px;
   height:23px;
+  font-size: 17px;
   overflow: clip;
 }
 .typeSection{

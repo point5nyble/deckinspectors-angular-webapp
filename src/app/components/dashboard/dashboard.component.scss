@@ -81,7 +81,7 @@
   flex: 1;
   flex-direction: column;
   // background-color: #E8F2FF;
-  background-color: #E4E9FD;
+  background-color: #ffff;
   // background-image: -webkit-linear-gradient(65deg, #E4E9FD 50%, #ED7C1C 50%);
   min-height: 1000px;
   // min-height:800px;
@@ -106,6 +106,7 @@
 
 .sideBar {
   display: flex;
+  padding-top: 15px;
   // margin-top: 90px;
 }
 
@@ -138,4 +139,11 @@
 
 .projectInfoContainer{
   max-height: 600px;
+}
+
+.scrollable-container
+{
+  margin-top: 40px;
+  background-color: #E4E9FD;
+  border-radius: 20px;
 }

@@ -27,6 +27,18 @@
               <span>Files</span>
             </a>
           </li> -->
+          
+
+        <div class="user-section">
+          <i class="material-symbols-outlined user-icon">
+            person
+          </i>
+          <span class="user-details">&nbsp;
+            <p class="name">{{ name }}</p>
+            <p class="role">{{ role }}</p>
+          </span>
+        </div>
+
         <li>
           <a routerLink="/login" routerLinkActive="active" (click)="logout()">
             <i class="material-symbols-outlined">logout</i>

@@ -7,13 +7,10 @@ import { ObjectCloneServiceService } from "../../service/object-clone-service.se
 import { ProjectState } from "../../app-state-service/store/project-state-model";
 import { Store } from "@ngrx/store";
 import { ProjectQuery } from "../../app-state-service/project-state/project-selector";
-import {LoginService} from "../login/login.service";
-import {Router} from "@angular/router";
+import { LoginService } from "../login/login.service";
+import { Router } from "@angular/router";
 import { environment } from '../../../environments/environment';
 import {BackNavigation} from "../../app-state-service/back-navigation-state/back-navigation-selector";
-// import { NewProjectModalComponent } from 'src/app/forms/new-project-modal/new-project-modal.component';
-// import { ReplaceFinalreportModalComponent } from 'src/app/forms/replace-finalreport-modal/replace-finalreport-modal.component';
-// import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +20,9 @@ import {BackNavigation} from "../../app-state-service/back-navigation-state/back
 
 export class DashboardComponent implements OnInit
 {
+  totalProjects: number = 0;
+  completedProjects: number = 0;
+  ongoingProjects: number = 0;
   showProjectInfo: string = 'home';
   projectInfo! : Project;
   projectInfos!: Project[];
@@ -59,12 +59,14 @@ export class DashboardComponent implements OnInit
   private fetchProjectData() {
     this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/user/${localStorage.getItem('username')}`).subscribe(
       (user) => {
+        // console.log(user)
         localStorage.setItem('user', JSON.stringify(user));
         if(user.role.toLowerCase() === "admin"){
           this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/project/allProjects`).subscribe(
             (data) => {
               this.projectInfos = this.filterProject(data.projects);
               this.allProjects = this.filterProject(data.projects);
+              this.calculateProjectStatistics();
             },
             error => {
               console.log(error);
@@ -87,6 +89,12 @@ export class DashboardComponent implements OnInit
         console.log(error);
       }
     )
+  }
+
+  private calculateProjectStatistics() {
+    this.totalProjects = this.projectInfos.length;
+    this.completedProjects = this.projectInfos.filter(project => project.iscomplete).length;
+    this.ongoingProjects = this.totalProjects - this.completedProjects;
   }
 
   // This function is to get last element and called when we add new Project and automatically navigate to that function

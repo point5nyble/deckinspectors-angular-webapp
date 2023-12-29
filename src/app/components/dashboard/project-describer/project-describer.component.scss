@@ -1,12 +1,16 @@
 
 .Describer{
-    height: 35px;
+    margin-top: 7px;
+    // padding-top: 20px;
+    height: 75px;
     display: flex;
     // align-items: left;
     // justify-content: space-between;
     flex:1;
     // padding-top: 15px;
     // margin-bottom: 10px;
+    background-color: #E4E9FD;
+    border-radius: 20px;
 }
 ul{
     display: flex;
@@ -15,7 +19,7 @@ ul{
     justify-content: space-evenly;
     flex:1;
     color: #8C8C8C;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
 }
 li{
