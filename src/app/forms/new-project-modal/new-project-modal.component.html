@@ -1,9 +1,24 @@
 <div class="custom-dialog-content">
-  <h2 class="modal-title">New Project</h2>
+  <h2 class="modal-title">Add New Project</h2>
   <div class="close-button-container">
     <span class="close-icon" (click)="close()">&#10005;</span>
   </div>
   <form [formGroup]="yourForm" class="modal-form" ngNativeValidate>
+    <div class="form-group">
+      <label class="form-label">Project Name:</label>
+      <input type="text" formControlName="name" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Address:</label>
+      <textarea formControlName="address" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Description:</label>
+      <textarea formControlName="description" class="form-control"></textarea>
+    </div>
+
     <div class="form-group">
       <label class="form-label">Project Type</label>
       <div class="radio-group">
@@ -18,21 +33,6 @@
         </label>
       </div>
 
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Project Name:</label>
-      <input type="text" formControlName="name" class="form-control" required>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Address:</label>
-      <textarea formControlName="address" class="form-control"></textarea>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Description:</label>
-      <textarea formControlName="description" class="form-control"></textarea>
     </div>
 
     <div class="form-group">

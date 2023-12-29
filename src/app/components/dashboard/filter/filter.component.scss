@@ -114,5 +114,9 @@ label input:checked{
 
 .checkbox
 {
-  margin-left: 690px;
+  // margin-left: 690px;
+  position: fixed; /* or 'absolute' depending on your requirements */
+  // top: 0; /* Adjust this value based on your layout */
+  right: 0; 
+  margin-right: 5px;
 }
