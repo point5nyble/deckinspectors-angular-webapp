@@ -1,18 +1,14 @@
-<div class="horizontal-div  full-height">
+<div class="horizontal-div full-height">
   <div class="header-component">
-    <div class="flex-item">
-      <div>{{ header }}</div>
-      <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </span>
-    </div>
     <div class="icons">
-<!--      <span class="mr-3" *ngIf="checkIfSubProject()"><i class="fas fa-plus" (click)="openSubprojectModal()"></i></span>-->
-      <span class="mr-3 cursor-pointer icon"><i class="fas fa-plus" (click)="openLocationModal()"></i></span>
-      <span class="mr-3 cursor-pointer icon"><i class="fas fa-save" (click)="save()"></i></span>
+      <button (click)="openLocationModal()" class="header-icon">Add
+        <span class="fa-solid fa-plus"></span></button>
+
+      <button (click)="save()" class="header-icon">Save
+        <span class="fa-solid fa-floppy-disk"></span></button>
     </div>
   </div>
-   
+
   <div *ngIf="isDeleteSuccess">
     <div class="alert alert-primary alert-dismissible fade show" role="alert">
       <strong>Success! </strong> Deleted
@@ -26,29 +22,22 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   </div>
-  
-  <div cdkDropList class="full-width locationInfo scrollable-container" *ngIf="checkIfSubProject()"  (cdkDropListDropped)="dropProject($event)">
-    <div *ngFor="let project of subprojectList" cdkDrag>
-        <app-location-list-element (click)="onDbClick(project)" [location]="project"
-                      [isSubProject]="true"
-                      [header]="header"
-                      [projectName]="project.name"
-                      (projectAssignedEvent)="assignProject($event)"
-                      (childClickEventTriggered)="childClickEvent($event)"
-                                   (deleteElement)="deleteElement($event)"
-        ></app-location-list-element>
+
+  <div cdkDropList class="locationInfo scrollable-container" *ngIf="checkIfSubProject()"
+    (cdkDropListDropped)="dropProject($event)">
+    <div *ngFor="let project of subprojectList" cdkDrag class="card-container">
+      <app-location-list-element (click)="onDbClick(project)" [location]="project" [isSubProject]="true"
+        [header]="header" [projectName]="project.name" (projectAssignedEvent)="assignProject($event)"
+        (childClickEventTriggered)="childClickEvent($event)"
+        (deleteElement)="deleteElement($event)"></app-location-list-element>
     </div>
   </div>
-  <div cdkDropList class="full-width locationInfo scrollable-container" *ngIf="!checkIfSubProject()"  (cdkDropListDropped)="dropLocation($event)">
-    <div *ngFor="let locationInfo of locationList" cdkDrag>
-      <app-location-list-element (click)="onDbClick(locationInfo)"
-                    [location]="locationInfo"
-                    [isSubProject]="false"
-                    [header]="header"
-                    (projectAssignedEvent)="assignProject($event)"
-                                 (deleteElement)="deleteElement($event)"
-                                 (childClickEventTriggered)="childClickEvent($event)"
-      ></app-location-list-element>
+  <div cdkDropList class="locationInfo scrollable-container" *ngIf="!checkIfSubProject()"
+    (cdkDropListDropped)="dropLocation($event)">
+    <div *ngFor="let locationInfo of locationList" cdkDrag class="card-container">
+      <app-location-list-element (click)="onDbClick(locationInfo)" [location]="locationInfo" [isSubProject]="false"
+        [header]="header" (projectAssignedEvent)="assignProject($event)" (deleteElement)="deleteElement($event)"
+        (childClickEventTriggered)="childClickEvent($event)"></app-location-list-element>
     </div>
   </div>
 </div>

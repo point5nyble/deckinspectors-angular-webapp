@@ -12,13 +12,6 @@
     <div class="container-fluid flex">
 
       <!-- <app-header></app-header> -->
-
-
-      <app-counterss
-      [totalProjects]="totalProjects"
-      [completedProjects]="completedProjects"
-      [ongoingProjects]="ongoingProjects"
-    ></app-counterss>
       <!-- <div *ngIf="showProjectInfo === 'home'" class="AllProjectAndRefresh">
         <div class="AllProject">All Projects</div>
       </div> -->
@@ -32,6 +25,13 @@
       </button> -->
 
       <div *ngIf="showProjectInfo === 'home'" class="project-list-container">
+        
+        <app-counterss
+        [totalProjects]="totalProjects"
+        [completedProjects]="completedProjects"
+        [ongoingProjects]="ongoingProjects"
+      ></app-counterss>
+
         <app-filter
         (searchedTerm)="projectSearch($event)"
         (newProjectUploaded)="newProjectUploaded()"

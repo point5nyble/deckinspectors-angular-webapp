@@ -16,6 +16,7 @@ import {ProjectState} from "../../../../app-state-service/store/project-state-mo
 import {ProjectQuery} from "../../../../app-state-service/project-state/project-selector";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { environment } from '../../../../../environments/environment';
+// import { Project } from 'src/app/common/models/project';
 
 @Component({
   selector: 'app-project-details-upper-section',
@@ -24,6 +25,7 @@ import { environment } from '../../../../../environments/environment';
 })
 export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   projectInfo!: ProjectListElement | BuildingLocation;
+  // project!: Project;
   projectType!: string;
   projectState!: ProjectState;
   disableInvasiveBtn: boolean = false;
@@ -51,6 +53,20 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
     this.sequenceNo = this.projectInfo.sequenceNo;
     
   }
+
+  formatDate(dateTimeString: string | undefined): string | undefined {
+    if (dateTimeString) {
+      const date = new Date(dateTimeString);
+      const options: Intl.DateTimeFormatOptions = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      };
+      return date.toLocaleDateString('en-US', options);
+    }
+    return undefined;
+  }
+
 
   private subscribeToProjectState() {
     this.store.select(ProjectQuery.getProjectModel).subscribe(data => {

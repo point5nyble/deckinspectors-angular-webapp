@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChange} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChange, Renderer2} from '@angular/core';
 import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
 import {NgFor, NgIf} from '@angular/common';
 import {BuildingLocation} from "../../../common/models/buildingLocation";
@@ -50,10 +50,25 @@ export class LocationListComponent implements OnInit {
   constructor(private dialog: MatDialog,
               private httpsRequestService:HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService,
-              private store: Store<any>) { }
+              private store: Store<any>,
+              private renderer: Renderer2) { }
 
   public ngOnInit(): void {
     this.subscribeToProjectDetailsForNameHighlight();
+    this.setDynamicMaxWidth();
+  }
+
+  private setDynamicMaxWidth() {
+    // Calculate the dynamic width based on your requirements
+    const dynamicWidth = window.innerWidth - 100;
+    console.log(dynamicWidth) // Adjust the calculation as needed
+
+    // Set the dynamic width to the .scrollable-container
+    const scrollableContainer = document.querySelector('.scrollable-container');
+    
+    if (scrollableContainer) {
+      this.renderer.setStyle(scrollableContainer, 'max-width', dynamicWidth + 'px');
+    }
   }
 
 //   ngOnChanges(changes: { [property: string]: SimpleChange }) {

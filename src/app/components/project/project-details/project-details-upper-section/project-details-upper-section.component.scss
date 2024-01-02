@@ -13,23 +13,7 @@
 .flex-item p {
   margin: 0;
 }
-.image-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  justify-content: space-evenly;
-  max-width: 299px;
-  max-height: 281px;
-  text-align: center;
-}
-.image-section img{
-  max-width: 299px; 
-  max-height: 206px;
-  object-fit:contain;
-  border-radius: 8px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
-}
+
 .navigation-line {
   display: flex;
   align-items: center;
@@ -53,17 +37,6 @@
   opacity: 0.8;
   box-shadow: 0px 4px 4px #e3af81;
 }
-
-.ProjectInformation{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
-  max-height: 337px;
-  //row-gap: 15px;
-  min-width:60%;
-}
-
 
 .backButtonAndNavigation{
   display: flex;
@@ -108,40 +81,23 @@
   font-weight: 500;
   color: #797575;
 }
- 
-
-
 
 .DescriptionBox{
-  width:100%;
-  height:63px;
-  border:solid #A79C9CB2 1px;
-  border-radius:8px;
   padding:5px;
-  color:#666666BF;
-  font-weight: 400;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .AddressBox{
-  width:100%;
-  height:42px;
-  border:solid #A79C9CB2 1px;
-  border-radius:10px;
   padding-left:5px;
-  font-size: 16px;
-  font-weight: 400;
-  color: #797575;
-  overflow:hidden;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .info-heading{
-  width:100%;
-    height:42px;
-    border:solid #A79C9CB2 1px;
-    border-radius:8px;
-    font-size: 16px;
-    font-weight: 400;
-    color: #797575;
+    font-size: 25px;
+    font-weight: 600;
+    // color: #797575;
     padding: 5px;
  }
 
@@ -151,56 +107,155 @@
   column-gap: 10px;
   border-radius: 8px;
 }
-.edit_icon i{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 40px;
-  color:#646161;
-  background-color: #FFFFFF;
-  border-radius: 8px;
-}
+
+// .edit_icon span
+// {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 44px;
+//   height: 40px;
+//   color:#646161;
+//   background-color: #FFFFFF;
+//   border-radius: 8px;
+// }
 .edit_icon button{
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 212px;
-  height: 40px;
+  width:188px;
+  height:50px;
+  margin-top:10px;
+  background-color:#FFFFFF;
   border-radius: 8px;
-  background-color: #FFFFFF;
-  border: none;
-  font-size: 16px;
-  font-weight:500;
-  color:#4F4D4D;
+  border-color: #ED7C1C;
+  font-size: 18.2px;
+  font-weight: 500;
+  color: #ED7C1C;
 }
 
 .edit_icon button:hover{
-  opacity:0.8;
-  box-shadow:5px 5px 5px lightblue;
+  background-color:#ED7C1C;
+  color: #FFFFFF;
 }
+
 .edit_icon i:hover{
   opacity:0.8;
   box-shadow:2px 2px 3px lightblue;
 }
 
-.DescriptionLocation{
-  display: flex;
-  flex-direction: column;
-  width:100%;
-  max-height:179px;
-  font-size: 16px;
-  font-weight: 500;
-  color: #797575;
+// .DescriptionLocation{
+//   font-size: 25px;
+//   font-weight: 500;
+// }
+
+// .DescriptionBoxLocation{
+//   padding:5px;
+//   font-size: 25px;
+//   font-weight: 500;
+// }
+
+.card-img
+{
+  width: 100%;
+  padding: 20px;
+  height: 100%;
+  object-fit: cover; 
 }
 
-.DescriptionBoxLocation{
-  width:100%;
-  height:153px;
-  border:solid #A79C9CB2 1px;
-  border-radius:8px;
-  padding:5px;
-  font-size: 16px;
-  font-weight: 400;
-  color: #797575;
+.card-img-div {
+  flex: 1;
+  max-width: 25%;
+  max-height: 100%;
+  position: relative;
 }
+
+// .card
+// {
+//   // max-width: 1000px;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   border-radius: 20px;
+//   border-style: solid;
+//   border-width: 5px;
+//   height: 300px;
+//   // justify-content: ;
+// }
+
+.card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  // border-radius: 20px;
+  // border: 5px solid; /* You can set border color */
+  height: 300px;
+  // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  // box-shadow: 10px 10px 5px lightblue; /* Add shadow effect */
+}
+
+.card-body {
+  flex: 1;
+  max-width: 70%; /* Adjust the width of the card body as needed */
+  padding: 1rem; /* Optional padding for the card body */
+  box-sizing: border-box; /* Ensure padding is included in the total width */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.row-container {
+  display: flex;
+  justify-content: space-between; /* Adjust as needed to position on corners */
+  align-items: center; /* Align items vertically in the center */
+}
+
+.delete-btn, .sqn-num {
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+}
+
+.card-text
+{
+  margin-bottom: 10px;
+}
+
+.user-icon
+{
+  height: 40px;
+  width: 40px;
+  font-size: 35px;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 100%;
+  align-items: center;
+}
+
+.card-head {
+  display: flex;
+  justify-content: normal;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+}
+
+// .material-symbols-outlined {
+//   /* Assuming you are using a custom font for the material symbols */
+//   font-family: 'Material Icons'; /* Add your font family */
+//   font-size: 24px; /* Adjust the size as needed */
+// }
+
+.user-details {
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: 400; /* Adjust the margin as needed */
+}
+
+.project-date {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 400; 
+  margin-left: 20px;/* Adjust the font size for the date */ /* Add your preferred color */
+}
+
+

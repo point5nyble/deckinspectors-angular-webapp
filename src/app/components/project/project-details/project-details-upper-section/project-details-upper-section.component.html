@@ -1,55 +1,98 @@
 <div class="info-section">
   <div class="navigation-line">
     <div class="backButtonAndNavigation">
-      
+
       <span class="fas fa-arrow-left cursor-pointer" (click)="previousBtnClicked()"></span>
       <app-navigation-component></app-navigation-component>
     </div>
-    <div class="edit_icon">
-      <button (click)="downloadExcel()" *ngIf="projectInfo.type === 'project'">Download Excel <span class="material-symbols-outlined icon">download</span></button>
+
+    <!-- <div class="edit_icon">
+      <button (click)="downloadExcel()" *ngIf="projectInfo.type === 'project'">Download Excel <span
+          class="material-symbols-outlined icon">download</span></button>
       <i class="fas fa-edit cursor-pointer" (click)="editLocation()"></i>
-    </div>
-   
+    </div> -->
+
   </div>
 
-  <div class="horizontal-div">
-    <div class="ProjectInformation flex-item">
+  <div class="card">
+    <!-- <img src="..." class="card-img-top" alt="...">
+     -->
+    <div class="card-body">
+
+      <div class="card-head">
+        <div class="user-section">
+          <i class="material-symbols-outlined user-icon">
+            person
+          </i>
+          <span class="user-details">
+            {{ projectInfo.createdby }}
+          </span>
+        </div>
+  
+        <div class="project-date">
+          {{ formatDate(projectInfo.createdat) }}
+        </div>
+      </div>
+      
+
       <div class="ProjectName">
-        <p style="text-transform: capitalize;"> 
-          {{projectInfo.type==="project"? "Project Name":projectInfo.type==="subproject"?"Building Name":projectInfo.type==="apartment"?"Apartment Name":"Location Name"}}
-         </p>
+        <!-- <p style="text-transform: capitalize;">
+          {{projectInfo.type==="project"? "Project Name":projectInfo.type==="subproject"?"Building
+          Name":projectInfo.type==="apartment"?"Apartment Name":"Location Name"}}
+        </p> -->
         <div class="info-heading">
           {{ projectInfo.name }}
         </div>
       </div>
 
-      <div class="Description" *ngIf="projectType !== 'location'">
-        <p>Description</p>
-        <div class="DescriptionBox">
-          {{ projectInfo.description }}
+      <div class="card-text">
+        <div class="Description" *ngIf="projectType !== 'location'">
+          <!-- <p>Description</p> -->
+          <div class="DescriptionBox">
+            <p>
+              {{ projectInfo.description }}
+            </p>
+          </div>
+        </div>
+
+        <div class="DescriptionLocation" *ngIf="projectType === 'location'">
+          <!-- <p>Description</p> -->
+          <div class="DescriptionBoxLocation">
+            <p class="description">{{ projectInfo.description }}</p>
+          </div>
+        </div>
+
+        <div class="Address" *ngIf="projectType !== 'location'">
+          <!-- <p>Address</p> -->
+          <div class="AddressBox">
+            <p class="address" style="margin-bottom: 10px;">{{ projectInfo.address }}</p>
+          </div>
         </div>
       </div>
 
-      <div class="DescriptionLocation" *ngIf="projectType === 'location'">
-        <p>Description</p>
-        <div class="DescriptionBoxLocation">
-          {{ projectInfo.description }}
+      <div class="card-btns row-container">
+        <button class="invasiveBtn" (click)="changeProjectState()"
+          [disabled]="disableInvasiveBtn">{{projectState}}</button>
+
+        <div class="edit_icon">
+          <button (click)="downloadExcel()" *ngIf="projectInfo.type === 'project'">Download Excel
+            <span class="fa-solid fa-download"></span></button>
+
+          <button (click)="editLocation()">Edit
+            <span class="fas fa-edit cursor-pointer"></span></button>
+          <!-- <span class=" ">Edit</span> -->
         </div>
       </div>
-     
-      <div class="Address" *ngIf="projectType !== 'location'">
-        <p>Address</p>
-        <div class="AddressBox">
-          <p  class="address" style="margin-bottom: 10px;">{{ projectInfo.address }}</p>
-        </div>
-      </div>
-      
+
+
     </div>
 
-    <div class="image-section flex-item">
-        <img #img [src]="projectInfo.url" (error)="img.src = '../../../assets/images/image_1.png'">
-        <button class="invasiveBtn" (click)="changeProjectState()" [disabled]="disableInvasiveBtn">{{projectState}}</button>
+    <div class="card-img-div">
+      <img #img [src]="projectInfo.url" (error)="img.src = '../../../assets/images/image_1.png'" class="card-img">
     </div>
+
   </div>
-</div>
 
+
+
+</div>

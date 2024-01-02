@@ -1,16 +1,24 @@
-<div class="container  mb-3 mt-1">
-  <div class="name">
-    <div class="locationName">{{location.name }}</div>
-    <div >
-      <span *ngIf="isSubProject && isAdmin" class="bi bi-person-circle icon assignUser" (click)="openAssignProjectModal()" title="Assign users to project"></span>
-      <span *ngIf="isSubProject" class="bi bi-trash icon" title="Delete Building" (click)="deleteProject()"></span>
-      <span *ngIf="!isSubProject" class="bi bi-trash icon" title="Delete Location" (click)="deleteProject()"></span>
+<div class="card" style="width: 18rem;">
+  <img #img [src]="location.url" (error)="img.src = '../../../assets/images/image_1.png'" class="card-img"
+    style="height: 240px; width: 340;">
+  <div class="card-body">
+    <h5 class="locationName card-title">{{ location.name }}</h5>
+    <p class="card-text">&nbsp;{{ location.description ? location.description : 'No description' }}</p>
+    <!-- <span *ngIf="isSubProject && isAdmin" class="bi bi-person-circle icon assignUser" (click)="openAssignProjectModal()" title="Assign users to project"></span> -->
+
+    <div class="row-container">
+      
+      <div class="sqn-num">
+        <p class="number">{{ location.sequenceNo}}</p>
+      </div>
+
+      <div class="delete-btn">
+        <span *ngIf="isSubProject" class="bi bi-trash icon" title="Delete Building" (click)="deleteProject()"></span>
+        <span *ngIf="!isSubProject" class="bi bi-trash icon" title="Delete Location" (click)="deleteProject()"></span>
+      </div>
     </div>
-  </div>
-  <div class="info" >
-    <span class="text-muted margin-right" *ngIf="header==='Project Common Location'|| header==='Project Buildings'">Assigned to:&nbsp;<p>{{ location.assignedto }}</p></span>
-    <span class="text-muted margin-right">Created By:&nbsp;<p>{{ location.createdby }}</p></span>
-  </div>
 
+
+
+  </div>
 </div>
-
