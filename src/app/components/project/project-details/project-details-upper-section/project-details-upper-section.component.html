@@ -1,24 +1,27 @@
 <div class="info-section">
+
   <div class="navigation-line">
-    <div class="backButtonAndNavigation">
-
-      <span class="fas fa-arrow-left cursor-pointer" (click)="previousBtnClicked()"></span>
-      <app-navigation-component></app-navigation-component>
+    <div class="Navigation">
+      <div class="back">
+        <button (click)="previousBtnClicked()" class="nav-button"><span
+            class="fas fa-arrow-left cursor-pointer"></span>Back
+        </button>
+        <div class="back-text">
+          <app-navigation-component></app-navigation-component>
+        </div>
+      </div>
+      <div class="home">
+        <button (click)="homeBtnClicked()" class="nav-button"><span
+            class="fa-solid fa-house"></span>Home
+        </button>
+      </div>
     </div>
-
-    <!-- <div class="edit_icon">
-      <button (click)="downloadExcel()" *ngIf="projectInfo.type === 'project'">Download Excel <span
-          class="material-symbols-outlined icon">download</span></button>
-      <i class="fas fa-edit cursor-pointer" (click)="editLocation()"></i>
-    </div> -->
-
   </div>
 
   <div class="card">
     <!-- <img src="..." class="card-img-top" alt="...">
      -->
     <div class="card-body">
-
       <div class="card-head">
         <div class="user-section">
           <i class="material-symbols-outlined user-icon">
@@ -28,12 +31,12 @@
             {{ projectInfo.createdby }}
           </span>
         </div>
-  
+
         <div class="project-date">
           {{ formatDate(projectInfo.createdat) }}
         </div>
       </div>
-      
+
 
       <div class="ProjectName">
         <!-- <p style="text-transform: capitalize;">

@@ -44,7 +44,7 @@ export class SidebarComponent {
   
         this.name = capitalizedFirstName + " " + capitalizedLastName;
         this.role = capitalizedRole; // Set the username property
-        console.log(user);
+        // console.log(user);
       },
       error => {
         console.log(error);

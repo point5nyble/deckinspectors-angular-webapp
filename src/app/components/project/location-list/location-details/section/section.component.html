@@ -5,11 +5,17 @@
       <div *ngIf="showAddBtn()" (click)="openVisualDeckReportModal()" class="mr-3">
         <i class="fas fa-plus"></i><h6>Add data</h6>
       </div>
-      <div class="edit-button" *ngIf="showEditBtn()">
-        <i class="fas fa-edit edit-btn" (click)="editVisualDeckReportModal()"></i>
+
+      <div *ngIf="showEditBtn()" (click)="editVisualDeckReportModal()" class="mr-3">
+        <i class="fas fa-edit edit-btn"></i><h6>Edit</h6>
       </div>
+
+      <!-- <div class="edit-button" *ngIf="showEditBtn()">
+        <i class="fas fa-edit edit-btn" (click)="editVisualDeckReportModal()">Edit</i>
+      </div> -->
     </div>
   </div>
+  
   <app-loading-screen *ngIf="isSaving"></app-loading-screen>
   <div class="projectInfo">
     <div *ngIf="projectState === ProjectState.INVASIVE && showBtn" class="mr-4">
@@ -25,8 +31,10 @@
     </div>
   <!-- Show app-section-info and app-section-photos when add_data is false -->
   <div class="locationsectioninformation">
+    <div cdkDropList class="scrollable">
+      <app-section-photos [images]="images" [rows]="rows" class="flex-item" *ngIf="isRecordFound"></app-section-photos>
+    </div>
     <app-section-info class="flex-item" [rows]="rows" *ngIf="isRecordFound"></app-section-info>
-    <app-section-photos [images]="images" [rows]="rows" class="flex-item" *ngIf="isRecordFound"></app-section-photos>
   </div>
    
   </div>

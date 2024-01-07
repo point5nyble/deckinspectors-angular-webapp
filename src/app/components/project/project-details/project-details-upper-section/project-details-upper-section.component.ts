@@ -1,3 +1,4 @@
+import { ProjectInfo } from './../../../../common/models/project-info';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OrchestratorEventName} from "../../../../orchestrator-service/models/orchestrator-event-name";
 import {
@@ -24,7 +25,7 @@ import { environment } from '../../../../../environments/environment';
   styleUrls: ['./project-details-upper-section.component.scss']
 })
 export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
-  projectInfo!: ProjectListElement | BuildingLocation;
+  projectInfo!: BuildingLocation | ProjectListElement;
   // project!: Project;
   projectType!: string;
   projectState!: ProjectState;
@@ -51,7 +52,6 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
     this.subscribeToProjectInfo();
     this.subscribeToProjectState();
     this.sequenceNo = this.projectInfo.sequenceNo;
-    
   }
 
   formatDate(dateTimeString: string | undefined): string | undefined {
@@ -100,6 +100,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   }
 
   public previousBtnClicked() {
+    // console.log(this.projectInfo.type);
     if (this.projectInfo.type === 'subproject') {
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'project')
     } else if (this.projectInfo.type === 'location' ||
@@ -117,8 +118,12 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
   }
 
+  public homeBtnClicked() {
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'home');
+  }
+
   public editLocation() {
-    console.log(this.projectInfo);
+    // console.log(this.projectInfo);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;

@@ -101,6 +101,8 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
         return parseInt(String(a.sequenceNo)) - parseInt(String(b.sequenceNo))
       });
     }
+
+    // console.log(this.sectionID);
   }
 
     private convertValueToBoolean(valueOf: string):boolean {
@@ -110,7 +112,6 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
       console.log(e);
       return false;
     }
-
     }
 
   deleteElement($event: any) {

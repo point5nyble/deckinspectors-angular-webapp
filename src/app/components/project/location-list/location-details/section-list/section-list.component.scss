@@ -11,7 +11,6 @@
   color: orange;
 }
 
-
 .icons {
   display: flex;
   align-items: center;
@@ -19,11 +18,11 @@
 }
 
 .icons i {
-  margin-right: 10px; /* Add spacing between the icons */
+  margin-right: 15px; /* Add spacing between the icons */
 }
 
 .icons span {
-  margin-right: 10px; /* Add space between the plus and bars icons */
+  margin-right: 15px; /* Add space between the plus and bars icons */
 }
 
 .flex-item {
@@ -31,12 +30,13 @@
   display: flex;
   justify-content: space-between;
 }
+
 .header-component{
   display: flex;
   align-items: center;
   justify-content: center;
   height: 72px;
-  border-bottom: solid #ffff 10px;
+  // border-bottom: solid #ffff 10px;
   padding-left: 5px;
 }
 
@@ -47,10 +47,15 @@
   height:40px;
   color:#000000;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 25px;
   border-radius:  8px;
-  background-color: #ffff;
+  background-color: #E8F2FF;
 }
+
+// .header-text
+// {
+//   font-size: 20px;
+// }
 
 button.highlighted {
   background-color: #e0e0e0;
@@ -79,4 +84,6 @@ button.highlighted {
 .cdk-drag-animating {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+
 

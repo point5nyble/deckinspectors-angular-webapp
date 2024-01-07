@@ -70,8 +70,11 @@ export class SectionComponent implements OnInit{
     // value and the  current value here.
 }
 
+
   private findOutConclusiveSectionStatus(sectionId: string) {
-    if (sectionId  === undefined || sectionId === '') {
+    // console.log(sectionId)
+    if (sectionId === undefined || sectionId === '') {
+        console.log("one");
         return;
     }
     let url = environment.apiURL + '/invasivesection/getInvasiveSectionByParentId';
@@ -208,6 +211,8 @@ export class SectionComponent implements OnInit{
     } else if (this.sectionState === SectionState.VISUAL) {
       this.images = this.sectionReport?.images;
     }
+
+    console.log(this.rows);
   }
 
   deleteElementFromArray(arr: any[], valueToDelete: string): any[] {

@@ -1,43 +1,170 @@
 <div class="scrollable-container">
   <table class="table">
     <tbody>
-    <ng-container *ngIf="rows.length > 1 && rows[1].column2 === true">
-      <tr>
-        <td><p>{{ rows[0].column1 }}</p></td>
-        <td>{{ rows[0].column2 === "True" || rows[0].column2 === "true" || rows[0].column2 === true ? "Yes" : rows[0].column2 === "False" || rows[0].column2 === "false" || rows[0].column2 === false ? "No" : rows[0].column2 }}</td>
-      </tr>
-      <tr>
-        <td><p>{{ rows[1].column1 }}</p></td>
-        <td>{{ rows[1].column2 === "True" || rows[1].column2 === "true" || rows[1].column2 === true ? "Yes" : rows[1].column2 === "False" || rows[1].column2 === "false" || rows[1].column2 === false ? "No" : rows[1].column2 }}</td>
-      </tr>
+      <ng-container *ngIf="rows.length > 1 && rows[1].column2 === true">
+        <tr>
+          <td>
+            <p>{{ rows[0].column1 }}</p>
+          </td>
+          <td>{{ rows[0].column2 === "True" || rows[0].column2 === "true" || rows[0].column2 === true ? "Yes" :
+            rows[0].column2 === "False" || rows[0].column2 === "false" || rows[0].column2 === false ? "No" :
+            rows[0].column2 }}</td>
+        </tr>
+        <tr>
+          <td>
+            <p>{{ rows[1].column1 }}</p>
+          </td>
+          <td>{{ rows[1].column2 === "True" || rows[1].column2 === "true" || rows[1].column2 === true ? "Yes" :
+            rows[1].column2 === "False" || rows[1].column2 === "false" || rows[1].column2 === false ? "No" :
+            rows[1].column2 }}</td>
+        </tr>
 
-      <tr *ngIf="rows.length>8">
-        <td><p>{{ rows[8].column1 }}</p></td>
-        <td>{{ rows[8].column2 === ""? "None" : rows[8].column2 }}</td>
-      </tr>
-    </ng-container>
+        <tr *ngIf="rows.length>8">
+          <td>
+            <p>{{ rows[8].column1 }}</p>
+          </td>
+          <td>{{ rows[8].column2 === ""? "None" : rows[8].column2 }}</td>
+        </tr>
+      </ng-container>
 
-    <ng-container *ngIf="rows.length > 1 && rows[1].column2 === false">
-    <tr *ngFor="let row of rows">
-      <ng-container *ngIf="!(row.column1 === 'Additional Considerations or Concerns Html' || row.column1 === 'Additional Considerations or Concerns')">
-      <td><p>{{ row.column1 }}</p></td>
-      <td>{{ row.column2 === "True" || row.column2 === "true" || row.column2 === true ? "Yes" : row.column2 === "False" || row.column2 === "false" || row.column2 === false ? "No" : row.column2 === "Futureinspection"? "Future Inspection" : row.column2 }}</td>
-    </ng-container>
+      <!-- <ng-container *ngIf="rows.length > 1 && rows[1].column2 === false">
+        <tr *ngFor="let row of rows">
+          <ng-container
+            *ngIf="!(row.column1 === 'Additional Considerations or Concerns Html' || row.column1 === 'Additional Considerations or Concerns')">
+            <td>
+              <p>{{ row.column1 }}</p>
+            </td>
+            <td>{{ row.column2 === "True" || row.column2 === "true" || row.column2 === true ? "Yes" : row.column2 ===
+              "False" || row.column2 === "false" || row.column2 === false ? "No" : row.column2 === "Futureinspection"?
+              "Future Inspection" : row.column2 }}</td>
+          </ng-container>
 
-    <ng-container *ngIf="row.column1 === 'Additional Considerations or Concerns Html'">
-      <td><p>Additional Considerations or Concerns</p></td>
-      <td [innerHtml]="row.column2"></td>
-    </ng-container>
+          <ng-container *ngIf="row.column1 === 'Additional Considerations or Concerns Html'">
+            <td>
+              <p>Additional Considerations or Concerns</p>
+            </td>
+            <td [innerHtml]="row.column2"></td>
+          </ng-container>
 
-    </tr>
-  </ng-container>
+        </tr>
+      </ng-container> -->
 
-  <ng-container *ngIf="rows.length > 1 && rows[1].column2 !== false && rows[1].column2 !== true">
-    <tr *ngFor="let row of rows">
-      <td><p>{{ row.column1 }}</p></td>
-      <td>{{ row.column2 === "True" || row.column2 === "true" || row.column2 === true ? "Yes" : row.column2 === "False" || row.column2 === "false" || row.column2 === false ? "No" : row.column2 }}</td>
-    </tr>
-  </ng-container>
+      <div class="scrollable-container">
+        <table class="table header">
+          <tbody>
+            <ng-container *ngFor="let row of rows; let i = index">
+              <tr *ngIf="i === 0">
+                <td class="centre">
+                  <p>{{ getFormattedColumn2Value(row.column2) }}</p>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+
+        <div class="first-row">
+          <table class="table bool">
+            <tbody>
+              <ng-container *ngFor="let row of rows; let i = index">
+                <tr *ngIf="i === 1 || (i >= 5 && i <= 7)">
+                  <ng-container
+                    *ngIf="!(row.column1 === 'Additional Considerations or Concerns Html' || row.column1 === 'Additional Considerations or Concerns')">
+                    <td class="bool-left">
+                      <p>{{ row.column1 }}</p>
+                    </td>
+                    <td class="bool-right"><span class="bool-right-text" [ngStyle]="{ 'background-color': getBackgroundColorBool(row.column2) }">{{ getFormattedColumn2Value(row.column2) }}</span></td>
+                  </ng-container>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+
+          <table class="table lyf">
+            <tbody>
+              <ng-container *ngFor="let row of rows; let i = index">
+                <tr *ngIf="i >= 9 && i <= 12">
+                  <ng-container
+                    *ngIf="!(row.column1 === 'Additional Considerations or Concerns Html' || row.column1 === 'Additional Considerations or Concerns')">
+                    <td class="lyf-left">
+                      <p>{{ row.column1 }}</p>
+                    </td>
+                    <td class="lyf-right">
+                      <span class="lyf-right-text" [ngStyle]="{ 'background-color': getBackgroundColorLyf(row.column2) }">{{ getFormattedColumn2Value(row.column2) }}</span>
+                    </td>
+                  </ng-container>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+
+        <table class="table element">
+          <tbody>
+            <ng-container *ngFor="let row of rows; let i = index">
+              <tr *ngIf="i >= 2 && i <= 3">
+                <ng-container
+                  *ngIf="!(row.column1 === 'Additional Considerations or Concerns Html' || row.column1 === 'Additional Considerations or Concerns')">
+                  <td class="element-left">
+                    <p>{{ row.column1 }}</p>
+                  </td>
+                  <td class="element-right">
+                    <ng-container *ngFor="let chip of row.column2">
+                      <span class="element-right-text">{{ getFormattedColumn2Value(chip) }}</span>
+                    </ng-container>
+                  </td>
+        
+                </ng-container>
+              </tr>
+            </ng-container>
+
+            <ng-container *ngFor="let row of rows; let i = index">
+              <tr *ngIf="i === 4">
+                <ng-container
+                  *ngIf="!(row.column1 === 'Additional Considerations or Concerns Html' || row.column1 === 'Additional Considerations or Concerns')">
+                  <td class="element-left">
+                    <p>{{ row.column1 }}</p>
+                  </td>
+                  <td class="element-right"><span class="element-right-text" [ngStyle]="{ 'background-color': getBackgroundColorElement(row.column2) }">{{ getFormattedColumn2Value(row.column2) }}</span></td>
+        
+                </ng-container>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+        
+
+        <table class="table con">
+          <tbody>
+            <ng-container *ngFor="let row of rows; let i = index">
+              <tr *ngIf="i === 8">
+                <!-- <ng-container *ngIf="!(row.column1 === 'Additional Considerations or Concerns Html' || row.column1 === 'Additional Considerations or Concerns')"> -->
+                <td class="con-left">
+                  <p>{{ row.column1 }}</p>
+                </td>
+                <td class="con-right">{{ getFormattedColumn2Value(row.column2) }}</td>
+                <!-- </ng-container> -->
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-container *ngIf="rows.length > 1 && rows[1].column2 !== false && rows[1].column2 !== true">
+        <tr *ngFor="let row of rows">
+          <td>
+            <p>{{ row.column1 }}</p>
+          </td>
+          <td>{{ row.column2 === "True" || row.column2 === "true" || row.column2 === true ? "Yes" : row.column2 ===
+            "False" || row.column2 === "false" || row.column2 === false ? "No" : row.column2 }}</td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
 </div>
+
+
+
+<!-- Inside the template where you use lyf-right class -->
+<!-- <td class="lyf-right" [ngStyle]="{ 'background-color': getBackgroundColor(row.column2) }">
+  {{ getFormattedColumn2Value(row.column2) }}
+</td> -->

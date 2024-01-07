@@ -15,15 +15,16 @@
   <app-project-details-upper-section>
   </app-project-details-upper-section>
   <div class="location-section">
-    <div>
-      <app-section-list class="flex-item section-list"
-                        (sectionsDeletionComplete)="sectionsDeletionComplete($event)"
+    <div class="section-list">
+      <app-section-list 
+(sectionsDeletionComplete)="sectionsDeletionComplete($event)"
                         (sectionID)=fetchDataForGivenSectionId($event)
                         [isLoading]="isLoading"
                         [location] = location>
       </app-section-list>
-      <app-section class="report-section"
-                  [location] = location
+    </div>
+    <div class="report-section">
+      <app-section [location] = location
                   [isRecordFound] = isRecordFound
                   [isDeletedSection] = isDeletedSection
       ></app-section>
