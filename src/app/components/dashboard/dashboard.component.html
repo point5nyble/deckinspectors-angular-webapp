@@ -1,29 +1,7 @@
 <div class="main-class">
-  <!-- <div class="logo-bar">
-    <div class="horizontal-frame">
-      <div class="company-logo">
-        <img class="cursor-pointer" src="../../../assets/images/image_1.png" width="139px" height="59.57px" alt="Button Image" (click)="gotoHome()">
-      </div>+
-    </div>
-<!--    <button class="btn btn-secondary" (click)="changeProjectState()" [disabled]="disableInvasiveBtn">{{projectState}}</button>-->
-  <!-- </div> --> 
+  <app-sidebar class="flex sideBar"></app-sidebar>
   <div class="project-container">
-    <app-sidebar class="flex sideBar"></app-sidebar>
     <div class="container-fluid flex">
-
-      <!-- <app-header></app-header> -->
-      <!-- <div *ngIf="showProjectInfo === 'home'" class="AllProjectAndRefresh">
-        <div class="AllProject">All Projects</div>
-      </div> -->
-
-
-      <!-- <button (click)="replaceFinalReportTemplate()" class="replaceFinalReportTemplate" title="upload final report template">
-        <i class="bi bi-file-earmark-arrow-up" style="font-size: 25px;" ></i><h6>&nbsp;Upload</h6>
-      </button>
-      <button (click)="openModal()" class="buttonAddnew">
-        <i class="bi bi-plus" style='font-size:25px;'></i><h6 id="upload">&nbsp;Add new</h6>
-      </button> -->
-
       <div *ngIf="showProjectInfo === 'home'" class="project-list-container">
         
         <app-counterss

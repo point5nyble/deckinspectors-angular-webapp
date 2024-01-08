@@ -1,7 +1,7 @@
 .horizontal-div {
   display: flex;
   // align-items: center;
-  // justify-content:space-around;
+  justify-content:space-between;
   flex:1;
   padding: 5px 0px;
   background-color: #ffff;
@@ -115,7 +115,7 @@ label input:checked{
 .checkbox
 {
   // margin-left: 690px;
-  position: fixed; /* or 'absolute' depending on your requirements */
+  // position: fixed; /* or 'absolute' depending on your requirements */
   // top: 0; /* Adjust this value based on your layout */
   right: 0; 
   margin-right: 5px;

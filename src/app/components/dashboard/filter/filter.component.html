@@ -1,4 +1,5 @@
 <div class="horizontal-div"> 
+  <div class="right">
     <div class="filter-item">
       <input type="text" placeholder="Search by name"
            [(ngModel)]="searchTerm" (input)="filterNames()">
@@ -9,6 +10,7 @@
     <div class="filter-item">
       <input type="date"  placeholder="Created on">
     </div>
+  </div>
     <div class="filter-item checkbox">
       <label>
         <input type="checkbox" [(ngModel)]="isChecked" (change)="filterCompletedProjects()"> Completed

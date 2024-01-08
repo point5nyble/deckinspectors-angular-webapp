@@ -92,6 +92,9 @@
   flex: 1;
   overflow: hidden;
   padding: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 80px;
 }
 
 .project-list-container {
@@ -104,11 +107,15 @@
   border-radius: 16px;
 }
 
-.sideBar {
-  display: flex;
-  padding-top: 15px;
-  // margin-top: 90px;
-}
+// .sideBar {
+//   // display: flex;
+//   // padding-top: 15px;
+//   // height: 100%;
+//   // position: fixeds;
+//   // top: 0;
+//   // bottom: 20px;
+//   // margin-top: 90px;
+// }
 
 .container-fluid{
   flex-direction: column;
