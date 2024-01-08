@@ -7,44 +7,49 @@
       </div>
     </div>
     <div class="sidebar-content">
-
       <ul (mouseenter)="toggleSidebar()">
-        <li class="active" (click)="activateLink($event)">
-          <a routerLink="/dashboard" routerLinkActive="active" (click)="gotoHome()">
-            <i class="material-symbols-outlined">location_city</i>
-            <span>&nbsp;Projects</span>
-          </a>
-        </li>
-        <li (click)="activateLink($event)" *ngIf="isAdmin">
-          <a routerLink="/users" routerLinkActive="active">
-            <i class="material-symbols-outlined">group</i>
-            <span>&nbsp;Users</span>
-          </a>
-        </li>
-        <!-- <li (click)="activateLink($event)" *ngIf="isAdmin">
+        <div class="sidebar-section">
+          <div class="upper-section">
+            <li class="active" (click)="activateLink($event)">
+              <a routerLink="/dashboard" routerLinkActive="active" (click)="gotoHome()">
+                <i class="material-symbols-outlined">location_city</i>
+                <span>&nbsp;Projects</span>
+              </a>
+            </li>
+            <li (click)="activateLink($event)" *ngIf="isAdmin">
+              <a routerLink="/users" routerLinkActive="active">
+                <i class="material-symbols-outlined">group</i>
+                <span>&nbsp;Users</span>
+              </a>
+            </li>
+          </div>
+
+          <!-- <li (click)="activateLink($event)" *ngIf="isAdmin">
             <a routerLink="" routerLinkActive="active">
               <img src="../../../assets/images/mdi_files.png" alt="Logo 3" class="logo-image">
               <span>Files</span>
             </a>
           </li> -->
-          
 
-        <div class="user-section">
-          <i class="material-symbols-outlined user-icon">
-            person
-          </i>
-          <span class="user-details">&nbsp;
-            <p class="name">{{ name }}</p>
-            <p class="role">{{ role }}</p>
-          </span>
+          <div class="lower-section">
+            <div class="user-section">
+              <i class="material-symbols-outlined user-icon">
+                person
+              </i>
+              <span class="user-details">&nbsp;
+                <p class="name">{{ name }}</p>
+                <p class="role">{{ role }}</p>
+              </span>
+            </div>
+
+            <li>
+              <a routerLink="/login" routerLinkActive="active" (click)="logout()" class="sign-out-btn">
+                <i class="material-symbols-outlined">logout</i>
+                <span>&nbsp;Sign Out</span>
+              </a>
+            </li>
+          </div>
         </div>
-
-        <li>
-          <a routerLink="/login" routerLinkActive="active" (click)="logout()">
-            <i class="material-symbols-outlined">logout</i>
-            <span>&nbsp;Sign Out</span>
-          </a>
-        </li>
       </ul>
     </div>
   </div>

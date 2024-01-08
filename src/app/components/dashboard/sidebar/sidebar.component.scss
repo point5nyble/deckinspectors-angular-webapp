@@ -5,7 +5,7 @@
   border-style: groove;
   border-radius: 100%;
   align-items: center;
-  margin: 0 auto; /* Add this to center the icon horizontally */
+  margin: 0px auto; /* Add this to center the icon horizontally */
 }
 
 .user-details {
@@ -43,14 +43,13 @@
   margin-left: 0px;
 }
 
-
 .sidebar {
   padding-top: 10px;
   display: flex;
   flex-direction: column;
   background-color: #ffff;
   border-radius: 16px;
-  max-height: 863px;
+  max-height: 100%;
 }
 
 a{
@@ -102,7 +101,12 @@ a{
   padding-left: 5px;
   transition: opacity 0.8s ease-out;
   -moz-transition: opacity 0.8s ease-out;
+  height: 85%;
   //padding: 10px;
+}
+
+ul{
+  height: 100%;
 }
 /* Hide spans with names when the sidebar is collapsed */
 .collapsed .sidebar-content ul span {
@@ -158,6 +162,17 @@ i{
   font-size:27px;
 }
 
+.sidebar-section
+{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.lower-section {
+  margin-top: auto; /* This pushes the lower section to the bottom */
+}
+
 .company-logo {
   margin-left: 5px;
   height: 100px;
@@ -173,11 +188,25 @@ i{
   display: none;
 }
 
+
 .user-section
 {
-  margin-top: 450px;
+  // margin-top: 450px;
   margin-bottom: 15px;
 }
+
+// .sign-out-btn
+// {
+//   display: flex;
+//   justify-content: center;
+// }
+
+
+// .sign-out-btn.collapsed
+// {
+//   display: flex;
+//   justify-content: start;
+// }
 
 // .container.sidebar .user-icon {
 //   display: none;
@@ -186,3 +215,4 @@ i{
 // .container.sidebar.collapsed .user-icon {
 //   display: block;
 // }
+

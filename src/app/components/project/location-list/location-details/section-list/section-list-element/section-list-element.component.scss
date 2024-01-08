@@ -21,9 +21,9 @@
 
 .highlighted-section {
   background-color: #ffff;
-  border-bottom-style: solid;
-  border-bottom-color: #ED7C1C;
-  border-bottom-width: 6px;
+  border-left-style: solid;
+  border-left-color: #ED7C1C;
+  border-left-width: 6px;
   font-weight: bold;
 }
 
@@ -34,7 +34,7 @@ p{
   width: 90%;
   // height:25px;
   margin-bottom: 0px;
-  margin-left: 2px;
+  margin-left: 5px;
   overflow: clip;
   align-items: center;
 }

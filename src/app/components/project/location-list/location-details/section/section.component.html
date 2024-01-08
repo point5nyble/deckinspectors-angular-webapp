@@ -32,7 +32,7 @@
   <!-- Show app-section-info and app-section-photos when add_data is false -->
   <div class="locationsectioninformation">
     <div cdkDropList class="scrollable">
-      <app-section-photos [images]="images" [rows]="rows" class="flex-item" *ngIf="isRecordFound"></app-section-photos>
+      <app-section-photos [images]="images" [rows]="rows" *ngIf="isRecordFound"></app-section-photos>
     </div>
     <app-section-info class="flex-item" [rows]="rows" *ngIf="isRecordFound"></app-section-info>
   </div>

@@ -66,9 +66,13 @@ export class SectionInfoComponent {
     }
   }
 
-  getBackgroundColorBool(column2Value: any): string {
+  getBackgroundColorBool(column1Value: any, column2Value: any): string {
     // Add logic to determine the color based on column2Value
-    if (
+    if(column1Value === "Unit Unavailable")
+    {
+      return '#70df8a';
+    }
+    else if (
       column2Value === true ||
       column2Value === 'True' ||
       column2Value === 'true' ||

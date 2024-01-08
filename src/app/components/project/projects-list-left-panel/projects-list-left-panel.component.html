@@ -1,7 +1,7 @@
 <div class="left-panel scrollable-container full-height" [style.width.px]="panelWidth" (mouseup)="startDrag($event)"
   [ngClass]="{'collapsed': collapsed}">
   <span (click)="toggleCollapse_()" class="cursor-pointer initialcollaps">
-    <i *ngIf="!collapsed" class="icon" [class.rotate-icon]="!collapsed"></i>
+    <i *ngIf="!collapsed" class="fas fa-arrow-left cursor-pointer collapse-icon"></i>
     <span *ngIf="collapsed" class="material-symbols-outlined  create_new_folder">create_new_folder</span>
   </span>
   <app-loading-screen *ngIf="loadingScreen && !collapsed"></app-loading-screen>

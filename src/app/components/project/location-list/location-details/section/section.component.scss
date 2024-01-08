@@ -13,6 +13,7 @@ h6{
   font-weight:600;
   margin: 5px;
 }
+
 .flex-item {
     flex: 1;
 }
@@ -184,6 +185,8 @@ button.highlighted {
   max-height: 220px;
   overflow-y: auto;
   padding-right: 5px;
+  display: flex;
+  justify-content: center;
 }
 
 .cdk-drag-preview {

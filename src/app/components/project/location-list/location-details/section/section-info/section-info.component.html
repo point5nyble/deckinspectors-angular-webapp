@@ -72,7 +72,7 @@
                     <td class="bool-left">
                       <p>{{ row.column1 }}</p>
                     </td>
-                    <td class="bool-right"><span class="bool-right-text" [ngStyle]="{ 'background-color': getBackgroundColorBool(row.column2) }">{{ getFormattedColumn2Value(row.column2) }}</span></td>
+                    <td class="bool-right"><span class="bool-right-text" [ngStyle]="{ 'background-color': getBackgroundColorBool(row.column1, row.column2) }">{{ getFormattedColumn2Value(row.column2) }}</span></td>
                   </ng-container>
                 </tr>
               </ng-container>
