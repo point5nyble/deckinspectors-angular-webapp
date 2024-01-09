@@ -11,6 +11,8 @@ import { LoginService } from "../login/login.service";
 import { Router } from "@angular/router";
 import { environment } from '../../../environments/environment';
 import {BackNavigation} from "../../app-state-service/back-navigation-state/back-navigation-selector";
+import { WebsocketConnectionService } from 'src/app/service/websocket-connection.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -39,13 +41,19 @@ export class DashboardComponent implements OnInit
   downloadingReport: boolean = false;
   isFileUploaded: boolean = false;  //final report template
   isFileNotUploaded: boolean = false;  //final report template
+<<<<<<< HEAD
   // @Output() newProjectUploaded = new EventEmitter<boolean>();
   // @Output() fileUploaded = new EventEmitter<boolean>();
+=======
+  notificationRecieved:boolean =false;
+  notificationMessage:string='';
+>>>>>>> 9ae200f368ab4d32d4f2e2fed661d1f1ac2be439
     constructor(private cdr: ChangeDetectorRef,
                 private httpsRequestService:HttpsRequestService,
                 private orchestratorCommunicationService:OrchestratorCommunicationService,
                 private store: Store<any>,
                 private loginService: LoginService,
+                private service: WebsocketConnectionService,
                 private router: Router) {}
 
     ngOnInit(): void {
@@ -53,6 +61,11 @@ export class DashboardComponent implements OnInit
       this.subscribeToshowProjectInfoToggle();
       // To clear all exsting projects
       this.gotoHome();
+      this.service.connect()
+                .subscribe((msg)=>{
+                  this.notificationMessage=msg.message;
+                  this.notificationRecieved=true;
+                })
     }
     
 
@@ -313,7 +326,6 @@ removeNotification = () =>{
   }
 
   reportDownloadEvent($event: any){
-    console.log(`is report downloading: ${$event}`);
     this.downloadingReport = $event;
     setTimeout(this.removeNotification, 5000);
   }

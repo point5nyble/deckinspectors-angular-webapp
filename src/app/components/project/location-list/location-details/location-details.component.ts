@@ -54,7 +54,6 @@ export class LocationDetailsComponent implements OnInit, OnDestroy{
           (response:any) => {
             this.location = response.location;
             this.isLoading = false;
-            console.log(this.location, "fetchLocationDetails");
           },
           error => {
               console.log(error)
@@ -91,8 +90,6 @@ export class LocationDetailsComponent implements OnInit, OnDestroy{
           let projectid = this.location._id === undefined ? (<any>this.location).id : this.location._id;
           this.fetchLocationDetails(projectid);
         }
-        console.log(this.location, "fetchSectionList");
-        console.log(this.location.type);
       }
     );
   }

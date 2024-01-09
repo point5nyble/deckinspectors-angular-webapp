@@ -48,7 +48,6 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   }
 
   public ngOnInit(): void {
-    // console.log(this.disableInvasiveBtn);
     this.subscribeToProjectInfo();
     this.subscribeToProjectState();
     this.sequenceNo = this.projectInfo.sequenceNo;
@@ -94,7 +93,6 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   }
 
   public changeProjectState() {
-    // console.log("test button")
     this.projectState = this.projectState === ProjectState.VISUAL ? ProjectState.INVASIVE : ProjectState.VISUAL;
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.PROJECT_STATE_UPDATE, {state:this.projectState});
   }
@@ -123,7 +121,10 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   }
 
   public editLocation() {
+<<<<<<< HEAD
     // console.log(this.projectInfo);
+=======
+>>>>>>> 9ae200f368ab4d32d4f2e2fed661d1f1ac2be439
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -151,14 +152,12 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
         },1000)
       })
     }
-    console.log(dialogConfig.data);
   }
 
   private fetchProjectIdFromState(): void {
     this.subscription.push(
     this.store.select(BackNavigation.getPreviousStateModelChain).pipe(take(1)).subscribe((previousState: any) => {
       this.projectInfo = previousState.stack[previousState.stack.length - 1];
-      console.log(this.projectInfo);
       if (this.projectInfo.type === 'subproject') {
         this.projectType = 'subproject';
         let subprojectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
@@ -256,7 +255,6 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
     });
     this.http.post<any>(url, data, { headers, responseType: 'blob' as 'json' }).subscribe(
       (response: any) => {
-        console.log(response);
         const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         // Create the date string in the format "daythMonthYear" (e.g., "18thSept2023")
         const currentDate = new Date();

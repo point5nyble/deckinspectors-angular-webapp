@@ -4,7 +4,10 @@
           <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
             <span class="visually-hidden">Loading...</span>
           </span>
-          <span class="mr-3 cursor-pointer icon"><i class="fas fa-save" (click)="save()"></i></span>
+          <span class="icons">
+          <span *ngIf="projectState === 'VISUAL'" class="mr-3 cursor-pointer icon"><i class="fas fa-plus" (click)="openVisualDeckReportModal()"></i></span>
+          <span class="cursor-pointer icon"><i class="fas fa-save icon" (click)="save()"></i></span>
+          </span>
         </div>
       </div>
       

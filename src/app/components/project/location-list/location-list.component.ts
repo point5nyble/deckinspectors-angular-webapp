@@ -167,13 +167,11 @@ export class LocationListComponent implements OnInit {
         );
 
         if (location.sequenceNo === undefined){
-          console.log(location);
           fl = true;
         }
     })
 
     if (fl){
-      console.log("sorting locations");
       this.locationList.sort((a, b) => {
         return String(a._id).localeCompare(String(b._id));
       });
@@ -206,13 +204,11 @@ export class LocationListComponent implements OnInit {
           );
 
           if (project.sequenceNo === undefined){
-            console.log(project);
             fl = true;
           }
       })
 
       if (fl){
-        console.log("sorting");
         this.subprojectList.sort((a, b) => {
           return String(a._id).localeCompare(String(b._id));
         });
@@ -255,7 +251,6 @@ export class LocationListComponent implements OnInit {
 
       this.httpsRequestService.putHttpData(url, data).subscribe(
         (response: any) => {
-          console.log(response)
           ++count;
         },
         error => {
@@ -277,7 +272,6 @@ export class LocationListComponent implements OnInit {
 
       this.httpsRequestService.putHttpData(url, data).subscribe(
         (response: any) => {
-          console.log(response);
           ++count;
         },
         error => {
@@ -301,7 +295,6 @@ export class LocationListComponent implements OnInit {
   }
 
   childClickEvent(event: boolean){
-    console.log(event);
     this.ischildClickEvent = true;
   }
 
@@ -319,7 +312,6 @@ export class LocationListComponent implements OnInit {
       if(data.confirmed){
 
         const id = $event.id;
-      console.log($event);
       const isSubproject = $event.isSubProject;
       let url;
       if (isSubproject) {
@@ -329,7 +321,6 @@ export class LocationListComponent implements OnInit {
       }
       this.httpsRequestService.deleteHttpData(url).subscribe(
         (response: any) => {
-          console.log(response);
           this.isDeleteSuccess = true;
           this.projectDeletionComplete.emit(isSubproject);
         }

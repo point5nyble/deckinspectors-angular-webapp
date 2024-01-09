@@ -128,7 +128,6 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   }
 
   private filterLocations(locations:BuildingLocation[]): BuildingLocation[] {
-    // console.log(locations);
     if (this.projectState === ProjectState.INVASIVE) {
       // return projects.filter(project => project.isInvasive);
       return locations.filter(location => location.isInvasive);
@@ -137,7 +136,6 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   }
 
   private filterSubproject(projects:Project[]): Project[] {
-    // console.log(projects);
     if (this.projectState === ProjectState.INVASIVE) {
       // return projects.filter(project => project.isInvasive);
       return projects.filter(project => project.isInvasive);
@@ -154,7 +152,6 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
 
 
   projectDeletionComplete($event: boolean) {
-    console.log($event);
     let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
     this.fetchLocationData(projectid);
     this.fetchSubProjectData(projectid);

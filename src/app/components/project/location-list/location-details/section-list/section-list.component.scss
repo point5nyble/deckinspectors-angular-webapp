@@ -14,7 +14,7 @@
 .icons {
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  // margin-top: 10px;
 }
 
 .icons i {
@@ -85,5 +85,18 @@ button.highlighted {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
+<<<<<<< HEAD
 
 
+=======
+.fa-plus{
+  background:#ED7C1C;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color:white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+>>>>>>> 9ae200f368ab4d32d4f2e2fed661d1f1ac2be439

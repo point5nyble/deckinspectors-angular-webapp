@@ -14,6 +14,7 @@ import { DeleteConfirmationModalComponent } from '../../../../../forms/delete-co
 import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
 import {NgClass, NgFor, NgIf} from '@angular/common';
 import { SectionListElementComponent } from './section-list-element/section-list-element.component';
+import { VisualDeckReportModalComponent } from 'src/app/forms/visual-deck-report-modal/visual-deck-report-modal.component';
 
 @Component({
   selector: 'app-section-list',
@@ -54,7 +55,6 @@ export class SectionListComponent implements OnInit{
 
   ngOnInit(): void {
     this.subscribeProjectState();
-    console.log(this.location_);
   }
   private subscribeProjectState() {
     this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
@@ -75,7 +75,6 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
 }
 
   private getSections(location: BuildingLocation) {
-    console.log("get sections");
     if (this.projectState === ProjectState.INVASIVE) {
       // TODO: Check Logic for Invasive
       this.sections = location?.sections?.filter(section => this.convertValueToBoolean(section?.furtherinvasivereviewrequired?.toString()));
@@ -84,20 +83,18 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
     }
 
     let fl = false;
-    this.sections.forEach(section => {
+    this.sections?.forEach(section => {
       if (section.sequenceNo === undefined){
-        console.log(section);
         fl = true;
       }
     });
     
     if (fl){
-      console.log("sorting");
-      this.sections.sort((a, b) => {
+      this.sections?.sort((a, b) => {
         return String(a._id).localeCompare(String(b._id));
       });
     }else{
-      this.sections.sort((a, b) => {
+      this.sections?.sort((a, b) => {
         return parseInt(String(a.sequenceNo)) - parseInt(String(b.sequenceNo))
       });
     }
@@ -132,7 +129,6 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
         let url = `${environment.apiURL}/section/${id}`;
         this.httpsRequestService.deleteHttpData(url).subscribe(
           (response: any) => {
-            console.log(response);
             this.sectionsDeletionComplete.emit(true);
           }
           , error => {
@@ -155,7 +151,6 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
 
       await this.httpsRequestService.putHttpData(url, data).subscribe(
         (response: any) => {
-          console.log(response);
         },
         error => {
           console.log(error);
@@ -165,5 +160,68 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
         alert('Sequence saved!');
       }
     })
+  }
+
+
+  openVisualDeckReportModal() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "600px";
+    dialogConfig.height = "700px";
+    dialogConfig.data = {
+      id: 1
+    };
+    if (this.projectState === ProjectState.VISUAL) {
+      const dialogRef = this.dialog.open(VisualDeckReportModalComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(data => {
+        if (data !== undefined) {
+            this.createSection(data);
+        }
+      })
+    }
+
+  }
+
+  private createSection(data: any) {
+    let request: any = null;
+    if (this.projectState === ProjectState.VISUAL) {
+      request = this.createSectionData(data);
+    }
+    let url = environment.apiURL + '/section/add';
+    let isInvasive = request?.furtherinvasivereviewrequired === "Yes";
+    this.httpsRequestService.postHttpData(url, request).subscribe(
+      (response:any) => {
+        // Reset to default state
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, 'added section');
+        this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.INVASIVE_BTN_DISABLED,isInvasive);
+        this.fetchDataForGivenSectionId({...request, _id: response.id});
+      },
+      error => {
+        console.log(error)
+      }
+    );
+  }
+
+  private createSectionData(data: any):any {
+    return {
+      "name": data?.visualReportName,
+      "unitUnavailable": data?.unitUnavailable === true,
+      "additionalconsiderations": data?.additionalConsiderationsOrConcern,
+      "additionalconsiderationshtml": data?.additionalConsiderationsOrConcernHtml,
+      "awe": data?.AWE,
+      "conditionalassessment": data?.conditionAssessment,
+      "createdby": localStorage.getItem('username'),
+      "eee": data?.EEE,
+      "exteriorelements": data?.exteriorElements,
+      "furtherinvasivereviewrequired": data?.invasiveReviewRequired,
+      "lbc": data?.LBC,
+      "parentid": this.location_._id,
+      "parenttype": this.location_.type,
+      "visualreview": data?.visualReview,
+      "visualsignsofleak": data?.signsOfLeaks,
+      "waterproofingelements": data?.waterproofingElements,
+      "images": data?.images
+    };
   }
 }

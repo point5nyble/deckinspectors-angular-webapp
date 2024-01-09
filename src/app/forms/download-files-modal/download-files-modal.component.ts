@@ -25,7 +25,6 @@ export class DownloadFilesModalComponent {
     this.modalData = data;
     this.projectName = data.project.name;
     this.projectInfo = data.project;
-    console.log(this.projectInfo);
   }
 
   showSection(section: string): void {
@@ -41,9 +40,8 @@ export class DownloadFilesModalComponent {
   }
 
   private downloadReport(reportType: string, reportFormat: string) {
-    console.log("report format" + reportFormat);
     //let url = environment.apiURL + '/project/generatereport';
-    let url = "https://inspectionreportgenerator.azurewebsites.net/api/generateReport";
+    let url = "https://deckreportingapp.azurewebsites.net/api/project/generateReport";
       let data = {
         "id": this.modalData.project._id,
         "sectionImageProperties": {
@@ -75,7 +73,6 @@ export class DownloadFilesModalComponent {
         // document.body.appendChild(a);
         // a.click();
         // window.URL.revokeObjectURL(url);
-        console.log(response);
         
       });
       this.dialogRef.close({isDownloading: true});

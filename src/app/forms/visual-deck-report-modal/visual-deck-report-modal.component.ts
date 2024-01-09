@@ -16,7 +16,7 @@ export class VisualDeckReportModalComponent implements OnInit {
   data: any;
   visualDeckReportModalForm!: FormGroup;
   exteriorElementsOptions = [
-    'Decks', 'Porches / Entry', 'Stairs', 'Stairs Landing', 'Walkways', 'Railings', 'Integrations', 'Door Threshold'
+    'Decks', 'Porches/Entry', 'Stairs', 'Stairs Landing', 'Walkways', 'Railings', 'Integrations', 'Door Threshold','Stucco Interface'
   ];
   waterproofingElements = [
     'Flashings', 'Waterproofing', 'Coatings','Sealants'
@@ -222,7 +222,6 @@ export class VisualDeckReportModalComponent implements OnInit {
       additionalConsiderationsOrConcern: parsedText
     })
     this.visualDeckReportModalForm.value["additionalConsiderationsOrConcernHtml"] = htmlText;
-   console.log(this.visualDeckReportModalForm.value);
     this.dialogRef.close(this.visualDeckReportModalForm.value);
   }
 
