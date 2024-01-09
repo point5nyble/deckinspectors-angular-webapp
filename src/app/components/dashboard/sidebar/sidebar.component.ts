@@ -15,7 +15,8 @@ import { environment } from 'src/environments/environment';
 export class SidebarComponent {
   isSidebarCollapsed: boolean = true;
   name: string = '';
-  role: string = ''; // Add this property
+  role: string = ''; 
+  firstName: string = '';// Add this property
    // Add this property
   isAdmin: boolean =
     JSON.parse(localStorage.getItem('user')!)?.role === 'admin';
@@ -41,7 +42,7 @@ export class SidebarComponent {
 
         const capitalizedRole = user.role.charAt(0).toUpperCase() + user.role.slice(1);
 
-  
+        this.firstName = capitalizedFirstName;
         this.name = capitalizedFirstName + " " + capitalizedLastName;
         this.role = capitalizedRole; // Set the username property
         // console.log(user);

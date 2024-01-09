@@ -1,53 +1,55 @@
 <div class="main-class">
-    <div class="logo-bar">
-      <div class="horizontal-frame">
-        <div class="company-logo">
+  <div class="logo-bar">
+    <div class="horizontal-frame">
+      <div class="company-logo">
         <a routerLink="/dashboard">
-        <img class="cursor-pointer" src="../../../assets/images/image_1.png" width="139px" height="59.57px" alt="Button Image">
-      </a>
-        </div>
-        <div class="projects">
-          <!-- <img src="../../../assets/images/Users.png" width="147px" height="30px" alt="Button Image"> -->
-          <h1 class="page-heading">Users</h1>
-        </div>
-    </div>  
-</div>
-<div id="success-alert">
-</div>
-<div class="users-container">
+          <img class="cursor-pointer" src="../../../assets/images/image_1.png" width="139px" height="59.57px"
+            alt="Button Image">
+        </a>
+      </div>
+      <div class="projects">
+        <!-- <img src="../../../assets/images/Users.png" width="147px" height="30px" alt="Button Image"> -->
+        <h1 class="page-heading">Users</h1>
+      </div>
+    </div>
+  </div>
+  <div id="success-alert">
+  </div>
+  <div class="users-container">
     <app-sidebar class="flex"></app-sidebar>
     <div class="users">
-        <div class="user-filters">
-          <div class="filters">
-            <input type="text" name="searchedTerm" [(ngModel)]="searchedTerm" placeholder="Search by name"/>
+      <div class="user-filters">
+        <div class="filters">
+          <input type="text" name="searchedTerm" [(ngModel)]="searchedTerm" placeholder="Search by name" />
 
-            <button (click)="userSearch()"><i class="bi bi-search"></i></button>
-            <button (click)="reset()"><i class="bi bi-arrow-clockwise"></i></button>
-            <button><i class="bi bi-plus-circle" (click)="createUser()"></i></button>
-          </div>
+          <button (click)="userSearch()"><i class="bi bi-search"></i></button>
+          <button (click)="reset()"><i class="bi bi-arrow-clockwise"></i></button>
+          <button><i class="bi bi-plus-circle" (click)="createUser()"></i></button>
         </div>
-        <div class="users-list">
-            <div class="user headers">
-              <div class="col">Name</div>
-              <div class="col">Username</div>
-              <div class="col">Email</div>
-              <div class="col">Role</div>
-              <div class="col">Access Type</div>
-              <div class="col"></div>
-              <div class="col"></div>
-          </div>
-          <ng-container *ngFor="let user of filteredUsers">
-            <div class="user">
-                <div class="col">{{user.first_name + " " + user.last_name}}</div>
-                <div class="col username">{{user.username}}</div>
-                <div class="col email" data-toggle="tooltip" data-placement="top" title="{{user.email}}">{{user.email}}</div>
-                <div class="col">{{user.role}}</div>
-                <div class="col">{{user.access_type}}</div>
-                <div class="col edit-btn"><button (click)="updateUser(user.email)"><i class="bi bi-pen"></i></button></div>
-                <div class="col edit-btn"><button (click)="deleteUser(user)"><i class="bi bi-trash"></i></button></div>
+      </div>
+      <div class="users-list">
+        <div class="user headers">
+          <div class="col">Name</div>
+          <div class="col">Username</div>
+          <div class="col">Email</div>
+          <div class="col">Role</div>
+          <div class="col">Access Type</div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <ng-container *ngFor="let user of filteredUsers">
+          <div class="user user-table">
+            <div class="col">{{user.first_name + " " + user.last_name}}</div>
+            <div class="col username">{{user.username}}</div>
+            <div class="col email" data-toggle="tooltip" data-placement="top" title="{{user.email}}">{{user.email}}
             </div>
-            </ng-container>
-        </div>
+            <div class="col">{{user.role}}</div>
+            <div class="col">{{user.access_type}}</div>
+            <div class="col edit-btn"><button (click)="updateUser(user.email)"><i class="bi bi-pen"></i></button></div>
+            <div class="col edit-btn"><button (click)="deleteUser(user)"><i class="bi bi-trash"></i></button></div>
+          </div>
+        </ng-container>
+      </div>
     </div>
   </div>
 </div>
