@@ -1,26 +1,25 @@
 <div class="Container-start">
-      <div class="header-component">
-        <div class="flex-item header-text"><p>{{ header }}</p>
-          <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </span>
-          <span class="icons">
-          <span *ngIf="projectState === 'VISUAL'" class="mr-3 cursor-pointer icon"><i class="fas fa-plus" (click)="openVisualDeckReportModal()"></i></span>
+  <div class="header-component">
+    <div class="flex-item header-text">
+      <p>{{ header }}</p>
+      <div class="loc-icon">
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </span>
+        <span class="icons">
+          <span *ngIf="projectState === 'VISUAL'" class="mr-3 cursor-pointer icon"><i class="fas fa-plus"
+              (click)="openVisualDeckReportModal()"></i></span>
           <span class="cursor-pointer icon"><i class="fas fa-save icon" (click)="save()"></i></span>
-          </span>
-        </div>
+        </span>
       </div>
-      
-  <div cdkDropList  class="full-width scrollable-container" (cdkDropListDropped)="dropSection($event)">
-      <div *ngFor="let section of sections" cdkDrag>
-        <app-section-list-element
-          (click)="fetchDataForGivenSectionId(section)"
-          [section]="section"
-          [isHighlighted]="section._id === this.currentSection?._id"
-          (deleteElement)="deleteElement($event)"
-        ></app-section-list-element>
-      </div>
+    </div>
+  </div>
+
+  <div cdkDropList class="full-width scrollable-container" (cdkDropListDropped)="dropSection($event)">
+    <div *ngFor="let section of sections" cdkDrag>
+      <app-section-list-element (click)="fetchDataForGivenSectionId(section)" [section]="section"
+        [isHighlighted]="section._id === this.currentSection?._id"
+        (deleteElement)="deleteElement($event)"></app-section-list-element>
+    </div>
   </div>
 </div>
-
-

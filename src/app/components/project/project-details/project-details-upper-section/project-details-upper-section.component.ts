@@ -121,10 +121,6 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   }
 
   public editLocation() {
-<<<<<<< HEAD
-    // console.log(this.projectInfo);
-=======
->>>>>>> 9ae200f368ab4d32d4f2e2fed661d1f1ac2be439
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;

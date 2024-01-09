@@ -41,13 +41,8 @@ export class DashboardComponent implements OnInit
   downloadingReport: boolean = false;
   isFileUploaded: boolean = false;  //final report template
   isFileNotUploaded: boolean = false;  //final report template
-<<<<<<< HEAD
-  // @Output() newProjectUploaded = new EventEmitter<boolean>();
-  // @Output() fileUploaded = new EventEmitter<boolean>();
-=======
   notificationRecieved:boolean =false;
   notificationMessage:string='';
->>>>>>> 9ae200f368ab4d32d4f2e2fed661d1f1ac2be439
     constructor(private cdr: ChangeDetectorRef,
                 private httpsRequestService:HttpsRequestService,
                 private orchestratorCommunicationService:OrchestratorCommunicationService,
