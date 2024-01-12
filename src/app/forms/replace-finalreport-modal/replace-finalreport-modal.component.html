@@ -1,27 +1,23 @@
-<div class="container mt-5">
-  <div class="card">
-      <div class="card-header">
-          <h4>Update Final Report Template</h4>
+<div class="form-container">
+    <h4 class="form-header">Update Final Report Template</h4>
+    <div class="close-button-container">
+      <span class="close-icon" (click)="onClose()">&#10005;</span>
+    </div>
+    <form>
+      <div class="mb-3">
+        <label for="fileInput" class="form-label">Choose a File:</label>
+        <input type="file" accept=".docx, .doc" class="form-control" id="fileInput" (change)="onFileSelected($event)">
       </div>
-      <div class="card-body">
-          <form>
-              <div class="mb-3">
-                  <label for="fileInput" class="form-label">Choose a File:</label>
-                  <input type="file" accept=".docx, .doc" class="form-control" id="fileInput" (change)="onFileSelected($event)">
-              </div>
-              <div class="mb-3">
-                  <label for="dropdown" class="form-label">Select Company:</label>
-                  <select class="form-select" id="dropdown" name="company-name" [(ngModel)]="companyName">
-                      <option value="deck">Deck Inspectors</option>
-                      <option value="Wicr">WICR</option>
-                  </select>
-              </div>
-              <div  class="buttons">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onClose()">Close</button>
-                <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>  
-              </div>
-                      
-          </form>
+      <div class="mb-3">
+        <label for="dropdown" class="form-label">Select Company:</label>
+        <select class="form-select" id="dropdown" name="company-name" [(ngModel)]="companyName">
+          <option value="deck">Deck Inspectors</option>
+          <option value="Wicr">WICR</option>
+        </select>
       </div>
+      <div class="buttons">
+          <button type="submit" class="save-button" (click)="onSubmit()">Submit</button>
+        <!-- <button type="button" class="close-button" data-bs-dismiss="modal" (click)="onClose()">Close</button> -->
+      </div>
+    </form>
   </div>
-</div>

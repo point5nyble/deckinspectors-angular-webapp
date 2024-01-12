@@ -76,28 +76,43 @@
 // }
 
 
-.close-button {
-  border:1px solid #8B8888;
-  color: #6D6A6A;
-  border-radius: 8px;
-  background-color: #ffff;
-  width:114px;
-  height:40px;
-  order: 1; /* Moves the button to the left */
-}
+// .close-button {
+//   border:1px solid #8B8888;
+//   color: #6D6A6A;
+//   border-radius: 8px;
+//   background-color: #ffff;
+//   width:114px;
+//   height:40px;
+//   order: 1; /* Moves the button to the left */
+// }
 
 h6{
   font-size:18px;
 }
 
-.save-button {
-  border:1px solid #8B8888;
-  border-radius: 8px;
-  color: #ED7C1C;
-  background-color: #ffff;
-  width:114px;
-  height:40px;
-  order: 2; /* Moves the button to the right */
+// .save-button {
+//   border:1px solid #8B8888;
+//   border-radius: 8px;
+//   color: #ED7C1C;
+//   background-color: #ffff;
+//   width:114px;
+//   height:40px;
+//   order: 2; /* Moves the button to the right */
+// }
+
+.save-button,
+.close-button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  margin-bottom: 10px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-button {
+  background-color: #f44336;
 }
 
 input[type="radio"]{
