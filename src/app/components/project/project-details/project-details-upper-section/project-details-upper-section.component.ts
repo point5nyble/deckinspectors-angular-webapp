@@ -1,3 +1,4 @@
+import { ProjectInfo } from './../../../../common/models/project-info';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OrchestratorEventName} from "../../../../orchestrator-service/models/orchestrator-event-name";
 import {
@@ -16,6 +17,7 @@ import {ProjectState} from "../../../../app-state-service/store/project-state-mo
 import {ProjectQuery} from "../../../../app-state-service/project-state/project-selector";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { environment } from '../../../../../environments/environment';
+// import { Project } from 'src/app/common/models/project';
 
 @Component({
   selector: 'app-project-details-upper-section',
@@ -23,7 +25,8 @@ import { environment } from '../../../../../environments/environment';
   styleUrls: ['./project-details-upper-section.component.scss']
 })
 export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
-  projectInfo!: ProjectListElement | BuildingLocation;
+  projectInfo!: BuildingLocation | ProjectListElement;
+  // project!: Project;
   projectType!: string;
   projectState!: ProjectState;
   disableInvasiveBtn: boolean = false;
@@ -48,8 +51,21 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
     this.subscribeToProjectInfo();
     this.subscribeToProjectState();
     this.sequenceNo = this.projectInfo.sequenceNo;
-    
   }
+
+  formatDate(dateTimeString: string | undefined): string | undefined {
+    if (dateTimeString) {
+      const date = new Date(dateTimeString);
+      const options: Intl.DateTimeFormatOptions = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      };
+      return date.toLocaleDateString('en-US', options);
+    }
+    return undefined;
+  }
+
 
   private subscribeToProjectState() {
     this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
@@ -82,6 +98,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
   }
 
   public previousBtnClicked() {
+    // console.log(this.projectInfo.type);
     if (this.projectInfo.type === 'subproject') {
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'project')
     } else if (this.projectInfo.type === 'location' ||
@@ -97,6 +114,10 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
       this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'home');
     }
     this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC, this.projectInfo);
+  }
+
+  public homeBtnClicked() {
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'home');
   }
 
   public editLocation() {

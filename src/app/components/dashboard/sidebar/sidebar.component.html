@@ -1,34 +1,44 @@
-<div class="container sidebar" [ngClass]="{'collapsed': isSidebarCollapsed}" (mouseleave)="collapseSidebar()">
-  <div class="sidebar-block">
-      <div class="sidebar-content" >
+<nav class="navbar fixed-top">
+  <!-- <div class="container"> -->
+    <div class="left-section">
+      <a class="navbar-brand" href="#">
+        <img src="../../../assets/images/image_1.png" alt="Bootstrap" width="60" height="60">
+      </a>
+      <ul class="nav nav-underline">
+        <li class="nav-item left" (click)="activateLink($event)">
+          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active" (click)="gotoHome()">
+            Projects
+          </a>
+        </li>
+        <li class="nav-item left" *ngIf="isAdmin">
+          <a class="nav-link" routerLink="/users" routerLinkActive="active">
+            Users
+          </a>
+        </li>
+      </ul>
+    </div>
 
-        <ul (mouseenter)="toggleSidebar()">
-          <li class="active" (click)="activateLink($event)" >
-            <a routerLink="/dashboard" routerLinkActive="active"  (click)="gotoHome()">
-              <i class="material-symbols-outlined">location_city</i>
-              <span>&nbsp;Projects</span>
-            </a>
-          </li>
-          <li  (click)="activateLink($event)" *ngIf="isAdmin" >
-            <a routerLink="/users" routerLinkActive="active" >
-              <i class="material-symbols-outlined">group</i>
-              <span>&nbsp;Users</span>
-            </a>
-          </li>
-          <!-- <li (click)="activateLink($event)" *ngIf="isAdmin">
-            <a routerLink="" routerLinkActive="active">
-              <img src="../../../assets/images/mdi_files.png" alt="Logo 3" class="logo-image">
-              <span>Files</span>
-            </a>
-          </li> -->
-          <li>
-            <a  routerLink="/login" routerLinkActive="active" (click)="logout()">
-              <i class="material-symbols-outlined">logout</i>
-              <span>&nbsp;Sign Out</span>
-            </a>
-          </li>
-        </ul>
+    <div class="right-section">
+      <div class="dropdown">
+        <button class="dropdown-btn">
+        <i class="material-symbols-outlined user-icon">
+          person
+        </i>
+        <span>
+          <p class="name">{{ firstName }}</p>
+        </span>
+        </button>
+        <div class="dropdown-content">
+          <span class="user-details">
+            <p class="name">{{ name }}</p>
+            <p class="role">{{ role }}</p>
+          </span>
+          <a class="nav-link sign-out-btn" routerLink="/login" routerLinkActive="active" (click)="logout()">
+            <i class="material-symbols-outlined">logout</i>
+            <span>&nbsp;Sign Out</span>
+          </a>
+        </div>
       </div>
     </div>
-</div>
-
+  <!-- </div> -->
+</nav>

@@ -1,5 +1,8 @@
 <div class="form-container">
   <h2>Assign Project</h2>
+  <div class="close-button-container">
+    <span class="close-icon" (click)="close()">&#10005;</span>
+  </div>
   <div class="search-container">
     <input type="text" placeholder="Search" [(ngModel)]="searchTerm" (input)="filterNames()" />
     <button (click)="refreshList()"><i class="bi bi-arrow-clockwise"></i></button>
@@ -13,7 +16,7 @@
     </div>
   </div>
   <mat-dialog-actions>
-    <button class="mat-raised-button" (click)="close()">Close</button>
-    <button class="mat-raised-button mat-primary" (click)="save()">Save</button>
+    <button class="mat-raised-button mat-primary save-button" (click)="save()">Save</button>
+    <!-- <button class="mat-raised-button close-button" (click)="close()">Close</button> -->
   </mat-dialog-actions>
 </div>

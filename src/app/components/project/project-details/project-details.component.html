@@ -8,17 +8,31 @@
     <strong>Failure! </strong> Project Not Assigned
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
-    <app-project-details-upper-section >
-    </app-project-details-upper-section>
-    <div class="location-section">
+
+  <!-- Buttons to toggle between Project Common Section and Project Building Section -->
+
+  <!-- Conditional rendering based on selected section -->
+  <app-project-details-upper-section></app-project-details-upper-section>
+
+  <div class="project-list-div">
+    <div class="toggle-buttons">
+      <button class="tab-btn h4" (click)="showCommonSectionfunc()" [ngClass]="{'clicked-button': showCommonSection}">Project Common Locations</button>
+      <button class="tab-btn h4" (click)="showBuildingSectionfunc()" [ngClass]="{'clicked-button': showBuildingSection}">Project Buildings</button>
+    </div>
+  
+    <div class="location-section" *ngIf="showCommonSection">
       <app-location-list class="flex-item" header="Project Common Location"
                          [locations]="projectCommonLocationList"
                          [isLoading]="isLoading"
                          (projectDeletionComplete)="projectDeletionComplete($event)"
       ></app-location-list>
+    </div>
+  
+    <div class="location-section" *ngIf="showBuildingSection">
       <app-location-list class="flex-item ms-2" header="Project Buildings"
                          [subproject]="projectBuildings" (projectAssignedEvent)="projectAssigned($event)"
                          [isLoading]="isLoading"
                          (projectDeletionComplete)="projectDeletionComplete($event)"></app-location-list>
     </div>
+  </div>
 </div>

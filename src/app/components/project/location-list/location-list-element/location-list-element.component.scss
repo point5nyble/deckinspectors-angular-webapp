@@ -1,62 +1,105 @@
-.container{
-  display: flex;
-  flex:1;
-  background-color: #fff;
-  flex-direction:column;
-  border-radius: 8px;
-  height:75px;
-  
+.custom-card {
+  height: 100%;
+  width: 350px;
+  border: 1px solid #ddd; /* Add a border to the card */
+  border-radius: 10px; /* Add border-radius for rounded corners */
+  overflow: hidden; /* Hide any content that overflows the card */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box-shadow for depth 
+  */
 }
-.container:hover{
+
+.card-img
+{
+  padding: 5px;
+}
+
+.card-header {
+  background-color: #007bff; /* Change the background color of the card header */
+  color: #fff; /* Change the text color of the card header */
+}
+
+.card-title {
+  font-size: 20px; 
+  margin-left: 7px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /* Adjust the font size of the card title */
+}
+
+.card-text
+{
+  margin-left: 0px;
+}
+
+.card-body {
+  padding: 10px;
+  // display: flex; /* Add padding to the card body */
+}
+
+.info {
+  margin-top: 10px; /* Add margin to the info section */
+}
+
+/* Customize the styling of icons */
+.icon {
+  font-size: 30px;
+  // margin-left: 100px;
+  // // padding-top: 30px;
+  // margin-bottom: 0px;
   cursor: pointer;
-  opacity:0.8;
-  box-shadow:0px 4px 4px lightblue;
+  color: red; 
+  // background-color: red;
+  // border-radius: 100%;
+  // height: 40px;
+  // width: 40px;
+  /* Change the color of the icons */
 }
 
-.margin-right {
-  margin-right: 10px;
+.icon:hover {
+  color: #f0be09; /* Change the color on hover */
 }
 
-.name{
+.number
+{
+  color: black;
+  margin-bottom: 0px;
+  font-size: 25px;
+}
+
+.row-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-between; /* Adjust as needed to position on corners */
+  align-items: center; /* Align items vertically in the center */
 }
 
-.locationName{
-  font-size:16px;
-  color: #2F2E2E;
-  font-weight: 500;
-}
-.info{
+.delete-btn, .sqn-num {
   display: flex;
-  justify-content: space-between;
-  margin-top:20px;
-}
-.info span{
-  color:#5D5C5C;
-  font-size: 12px;
-  font-weight: 400;
-}
-.icon{
-font-size: larger;
+  align-items: center; /* Align items vertically in the center */
 }
 
-.text-muted{
-  display: flex;
-}
+.card {
+  transition: transform .5s;
 
-span p{
-  color:#203EEA;
-  font-weight: 500;
-  font-size: 14px;
-}
-.assignUser{
-  margin-right: 10px;
-}
-.bi-trash{
-  color:#646161;
-}
-.bi-person-circle{
-  color:#646161;
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 2s cubic-bezier(.165, .84, .44, 1);
+    box-shadow: 0 8px 17px 0 rgba(254, 211, 91, 0.916), 0 6px 20px 0 rgba(245, 173, 96, 0.89);
+    content: '';
+    opacity: 0;
+    z-index: -1;
+  }
+
+  &:hover,
+  &:focus {
+    transform: scale3d(1.006, 1.006, 1);
+
+    &::after {
+      opacity: 1;
+    }
+  }
 }

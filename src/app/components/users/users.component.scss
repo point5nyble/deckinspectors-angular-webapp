@@ -1,5 +1,7 @@
 
   .horizontal-frame {
+    margin-left: 60px;
+    margin-right: 60px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -36,6 +38,8 @@
   }
   
   .users-container {
+    margin-left: 60px;
+    margin-right: 60px;
     display: flex;
     flex: 1;
     overflow: auto;
@@ -106,9 +110,12 @@
     overflow-x: auto;
   }
 
-  .users-list :hover{
-    background-color: silver;
-  }
+  // .users-list :hover{
+  //   // background-color: silver;
+  //   border-left-style: solid;
+  //   border-left-width: 8px;
+  //   border-color: #ED7C1C;
+  // }
 
  .col{
     height: 100%;
@@ -119,7 +126,7 @@
     justify-content: flex-start;
     align-items: center;
     text-transform: capitalize;
-    font-size: 1rem;
+    font-size: 1.2rem;
     overflow: hidden;
  }
 
@@ -135,4 +142,11 @@
 
  .headers{
     color: grey;
+ }
+
+ .user-table:hover
+ {
+  border-left-style: solid;
+    border-left-width: 8px;
+    border-color: #ED7C1C;
  }

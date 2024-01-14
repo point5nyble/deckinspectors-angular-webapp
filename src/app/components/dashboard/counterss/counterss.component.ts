@@ -1,18 +1,19 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {NewProjectModalComponent} from "../../../forms/new-project-modal/new-project-modal.component";
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { NewProjectModalComponent } from 'src/app/forms/new-project-modal/new-project-modal.component';
 import { ReplaceFinalreportModalComponent } from 'src/app/forms/replace-finalreport-modal/replace-finalreport-modal.component';
-@Component({
-  selector: 'app-filter',
-  templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss']
-})
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Project } from 'src/app/common/models/project';
 
-export class FilterComponent {
-  searchTerm!: string;
-  isChecked!: boolean;
-  @Output() searchedTerm = new EventEmitter<string>();
-  @Output() filterCompleted = new EventEmitter<boolean>();
+@Component({
+  selector: 'app-counterss',
+  templateUrl: './counterss.component.html',
+  styleUrls: ['./counterss.component.scss']
+})
+export class CounterssComponent {
+  @Input() totalProjects: number = 0;
+  @Input() completedProjects: number = 0;
+  @Input() ongoingProjects: number = 0;
+  showProjectInfo: string = 'home';
   @Output() newProjectUploaded = new EventEmitter<boolean>();
   @Output() fileUploaded = new EventEmitter<boolean>();
   constructor(private dialog: MatDialog) { }
@@ -51,12 +52,5 @@ export class FilterComponent {
       }
     })
   }
-
-  filterNames() {
-      this.searchedTerm.emit(this.searchTerm);
-  }
-
-  filterCompletedProjects(){
-    this.filterCompleted.emit(this.isChecked);
-  }
 }
+

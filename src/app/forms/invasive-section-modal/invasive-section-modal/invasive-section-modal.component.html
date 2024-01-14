@@ -3,6 +3,9 @@
   <div class="form-header">
     <p><b>Invasive Report</b></p>
   </div>
+  <div class="close-button-container">
+    <span class="close-icon" (click)="close()">&#10005;</span>
+  </div>
   <div class="form-body" [formGroup]="invasiveDeckReportModalForm">
     <div class="form-errors" *ngIf="showErrors && invasiveDeckReportModalForm.get('invasiveDescription')?.hasError('required')">
       *field is required.
@@ -40,7 +43,7 @@
           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
           Saving...
         </button>
-      <button class="close-button" (click)="close()">Close</button>
+      <!-- <button class="close-button" (click)="close()">Close</button> -->
     </div>
   </div>
 </div>

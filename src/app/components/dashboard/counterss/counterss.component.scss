@@ -1,0 +1,109 @@
+/* counters.component.scss */
+
+.statistics-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  // margin-top: 20px;
+  padding: 10px;
+  background-color: #ffff;
+  // border: 1px solid #ccc;
+}
+
+.counter-item {
+  text-align: center; 
+  padding-left: 30px;
+  padding-right: 30px;/* Center text within each counter item */
+}
+
+.counter-item p {
+  margin: 0;
+  font-size: 20px;
+}
+
+// .counter-item span {
+//   display: block; /* Make the number appear on a new line */
+//   font-weight: bold; /* Optional: Make the number bold or adjust styling as needed */
+// }
+
+.stat-num
+{
+  display: block; /* Make the number appear on a new line */
+  font-weight: bold; 
+  font-size: 30px;
+  color: #ED7C1C;
+}
+
+
+// .project-container{
+//   display: flex;
+//   flex: 1;
+//   overflow: hidden;
+//   padding: 10px;
+//   justify-content: space-between;
+// }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0px;
+}
+
+.header-buttons{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // margin-left: 500px;
+}
+
+.AllProjectAndRefresh {
+  display: flex;
+  align-items: center;
+}
+
+.AllProject{
+  color: #110f4f;
+  font-size: 35px;
+  font-weight: 700;
+  margin-bottom: 0px;
+  width: 300px;
+  // margin-right: 200px;
+  // padding-right: 200px;
+}
+
+.container-fluid{
+  flex-direction: row;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.buttonAddnew{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border:1px solid #ED7C1C;
+  background-color: #ED7C1C;
+  border-radius: 8px;
+  color: white;
+  width:124px;
+  height:50px;
+  margin-bottom: 0px;
+}
+
+.replaceFinalReportTemplate{
+  border:3px solid #ED7C1C;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  color: #ED7C1C;
+  font-weight: bold;
+  width:124px;
+  height:50px;
+  margin-bottom: 0px;
+  margin-right: 20px;
+  background-color: #ffff;
+}
+
+

@@ -1,9 +1,24 @@
 <div class="custom-dialog-content">
-  <h2 class="modal-title">New Project</h2>
+  <h2 class="modal-title">Add New Project</h2>
   <div class="close-button-container">
     <span class="close-icon" (click)="close()">&#10005;</span>
   </div>
   <form [formGroup]="yourForm" class="modal-form" ngNativeValidate>
+    <div class="form-group">
+      <label class="form-label">Project Name:</label>
+      <input type="text" formControlName="name" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Address:</label>
+      <textarea formControlName="address" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Description:</label>
+      <textarea formControlName="description" class="form-control"></textarea>
+    </div>
+
     <div class="form-group">
       <label class="form-label">Project Type</label>
       <div class="radio-group">
@@ -21,21 +36,6 @@
     </div>
 
     <div class="form-group">
-      <label class="form-label">Project Name:</label>
-      <input type="text" formControlName="name" class="form-control" required>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Address:</label>
-      <textarea formControlName="address" class="form-control"></textarea>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Description:</label>
-      <textarea formControlName="description" class="form-control"></textarea>
-    </div>
-
-    <div class="form-group">
       <label class="form-label">Upload Image:</label>
       <input type="file" (change)="handleFileInput($event)" formControlName="image" class="form-control">
       <div *ngIf="imagePreviewUrl" class="image-preview">
@@ -45,13 +45,12 @@
     </div>
 
     <mat-dialog-actions class="button-container">
-      <button class="mat-raised-button close-button" (click)="close()"><h6>Close</h6></button>
-      <button *ngIf="!isSaving" type="submit" class="mat-raised-button mat-primary save-button" (click)="save()"><h6>Save</h6></button>
+      <button *ngIf="!isSaving" type="submit" class="mat-raised-button mat-primary save-button" (click)="save()">Save</button>
       <button *ngIf="isSaving" class="mat-raised-button mat-primary save-button" type="button" disabled>
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         Saving...
       </button>
-
+      <button class="mat-raised-button close-button" (click)="close()">Close</button>
     </mat-dialog-actions>
 
   </form>

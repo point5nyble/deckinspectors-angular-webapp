@@ -8,11 +8,15 @@ import {
   OrchestratorCommunicationService
 } from "../../orchestrator-service/orchestrartor-communication/orchestrator-communication.service";
 import { environment } from '../../../environments/environment';
+// import {MatInputModule} from '@angular/material/input';
+// import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-new-project-modal',
   templateUrl: './new-project-modal.component.html',
-  styleUrls: ['./new-project-modal.component.scss']
+  styleUrls: ['./new-project-modal.component.scss'],
+  // standalone: true,
+  // imports: [MatFormFieldModule, MatInputModule],
 })
 export class NewProjectModalComponent implements OnInit {
   yourForm!: FormGroup;

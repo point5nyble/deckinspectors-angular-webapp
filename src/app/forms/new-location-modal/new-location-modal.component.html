@@ -3,6 +3,9 @@
   <div class="close-button-container">
     <span class="close-icon" (click)="close()">&#10005;</span>
   </div>
+  <div class="close-button-container">
+    <span class="close-icon" (click)="close()">&#10005;</span>
+  </div>
   <form [formGroup]="newLocationForm" class="modal-form">
     <div class="form-group">
       <label class="form-label">{{ isSubProject ? 'Building Name:' :header==='Project Common Location'?'Project Common Location:':(header==="Building Common Location")?"Building Common Location":"Building Name:"}}</label>
@@ -23,13 +26,13 @@
       </div>
     </div>
     <mat-dialog-actions class="button-container">
-      <button class="mat-raised-button close-button" (click)="close()"><h6>Close</h6></button>
-      <button *ngIf="!isSaving" class="mat-raised-button mat-primary save-button" (click)="save()"><h6>Save</h6></button>
-
+      <button *ngIf="!isSaving" class="mat-raised-button mat-primary save-button" (click)="save()">Save</button>
+      
       <button *ngIf="isSaving" class="mat-raised-button mat-primary save-button" type="button" disabled>
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         Saving...
       </button>
+      <!-- <button class="mat-raised-button close-button" (click)="close()">Close</button> -->
 
     </mat-dialog-actions>
 

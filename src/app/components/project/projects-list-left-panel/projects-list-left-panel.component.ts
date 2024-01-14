@@ -12,6 +12,8 @@ import {ProjectState} from "../../../app-state-service/store/project-state-model
 import {ProjectQuery} from "../../../app-state-service/project-state/project-selector";
 import {take} from "rxjs";
 import {environment} from '../../../../environments/environment';
+import { BuildingLocation } from 'src/app/common/models/buildingLocation';
+import { ProjectListElement } from 'src/app/common/models/project-list-element';
 
 @Component({
   selector: 'app-projects-list-left-panel',
@@ -32,7 +34,6 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   private projectState: ProjectState = ProjectState.VISUAL;
   currentProject!: any;
 
-
   constructor(private httpsRequestService: HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService,
               private store: Store<any>) {
@@ -46,6 +47,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     if (this.projectList !== undefined) {
       this.loadingScreen = false;
     }
+    // console.log(this.projectInfo.type);
   }
 
   toggleCollapse_() {
@@ -55,6 +57,8 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   toggleCollapse(item: Item): void {
     item.collapsed = !item.collapsed;
   }
+
+
 
   private subscribeToGetCurrentProjectDetails() {
     this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState: any) => {

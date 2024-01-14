@@ -70,7 +70,6 @@
   display: flex;
   align-items: center;
   column-gap: 5px;
-  
 }
 
 ul li{
@@ -122,4 +121,11 @@ ul li:last-child::before{
   content: "";
   width:15px;
   height: 1.25em;
+}
+
+.collapse-icon
+{
+  cursor: pointer;
+  font-size: 25px;
+  margin-bottom: 10px;
 }

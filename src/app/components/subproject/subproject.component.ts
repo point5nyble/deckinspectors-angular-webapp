@@ -24,6 +24,8 @@ export class SubprojectComponent implements OnInit, OnDestroy{
   buildingApartments!: BuildingLocation[];
   projectState!: ProjectState;
   isLoading: boolean = false;
+  showCommonSection: boolean = true;
+  showBuildingSection: boolean = false;
   private subscription:any[] = [];
 
   constructor(private httpsRequestService: HttpsRequestService,
@@ -37,6 +39,16 @@ export class SubprojectComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(): void {
     this.subscription.forEach(sub => sub.unsubscribe());
+  }
+
+  showCommonSectionfunc() {
+    this.showCommonSection = true;
+    this.showBuildingSection = false;
+  }
+
+  showBuildingSectionfunc() {
+    this.showCommonSection = false;
+    this.showBuildingSection = true;
   }
 
   private fetchSubProjectData(projectID: string) {

@@ -1,9 +1,9 @@
 <div class="photo-list scrollable-container">
-  <ul class="image-row">
-    <li *ngFor="let photo of images; let i = index;">
+  <div class="image-row">
+    <div *ngFor="let photo of images; let i = index;">
       <img src="{{ photo }}"  alt="Photo" (click)="openPreviewImage(i)">
-    </li>
-  </ul>
+    </div>
+  </div>
   <div *ngIf="previewImage" class="LightBox">
     <button *ngIf="previewImage" class="close-btn" (click)="closeImagePreview()">
       <span  class="material-symbols-outlined">close</span>

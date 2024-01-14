@@ -11,7 +11,7 @@
 /* Styles for the form header */
 .form-container h2 {
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   color: #333;
 }
 
@@ -43,7 +43,7 @@
 
 /* Styles for the name list */
 .name-list {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .name-list label {
@@ -56,15 +56,65 @@
 }
 
 /* Styles for the dialog actions */
-.mat-dialog-actions {
+mat-dialog-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
-.mat-dialog-actions button {
-  margin-left: 10px;
-}
+// mat-dialog-actions button {
+//   // margin-left: 10px;
+//   height: 30px;
+//   width: 60px;
+//   border-radius: 5px;
+// }
 
 .scrollable-container {
   max-height: 100%;
+}
+
+.save-button,
+.close-button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  margin-bottom: 10px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-button {
+  background-color: #f44336;
+}
+
+// .close-btn 
+// {
+//   background-color: #fff;
+//   color: #ED7C1C;
+//   border-color: #ED7C1C;
+// }
+
+// .save-btn 
+// {
+//   background-color: #ED7C1C;
+//   color: #fff;
+//   border-color: #ED7C1C;
+// }
+
+.close-button-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #797575;
+  font-weight:500;
+  cursor: pointer;
+  z-index: 999;
+}
+.close-button-container :hover{
+  color: #007bff;
+}
+
+.close-icon {
+  font-size: 24px;
+  color: #000;
 }

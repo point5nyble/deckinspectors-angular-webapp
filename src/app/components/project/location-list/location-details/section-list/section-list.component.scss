@@ -11,7 +11,6 @@
   color: orange;
 }
 
-
 .icons {
   display: flex;
   align-items: center;
@@ -19,11 +18,11 @@
 }
 
 .icons i {
-  margin-right: 10px; /* Add spacing between the icons */
+  margin-right: 7px; /* Add spacing between the icons */
 }
 
 .icons span {
-  margin-right: 10px; /* Add space between the plus and bars icons */
+  margin-right: 7px; /* Add space between the plus and bars icons */
 }
 
 .flex-item {
@@ -31,12 +30,13 @@
   display: flex;
   justify-content: space-between;
 }
+
 .header-component{
   display: flex;
   align-items: center;
   justify-content: center;
   height: 72px;
-  border-bottom: solid #ffff 10px;
+  // border-bottom: solid #ffff 10px;
   padding-left: 5px;
 }
 
@@ -47,10 +47,15 @@
   height:40px;
   color:#000000;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 25px;
   border-radius:  8px;
-  background-color: #ffff;
+  background-color: #E8F2FF;
 }
+
+// .header-text
+// {
+//   font-size: 20px;
+// }
 
 button.highlighted {
   background-color: #e0e0e0;
@@ -59,7 +64,7 @@ button.highlighted {
 
 
 .scrollable-container {
-  max-height: 400px;
+  max-height: 870px;
   overflow-y: auto;
   padding-right: 5px;
 }
@@ -82,11 +87,30 @@ button.highlighted {
 
 .fa-plus{
   background:#ED7C1C;
-  width: 20px;
-  height: 20px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   color:white;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.fa-save
+{
+  background:#ED7C1C;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  color:white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loc-icon
+{
+  display: flex;
+  justify-content: space-around;
+  margin-left: 70px;
 }

@@ -1,16 +1,18 @@
 /* form-component.component.css */
 .form-container {
-  width: 450px;
+  width: 520px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   padding: 10px;
 }
+
 h4{
   color: #8B8888;
-  font-weight: 600;
-  font-size: 24px;
+  font-weight: 700;
+  font-size: 25px;
 }
+
 .form-header {
   position:sticky;
   top:0px;
@@ -37,7 +39,7 @@ h4{
 .inside-button-container{
   display: flex;
   gap: 10px;
-  justify-content:space-around;
+  justify-content:space-between;
   margin-top: 10px;
 }
 
@@ -49,6 +51,7 @@ h4{
 .close-button {
   padding: 10px 20px;
   background-color: #4caf50;
+  margin-bottom: 10px;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -68,7 +71,6 @@ h4{
 }
 
 label {
-
   display: block;
   display: flex;
   flex-direction: row;
@@ -142,6 +144,7 @@ textarea {
   top: 5px;
   right: 5px;
   font-size: 18px;
+  margin-bottom: 10px;
   color: #110e0e;
   cursor: pointer;
   z-index: 1; /* Set a higher z-index to make it appear on top */
@@ -163,4 +166,22 @@ textarea {
 .form-errors{
   color: red;
   font-size: small;
+}
+
+.close-button-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #797575;
+  font-weight:500;
+  cursor: pointer;
+  z-index: 999;
+}
+.close-button-container :hover{
+  color: #007bff;
+}
+
+.close-icon {
+  font-size: 24px;
+  color: #000;
 }

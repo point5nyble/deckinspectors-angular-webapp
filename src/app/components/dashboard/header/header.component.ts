@@ -1,18 +1,16 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {NewProjectModalComponent} from "../../../forms/new-project-modal/new-project-modal.component";
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import { Component,  EventEmitter, Output } from '@angular/core';
+import { NewProjectModalComponent } from 'src/app/forms/new-project-modal/new-project-modal.component';
 import { ReplaceFinalreportModalComponent } from 'src/app/forms/replace-finalreport-modal/replace-finalreport-modal.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+
 @Component({
-  selector: 'app-filter',
-  templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
 
-export class FilterComponent {
-  searchTerm!: string;
-  isChecked!: boolean;
-  @Output() searchedTerm = new EventEmitter<string>();
-  @Output() filterCompleted = new EventEmitter<boolean>();
+export class HeaderComponent {
+  showProjectInfo: string = 'home';
   @Output() newProjectUploaded = new EventEmitter<boolean>();
   @Output() fileUploaded = new EventEmitter<boolean>();
   constructor(private dialog: MatDialog) { }
@@ -50,13 +48,5 @@ export class FilterComponent {
         this.fileUploaded.emit(data.uploadStatus);
       }
     })
-  }
-
-  filterNames() {
-      this.searchedTerm.emit(this.searchTerm);
-  }
-
-  filterCompletedProjects(){
-    this.filterCompleted.emit(this.isChecked);
   }
 }

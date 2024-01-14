@@ -1,14 +1,14 @@
 <div class="horizontal-div">
       <div class="profile-section">
           <div class="projectName">
-            <p style="text-transform: capitalize;">{{projectInfo.name }}</p>
-            <div><span class="material-symbols-outlined">calendar_month</span>
+            <p style="text-transform: capitalize">{{projectInfo.name }}</p>
+            <div><span class="material-symbols-outlined" style="font-size: 15px;">calendar_month</span>
               {{formattedDate}}
             </div>
           </div>
           <div class="description">
-            <div style="text-transform: capitalize;">{{projectInfo.projecttype}}&nbsp;</div>
-            <p>{{  projectInfo.address }}</p>
+            <!-- <div style="text-transform: capitalize;">{{projectInfo.projecttype}}&nbsp;</div> -->
+            <p style="font-size: 15px;">{{  projectInfo.address }}</p>
           </div>
       </div>
 
@@ -72,7 +72,7 @@
         <span *ngIf="!projectInfo.iscomplete" class="bi bi-check2-square icon" (click)="markComplete()" title="Mark project complete"></span>
         <span *ngIf="projectInfo.iscomplete" class="bi bi-arrow-repeat icon" (click)="markComplete()" title="Move in progess"></span>
       </div>
-      <div style="margin-left:30px;">
+      <div style="margin-left:50px;">
         <span class="bi bi-trash icon" title="Delete Project" (click)="deleteProject()"></span>
       </div>
 </div>

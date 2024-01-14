@@ -34,7 +34,8 @@
   margin-top:10px;
   display: flex;
   overflow: auto;
-  background-color: #ffff;
+  // background-color: #ffff;
+  background-color:#E8F2FF;
   padding:10px; 
   border-radius: 16px;
 }
@@ -42,13 +43,25 @@
 .section-list {
   display: flex;
   flex-direction: column;
-  max-width:200px;
+  background-color:#E8F2FF;
+  // max-width:200px;
+  max-width: 25%;
   flex: 1;
 }
 
-.location-section div{
+.report-section
+{
+  display: flex;
+  flex-direction: column;
+  background-color:#E8F2FF;
+  // max-width:200px;
+  max-width: 75%;
+  flex: 1;
+}
+
+.location-section{
   display: flex;
   background-color:#E8F2FF;
-  min-width:100%;
+  // min-width:100%;
   border-radius: 16px;
 }

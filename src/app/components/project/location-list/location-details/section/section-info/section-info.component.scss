@@ -1,31 +1,189 @@
-.table {
-  overflow: hidden; /* Hide overflow if table exceeds the container */
-}
-
-tr{
-  max-height: 24px;
-}
-td{
-  color: #525252;
-  font-weight: 400;
-  font-size: 14px;
-}
-p{
-  color:#393838;
-  font-weight:500;
-  font-size: 14px;
-}
-
-.table tbody tr:nth-child(even) {
-  background-color: #ffff; /* Alternate row background color */
-}
-
-.table tbody tr:hover {
-  background-color: #eaf6ff; /* Highlight row on hover */
-}
-
 .scrollable-container {
   border-radius:16px;
   overflow-x: hidden;
-  background-color: #ffff;
+  background-color: #E8F2FF;
 }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 5px;
+  border-radius: 20px;
+  border-bottom: none;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+  padding: 12px;
+  // border: 1px solid #ddd;
+  text-align: left;
+  border-bottom: none;
+}
+
+.table tr
+{
+  border-width: 0px;
+  border-bottom: none;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  border-bottom: none;
+}
+
+.table p {
+  margin: 0;
+  border-bottom: none;
+}
+
+/* Add some space between rows */
+// .table tr:not(:last-child) {
+//   margin-bottom: 10px;
+// }
+
+/* Style Yes/No cells with a badge */
+.table td.yes, .table td.no {
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: none;
+}
+
+.table td.yes {
+  color: #28a745;
+  background-color: #d4edda;
+  border-bottom: none;
+}
+
+.table td.no {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border-bottom: none;
+}
+
+.header
+{
+  margin-top: 10px;
+}
+
+.centre
+{
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.bool
+{
+  margin-right: 10px;
+}
+
+.lyf
+{
+  margin-left: 10px;
+}
+
+.first-row
+{
+  display: flex;
+  background-color: #E8F2FF;
+  padding: 0px;
+}
+
+.bool-left
+{
+  width: 75%;
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.bool-right{
+  width: 25%;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.lyf-left
+{
+  width: 75%;
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.lyf-right{
+  width: 25%;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.element-left
+{
+  width: 25%;
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.element-right{
+  width: 75%;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.con-left
+{
+  width: 25%;
+  font-size: 18px;
+  font-weight: 650;
+  align-items: center;
+}
+
+
+.con-right{
+  width: 75%;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.lyf-right-text {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.bool-right-text {
+  display: inline-block;
+  width: 80px;
+  padding: 4px 8px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  // background-color: #f7f368;
+}
+
+.element-right-text {
+  display: inline-block;
+  padding: 4px 8px;
+  margin: 3px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #ffbd83;
+}
+
+/* Responsive styling for smaller screens */
+@media screen and (max-width: 600px) {
+  .table td, .table th {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .table p {
+    font-size: 16px;
+  }
+}
+
+
