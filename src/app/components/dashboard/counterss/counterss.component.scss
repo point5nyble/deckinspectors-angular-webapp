@@ -1,11 +1,12 @@
 /* counters.component.scss */
 
 .statistics-section {
+  width: 50%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   // margin-top: 20px;
-  padding: 10px;
+  // padding: 10px;
   background-color: #ffff;
   // border: 1px solid #ccc;
 }
@@ -18,7 +19,7 @@
 
 .counter-item p {
   margin: 0;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 // .counter-item span {
@@ -30,24 +31,16 @@
 {
   display: block; /* Make the number appear on a new line */
   font-weight: bold; 
-  font-size: 30px;
+  font-size: 25px;
   color: #ED7C1C;
 }
-
-
-// .project-container{
-//   display: flex;
-//   flex: 1;
-//   overflow: hidden;
-//   padding: 10px;
-//   justify-content: space-between;
-// }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 0px;
+  padding-bottom: 10px;
 }
 
 .header-buttons{
@@ -97,13 +90,13 @@
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  color: #ED7C1C;
+  color: white;
   font-weight: bold;
   width:124px;
   height:50px;
   margin-bottom: 0px;
   margin-right: 20px;
-  background-color: #ffff;
+  background-color: #ED7C1C;
 }
 
 

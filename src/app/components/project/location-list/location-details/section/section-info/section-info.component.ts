@@ -68,11 +68,69 @@ export class SectionInfoComponent {
 
   getBackgroundColorBool(column1Value: any, column2Value: any): string {
     // Add logic to determine the color based on column2Value
-    if(column1Value === "Unit Unavailable")
-    {
+    if (column1Value === 'Unit Unavailable') {
       return '#70df8a';
-    }
-    else if (
+    } else if (
+      column1Value === 'Visual Signs of Leak' &&
+      (column2Value === true ||
+        column2Value === 'True' ||
+        column2Value === 'true' ||
+        column2Value == 'Pass' ||
+        column2Value == 'Yes' ||
+        column2Value == 'yes')
+    ) {
+      return '#ee7d7d';
+    } else if (
+      column1Value === 'Visual Signs of Leak' &&
+      (column2Value === false ||
+        column2Value === 'False' ||
+        column2Value === 'false' ||
+        column2Value === 'Fail' ||
+        column2Value == 'No' ||
+        column2Value == 'no')
+    ) {
+      return '#70df8a';
+    } else if (
+      column1Value === 'Further Invasive Review Required' &&
+      (column2Value === true ||
+        column2Value === 'True' ||
+        column2Value === 'true' ||
+        column2Value == 'Pass' ||
+        column2Value == 'Yes' ||
+        column2Value == 'yes')
+    ) {
+      return '#ee7d7d';
+    } else if (
+      column1Value === 'Further Invasive Review Required' &&
+      (column2Value === false ||
+        column2Value === 'False' ||
+        column2Value === 'false' ||
+        column2Value === 'Fail' ||
+        column2Value == 'No' ||
+        column2Value == 'no')
+    ) {
+      return '#70df8a';
+    } else if (
+      column1Value === 'Post Invasive Repairs Required' &&
+      (column2Value === true ||
+        column2Value === 'True' ||
+        column2Value === 'true' ||
+        column2Value == 'Pass' ||
+        column2Value == 'Yes' ||
+        column2Value == 'yes')
+    ) {
+      return '#ee7d7d';
+    } else if (
+      column1Value === 'Post Invasive Repairs Required' &&
+      (column2Value === false ||
+        column2Value === 'False' ||
+        column2Value === 'false' ||
+        column2Value === 'Fail' ||
+        column2Value == 'No' ||
+        column2Value == 'no')
+    ) {
+      return '#70df8a';
+    } else if (
       column2Value === true ||
       column2Value === 'True' ||
       column2Value === 'true' ||

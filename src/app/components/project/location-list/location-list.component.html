@@ -1,12 +1,10 @@
 <div class="horizontal-div full-height">
   <div class="header-component">
-    <div class="icons">
-      <button (click)="openLocationModal()" class="header-icon">Add
-        <span class="fa-solid fa-plus"></span></button>
-
-      <button (click)="save()" class="header-icon">Save
-        <span class="fa-solid fa-floppy-disk"></span></button>
-    </div>
+    <span class="icons">
+      <span class="mr-3 cursor-pointer icon"><i class="fas fa-plus"
+          (click)="openLocationModal()"></i></span>
+      <span class="cursor-pointer icon"><i class="fas fa-save icon" (click)="save()"></i></span>
+    </span>
   </div>
 
   <div *ngIf="isDeleteSuccess">
