@@ -14,6 +14,7 @@ h6{
   margin: 5px;
 }
 
+
 .flex-item {
     flex: 1;
 }
@@ -23,9 +24,11 @@ h6{
   text-align: center;
 }
 
+
 .edit-btn {
   font-size: 24px;
 }
+
 
 .edit-button:hover{ 
   cursor: pointer;
@@ -79,6 +82,7 @@ button.highlighted {
   justify-content: flex-end;
   background-color: #E8F2FF;
   height: 72px;
+  // border-bottom: solid #ffff 10px;
   // border-bottom: solid #ffff 10px;
   padding: 10px;
   border-top-right-radius:16px;
@@ -173,6 +177,7 @@ button.highlighted {
   margin-bottom: 7px;
   margin-right:7px;
 }
+
 
 .locationsectioninformation{
   border-radius: 15px;

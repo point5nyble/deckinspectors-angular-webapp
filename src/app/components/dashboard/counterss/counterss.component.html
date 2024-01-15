@@ -1,49 +1,20 @@
-<!-- counters.component.html
-
-<div class="statistics-section">
-  <div class="counter-item">
-    <p>Total Projects</p>
-    <span class="stat-num">{{ totalProjects }}</span>
-  </div>
-  <div class="counter-item">
-    <p>Completed Projects</p>
-    <span class="stat-num">{{ completedProjects }}</span>
-  </div>
-  <div class="counter-item">
-    <p>Ongoing Projects</p>
-    <span class="stat-num">{{ ongoingProjects }}</span>
-  </div>
-</div> -->
-
-
 <!-- <p>header works!</p> -->
+<div>
   <div class="header">
-
-    <!-- <div *ngIf="showProjectInfo === 'home'" class="AllProjectAndRefresh">
-      <div class="AllProject">All Projects</div>
-    </div> -->
-
-    <!-- <app-counterss
-      [totalProjects]="totalProjects"
-      [completedProjects]="completedProjects"
-      [ongoingProjects]="ongoingProjects"
-    ></app-counterss> -->
-
-    <div class="statistics-section">
-      <div class="counter-item">
-        <p>Total Projects</p>
-        <span class="stat-num">{{ totalProjects }}</span>
+      <div class="statistics-section">
+        <div class="counter-item">
+          <p>Total Projects</p>
+          <span class="stat-num">{{ totalProjects }}</span>
+        </div>
+        <div class="counter-item">
+          <p>Completed Projects</p>
+          <span class="stat-num">{{ completedProjects }}</span>
+        </div>
+        <div class="counter-item">
+          <p>Ongoing Projects</p>
+          <span class="stat-num">{{ ongoingProjects }}</span>
+        </div>
       </div>
-      <div class="counter-item">
-        <p>Completed Projects</p>
-        <span class="stat-num">{{ completedProjects }}</span>
-      </div>
-      <div class="counter-item">
-        <p>Ongoing Projects</p>
-        <span class="stat-num">{{ ongoingProjects }}</span>
-      </div>
-    </div>
-
 
     <div class="header-buttons">
       <button (click)="replaceFinalReportTemplate()" class="replaceFinalReportTemplate"
@@ -59,3 +30,4 @@
     </div>
 
   </div>
+</div>

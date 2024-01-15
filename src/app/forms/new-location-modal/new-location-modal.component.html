@@ -3,6 +3,9 @@
   <div class="close-button-container">
     <span class="close-icon" (click)="close()">&#10005;</span>
   </div>
+  <div class="close-button-container">
+    <span class="close-icon" (click)="close()">&#10005;</span>
+  </div>
   <form [formGroup]="newLocationForm" class="modal-form">
     <div class="form-group">
       <label class="form-label">{{ isSubProject ? 'Building Name:' :header==='Project Common Location'?'Project Common Location:':(header==="Building Common Location")?"Building Common Location":"Building Name:"}}</label>

@@ -2,14 +2,7 @@
   <table class="table ">
     <tbody>
       <ng-container *ngIf="rows.length > 1 && rows[1].column2 === true">
-        <!-- <tr>
-          <td>
-            <p>{{ rows[0].column1 }}</p>
-          </td>
-          <td>{{ rows[0].column2 === "True" || rows[0].column2 === "true" || rows[0].column2 === true ? "Yes" :
-            rows[0].column2 === "False" || rows[0].column2 === "false" || rows[0].column2 === false ? "No" :
-            rows[0].column2 }}</td>
-        </tr> -->
+
         <table class="table header">
           <tbody>
             <ng-container *ngFor="let row of rows; let i = index">
@@ -21,15 +14,6 @@
             </ng-container>
           </tbody>
         </table>
-
-        <!-- <tr>
-          <td>
-            <p>{{ rows[1].column1 }}</p>
-          </td>
-          <td>{{ rows[1].column2 === "True" || rows[1].column2 === "true" || rows[1].column2 === true ? "Yes" :
-            rows[1].column2 === "False" || rows[1].column2 === "false" || rows[1].column2 === false ? "No" :
-            rows[1].column2 }}</td>
-        </tr> -->
 
         <table class="table bool">
           <tbody>
@@ -48,7 +32,6 @@
             </ng-container>
           </tbody>
         </table>
-
 
         <table class="table con">
           <tbody>

@@ -1,5 +1,6 @@
 .horizontal-div {
   width: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   border-radius: 16px;
@@ -13,10 +14,15 @@
 
 .header-component {
   width: 100%;
+  width: 100%;
   display: flex;
+  justify-content: centre;
   justify-content: centre;
   align-items: center;
   margin-bottom: 10px;
+  // width:520;
+  height: 50px;
+  background-color: #E8F2FF;
   // width:520;
   height: 50px;
   background-color: #E8F2FF;
@@ -29,13 +35,20 @@
 //   font-size: 25px;
 // }
 
+// .header-text
+// {
+//   font-size: 25px;
+// }
+
 .flex-item {
   flex: 1;
 }
 
 .flex-item div{
   // font-size: 18px;
+  // font-size: 18px;
   color: #000000;
+  font-weight: 600;
   font-weight: 600;
 }
 
@@ -118,7 +131,115 @@
   border-radius: 16PX;
 }
 
+.header-icon
+{
+  width: 120px;
+  height: 50px;
+  margin-right: 5px;
+  border-radius: 5px;
+  border-color: #ED7C1C;
+  color: #FFFFFF;
+  background-color:#ED7C1C;
+  font-size: 18.2px;
+}
+
+.header-icon:hover{
+  background-color:#ED7C1C;
+  color: #FFFFFF;
+}
+
+// .fa-plus{
+//   background:#ED7C1C;
+//   width: 20px;
+//   height: 20px;
+//   border-radius: 50%;
+//   color:white;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+
+// .scrollable-container {
+//   max-width: 1300px;
+//   height: auto;
+//   display: flex;
+//   flex-wrap: nowrap;
+//   overflow-x: auto;
+//   overflow-y: hidden;
+//   scroll-behavior: smooth;
+//   -webkit-overflow-scrolling: touch;
+// }
+
+// .scrollable-container::-webkit-scrollbar {
+//   margin-top: 10px;
+//   height: 12px;
+// }
+
+// /* Handle on hover */
+// .scrollable-container::-webkit-scrollbar-thumb:hover {
+//   background: #555;
+// }
+
+// /* Handle */
+// .scrollable-container::-webkit-scrollbar-thumb {
+//   background: #888;
+//   border-radius: 6px;
+// }
+
+// /* Track */
+// .scrollable-container::-webkit-scrollbar-track {
+//   background: #f1f1f1;
+// }
+
+// /* Handle on drag */
+// .scrollable-container::-webkit-scrollbar-thumb:active {
+//   background-color: #555;
+// }
+
+// .cdk-drag-preview {
+//   box-sizing: border-box;
+//   border-radius: 4px;
+//   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+//               0 8px 10px 1px rgba(0, 0, 0, 0.14),
+//               0 3px 14px 2px rgba(0, 0, 0, 0.12);
+// }
+
+// .cdk-drag-placeholder {
+//   opacity: 0;
+// }
+
+// .cdk-drag-animating {
+//   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+// }
+
+.card-container
+{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.card-container:hover
+{
+  cursor: pointer;
+}
+
+.locationInfo{
+  // background-color:#E8F2FF;
+  // border:hidden;
+  // border-radius: 16PX;
+  display: flex;
+  justify-content: normal;
+  flex-wrap: wrap;
+  background-color:#E8F2FF;
+  border:hidden;
+  border-radius: 16PX;
+}
+
 .scrollable-container {
+  width: 100%;
   width: 100%;
   max-height: 400px;
   overflow-y: auto;
