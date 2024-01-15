@@ -10,6 +10,25 @@
   margin-top: 5px;
   border-radius: 20px;
   border-bottom: none;
+  border-style: none;
+}
+
+tbody, td, tfoot, th, thead, tr {
+  border-color: inherit;
+  border-width: 0;
+}
+
+.un-left
+{
+  width: 30%;
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.un-right{
+  width: 70%;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .table td, .table th {

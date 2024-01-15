@@ -166,7 +166,7 @@ export class SectionComponent implements OnInit{
       eeeconclusive: "EEE Conclusive",
       lbcconclusive: "LBC Conclusive",
       invasiverepairsinspectedandcompleted:"Invasive Repairs Inspected and Completed",
-      propowneragreed:"Prop Owner Agreed"
+      propowneragreed:"Property Owner Agreed"
 
     };
   }

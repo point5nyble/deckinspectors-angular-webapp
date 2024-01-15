@@ -3,6 +3,10 @@
     <div class="flex-item"><b>{{ projectName }}</b></div>
   </div>
 
+  <div class="close-button-container">
+    <span class="close-icon" (click)="close()">&#10005;</span>
+  </div>
+
   <div>
     <!-- Navigation Links -->
     <span (click)="showSection('e3inspections')" [ngClass]="{ 'highlight': activeSection === 'e3inspections' }">E3 Inspections</span>
@@ -65,7 +69,7 @@
     </div>
   </div>
 
-  <mat-dialog-actions class="button-container">
+  <!-- <mat-dialog-actions class="button-container">
     <button class="mat-raised-button close-button" (click)="close()">Close</button>
-  </mat-dialog-actions>
+  </mat-dialog-actions> -->
 </div>

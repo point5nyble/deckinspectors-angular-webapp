@@ -7,11 +7,10 @@
     <!-- <span *ngIf="isSubProject && isAdmin" class="bi bi-person-circle icon assignUser" (click)="openAssignProjectModal()" title="Assign users to project"></span> -->
 
     <div class="row-container">
-      
       <div class="sqn-num">
-        <p class="number">{{ location.sequenceNo}}</p>
+        <p class="number">{{ (location.sequenceNo !== undefined ? (+location.sequenceNo + 1) : "") }}</p>
       </div>
-
+      
       <div class="delete-btn">
         <span *ngIf="isSubProject" class="bi bi-trash icon" title="Delete Building" (click)="deleteProject()"></span>
         <span *ngIf="!isSubProject" class="bi bi-trash icon" title="Delete Location" (click)="deleteProject()"></span>

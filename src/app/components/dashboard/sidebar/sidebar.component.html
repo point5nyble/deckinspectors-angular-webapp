@@ -5,7 +5,7 @@
         <img src="../../../assets/images/image_1.png" alt="Bootstrap" width="60" height="60">
       </a>
       <ul class="nav nav-underline">
-        <li class="nav-item left" (click)="activateLink($event)">
+        <li class="nav-item left">
           <a class="nav-link" routerLink="/dashboard" routerLinkActive="active" (click)="gotoHome()">
             Projects
           </a>
@@ -33,10 +33,12 @@
             <p class="name">{{ name }}</p>
             <p class="role">{{ role }}</p>
           </span>
-          <a class="nav-link sign-out-btn" routerLink="/login" routerLinkActive="active" (click)="logout()">
-            <i class="material-symbols-outlined">logout</i>
-            <span>&nbsp;Sign Out</span>
-          </a>
+          <div class="so-btn">
+            <button class="nav-link sign-out-btn" routerLink="/login" routerLinkActive="active" (click)="logout()">
+              <i class="material-symbols-outlined">logout</i>
+              <span>&nbsp;Sign Out</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

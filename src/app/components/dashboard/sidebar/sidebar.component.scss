@@ -4,6 +4,7 @@
   margin-left: 60px;
   margin-right: 60px;
   background-color: #FFFFFF;
+  z-index: 1;
 }
 
 a {
@@ -54,7 +55,7 @@ a {
 }
 
 .user-details p {
-  line-height: 1;
+  line-height: 1.25;
   font-size: 18px;
 }
 
@@ -76,15 +77,17 @@ a {
 {
   align-items: center;
   margin-left: 10px;
-  margin-top: 10px;
-  font-size: 18px;
+  margin-top: 7px;
+  font-size: 20px;
 }
 
 .user-icon {
-  height: 50px;
-  width: 50px;
-  font-size: 45px;
-  border-style: groove;
+  height: 42px;
+  width: 42px;
+  font-size: 37px;
+  font-weight: 200;
+  // border-style: solid;
+  border: 1px solid;
   border-radius: 100%;
   align-items: center;
   margin: 0px auto; /* Add this to center the icon horizontally */
@@ -107,11 +110,12 @@ a {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 160px;
+  min-width: 180px;
+  min-height: 150px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   text-align: center;
-  padding: 10px;
+  padding: 15px;
 }
 
 .dropdown-content a {
@@ -128,12 +132,15 @@ a {
 .sign-out-btn
 {
   display: flex;
+  justify-content: center;
   color: #FFFFFF;
+  height: 30px;
+  width: 100px;
   background-color: #ED7C1C;
   border-radius: 8px;
-  margin-top: 10px;
+  margin-top: 20px;
   align-items: center;
-  height: 50px;
+  height: 40px;
 }
 
 .sign-out-btn span
@@ -141,7 +148,7 @@ a {
   font-size: 15px;
   color: #FFFFFF;
   align-items: center;
-  margin-bottom: 10px;
+  // margin-bottom: 10px;
   margin-left: 5px;
 }
 
@@ -151,4 +158,10 @@ a {
   color: #FFFFFF;
   align-items: center;
   // margin-top: 5px;
+}
+
+.so-btn
+{
+  display: flex;
+  justify-content: center;
 }

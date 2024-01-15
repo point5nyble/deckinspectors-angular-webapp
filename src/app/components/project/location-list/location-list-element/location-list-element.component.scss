@@ -30,6 +30,9 @@
 .card-text
 {
   margin-left: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-body {
@@ -64,7 +67,7 @@
 {
   color: black;
   margin-bottom: 0px;
-  font-size: 25px;
+  font-size: 18px;
 }
 
 .row-container {
@@ -77,6 +80,7 @@
   display: flex;
   align-items: center; /* Align items vertically in the center */
 }
+
 
 .card {
   transition: transform .5s;
