@@ -19,7 +19,7 @@
 
 .counter-item p {
   margin: 0;
-  font-size: 18px;
+  font-size: 13px;
 }
 
 // .counter-item span {
@@ -31,7 +31,7 @@
 {
   display: block; /* Make the number appear on a new line */
   font-weight: bold; 
-  font-size: 25px;
+  font-size: 16px;
   color: #ED7C1C;
 }
 
@@ -48,6 +48,11 @@
   justify-content: space-between;
   align-items: center;
   // margin-left: 500px;
+}
+
+.header-buttons h6
+{
+  font-size: 12px;
 }
 
 .AllProjectAndRefresh {
@@ -79,8 +84,8 @@
   background-color: #ED7C1C;
   border-radius: 8px;
   color: white;
-  width:124px;
-  height:50px;
+  width:84px;
+  height:30px;
   margin-bottom: 0px;
 }
 
@@ -92,8 +97,10 @@
   border-radius: 8px;
   color: white;
   font-weight: bold;
-  width:124px;
-  height:50px;
+  // width:124px;
+  // height:50px;
+  width:84px;
+  height:30px;
   margin-bottom: 0px;
   margin-right: 20px;
   background-color: #ED7C1C;

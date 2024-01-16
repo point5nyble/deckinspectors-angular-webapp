@@ -24,12 +24,12 @@
 .nav-button {
   display: inline-flex;
   align-items: center;
-  font-size: 16px;
-  padding: 10px 15px;
+  // font-size: 16px;
+  padding: 7px 10px;
   border: none;
   background-color: #ED7C1C;
   color: #FFFFFF;
-  font-size: 15px;
+  font-size: 10px;
   font-weight: 500;
   cursor: pointer;
   border-radius: 5px;
@@ -44,7 +44,7 @@
 
 .back-text
 {
-  font-size: 15px;
+  font-size: 10px;
   margin-left: 10px;
 }
 
@@ -77,13 +77,13 @@
 }
 
 .invasiveBtn{
-  width:138px;
-  height:50px;
+  width:100px;
+  height:30px;
   margin-top:10px;
   background-color:#ED7C1C;
   border-radius: 8px;
   border-color: #ED7C1C;
-  font-size: 18.2px;
+  font-size: 12px;
   font-weight: 500;
   color: #FFFFFF;
 }
@@ -161,13 +161,13 @@
 //   border-radius: 8px;
 // }
 .edit_icon button{
-  width:188px;
-  height:50px;
+  width:120px;
+  height:30px;
   margin-top:10px;
   background-color:#FFFFFF;
   border-radius: 8px;
   border-color: #ED7C1C;
-  font-size: 18.2px;
+  font-size: 12px;
   font-weight: 500;
   color: #ED7C1C;
 }
@@ -228,7 +228,7 @@
   margin-top: 10px;
   // border-radius: 20px;
   // border: 5px solid; /* You can set border color */
-  height: 300px;
+  height: 200px;
   // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   // box-shadow: 10px 10px 5px lightblue; /* Add shadow effect */
 }
@@ -261,9 +261,9 @@
 
 .user-icon
 {
-  height: 35px;
-  width: 35px;
-  font-size: 30px;
+  height: 25px;
+  width: 25px;
+  font-size: 20px;
   border-style: solid;
   border-width: 1.75px;
   border-radius: 100%;
@@ -288,14 +288,14 @@
 
 .user-details {
   margin-left: 10px;
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 400; /* Adjust the margin as needed */
 }
 
 .project-date {
   display: flex;
   align-items: center;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 400; 
   margin-left: 20px;/* Adjust the font size for the date */ /* Add your preferred color */
 }

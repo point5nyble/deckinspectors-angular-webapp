@@ -30,7 +30,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   currentSelectedItem: string = '';
   objectMap = new Map<string, any>();
   loadingScreen: boolean = true;
-  collapsed: boolean = false;
+  collapsed: boolean = true;
   private projectState: ProjectState = ProjectState.VISUAL;
   currentProject!: any;
 

@@ -18,11 +18,11 @@
 }
 
 .icons i {
-  margin-right: 7px; /* Add spacing between the icons */
+  margin-right: 5px; /* Add spacing between the icons */
 }
 
 .icons span {
-  margin-right: 7px; /* Add space between the plus and bars icons */
+  margin-right: 5px; /* Add space between the plus and bars icons */
 }
 
 .flex-item {
@@ -31,11 +31,17 @@
   justify-content: space-between;
 }
 
+.header-text
+{
+  display: flex;
+  justify-content: space-between;
+}
+
 .header-component{
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 72px;
+  height: 52px;
   width: 100%;
   // min-width: 300px;
   // border-bottom: solid #ffff 10px;
@@ -49,7 +55,7 @@
   height:40px;
   color:#000000;
   font-weight: 700;
-  font-size: 25px;
+  font-size: 18px;
   border-radius:  8px;
   background-color: #E8F2FF;
 }
@@ -89,30 +95,38 @@ button.highlighted {
 
 .fa-plus{
   background:#ED7C1C;
-  width: 45px;
-  height: 45px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   color:white;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 15px;
 }
 
 .fa-save
 {
   background:#ED7C1C;
-  width: 45px;
-  height: 45px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   color:white;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 15px;
 }
 
 .loc-icon
 {
   display: flex;
   justify-content: space-around;
-  margin-left: 70px;
+  // margin-left: 70px;
+}
+
+.location-txt
+{
+  margin-bottom: 0px;
+  margin-top: 5px;
 }

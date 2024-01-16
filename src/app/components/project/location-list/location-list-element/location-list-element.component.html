@@ -1,6 +1,6 @@
-<div class="card" style="width: 18rem;">
+<div class="card" style="width: 12rem;">
   <img #img [src]="location.url" (error)="img.src = '../../../assets/images/image_1.png'" class="card-img"
-    style="height: 240px; width: 340;">
+    style="height: 160px; width: 240;">
   <div class="card-body">
     <h5 class="locationName card-title">{{ location.name }}</h5>
     <p class="card-text">&nbsp;{{ location.description ? location.description : 'No description' }}</p>
@@ -16,8 +16,5 @@
         <span *ngIf="!isSubProject" class="bi bi-trash icon" title="Delete Location" (click)="deleteProject()"></span>
       </div>
     </div>
-
-
-
   </div>
 </div>

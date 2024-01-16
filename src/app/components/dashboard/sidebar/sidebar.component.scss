@@ -10,7 +10,7 @@
 a {
   font-weight: 700;
   color: #ED7C1C;
-  font-size: 20px;
+  font-size: 15px;
   // margin-top: 20px;
 }
 
@@ -56,7 +56,7 @@ a {
 
 .user-details p {
   line-height: 1.25;
-  font-size: 18px;
+  font-size: 12px;
 }
 
 .left-section
@@ -78,13 +78,13 @@ a {
   align-items: center;
   margin-left: 10px;
   margin-top: 7px;
-  font-size: 20px;
+  font-size: 12px;
 }
 
 .user-icon {
-  height: 42px;
-  width: 42px;
-  font-size: 37px;
+  height: 32px;
+  width: 32px;
+  font-size: 27px;
   font-weight: 200;
   // border-style: solid;
   border: 1px solid;
@@ -110,12 +110,12 @@ a {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 180px;
-  min-height: 150px;
+  min-width: 120px;
+  min-height: 90px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
   text-align: center;
-  padding: 15px;
+  padding: 10px;
 }
 
 .dropdown-content a {
@@ -134,27 +134,26 @@ a {
   display: flex;
   justify-content: center;
   color: #FFFFFF;
-  height: 30px;
-  width: 100px;
+  height: 25px;
+  width: 70px;
   background-color: #ED7C1C;
-  border-radius: 8px;
-  margin-top: 20px;
+  border-radius: 4px;
+  margin-top: 10px;
   align-items: center;
-  height: 40px;
 }
 
 .sign-out-btn span
 {
-  font-size: 15px;
+  font-size: 12px;
   color: #FFFFFF;
   align-items: center;
   // margin-bottom: 10px;
-  margin-left: 5px;
+  margin-left: 2px;
 }
 
 .sign-out-btn i
 {
-  font-size: 15px;
+  font-size: 12px;
   color: #FFFFFF;
   align-items: center;
   // margin-top: 5px;
