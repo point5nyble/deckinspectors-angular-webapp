@@ -10,7 +10,7 @@ export class SectionInfoComponent {
   constructor() {}
 
   getFormattedColumn2Value(column2Value: any): string {
-    console.log(column2Value);
+    // console.log(column2Value);
     if (
       column2Value === true ||
       column2Value === 'True' ||

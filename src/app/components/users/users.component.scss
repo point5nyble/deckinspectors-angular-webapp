@@ -106,7 +106,7 @@
   border: 1px solid silver;
   height: 50px;
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 12px;
   // position: fixed;
   background-color: #ffff;
 }
@@ -145,7 +145,7 @@
   justify-content: flex-start;
   align-items: center;
   text-transform: capitalize;
-  font-size: 1.2rem;
+  font-size: 12px;
   overflow: hidden;
 }
 
@@ -174,8 +174,8 @@
 
 input[type="text"] {
   margin-left: 1px;
-  width: 290px;
-  height: 50px;
+  width: 250px;
+  height: 35px;
   border: solid #a8a4a4 1px;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
@@ -189,7 +189,7 @@ input[type="text"] {
   align-items: center;
   justify-content: center;
   width: 44px;
-  height: 50px;
+  height: 35px;
   color: #666666;
   border: solid #a8a4a4 1px;
   border-top-right-radius: 8px;

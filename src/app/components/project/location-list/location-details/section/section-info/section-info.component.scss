@@ -8,6 +8,7 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 5px;
+  margin-bottom: 7.5px;
   border-radius: 20px;
   border-bottom: none;
   border-style: none;
@@ -21,13 +22,13 @@ tbody, td, tfoot, th, thead, tr {
 .un-left
 {
   width: 30%;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 650;
 }
 
 .un-right{
   width: 70%;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 600;
 }
 
@@ -88,19 +89,19 @@ tbody, td, tfoot, th, thead, tr {
 
 .centre
 {
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 700;
   text-align: center;
 }
 
 .bool
 {
-  margin-right: 10px;
+  margin-right: 7.5px;
 }
 
 .lyf
 {
-  margin-left: 10px;
+  margin-left: 7.5px;
 }
 
 .first-row
@@ -113,46 +114,46 @@ tbody, td, tfoot, th, thead, tr {
 .bool-left
 {
   width: 75%;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 650;
 }
 
 .bool-right{
   width: 25%;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 600;
 }
 
 .lyf-left
 {
-  width: 75%;
-  font-size: 18px;
+  width: 70%;
+  font-size: 12px;
   font-weight: 650;
 }
 
 .lyf-right{
-  width: 25%;
-  font-size: 18px;
+  width: 30%;
+  font-size: 12px;
   font-weight: 600;
 }
 
 .element-left
 {
   width: 25%;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 650;
 }
 
 .element-right{
   width: 75%;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 600;
 }
 
 .con-left
 {
   width: 25%;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 650;
   align-items: center;
 }
@@ -160,7 +161,7 @@ tbody, td, tfoot, th, thead, tr {
 
 .con-right{
   width: 75%;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 600;
 }
 
@@ -168,7 +169,7 @@ tbody, td, tfoot, th, thead, tr {
   display: inline-block;
   padding: 4px 8px;
   border-radius: 16px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
 }
 
@@ -177,7 +178,7 @@ tbody, td, tfoot, th, thead, tr {
   width: 80px;
   padding: 4px 8px;
   border-radius: 16px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   text-align: center;
   // background-color: #f7f368;
@@ -188,7 +189,7 @@ tbody, td, tfoot, th, thead, tr {
   padding: 4px 8px;
   margin: 3px;
   border-radius: 16px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   background-color: #ffbd83;
 }

@@ -24,12 +24,12 @@
 .nav-button {
   display: inline-flex;
   align-items: center;
-  font-size: 16px;
-  padding: 10px 15px;
+  // font-size: 16px;
+  padding: 7px 10px;
   border: none;
   background-color: #ED7C1C;
   color: #FFFFFF;
-  font-size: 15px;
+  font-size: 10px;
   font-weight: 500;
   cursor: pointer;
   border-radius: 5px;
@@ -44,7 +44,7 @@
 
 .back-text
 {
-  font-size: 15px;
+  font-size: 10px;
   margin-left: 10px;
 }
 
@@ -77,13 +77,13 @@
 }
 
 .invasiveBtn{
-  width:138px;
-  height:50px;
+  width:100px;
+  height:30px;
   margin-top:10px;
   background-color:#ED7C1C;
   border-radius: 8px;
   border-color: #ED7C1C;
-  font-size: 18.2px;
+  font-size: 12px;
   font-weight: 500;
   color: #FFFFFF;
 }
@@ -149,25 +149,14 @@
   border-radius: 8px;
 }
 
-// .edit_icon span
-// {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   width: 44px;
-//   height: 40px;
-//   color:#646161;
-//   background-color: #FFFFFF;
-//   border-radius: 8px;
-// }
 .edit_icon button{
-  width:188px;
-  height:50px;
+  width:120px;
+  height:30px;
   margin-top:10px;
   background-color:#FFFFFF;
   border-radius: 8px;
   border-color: #ED7C1C;
-  font-size: 18.2px;
+  font-size: 12px;
   font-weight: 500;
   color: #ED7C1C;
 }
@@ -182,21 +171,10 @@
   box-shadow:2px 2px 3px lightblue;
 }
 
-// .DescriptionLocation{
-//   font-size: 25px;
-//   font-weight: 500;
-// }
-
-// .DescriptionBoxLocation{
-//   padding:5px;
-//   font-size: 25px;
-//   font-weight: 500;
-// }
-
 .card-img
 {
   width: 100%;
-  padding: 20px;
+  padding: 5px;
   height: 100%;
   object-fit: cover; 
 }
@@ -208,19 +186,6 @@
   position: relative;
 }
 
-// .card
-// {
-//   // max-width: 1000px;
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   border-radius: 20px;
-//   border-style: solid;
-//   border-width: 5px;
-//   height: 300px;
-//   // justify-content: ;
-// }
-
 .card {
   display: flex;
   flex-direction: row;
@@ -228,7 +193,7 @@
   margin-top: 10px;
   // border-radius: 20px;
   // border: 5px solid; /* You can set border color */
-  height: 300px;
+  height: 200px;
   // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   // box-shadow: 10px 10px 5px lightblue; /* Add shadow effect */
 }
@@ -256,14 +221,14 @@
 
 .card-text
 {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .user-icon
 {
-  height: 35px;
-  width: 35px;
-  font-size: 30px;
+  height: 25px;
+  width: 25px;
+  font-size: 20px;
   border-style: solid;
   border-width: 1.75px;
   border-radius: 100%;
@@ -280,24 +245,21 @@
   align-items: center;
 }
 
-// .material-symbols-outlined {
-//   /* Assuming you are using a custom font for the material symbols */
-//   font-family: 'Material Icons'; /* Add your font family */
-//   font-size: 24px; /* Adjust the size as needed */
-// }
-
 .user-details {
   margin-left: 10px;
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 400; /* Adjust the margin as needed */
 }
 
 .project-date {
   display: flex;
   align-items: center;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 400; 
   margin-left: 20px;/* Adjust the font size for the date */ /* Add your preferred color */
 }
 
-
+.card-btns
+{
+  margin-bottom: 10px;
+}

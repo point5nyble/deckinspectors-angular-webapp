@@ -74,7 +74,7 @@ export class SectionComponent implements OnInit{
   private findOutConclusiveSectionStatus(sectionId: string) {
     // console.log(sectionId)
     if (sectionId === undefined || sectionId === '') {
-        console.log("one");
+        // console.log("one");
         return;
     }
     let url = environment.apiURL + '/invasivesection/getInvasiveSectionByParentId';
@@ -208,7 +208,7 @@ export class SectionComponent implements OnInit{
       this.images = this.sectionReport?.images;
     }
 
-    console.log(this.rows);
+    // console.log(this.rows);
   }
 
   deleteElementFromArray(arr: any[], valueToDelete: string): any[] {

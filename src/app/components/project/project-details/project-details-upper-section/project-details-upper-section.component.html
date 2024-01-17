@@ -43,7 +43,7 @@
           {{projectInfo.type==="project"? "Project Name":projectInfo.type==="subproject"?"Building
           Name":projectInfo.type==="apartment"?"Apartment Name":"Location Name"}}
         </p> -->
-        <div class="info-heading h2">
+        <div class="info-heading h5">
           {{ projectInfo.name }}
         </div>
       </div>
@@ -52,7 +52,7 @@
         <div class="Description" *ngIf="projectType !== 'location'">
           <!-- <p>Description</p> -->
           <div class="DescriptionBox">
-            <p class="h5">
+            <p class="h6">
               {{ projectInfo.description }}
             </p>
           </div>
@@ -61,14 +61,14 @@
         <div class="DescriptionLocation" *ngIf="projectType === 'location'">
           <!-- <p>Description</p> -->
           <div class="DescriptionBoxLocation">
-            <p class="description h5">{{ projectInfo.description }}</p>
+            <p class="description h6">{{ projectInfo.description }}</p>
           </div>
         </div>
 
         <div class="Address" *ngIf="projectType !== 'location'">
           <!-- <p>Address</p> -->
           <div class="AddressBox">
-            <p class="address h5" style="margin-bottom: 10px;">{{ projectInfo.address }}</p>
+            <p class="address h6" style="margin-bottom: 10px;">{{ projectInfo.address }}</p>
           </div>
         </div>
       </div>

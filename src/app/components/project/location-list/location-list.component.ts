@@ -55,20 +55,6 @@ export class LocationListComponent implements OnInit {
 
   public ngOnInit(): void {
     this.subscribeToProjectDetailsForNameHighlight();
-    this.setDynamicMaxWidth();
-  }
-
-  private setDynamicMaxWidth() {
-    // Calculate the dynamic width based on your requirements
-    const dynamicWidth = window.innerWidth - 100;
-    console.log(dynamicWidth) // Adjust the calculation as needed
-
-    // Set the dynamic width to the .scrollable-container
-    const scrollableContainer = document.querySelector('.scrollable-container');
-    
-    if (scrollableContainer) {
-      this.renderer.setStyle(scrollableContainer, 'max-width', dynamicWidth + 'px');
-    }
   }
 
 //   ngOnChanges(changes: { [property: string]: SimpleChange }) {

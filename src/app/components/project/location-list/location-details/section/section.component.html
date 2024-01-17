@@ -30,12 +30,20 @@
       </div>
     </div>
   <!-- Show app-section-info and app-section-photos when add_data is false -->
-  <div class="locationsectioninformation">
+  <!-- <div class="locationsectioninformation">
     <div cdkDropList class="scrollable">
       <app-section-photos [images]="images" [rows]="rows" *ngIf="isRecordFound"></app-section-photos>
     </div>
     <app-section-info class="flex-item" [rows]="rows" *ngIf="isRecordFound"></app-section-info>
+  </div> -->
+  <div class="locationsectioninformation">
+    <div cdkDropList class="scrollable">
+      <!-- Conditionally render app-section-photos if there are images -->
+      <app-section-photos [images]="images" [rows]="rows" *ngIf="isRecordFound && images && images.length > 0"></app-section-photos>
+    </div>
+    <app-section-info class="flex-item" [rows]="rows" *ngIf="isRecordFound"></app-section-info>
   </div>
+  
    
   </div>
 </div>

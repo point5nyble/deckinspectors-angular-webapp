@@ -1,17 +1,18 @@
 
 .Describer{
-    margin-top: 7px;
+    // margin-top: 10px;
     // padding-top: 20px;
-    height: 75px;
+    height: 50px;
     display: flex;
     // align-items: left;
-    // justify-content: space-between;
+    justify-content: space-between;
     flex:1;
     // padding-top: 15px;
     // margin-bottom: 10px;
-    background-color: #E4E9FD;
+    background-color: #E8F2FF;
     border-radius: 20px;
 }
+
 ul{
     display: flex;
     align-items: center;
@@ -19,27 +20,28 @@ ul{
     justify-content: space-evenly;
     flex:1;
     color: #8C8C8C;
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 12px;
+    font-weight: 450;
+    // margin-bottom: 0px;
 }
 li{
     list-style: none;
 }
 #A_User{
-    margin-left:260px;
+    margin-left:150px;
 }
 #A_Offline{
     margin-left:100px;
 }
 #Type{
-    margin-left:83px;
+    margin-left:70px;
 }
 #As_User{
-    margin-left:55px;
+    margin-left:40px;
     width:130px;
 }
 #Upload{
-    margin-left:40px;
+    margin-left:30px;
 }
 
 // .download
