@@ -24,7 +24,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   @Output() showPartInfo = new EventEmitter<boolean>();
   projectList: Item[] = [];
   oldProjectList: Item[] = [];
-  panelWidth: number = 200; // Initial panel width
+  panelWidth: number = 150; // Initial panel width
   startX: number = 0;
   startWidth: number = 0;
   currentSelectedItem: string = '';

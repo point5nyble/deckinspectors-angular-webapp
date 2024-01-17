@@ -1,8 +1,10 @@
 .navbar
 {
   // width: 100%;
-  margin-left: 60px;
-  margin-right: 60px;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 40px;
+  padding-right: 40px;
   background-color: #FFFFFF;
   z-index: 1;
 }
@@ -144,7 +146,7 @@ a {
 
 .sign-out-btn span
 {
-  font-size: 12px;
+  font-size: 10px;
   color: #FFFFFF;
   align-items: center;
   // margin-bottom: 10px;
@@ -153,7 +155,7 @@ a {
 
 .sign-out-btn i
 {
-  font-size: 12px;
+  font-size: 11px;
   color: #FFFFFF;
   align-items: center;
   // margin-top: 5px;

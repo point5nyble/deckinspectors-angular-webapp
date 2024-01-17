@@ -149,17 +149,6 @@
   border-radius: 8px;
 }
 
-// .edit_icon span
-// {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   width: 44px;
-//   height: 40px;
-//   color:#646161;
-//   background-color: #FFFFFF;
-//   border-radius: 8px;
-// }
 .edit_icon button{
   width:120px;
   height:30px;
@@ -182,21 +171,10 @@
   box-shadow:2px 2px 3px lightblue;
 }
 
-// .DescriptionLocation{
-//   font-size: 25px;
-//   font-weight: 500;
-// }
-
-// .DescriptionBoxLocation{
-//   padding:5px;
-//   font-size: 25px;
-//   font-weight: 500;
-// }
-
 .card-img
 {
   width: 100%;
-  padding: 20px;
+  padding: 5px;
   height: 100%;
   object-fit: cover; 
 }
@@ -207,19 +185,6 @@
   max-height: 100%;
   position: relative;
 }
-
-// .card
-// {
-//   // max-width: 1000px;
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   border-radius: 20px;
-//   border-style: solid;
-//   border-width: 5px;
-//   height: 300px;
-//   // justify-content: ;
-// }
 
 .card {
   display: flex;
@@ -256,7 +221,7 @@
 
 .card-text
 {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .user-icon
@@ -280,12 +245,6 @@
   align-items: center;
 }
 
-// .material-symbols-outlined {
-//   /* Assuming you are using a custom font for the material symbols */
-//   font-family: 'Material Icons'; /* Add your font family */
-//   font-size: 24px; /* Adjust the size as needed */
-// }
-
 .user-details {
   margin-left: 10px;
   font-size: 12px;
@@ -300,4 +259,7 @@
   margin-left: 20px;/* Adjust the font size for the date */ /* Add your preferred color */
 }
 
-
+.card-btns
+{
+  margin-bottom: 10px;
+}

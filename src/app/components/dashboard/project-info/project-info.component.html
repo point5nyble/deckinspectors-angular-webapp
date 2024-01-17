@@ -1,28 +1,29 @@
 <div class="horizontal-div">
-      <div class="profile-section">
-          <div class="projectName">
-            <p style="text-transform: capitalize">{{projectInfo.name }}</p>
-            <div style="font-size: 10px"><span class="material-symbols-outlined" style="font-size: 10px;">calendar_month</span>
-              {{formattedDate}}
-            </div>
-          </div>
-          <div class="description">
-            <!-- <div style="text-transform: capitalize;">{{projectInfo.projecttype}}&nbsp;</div> -->
-            <p style="font-size: 10px;">{{  projectInfo.address }}</p>
-          </div>
+  <div class="profile-section">
+    <div class="projectName">
+      <p style="text-transform: capitalize" class="name">{{projectInfo.name }}</p>
+      <div style="font-size: 10px"><span class="material-symbols-outlined"
+          style="font-size: 10px;">calendar_month</span>
+        {{formattedDate}}
       </div>
+    </div>
+    <div class="description">
+      <!-- <div style="text-transform: capitalize;">{{projectInfo.projecttype}}&nbsp;</div> -->
+      <p style="font-size: 10px;">{{ projectInfo.address }}</p>
+    </div>
+  </div>
 
-      <div class="AssignTo">
-          <!-- {{projectInfo.assignedto.join(',')}} -->
-          <ng-container *ngFor="let member of projectInfo.assignedto; let i = index">
-            <div *ngIf="i % 2 === 0">
-              {{ projectInfo.assignedto[i]}}&nbsp;
-              {{projectInfo.assignedto[i+1]}}
-            </div>
-          </ng-container>
+  <div class="AssignTo">
+    <!-- {{projectInfo.assignedto.join(',')}} -->
+    <ng-container *ngFor="let member of projectInfo.assignedto; let i = index">
+      <div *ngIf="i % 2 === 0">
+        {{ projectInfo.assignedto[i]}}&nbsp;
+        {{projectInfo.assignedto[i+1]}}
       </div>
+    </ng-container>
+  </div>
 
-      <!-- <div style="margin-left:10px;">
+  <!-- <div style="margin-left:10px;">
         <div>
           <label for="allow-offline" class="checkbox" (click)="AllowOffline()">
             <input type="checkbox" id="allow-offline" class="checkbox__input">
@@ -31,20 +32,21 @@
         </div>
       </div> -->
 
-      <div  class="typeSection">
-        <span *ngIf="projectInfo.projecttype === 'singlelevel'">Single</span>
-        <span *ngIf="projectInfo.projecttype === 'multilevel'">Multi</span>
-      </div>
+  <div class="typeSection">
+    <span *ngIf="projectInfo.projecttype === 'singlelevel'">Single</span>
+    <span *ngIf="projectInfo.projecttype === 'multilevel'">Multi</span>
+  </div>
 
-      <div class="AssignUser" (click)="openAssignProjectModal()">
-        <span *ngIf="isAdmin" class="bi bi-person-circle icon" (click)="openAssignProjectModal()" title="Assign users to project"></span>
-        <span class="AssignUsertext">Assign User&nbsp;</span>
-        <span class="fas fa-chevron-down"></span>
-      </div>
+  <div class="AssignUser" (click)="openAssignProjectModal()">
+    <span *ngIf="isAdmin" class="bi bi-person-circle icon" (click)="openAssignProjectModal()"
+      title="Assign users to project"></span>
+    <span class="AssignUsertext">Assign User&nbsp;</span>
+    <span class="fas fa-chevron-down"></span>
+  </div>
 
-      <!-- This select is for status -->
-      
-      <!-- <div style="margin-left:60px;">
+  <!-- This select is for status -->
+
+  <!-- <div style="margin-left:60px;">
         <div class="custom-select">
           <div class="select-icon">
               <i class="fas fa-circle green-dot" (click)="StatusCheck()"></i>
@@ -58,22 +60,25 @@
         </div>
       </div> -->
 
-      <div style="margin-left:70px;">
-        <!-- <span class="bi bi-upload icon" (click)="openUploadFilesModal()" title="Upload project documents"></span> -->
-        <span class="material-symbols-outlined icon"  (click)="openUploadFilesModal()" title="Upload project documents"style="font-size:24px;margin-top:7px;">upload</span>
-      </div>
+  <div style="margin-left:70px;">
+    <!-- <span class="bi bi-upload icon" (click)="openUploadFilesModal()" title="Upload project documents"></span> -->
+    <span class="material-symbols-outlined icon" (click)="openUploadFilesModal()" title="Upload project documents"
+      style="font-size:16px;margin-top:7px;">upload</span>
+  </div>
 
-      <div style="margin-left:50px;">
-        <!-- <span class="bi bi-download icon" (click)="openDownloadReportModal()" title="Download project reports"></span> -->
-        <span class="material-symbols-outlined icon" (click)="openDownloadReportModal()" title="Download project reports" style="font-size:24px;margin-top:7px;">download </span>
-      </div>
+  <div style="margin-left:50px;">
+    <!-- <span class="bi bi-download icon" (click)="openDownloadReportModal()" title="Download project reports"></span> -->
+    <span class="material-symbols-outlined icon" (click)="openDownloadReportModal()" title="Download project reports"
+      style="font-size:16px;margin-top:7px;">download </span>
+  </div>
 
-      <div style="margin-left:50px;">
-        <span *ngIf="!projectInfo.iscomplete" class="bi bi-check2-square icon" (click)="markComplete()" title="Mark project complete"></span>
-        <span *ngIf="projectInfo.iscomplete" class="bi bi-arrow-repeat icon" (click)="markComplete()" title="Move in progess"></span>
-      </div>
-      <div style="margin-left:50px;">
-        <span class="bi bi-trash icon" title="Delete Project" (click)="deleteProject()"></span>
-      </div>
+  <div style="margin-left:50px;">
+    <span *ngIf="!projectInfo.iscomplete" class="bi bi-check2-square icon" (click)="markComplete()"
+      title="Mark project complete"></span>
+    <span *ngIf="projectInfo.iscomplete" class="bi bi-arrow-repeat icon" (click)="markComplete()"
+      title="Move in progess"></span>
+  </div>
+  <div style="margin-left:50px;">
+    <span class="bi bi-trash icon" title="Delete Project" (click)="deleteProject()"></span>
+  </div>
 </div>
-

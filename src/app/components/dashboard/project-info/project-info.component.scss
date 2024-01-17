@@ -37,14 +37,6 @@
 .icon:hover {
   color: #007bff;
 }
-// .bi {
-//   display: inline-block;
-//   font-size: 24px;
-//   color:#6D6A6A;
-//   font-weight: 400;
-//   margin-right: 10px;
-//   cursor: pointer;
-// }
 
 .bi:hover {
   color: #007bff;
@@ -62,6 +54,7 @@
 .fas:hover {
   color: #007bff;
 }
+
 .icon {
   font-size: 12px;
   color: #6d6a6a;
@@ -79,10 +72,11 @@
   text-transform: capitalize;
   font-size: 12px;
 }
+
 .profile-section {
   display: flex;
   flex-direction: column;
-  width: 420px;
+  width: 320px;
   padding-right: 10px;
   padding-top: 20px;
 }
@@ -113,11 +107,18 @@
   color: #6d6a6a;
   column-gap: 10px;
   font-weight: 400;
+  margin-bottom: 5px;
 }
 
 .description div {
   color: #000000;
   font-weight: 500;
+}
+
+.name
+{
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 .projectName {
@@ -139,15 +140,17 @@
   margin-bottom: 10px;
   // padding-bottom: 5px;
 }
+
 .projectName p {
   width: 135px;
   height: 23px;
   font-size: 12px;
   overflow: clip;
 }
+
 .typeSection {
   font-size: 12px;
-  margin-left: 50px;
+  // margin-left: 20px;
   width: 90px;
   color: #6d6a6a;
   font-weight: 400;

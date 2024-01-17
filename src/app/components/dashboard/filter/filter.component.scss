@@ -11,6 +11,7 @@
 
 input[type="text"] {
   all: unset;
+  font-size: 14px;
 }
 
 .horizontal-div div{
@@ -22,12 +23,13 @@ input[type="text"] {
   align-items: center;
   justify-content: center;
   width:24px;
-  height:30px;
+  height:32px;
   color: #666666;
   border: solid #A8A4A4 1px;
   border-top-right-radius:8px;
   border-bottom-right-radius:8px;
   border-left: none;
+  font-size: 14px;
 }
 
 .horizontal-div input[type="date"] {
@@ -37,7 +39,8 @@ input[type="text"] {
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   height: 30px;
-  width: 100px;
+  width: 120px;
+  font-size: 14px;
 }
 
 .horizontal-div label {
