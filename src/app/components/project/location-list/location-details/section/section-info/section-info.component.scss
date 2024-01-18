@@ -10,11 +10,16 @@
   margin-top: 5px;
   margin-bottom: 7.5px;
   border-radius: 20px;
-  border-bottom: none;
-  border-style: none;
+  // border-bottom: none;
+  // border-style: none;
 }
 
-tbody, td, tfoot, th, thead, tr {
+.table-body
+{
+  border-radius: 10px;
+}
+
+td, tfoot, th, thead, tr {
   border-color: inherit;
   border-width: 0;
 }
@@ -34,52 +39,26 @@ tbody, td, tfoot, th, thead, tr {
 
 .table td, .table th {
   vertical-align: middle;
-  padding: 12px;
+  padding: 10px;
   // border: 1px solid #ddd;
   text-align: left;
-  border-bottom: none;
+  // border-bottom: none;
 }
 
 .table tr
 {
   border-width: 0px;
-  border-bottom: none;
+  // border-bottom: none;
 }
 
 .table th {
   background-color: #f2f2f2;
-  border-bottom: none;
+  // border-bottom: none;
 }
 
 .table p {
   margin: 0;
-  border-bottom: none;
-}
-
-/* Add some space between rows */
-// .table tr:not(:last-child) {
-//   margin-bottom: 10px;
-// }
-
-/* Style Yes/No cells with a badge */
-.table td.yes, .table td.no {
-  padding: 8px;
-  border-radius: 4px;
-  text-align: center;
-  font-weight: bold;
-  border-bottom: none;
-}
-
-.table td.yes {
-  color: #28a745;
-  background-color: #d4edda;
-  border-bottom: none;
-}
-
-.table td.no {
-  color: #dc3545;
-  background-color: #f8d7da;
-  border-bottom: none;
+  // border-bottom: none;
 }
 
 .header
@@ -102,6 +81,16 @@ tbody, td, tfoot, th, thead, tr {
 .lyf
 {
   margin-left: 7.5px;
+}
+
+.element
+{
+  margin-bottom: 7.5px;
+}
+
+.con
+{
+  margin-top: 7.5px;
 }
 
 .first-row

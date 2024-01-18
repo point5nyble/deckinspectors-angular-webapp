@@ -4,7 +4,7 @@
   height: 40px;
   background-color: #ffff;
   padding: 3px;
-  // border-radius: 8px;
+  border-radius: 8px;
   // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   // transition: background-color 0.3s ease; /* Add a transition effect for smoother highlight */
   display: flex;
@@ -17,6 +17,7 @@
   background-color: #ffff;
   border-left-style: solid;
   border-left-color: #ED7C1C;
+  border-left-width: 3px;
 }
 
 .highlighted-section {

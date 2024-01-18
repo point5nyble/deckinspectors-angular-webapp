@@ -4,7 +4,7 @@
       <ng-container *ngIf="rows.length > 1 && rows[1].column2 === true">
 
         <table class="table header">
-          <tbody>
+          <tbody class="table-body">
             <ng-container *ngFor="let row of rows; let i = index">
               <tr *ngIf="i === 0">
                 <td class="centre">
@@ -16,7 +16,7 @@
         </table>
 
         <table class="table bool">
-          <tbody>
+          <tbody class="table-body">
             <ng-container *ngFor="let row of rows; let i = index">
               <tr *ngIf="i === 1">
                 <ng-container
@@ -34,7 +34,7 @@
         </table>
 
         <table class="table con">
-          <tbody>
+          <tbody class="table-body">
             <ng-container *ngFor="let row of rows; let i = index">
               <tr *ngIf="i === 8">
                 <td class="un-left">
@@ -51,7 +51,7 @@
       <div class="scrollable-container">
         <ng-container *ngIf="rows.length > 1 && rows[1].column2 === false">
           <table class="table header">
-            <tbody>
+            <tbody class="table-body">
               <ng-container *ngFor="let row of rows; let i = index">
                 <tr *ngIf="i === 0">
                   <td class="centre">
@@ -64,7 +64,7 @@
 
           <div class="first-row">
             <table class="table bool">
-              <tbody>
+              <tbody class="table-body">
                 <ng-container *ngFor="let row of rows; let i = index">
                   <tr *ngIf="i === 1 || (i >= 5 && i <= 7)">
                     <ng-container
@@ -82,7 +82,7 @@
             </table>
 
             <table class="table lyf">
-              <tbody>
+              <tbody class="table-body">
                 <ng-container *ngFor="let row of rows; let i = index">
                   <tr *ngIf="i >= 9 && i <= 12">
                     <ng-container
@@ -101,9 +101,9 @@
               </tbody>
             </table>
           </div>
-
+          
           <table class="table element">
-            <tbody>
+            <tbody class="table-body">
               <ng-container *ngFor="let row of rows; let i = index">
                 <tr *ngIf="i >= 2 && i <= 3">
                   <ng-container
@@ -138,9 +138,8 @@
             </tbody>
           </table>
 
-
           <table class="table con">
-            <tbody>
+            <tbody class="table-body">
               <ng-container *ngFor="let row of rows; let i = index">
                 <tr *ngIf="i === 8">
                   <td class="con-left">
@@ -159,7 +158,7 @@
       <ng-container
         *ngIf="rows.length === 2 && rows[1].column2 !== false && rows[1].column2 !== true && rows[0].column1 === 'Invasive Description'">
         <table class="table bool">
-          <tbody>
+          <tbody class="table-body">
             <ng-container *ngFor="let row of rows; let i = index">
               <tr *ngIf="i === 1">
                 <td class="bool-left">
@@ -173,7 +172,7 @@
           </tbody>
         </table>
         <table class="table con">
-          <tbody>
+          <tbody class="table-body">
             <ng-container *ngFor="let row of rows; let i = index">
               <tr *ngIf="i === 0">
                 <td class="con-left">
@@ -191,7 +190,7 @@
       <ng-container
         *ngIf="rows.length === 2 && rows[1].column2 !== false && rows[1].column2 !== true && rows[1].column1 === 'Property Owner Agreed'">
         <table class="table bool">
-          <tbody>
+          <tbody class="table-body">
             <ng-container *ngFor="let row of rows; let i = index">
               <tr *ngIf="i >= 0 && i <= 1">
                 <td class="bool-left">
@@ -212,7 +211,7 @@
 
         <div class="first-row">
           <table class="table bool">
-            <tbody>
+            <tbody class="table-body">
               <ng-container *ngFor="let row of rows; let i = index">
                 <tr *ngIf="i >= 4 && i <= 5">
                   <td class="bool-left">
@@ -227,7 +226,7 @@
           </table>
 
           <table class="table lyf">
-            <tbody>
+            <tbody class="table-body">
               <ng-container *ngFor="let row of rows; let i = index">
                 <tr *ngIf="i === 0 || (i >= 2 && i <= 3)">
                   <ng-container
@@ -248,7 +247,7 @@
         </div>
 
         <table class="table con">
-          <tbody>
+          <tbody class="table-body">
             <ng-container *ngFor="let row of rows; let i = index">
               <tr *ngIf="i === 1">
                 <td class="con-left">
