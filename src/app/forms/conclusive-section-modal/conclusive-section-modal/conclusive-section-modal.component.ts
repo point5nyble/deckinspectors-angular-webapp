@@ -156,7 +156,7 @@ export class ConclusiveSectionModalComponent {
   }
 
   private isValidImageLink(imageUrl: string): boolean {
-    return (imageUrl.startsWith("http") || imageUrl.startsWith("https"));
+    return (imageUrl.startsWith("http") || imageUrl.startsWith("https") || imageUrl.startsWith("/var") || imageUrl.startsWith("/section"));
   }
 
   showContent() {
