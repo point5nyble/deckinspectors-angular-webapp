@@ -1,11 +1,10 @@
-import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {ImageToUrlConverterService} from "../../service/image-to-url-converter.service";
-import {forkJoin, Observable} from "rxjs";
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { ImageToUrlConverterService } from "../../service/image-to-url-converter.service";
+import { forkJoin, Observable } from "rxjs";
 import { map } from 'rxjs/operators';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-
 
 @Component({
   selector: 'app-visual-deck-report-modal',
@@ -16,10 +15,10 @@ export class VisualDeckReportModalComponent implements OnInit {
   data: any;
   visualDeckReportModalForm!: FormGroup;
   exteriorElementsOptions = [
-    'Decks', 'Porches/Entry', 'Stairs', 'Stairs Landing', 'Walkways', 'Railings', 'Integrations', 'Door Threshold','Stucco Interface'
+    'Decks', 'Porches/Entry', 'Stairs', 'Stairs Landing', 'Walkways', 'Railings', 'Integrations', 'Door Threshold', 'Stucco Interface'
   ];
   waterproofingElements = [
-    'Flashings', 'Waterproofing', 'Coatings','Sealants'
+    'Flashings', 'Waterproofing', 'Coatings', 'Sealants'
   ];
   selectedImage: File[] = [];
   imagePreviewUrls: (string | ArrayBuffer | null)[] = [];
@@ -40,12 +39,9 @@ export class VisualDeckReportModalComponent implements OnInit {
       [
         'undo',
         'redo',
-        
         'strikeThrough',
         'subscript',
         'superscript',
-        
-        
         'insertUnorderedList',
         'insertOrderedList',
         'heading',
@@ -62,7 +58,7 @@ export class VisualDeckReportModalComponent implements OnInit {
         'removeFormat',
         'toggleEditorMode'
       ]
-      ],
+    ],
     customClasses: [
       {
         name: "quote",
@@ -83,8 +79,8 @@ export class VisualDeckReportModalComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private cdr: ChangeDetectorRef,
               private dialogRef: MatDialogRef<VisualDeckReportModalComponent>,
-              @Inject(MAT_DIALOG_DATA) data : any,
-              private imageToUrlConverterService : ImageToUrlConverterService) {
+              @Inject(MAT_DIALOG_DATA) data: any,
+              private imageToUrlConverterService: ImageToUrlConverterService) {
     this.data = data;
     this.data.images = this.data.images === undefined ? [] : this.data.images;
     this.imagePreviewUrls = JSON.parse(JSON.stringify(this.data.images));
@@ -95,18 +91,17 @@ export class VisualDeckReportModalComponent implements OnInit {
     this.visualDeckReportModalForm = this.formBuilder.group({
       visualReportName: [this.data.rowsMap?.get('name'), Validators.required], // Add validators if needed
       unitUnavailable: [this.data.rowsMap?.get('unitUnavailable')], // Add validators if needed
-      //additionalConsiderationsOrConcernHtml:[this.data.rowsMap?.get('additionalconsiderationshtml')===null||this.data.rowsMap?.get('additionalconsiderationshtml')===undefined?'':this.data.rowsMap?.get('additionalconsiderationshtml')],
-      exteriorElements: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? []: this.data.rowsMap?.get('exteriorelements'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required], // Add validators if needed
-      waterproofingElements: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? []: this.data.rowsMap?.get('waterproofingelements'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required],
-      visualReview:[unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? "": this.data.rowsMap?.get('visualreview'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required],
-      signsOfLeaks:[unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? false: this.data.rowsMap?.get('visualsignsofleak'), (this.data.rowsMap?.get('unitUnavailable'))? false: Validators.required],
-      invasiveReviewRequired:[unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? false: this.data.rowsMap?.get('furtherinvasivereviewrequired'), (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required],
-      conditionAssessment: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? "": this.data.rowsMap?.get('conditionalassessment'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required],
-      additionalConsiderationsOrConcern:[this.data.rowsMap?.get('additionalconsiderationshtml') !== undefined? this.data.rowsMap?.get('additionalconsiderationshtml') : this.data.rowsMap?.get('additionalconsiderations')],
-      EEE:[unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? "": this.data.rowsMap?.get('eee'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required],
-      LBC:[unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? "": this.data.rowsMap?.get('lbc'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required],
-      AWE:[unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable'))? "": this.data.rowsMap?.get('awe'), (this.data.rowsMap?.get('unitUnavailable'))? "": Validators.required],
-      images:[this.data.images, (this.data.rowsMap?.get('unitUnavailable'))? null: Validators.required]      
+      exteriorElements: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? [] : this.data.rowsMap?.get('exteriorelements'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required], // Add validators if needed
+      waterproofingElements: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? [] : this.data.rowsMap?.get('waterproofingelements'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required],
+      visualReview: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? "" : this.data.rowsMap?.get('visualreview'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required],
+      signsOfLeaks: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? false : this.data.rowsMap?.get('visualsignsofleak'), (this.data.rowsMap?.get('unitUnavailable')) ? false : Validators.required],
+      invasiveReviewRequired: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? false : this.data.rowsMap?.get('furtherinvasivereviewrequired'), (this.data.rowsMap?.get('unitUnavailable')) ? null : Validators.required],
+      conditionAssessment: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? "" : this.data.rowsMap?.get('conditionalassessment'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required],
+      additionalConsiderationsOrConcern: [this.data.rowsMap?.get('additionalconsiderationshtml') !== undefined ? this.data.rowsMap?.get('additionalconsiderationshtml') : this.data.rowsMap?.get('additionalconsiderations')],
+      EEE: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? "" : this.data.rowsMap?.get('eee'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required],
+      LBC: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? "" : this.data.rowsMap?.get('lbc'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required],
+      AWE: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? "" : this.data.rowsMap?.get('awe'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required],
+      images: [this.data.images, (this.data.rowsMap?.get('unitUnavailable')) ? null : Validators.required]
     });
   }
 
@@ -114,16 +109,16 @@ export class VisualDeckReportModalComponent implements OnInit {
     this.imagePreviewUrls = this.data.images;
     this.visualDeckReportModalForm.patchValue({
       images: this.imagePreviewUrls
-    })
+    });
     this.dialogRef.close();
   }
 
   save() {
-    if(this.visualDeckReportModalForm.valid){
+    if (this.visualDeckReportModalForm.valid) {
       this.isSaving = true;
       this.uploadImage();
     }
-    else{
+    else {
       this.showErrors = true;
     }
   }
@@ -143,32 +138,31 @@ export class VisualDeckReportModalComponent implements OnInit {
         this.imagePreviewUrls.push(reader.result);
         this.visualDeckReportModalForm.patchValue({
           images: this.imagePreviewUrls
-        })
+        });
       };
       reader.readAsDataURL(file);
     }
   }
-
 
   removeImage(index: number) {
     this.imageControl.setValue(null); // Reset the form control value if needed
     this.imagePreviewUrls.splice(index, 1);
     this.visualDeckReportModalForm.patchValue({
       images: this.imagePreviewUrls
-    })
+    });
   }
 
   uploadImage() {
-    let data:any = {
+    let data: any = {
       'entityName': this.visualDeckReportModalForm.value.visualReportName,
       'uploader': 'deck',
       'containerName': this.visualDeckReportModalForm.value.visualReportName.replace(/\s+/g, '').toLowerCase(),
-    }
-    const imageRequests:Observable<any>[]= [];
+    };
+    const imageRequests: Observable<any>[] = [];
     this.selectedImage.forEach(file => {
       data['picture'] = file;
       imageRequests.push(this.imageToUrlConverterService.convertImageToUrl(data));
-    })
+    });
 
     forkJoin(imageRequests)
       .pipe(
@@ -178,19 +172,16 @@ export class VisualDeckReportModalComponent implements OnInit {
         (imageUrls: string[]) => {
           this.addImagesUrlIfAny(imageUrls);
           this.isSaving = false;
-          
         },
         (error) => {
           console.log(error);
           this.isSaving = false;
-
         }
       );
     if (imageRequests.length === 0) {
       this.addImagesUrlIfAny([]);
       return;
     }
-
   }
 
   private addImagesUrlIfAny(imageUrls: string[]) {
@@ -201,26 +192,25 @@ export class VisualDeckReportModalComponent implements OnInit {
         if (typeof imageUrl === "string" && this.isValidImageLink(imageUrl)) {
           imageUrls.push(imageUrl);
         }
-      })
+      });
     }
     this.visualDeckReportModalForm.patchValue({
       images: imageUrls
     });
-    var parsedText='';
+    var parsedText = '';
     const htmlText = this.visualDeckReportModalForm.value["additionalConsiderationsOrConcern"];
-    if (htmlText!==null) {
+    if (htmlText !== null) {
       const parser = new DOMParser();
       const parsedDocument = parser.parseFromString(htmlText, 'text/html');
       parsedText = parsedDocument.body.textContent || '';
     }
-    
-    
+
     this.visualDeckReportModalForm.patchValue({
-      conditionAssessment: this.visualDeckReportModalForm.value['conditionAssessment']? this.visualDeckReportModalForm.value['conditionAssessment'].toLowerCase() : "",
+      conditionAssessment: this.visualDeckReportModalForm.value['conditionAssessment'] ? this.visualDeckReportModalForm.value['conditionAssessment'].toLowerCase() : "",
       signsOfLeaks: (this.visualDeckReportModalForm.value['signsOfLeaks'] === "Yes").toString(),
       invasiveReviewRequired: (this.visualDeckReportModalForm.value['invasiveReviewRequired'] === "Yes").toString(),
       additionalConsiderationsOrConcern: parsedText
-    })
+    });
     this.visualDeckReportModalForm.value["additionalConsiderationsOrConcernHtml"] = htmlText;
     this.dialogRef.close(this.visualDeckReportModalForm.value);
   }
@@ -229,7 +219,7 @@ export class VisualDeckReportModalComponent implements OnInit {
     return (imageUrl.startsWith("http") || imageUrl.startsWith("https"));
   }
 
-  handleUnitUnavailable = (unitUnavailable: any) =>{
+  handleUnitUnavailable = (unitUnavailable: any) => {
     const imagesControl = this.visualDeckReportModalForm.get('images');
     const exteriorElementsControl = this.visualDeckReportModalForm.get('exteriorElements');
     const waterproofingElementsControl = this.visualDeckReportModalForm.get('waterproofingElements');
@@ -240,8 +230,8 @@ export class VisualDeckReportModalComponent implements OnInit {
     const EEEControl = this.visualDeckReportModalForm.get('EEE');
     const LBCControl = this.visualDeckReportModalForm.get('LBC');
     const AWEControl = this.visualDeckReportModalForm.get('AWE');
-    
-    if(unitUnavailable.checked){
+
+    if (unitUnavailable.checked) {
       imagesControl?.clearValidators();
       exteriorElementsControl?.clearValidators();
       waterproofingElementsControl?.clearValidators();
@@ -252,8 +242,7 @@ export class VisualDeckReportModalComponent implements OnInit {
       EEEControl?.clearValidators();
       LBCControl?.clearValidators();
       AWEControl?.clearValidators();
-      
-    } else{
+    } else {
       imagesControl?.setValidators([Validators.required]);
       exteriorElementsControl?.setValidators([Validators.required]);
       waterproofingElementsControl?.setValidators([Validators.required]);
@@ -264,7 +253,6 @@ export class VisualDeckReportModalComponent implements OnInit {
       EEEControl?.setValidators([Validators.required]);
       LBCControl?.setValidators([Validators.required]);
       AWEControl?.setValidators([Validators.required]);
-
     }
     imagesControl?.updateValueAndValidity();
     exteriorElementsControl?.updateValueAndValidity();
@@ -277,4 +265,80 @@ export class VisualDeckReportModalComponent implements OnInit {
     LBCControl?.updateValueAndValidity();
     AWEControl?.updateValueAndValidity();
   }
+
+  selectEEE(value: string) {
+    const eeeControl = this.visualDeckReportModalForm.get('EEE');
+    if (eeeControl) {
+      eeeControl.setValue(value);
+    }
+  }  
+
+  selectLBC(value: string) {
+    const eeeControl = this.visualDeckReportModalForm.get('LBC');
+    if (eeeControl) {
+      eeeControl.setValue(value);
+    }
+  }  
+
+  selectAWE(value: string) {
+    const aweControl = this.visualDeckReportModalForm.get('AWE');
+    if (aweControl) {
+      aweControl.setValue(value);
+    }
+  }  
+
+  selectVisualReview(value: string) {
+    const visualReview = this.visualDeckReportModalForm.get('visualReview');
+    if (visualReview) {
+      visualReview.setValue(value);
+    }
+  }
+
+  selectConditionAssessment(value: string) {
+    const conditionAssessment = this.visualDeckReportModalForm.get('conditionAssessment');
+    if (conditionAssessment) {
+      conditionAssessment.setValue(value);
+    }
+  }
+
+  toggleSignsOfLeaks() {
+    const signsOfLeaksControl = this.visualDeckReportModalForm.get('signsOfLeaks');
+    if (signsOfLeaksControl) {
+      const currentValue = signsOfLeaksControl.value;
+      const newValue = currentValue === 'Yes' ? 'No' : 'Yes';
+      signsOfLeaksControl.setValue(newValue);
+    }
+  }
+
+  toggleInvasiveReview() {
+    const invasiveReviewControl = this.visualDeckReportModalForm.get('invasiveReviewRequired');
+    if (invasiveReviewControl) {
+      const currentValue = invasiveReviewControl.value;
+      const newValue = currentValue === 'Yes' ? 'No' : 'Yes';
+      invasiveReviewControl.setValue(newValue);
+    }
+  }
+  
+
+isOptionSelected(option: string, formControlName: string): boolean {
+  const selectedOptions = this.visualDeckReportModalForm.get(formControlName)?.value;
+  return selectedOptions && selectedOptions.includes(option);
+}
+
+toggleOptionSelection(option: string, formControlName: string): void {
+  const control = this.visualDeckReportModalForm.get(formControlName);
+  const selectedOptions = control?.value || [];
+
+  if (selectedOptions.includes(option)) {
+    const index = selectedOptions.indexOf(option);
+    selectedOptions.splice(index, 1);
+  } else {
+    selectedOptions.push(option);
+  }
+
+  control?.setValue(selectedOptions);
+}
+
+
+
 }
