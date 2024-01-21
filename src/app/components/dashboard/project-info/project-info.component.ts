@@ -25,7 +25,7 @@ export class ProjectInfoComponent {
   constructor(private dialog: MatDialog, private httpsRequestService:HttpsRequestService) {}
 
   ngOnInit(): void{
-      let createdDate= new Date(this.projectInfo.createdat);
+      let createdDate= new Date(this.projectInfo.editedat);
       let months: string[] = [
       'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
       'Aug', 'Sep', 'Oct', 'Nov', 'Dec'

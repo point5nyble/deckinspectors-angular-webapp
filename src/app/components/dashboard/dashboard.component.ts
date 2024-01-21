@@ -149,7 +149,7 @@ export class DashboardComponent implements OnInit
   
     const { completedCount, ongoingCount } = this.allProjects.reduce(
       (accumulator, project) => {
-        console.log(project.iscomplete + " ");
+        // console.log(project.iscomplete + " ");
         if (project.iscomplete === true || project.iscomplete === undefined) {
           accumulator.completedCount++;
         } else {
