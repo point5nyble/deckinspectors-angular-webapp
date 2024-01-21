@@ -216,7 +216,7 @@ export class VisualDeckReportModalComponent implements OnInit {
   }
 
   private isValidImageLink(imageUrl: string): boolean {
-    return (imageUrl.startsWith("http") || imageUrl.startsWith("https"));
+    return (imageUrl.startsWith("http") || imageUrl.startsWith("https") || imageUrl.startsWith("/var") || imageUrl.startsWith("/section"));
   }
 
   handleUnitUnavailable = (unitUnavailable: any) => {
