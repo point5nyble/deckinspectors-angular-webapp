@@ -99,12 +99,6 @@ export class DashboardComponent implements OnInit
     )
   }
 
-  private calculateProjectStatistics() {
-    this.totalProjects = this.projectInfos.length;
-    this.completedProjects = this.projectInfos.filter(project => project.iscomplete).length;
-    this.ongoingProjects = this.totalProjects - this.completedProjects;
-  }
-
   // This function is to get last element and called when we add new Project and automatically navigate to that function
   private fetchProjectDataToGetLastElement() {
     this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/user/${localStorage.getItem('username')}`).subscribe(
@@ -141,6 +135,36 @@ export class DashboardComponent implements OnInit
       }
     )
   }
+
+  // private calculateProjectStatistics() {
+  //   this.totalProjects = this.allProjects.length;
+    
+  //   this.completedProjects = this.allProjects.filter(project => project.iscomplete === true || project.iscomplete === undefined).length;
+
+  //   this.ongoingProjects = this.totalProjects - this.completedProjects;
+  // }
+
+  private calculateProjectStatistics() {
+    this.totalProjects = this.allProjects.length;
+  
+    const { completedCount, ongoingCount } = this.allProjects.reduce(
+      (accumulator, project) => {
+        console.log(project.iscomplete + " ");
+        if (project.iscomplete === true || project.iscomplete === undefined) {
+          accumulator.completedCount++;
+        } else {
+          accumulator.ongoingCount++;
+        }
+        return accumulator;
+      },
+      { completedCount: 0, ongoingCount: 0 }
+    );
+  
+    this.completedProjects = completedCount;
+    this.ongoingProjects = ongoingCount;
+  }
+  
+  
 
   public gotoProject(projectInfo :Project): void {
       if (this.isChildClickEventTriggered) {
