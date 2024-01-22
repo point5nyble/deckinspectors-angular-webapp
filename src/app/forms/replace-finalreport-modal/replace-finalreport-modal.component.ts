@@ -21,7 +21,7 @@ export class ReplaceFinalreportModalComponent {
   }
 
   selectedFile: File | null = null;
-  companyName: string = '';
+  companyName: string = 'deck';
 
   // Function to handle file input change
   onFileSelected(event: any) {
