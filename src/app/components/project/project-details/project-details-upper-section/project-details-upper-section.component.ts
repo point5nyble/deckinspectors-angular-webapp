@@ -25,7 +25,7 @@ import { environment } from '../../../../../environments/environment';
   styleUrls: ['./project-details-upper-section.component.scss']
 })
 export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
-  projectInfo!: BuildingLocation | ProjectListElement;
+  projectInfo!: BuildingLocation & ProjectListElement;
   // project!: Project;
   projectType!: string;
   projectState!: ProjectState;
