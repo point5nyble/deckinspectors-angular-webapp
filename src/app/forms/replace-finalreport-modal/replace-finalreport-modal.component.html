@@ -8,13 +8,13 @@
         <label for="fileInput" class="form-label">Choose a File:</label>
         <input type="file" accept=".docx, .doc" class="form-control" id="fileInput" (change)="onFileSelected($event)">
       </div>
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="dropdown" class="form-label">Select Company:</label>
         <select class="form-select" id="dropdown" name="company-name" [(ngModel)]="companyName">
           <option value="deck">Deck Inspectors</option>
           <option value="Wicr">WICR</option>
         </select>
-      </div>
+      </div> -->
       <div class="buttons">
           <button type="submit" class="save-button" (click)="onSubmit()">Submit</button>
         <!-- <button type="button" class="close-button" data-bs-dismiss="modal" (click)="onClose()">Close</button> -->
