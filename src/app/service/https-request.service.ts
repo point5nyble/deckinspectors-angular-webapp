@@ -9,45 +9,88 @@ export class HttpsRequestService {
 
   constructor(private http: HttpClient) {}
   public getHttpData<T>(url:string): Observable<T> {
-      return this.http.get<T>(url);
+    let token = localStorage.getItem('token');
+    let httpOptions = {};
+    if (token !== null){
+      httpOptions = {
+        headers: new HttpHeaders({
+          'Authorization': token
+        })
+      }
+    }
+      return this.http.get<T>(url, httpOptions);
   }
   public getHttpTextData(url:string): Observable<string> {
-    return this.http.get(url,{ responseType: 'text' });
+    let token = localStorage.getItem('token');
+    let httpOptions = {headers: {}};
+    if (token !== null){
+      httpOptions = {
+        headers: new HttpHeaders({
+          'Authorization': token
+        })
+      }
+    }
+    return this.http.get(url,{ responseType: 'text' , headers: httpOptions.headers});
 }
   
    public postHttpData<T>(url:string, data:any): Observable<T> {
-     const httpOptions = {
+    let token = localStorage.getItem('token');
+    let httpOptions = {};
+    if (token !== null){
+      httpOptions = {
         headers: new HttpHeaders({
-         'Content-Type': 'application/json'
+         'Content-Type': 'application/json',
+          'Authorization': token
        }),
        timeout: 600000, // 10 minutes timeout in milliseconds
       //  withCredentials: true
      };
+    }
+    
      return this.http.post<T>(url, data,httpOptions);
    }
 
   public postHttpDataForMultipart<T>(url:string, data:any): Observable<T> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data'
-      }),
-      // withCredentials: true
-    };
+    let token = localStorage.getItem('token');
+    let httpOptions = {};
+    if (token !== null){
+      httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'multipart/form-data',
+          'Authorization': localStorage.getItem('token')!
+        }),
+        // withCredentials: true
+      };
+    }
     return this.http.post<T>(url, data,httpOptions);
   }
 
   public putHttpData<T>(url:string, data:any): Observable<T> {
-    const httpOptions = {
-          headers: new HttpHeaders({
-              'Content-Type': 'application/json'
-          }),
-          // withCredentials: true
+    let token = localStorage.getItem('token');
+    let httpOptions = {};
+    if (token !== null){
+      httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'multipart/form-data',
+          'Authorization': localStorage.getItem('token')!
+        }),
+        // withCredentials: true
       };
+    };
       return this.http.put<T>(url, data,httpOptions);
   }
 
   public deleteHttpData<T>(url:string): Observable<T> {
-    return this.http.delete<T>(url);
+    let token = localStorage.getItem('token');
+    let httpOptions = {};
+    if (token !== null){
+      httpOptions = {
+        headers: new HttpHeaders({
+          'Authorization': token
+        })
+      }
+    }
+    return this.http.delete<T>(url, httpOptions);
   }
 
 }

@@ -26,9 +26,10 @@ export class LoginService {
           }
           let url = environment.apiURL + '/user/login';
           this.httpsRequestService.postHttpData(url, data).subscribe(
-              res => {
+              (res: any) => {
                 console.log(res);
                 localStorage.setItem('username', username);
+                localStorage.setItem('token', res.token);
                 this.router.navigate(['/dashboard'])
               },
               err => {
@@ -39,6 +40,7 @@ export class LoginService {
           )
           return response;
           }, err=>{
+            console.error(err);
             console.error("Incorrect username or password");
             alert("Incorrect username or password");
           })
