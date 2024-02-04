@@ -12,8 +12,6 @@ import {ProjectState} from "../../../app-state-service/store/project-state-model
 import {ProjectQuery} from "../../../app-state-service/project-state/project-selector";
 import {take} from "rxjs";
 import {environment} from '../../../../environments/environment';
-import { BuildingLocation } from 'src/app/common/models/buildingLocation';
-import { ProjectListElement } from 'src/app/common/models/project-list-element';
 
 @Component({
   selector: 'app-projects-list-left-panel',
@@ -24,15 +22,16 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   @Output() showPartInfo = new EventEmitter<boolean>();
   projectList: Item[] = [];
   oldProjectList: Item[] = [];
-  panelWidth: number = 150; // Initial panel width
+  panelWidth: number = 200; // Initial panel width
   startX: number = 0;
   startWidth: number = 0;
   currentSelectedItem: string = '';
   objectMap = new Map<string, any>();
   loadingScreen: boolean = true;
-  collapsed: boolean = true;
+  collapsed: boolean = false;
   private projectState: ProjectState = ProjectState.VISUAL;
   currentProject!: any;
+
 
   constructor(private httpsRequestService: HttpsRequestService,
               private orchestratorCommunicationService: OrchestratorCommunicationService,
@@ -133,6 +132,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
     response.item.forEach((project: any) => {
       fetchedProjectList.push(this.extractProject(project));
     })
+    console.log(fetchedProjectList);
     return fetchedProjectList;
   }
 
@@ -153,6 +153,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   private extractNestedItems(project: any): Item[] {
     let projectCommonLocationCollapsibleStatus = this.getCollapsedStatus('Project Common Location');
+    console.log(projectCommonLocationCollapsibleStatus);
     let locations: Item = {
       name: 'Project Common Location',
       id: '',
