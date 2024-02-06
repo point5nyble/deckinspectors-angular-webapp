@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
     // apiURL: 'http://localhost:3000/api'
-    apiURL: 'https://deckinspectorswebapi.azurewebsites.net/api'
+    apiURL: 'https://deckmultitenantwebservices.azurewebsites.net/api'
 };
