@@ -16,8 +16,15 @@ export class ImageToUrlConverterService {
     formData.append('uploader', 'deck');
     formData.append('entityName', data.entityName);
     let url = environment.apiURL + '/image/upload';
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data'); // Set the correct Content-Type
-    return this.http.post(url, formData, { headers })
+    let token = localStorage.getItem('token');
+    let httpOptions = {};
+    if (token !== null){
+      httpOptions = {
+        headers: new HttpHeaders({
+          'Authorization': token,
+        })
+      }
+    }
+    return this.http.post(url, formData, httpOptions)
   }
 }
