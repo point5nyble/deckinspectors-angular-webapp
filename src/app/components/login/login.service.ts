@@ -17,14 +17,14 @@ export class LoginService {
           username: username,
           password: password
         }
-        this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/user/${username}`).subscribe(
+        this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/login/${username}`).subscribe(
         user => {
           let response = true;
           if (!(["web", "both"].includes(user.access_type.toLowerCase()))){
             alert("Incorrect username or password");
             return false;
           }
-          let url = environment.apiURL + '/user/login';
+          let url = environment.apiURL + '/login/login';
           this.httpsRequestService.postHttpData(url, data).subscribe(
               (res: any) => {
                 console.log(res);

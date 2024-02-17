@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { OrchestratorCommunicationService } from 'src/app/orchestrator-service/orchestrartor-communication/orchestrator-communication.service';
 import { HttpsRequestService } from 'src/app/service/https-request.service';
 import { environment } from 'src/environments/environment';
+import { TenantService } from 'src/app/service/tenant.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,15 +21,21 @@ export class SidebarComponent {
    // Add this property
   isAdmin: boolean =
     JSON.parse(localStorage.getItem('user')!)?.role === 'admin';
+  logoUrl = '';
   constructor(
     private loginService: LoginService,
     private store: Store<any>,
     private orchestratorCommunicationService: OrchestratorCommunicationService,
-    private httpsRequestService: HttpsRequestService
+    private httpsRequestService: HttpsRequestService,
+    private tenantService: TenantService
   ) {}
 
   ngOnInit(): void {
     // this.isAdmin = this.checkIfAdmin();
+    const user: any = JSON.parse(localStorage.getItem('user')!);
+    const getTenant = async () => await this.tenantService.getTenant(user.companyIdentifier);
+    getTenant();
+    this.logoUrl = localStorage.getItem('companyLogo')!;
     this.fetchUserDetails();
   }
 

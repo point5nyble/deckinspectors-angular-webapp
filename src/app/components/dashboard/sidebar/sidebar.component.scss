@@ -166,3 +166,11 @@ a {
   display: flex;
   justify-content: center;
 }
+
+img {
+  display: block;
+  max-width:60px;
+  max-height:60px;
+  width: auto;
+  height: auto;
+}
