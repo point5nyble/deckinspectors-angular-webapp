@@ -20,15 +20,17 @@ export class SidebarComponent {
    // Add this property
   isAdmin: boolean =
     JSON.parse(localStorage.getItem('user')!)?.role === 'admin';
+  logoUrl = '';
   constructor(
     private loginService: LoginService,
     private store: Store<any>,
     private orchestratorCommunicationService: OrchestratorCommunicationService,
-    private httpsRequestService: HttpsRequestService
+    private httpsRequestService: HttpsRequestService,
   ) {}
 
   ngOnInit(): void {
     // this.isAdmin = this.checkIfAdmin();
+    this.logoUrl = localStorage.getItem('companyLogo')!;
     this.fetchUserDetails();
   }
 
