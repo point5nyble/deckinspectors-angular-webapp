@@ -8,18 +8,7 @@ export class TenantService {
 
   constructor(private httpRequestService: HttpsRequestService) { }
 
-  getTenant (companyIdentifier: any) : Promise<void>{
-    return new Promise((resolve, reject)=>{
-      this.httpRequestService.getHttpData(`${environment.apiURL}/tenants/${companyIdentifier}`).subscribe(
-        (res:any)=>{
-          localStorage.setItem('companyLogo', res.Tenant.icons.companyLogo);
-          resolve();
-        },
-        (err: any)=>{
-          console.log(err);
-          reject();
-        }
-      );
-    })
+  getTenant (companyIdentifier: any) {
+    return this.httpRequestService.getHttpData(`${environment.apiURL}/tenants/${companyIdentifier}`);
   }
 }

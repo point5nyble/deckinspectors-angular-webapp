@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpsRequestService} from "../../service/https-request.service";
 import {Router} from "@angular/router";
 import { environment } from '../../../environments/environment';
+import { TenantService } from 'src/app/service/tenant.service';
 
 
 @Injectable({
@@ -10,7 +11,8 @@ import { environment } from '../../../environments/environment';
 export class LoginService {
 
   constructor(private httpsRequestService:HttpsRequestService,
-              private router: Router) { }
+              private router: Router,
+              private tenantService: TenantService) { }
 
     login(username: string,  password: string) {
         let data = {
@@ -24,12 +26,16 @@ export class LoginService {
             alert("Incorrect username or password");
             return false;
           }
+          console.log(localStorage.getItem('companyLogo'));
           let url = environment.apiURL + '/login/login';
           this.httpsRequestService.postHttpData(url, data).subscribe(
-              (res: any) => {
+              async (res: any) => {
                 console.log(res);
                 localStorage.setItem('username', username);
                 localStorage.setItem('token', res.token);
+                const tenant: any = await this.tenantService.getTenant(user.companyIdentifier).toPromise();
+                console.log(tenant);
+                localStorage.setItem('companyLogo', tenant.Tenant.icons.logoUrl);
                 this.router.navigate(['/dashboard'])
               },
               err => {
