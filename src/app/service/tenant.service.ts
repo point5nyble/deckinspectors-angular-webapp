@@ -9,6 +9,6 @@ export class TenantService {
   constructor(private httpRequestService: HttpsRequestService) { }
 
   getTenant (companyIdentifier: any) {
-    return this.httpRequestService.getHttpData(`${environment.apiURL}/tenants/${companyIdentifier}`);
+    return this.httpRequestService.getHttpData(`${environment.apiURL}/tenants/identifier/${companyIdentifier}`);
   }
 }
