@@ -71,8 +71,8 @@ export class HttpsRequestService {
     if (token !== null){
       httpOptions = {
         headers: new HttpHeaders({
-          'Content-Type': 'multipart/form-data',
-          'Authorization': localStorage.getItem('token')!
+          'Content-Type': 'application/json',
+          'Authorization': token
         }),
         // withCredentials: true
       };

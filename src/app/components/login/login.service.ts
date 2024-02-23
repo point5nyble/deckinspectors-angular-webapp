@@ -19,11 +19,16 @@ export class LoginService {
           username: username,
           password: password
         }
+
+        // console.log("data", data);
+        
         this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/login/${username}`).subscribe(
         user => {
+          console.log("User", user);
+          
           let response = true;
           if (!(["web", "both"].includes(user.access_type.toLowerCase()))){
-            alert("Incorrect username or password");
+            alert("Not authorised to use web app");
             return false;
           }
           console.log(localStorage.getItem('companyLogo'));
@@ -40,6 +45,7 @@ export class LoginService {
               },
               err => {
                 console.error("Incorrect username or password");
+                console.log(err);
                 response = false;
                 alert("Incorrect username or password");
               }
