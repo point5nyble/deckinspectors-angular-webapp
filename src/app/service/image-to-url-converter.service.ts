@@ -17,6 +17,8 @@ export class ImageToUrlConverterService {
     formData.append('entityName', data.entityName);
     let url = environment.apiURL + '/image/upload';
     let token = localStorage.getItem('token');
+    // console.log(token);
+    
     let httpOptions = {};
     if (token !== null){
       httpOptions = {
