@@ -41,7 +41,7 @@ export class DownloadFilesModalComponent {
 
   private downloadReport(reportType: string, reportFormat: string) {
     //let url = environment.apiURL + '/project/generatereport';
-    let url = "https://deckreportingapp.azurewebsites.net/api/project/generateReport";
+    let url = "https://deckmultireportingapp.azurewebsites.net/api/project/generateReport";
       let data = {
         "id": this.modalData.project._id,
         "sectionImageProperties": {
