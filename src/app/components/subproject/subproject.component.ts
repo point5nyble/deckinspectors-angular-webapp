@@ -24,8 +24,8 @@ export class SubprojectComponent implements OnInit, OnDestroy{
   buildingApartments!: BuildingLocation[];
   projectState!: ProjectState;
   isLoading: boolean = false;
-  showCommonSection: boolean = true;
-  showBuildingSection: boolean = false;
+  showCommonSection: boolean = false;
+  showBuildingSection: boolean = true;
   private subscription:any[] = [];
 
   constructor(private httpsRequestService: HttpsRequestService,

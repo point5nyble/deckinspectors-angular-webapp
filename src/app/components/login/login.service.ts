@@ -24,7 +24,7 @@ export class LoginService {
         
         this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/login/${username}`).subscribe(
         user => {
-          console.log("User", user);
+          // console.log("User", user);
           
           let response = true;
           if (!(["web", "both"].includes(user.access_type.toLowerCase()))){
@@ -35,13 +35,13 @@ export class LoginService {
           let url = environment.apiURL + '/login/login';
           this.httpsRequestService.postHttpData(url, data).subscribe(
               async (res: any) => {
-                console.log(res);
+                // console.log("Response", res);
                 localStorage.setItem('username', username);
                 localStorage.setItem('token', res.token);
-                const tenant: any = await this.tenantService.getTenant(user.companyIdentifier).toPromise();
-                console.log(tenant);
-                localStorage.setItem('companyLogo', tenant.Tenant.icons.logoUrl);
                 this.router.navigate(['/dashboard'])
+                const tenant: any = await this.tenantService.getTenant(user.companyIdentifier).toPromise();
+                // console.log("Tenant", tenant);
+                localStorage.setItem('companyLogo', tenant.Tenant.icons.logoUrl);
               },
               err => {
                 console.error("Incorrect username or password");
