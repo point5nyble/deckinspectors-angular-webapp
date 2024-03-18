@@ -28,8 +28,8 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
   isProjectAssigned: boolean = false;
   apiCalled: boolean = false;
   isLoading: boolean = false;
-  showCommonSection: boolean = true;
-  showBuildingSection: boolean = false;
+  showCommonSection: boolean = false;
+  showBuildingSection: boolean = true;
 
   private subscription:any[] = [];
   constructor(private httpsRequestService:HttpsRequestService,
