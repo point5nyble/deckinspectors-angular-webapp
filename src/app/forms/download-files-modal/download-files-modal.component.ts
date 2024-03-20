@@ -56,9 +56,11 @@ export class DownloadFilesModalComponent {
         "user": localStorage.getItem('username')
         // "requestType": "download"
       }
+      let token = localStorage.getItem('token');
       const headers = new HttpHeaders({
         'accept': (reportFormat == "docx")?'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : 'application/pdf',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': token!
       });
 
       // this.showLoading = !this.showLoading;
