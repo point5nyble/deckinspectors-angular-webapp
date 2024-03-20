@@ -40,6 +40,27 @@ export class ReportsComponent {
     )
   }
 
+  downloadProjectFile = (item: any) =>{
+    this.httpsRequestService.getFile(item.url).subscribe((response: any) => {
+      // Create a blob from the response
+      const blob = new Blob([response], { type: 'application/octet-stream' });
+
+      // Create a URL for the blob
+      const downloadUrl = window.URL.createObjectURL(blob);
+
+      // Create a link element to trigger the download
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `${item.fileName}`; // Set the file name here
+      link.click();
+
+      // Clean up
+      window.URL.revokeObjectURL(downloadUrl);
+    }, error => {
+      console.error('Failed to download file', error);
+    });
+  }
+
   handleFileUpload(event: any) {
     const files: FileList = event.target.files;
     // Add all the files to the fileList array

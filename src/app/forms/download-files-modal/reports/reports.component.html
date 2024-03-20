@@ -29,9 +29,9 @@
                 <div class="download-animation"></div>
               </div>
               <div class="text-center" *ngIf="item.url.length!==0">
-                <a href="{{item.url}}" class="btn btn-primary btn-sm">
+                <button (click)="downloadProjectFile(item)" class="btn btn-primary btn-sm">
                   <i class="fas fa-cloud-download-alt"></i>
-                </a>
+                </button>
               </div>
             </div>
           </td>

@@ -32,6 +32,20 @@ export class HttpsRequestService {
     }
     return this.http.get(url,{ responseType: 'text' , headers: httpOptions.headers});
 }
+
+  public getFile<T>(url:string): Observable<T> {
+    let token = localStorage.getItem('token');
+    let httpOptions = {};
+    if (token !== null){
+      httpOptions = {
+        headers: new HttpHeaders({
+          'Authorization': token
+        }),
+        responseType: 'blob'
+      }
+    }
+      return this.http.get<T>(url, httpOptions);
+  }
   
    public postHttpData<T>(url:string, data:any): Observable<T> {
     let token = localStorage.getItem('token');
