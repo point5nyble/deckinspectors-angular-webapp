@@ -32,6 +32,39 @@ export class HttpsRequestService {
     }
     return this.http.get(url,{ responseType: 'text' , headers: httpOptions.headers});
 }
+
+  public getFile<T>(url:string): Observable<T> {
+    let token = localStorage.getItem('token');
+    let httpOptions = {};
+    if (token !== null){
+      httpOptions = {
+        headers: new HttpHeaders({
+          'Authorization': token
+        }),
+        responseType: 'blob'
+      }
+    }
+      return this.http.get<T>(url, httpOptions);
+  }
+
+  public postHttpDataForFile<T>(url:string, data:any): Observable<T> {
+    let token = localStorage.getItem('token');
+    let httpOptions = {};
+    if (token !== null){
+      httpOptions = {
+        headers: new HttpHeaders({
+         'Content-Type': 'application/json',
+          'Authorization': token
+       }),
+       timeout: 600000, // 10 minutes timeout in milliseconds
+      //  withCredentials: true
+      responseType: 'blob'
+
+     };
+    }
+    
+     return this.http.post<T>(url, data,httpOptions);
+   }
   
    public postHttpData<T>(url:string, data:any): Observable<T> {
     let token = localStorage.getItem('token');
