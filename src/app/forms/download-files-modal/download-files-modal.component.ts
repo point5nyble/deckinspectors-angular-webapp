@@ -85,9 +85,11 @@ export class DownloadFilesModalComponent {
     let data = {
      "companyName": this.getCompanyNameFromActiveSection(this.activeSection)
     };
+    let token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'accept': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': token!
     });
     this.showLoading = !this.showLoading;
     this.http.post<any>(url, data, { headers, responseType: 'blob' as 'json'}).subscribe((response: any) => {
