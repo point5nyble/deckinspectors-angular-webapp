@@ -18,7 +18,7 @@
         <table class="table bool">
           <tbody class="table-body">
             <ng-container *ngFor="let row of rows; let i = index">
-              <tr *ngIf="i === 1">
+              <tr *ngIf="i === 1" style="border-bottom: 1px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
                 <ng-container
                   *ngIf="!(row.column1 === 'Additional Considerations or Concerns Html' || row.column1 === 'Additional Considerations or Concerns')">
                   <td class="un-left">
@@ -36,7 +36,7 @@
         <table class="table con">
           <tbody class="table-body">
             <ng-container *ngFor="let row of rows; let i = index">
-              <tr *ngIf="i === 8">
+              <tr *ngIf="i === 8" style="border-bottom: 1px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
                 <td class="un-left">
                   <p>{{ row.column1 }}</p>
                 </td>
@@ -53,7 +53,7 @@
           <table class="table header">
             <tbody class="table-body">
               <ng-container *ngFor="let row of rows; let i = index">
-                <tr *ngIf="i === 0">
+                <tr *ngIf="i === 0" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
                   <td class="centre">
                     <p>{{ getFormattedColumn2Value(row.column2) }}</p>
                   </td>
@@ -66,7 +66,7 @@
             <table class="table bool">
               <tbody class="table-body">
                 <ng-container *ngFor="let row of rows; let i = index">
-                  <tr *ngIf="i === 1 || (i >= 5 && i <= 7)">
+                  <tr *ngIf="i === 1 || (i >= 5 && i <= 7)" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
                     <ng-container
                       *ngIf="!(row.column1 === 'Additional Considerations or Concerns Html' || row.column1 === 'Additional Considerations or Concerns')">
                       <td class="bool-left">
@@ -84,7 +84,7 @@
             <table class="table lyf">
               <tbody class="table-body">
                 <ng-container *ngFor="let row of rows; let i = index">
-                  <tr *ngIf="i >= 9 && i <= 12">
+                  <tr *ngIf="i >= 9 && i <= 12" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
                     <ng-container
                       *ngIf="!(row.column1 === 'Additional Considerations or Concerns Html' || row.column1 === 'Additional Considerations or Concerns')">
                       <td class="lyf-left">
@@ -105,7 +105,7 @@
           <table class="table element">
             <tbody class="table-body">
               <ng-container *ngFor="let row of rows; let i = index">
-                <tr *ngIf="i >= 2 && i <= 3">
+                <tr *ngIf="i >= 2 && i <= 3" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
                   <ng-container
                     *ngIf="!(row.column1 === 'Additional Considerations or Concerns Html' || row.column1 === 'Additional Considerations or Concerns')">
                     <td class="element-left">
@@ -122,7 +122,7 @@
               </ng-container>
 
               <ng-container *ngFor="let row of rows; let i = index">
-                <tr *ngIf="i === 4">
+                <tr *ngIf="i === 4" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
                   <ng-container
                     *ngIf="!(row.column1 === 'Additional Considerations or Concerns Html' || row.column1 === 'Additional Considerations or Concerns')">
                     <td class="element-left">
@@ -141,7 +141,7 @@
           <table class="table con">
             <tbody class="table-body">
               <ng-container *ngFor="let row of rows; let i = index">
-                <tr *ngIf="i === 8">
+                <tr *ngIf="i === 8" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
                   <td class="con-left">
                     <p>{{ row.column1 }}</p>
                   </td>
@@ -160,7 +160,7 @@
         <table class="table bool">
           <tbody class="table-body">
             <ng-container *ngFor="let row of rows; let i = index">
-              <tr *ngIf="i === 1">
+              <tr *ngIf="i === 1" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
                 <td class="bool-left">
                   <p>{{ row.column1 }}</p>
                 </td>
@@ -192,7 +192,7 @@
         <table class="table bool">
           <tbody class="table-body">
             <ng-container *ngFor="let row of rows; let i = index">
-              <tr *ngIf="i >= 0 && i <= 1">
+              <tr *ngIf="i >= 0 && i <= 1" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
                 <td class="bool-left">
                   <p>{{ row.column1 }}</p>
                 </td>
@@ -213,7 +213,7 @@
           <table class="table bool">
             <tbody class="table-body">
               <ng-container *ngFor="let row of rows; let i = index">
-                <tr *ngIf="i >= 4 && i <= 5">
+                <tr *ngIf="i >= 4 && i <= 5" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
                   <td class="bool-left">
                     <p>{{ row.column1 }}</p>
                   </td>
@@ -228,7 +228,7 @@
           <table class="table lyf">
             <tbody class="table-body">
               <ng-container *ngFor="let row of rows; let i = index">
-                <tr *ngIf="i === 0 || (i >= 2 && i <= 3)">
+                <tr *ngIf="i === 0 || (i >= 2 && i <= 3)" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
                   <ng-container
                     *ngIf="!(row.column1 === 'Additional Considerations or Concerns Html' || row.column1 === 'Additional Considerations or Concerns')">
                     <td class="lyf-left">
@@ -249,7 +249,7 @@
         <table class="table con">
           <tbody class="table-body">
             <ng-container *ngFor="let row of rows; let i = index">
-              <tr *ngIf="i === 1">
+              <tr *ngIf="i === 1" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
                 <td class="con-left">
                   <p>{{ row.column1 }}</p>
                 </td>
