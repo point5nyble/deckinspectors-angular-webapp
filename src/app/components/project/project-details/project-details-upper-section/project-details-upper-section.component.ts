@@ -249,7 +249,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
       'accept': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       'Content-Type': 'application/json'
     });
-    this.http.post<any>(url, data, { headers, responseType: 'blob' as 'json' }).subscribe(
+    this.httpsRequestService.postHttpDataForFile<any>(url, data).subscribe(
       (response: any) => {
         const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
         // Create the date string in the format "daythMonthYear" (e.g., "18thSept2023")
