@@ -3,7 +3,7 @@ import {HttpsRequestService} from "../../service/https-request.service";
 import {Router} from "@angular/router";
 import { environment } from '../../../environments/environment';
 import { TenantService } from 'src/app/service/tenant.service';
-
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +64,13 @@ export class LoginService {
 
 
     isLoggedIn() {
-        return localStorage.getItem('username') !== null;
+        const token = localStorage.getItem('token');
+        const tokenPayload = jwtDecode(token!) as { exp: number };
+        const expirationTime = tokenPayload.exp * 1000;
+
+        // Get the current time in milliseconds
+        const currentTime = new Date().getTime();
+        return currentTime < expirationTime && localStorage.getItem('username') !== null;
     }
 
     getUsername() {
