@@ -55,13 +55,14 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy{
 
   formatDate(dateTimeString: string | undefined): string | undefined {
     if (dateTimeString) {
-      const date = new Date(dateTimeString);
-      const options: Intl.DateTimeFormatOptions = {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-      };
-      return date.toLocaleDateString('en-US', options);
+      // const date = new Date(dateTimeString);
+      // const options: Intl.DateTimeFormatOptions = {
+      //   year: 'numeric',
+      //   month: '2-digit',
+      //   day: '2-digit'
+      // };
+      // return date.toLocaleDateString('en-US', options);
+      return dateTimeString
     }
     return undefined;
   }
