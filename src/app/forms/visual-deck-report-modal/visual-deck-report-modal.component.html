@@ -18,6 +18,7 @@
         <input formControlName="visualReportName" type="text" id="name" name="visualReportName"
           placeholder="Visual Report Name">
       </div>
+      <hr>
       <div class="form-field">
         <label for="isUnitUnavailable" class="qstn-txt">Unit Unavailable</label>
         <div class="can-toggle">
@@ -28,6 +29,7 @@
           </label>
         </div>
       </div>
+      <hr>
 
       <ng-container *ngIf="!unitUnavailable.checked">
         <div class="form-errors"
@@ -45,6 +47,8 @@
             </label>
           </div>
         </div>
+      <hr>
+
 
         <div class="form-errors"
           *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('waterproofingElements')?.hasError('required')">
@@ -61,6 +65,8 @@
             </label>
           </div>
         </div>
+      <hr>
+
 
         <div class="form-errors"
           *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('visualReview')?.hasError('required')">
@@ -86,6 +92,8 @@
             </label>
           </div>
         </div>
+      <hr>
+
 
         <div class="form-errors"
           *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('signsOfLeaks')?.hasError('required')">
@@ -103,6 +111,8 @@
             </label>
           </div>
         </div>
+      <hr>
+
 
         <div class="form-errors"
           *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('invasiveReviewRequired')?.hasError('required')">
@@ -119,6 +129,8 @@
             </label>
           </div>
         </div>
+      <hr>
+
 
         <div class="form-errors"
           *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('conditionAssessment')?.hasError('required')">
@@ -144,6 +156,8 @@
             </label>
           </div>
         </div>
+      <hr>
+
       </ng-container>
       <div class="form-field">
         <label class="qstn-txt" for="description">Additional Considerations or Concern</label>
@@ -151,6 +165,8 @@
         <angular-editor formControlName="additionalConsiderationsOrConcern" id="description"
           name="additionalConsiderationsOrConcern" rows="4" [config]="config"></angular-editor>
       </div>
+      <hr>
+
 
       <ng-container *ngIf="!unitUnavailable.checked">
 
@@ -179,6 +195,8 @@
             </label>
           </div>
         </div>
+      <hr>
+
 
         <div class="form-errors"
           *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('LBC')?.hasError('required')">
@@ -205,6 +223,8 @@
             </label>
           </div>
         </div>
+      <hr>
+
 
         <div class="form-errors"
           *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('AWE')?.hasError('required')">
@@ -231,6 +251,8 @@
             </label>
           </div>
         </div>
+      <hr>
+
 
 
         <div class="form-errors"
@@ -247,6 +269,8 @@
             </div>
           </div>
         </div>
+      <hr>
+
 
       </ng-container>
     </div>
