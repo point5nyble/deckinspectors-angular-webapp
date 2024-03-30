@@ -31,7 +31,7 @@ export class LoginService {
             alert("Not authorised to use web app");
             return false;
           }
-          console.log(localStorage.getItem('companyLogo'));
+          // console.log(localStorage.getItem('companyLogo'));
           let url = environment.apiURL + '/login/login';
           this.httpsRequestService.postHttpData(url, data).subscribe(
               async (res: any) => {
@@ -65,12 +65,15 @@ export class LoginService {
 
     isLoggedIn() {
         const token = localStorage.getItem('token');
-        const tokenPayload = jwtDecode(token!) as { exp: number };
-        const expirationTime = tokenPayload.exp * 1000;
+        if (token !== null && token !== undefined){
+          const tokenPayload = jwtDecode(token!) as { exp: number };
+          const expirationTime = tokenPayload.exp * 1000;
 
-        // Get the current time in milliseconds
-        const currentTime = new Date().getTime();
-        return currentTime < expirationTime && localStorage.getItem('username') !== null;
+          // Get the current time in milliseconds
+          const currentTime = new Date().getTime();
+          return currentTime < expirationTime && localStorage.getItem('username') !== null;
+        }
+        return localStorage.getItem('username') !== null;
     }
 
     getUsername() {
