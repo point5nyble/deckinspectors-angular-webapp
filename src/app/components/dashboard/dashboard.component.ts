@@ -207,11 +207,18 @@ export class DashboardComponent implements OnInit
         this.fetchProjectDataToGetLastElement();
       },1000)
   }
+  // private filterProject(projects:Project[]): Project[] {
+  //   if (this.projectState === ProjectState.INVASIVE) {
+  //     return projects.filter(project => project.isInvasive);
+  //   }
+  //   return projects.filter(project => !project.iscomplete).sort(this.compare);
+  // }
+
   private filterProject(projects:Project[]): Project[] {
     if (this.projectState === ProjectState.INVASIVE) {
       return projects.filter(project => project.isInvasive);
     }
-    return projects.filter(project => !project.iscomplete).sort(this.compare);
+    return projects.sort(this.compare);
   }
 
   private getRecentlyAddedProject(projects: Project[]) {

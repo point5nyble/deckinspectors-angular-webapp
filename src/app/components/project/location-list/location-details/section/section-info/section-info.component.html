@@ -6,7 +6,7 @@
         <table class="table header">
           <tbody class="table-body">
             <ng-container *ngFor="let row of rows; let i = index">
-              <tr *ngIf="i === 0">
+              <tr *ngIf="i === 0" style="border-bottom: 1px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
                 <td class="centre">
                   <p>{{ getFormattedColumn2Value(row.column2) }}</p>
                 </td>
@@ -174,7 +174,7 @@
         <table class="table con">
           <tbody class="table-body">
             <ng-container *ngFor="let row of rows; let i = index">
-              <tr *ngIf="i === 0">
+              <tr *ngIf="i === 0" style="border-bottom: 1px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
                 <td class="con-left">
                   <p>{{ row.column1 }}</p>
                 </td>
