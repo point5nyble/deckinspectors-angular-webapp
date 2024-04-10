@@ -78,7 +78,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
       ];
       const dateParts = dateTimeString.split(/[-T:.Z]/);
 
-      console.log(dateParts);
+      //console.log(dateParts);
       
 
       // Extract the year, month, and day components
