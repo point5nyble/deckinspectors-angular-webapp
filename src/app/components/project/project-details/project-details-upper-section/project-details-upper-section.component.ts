@@ -58,6 +58,14 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
   formatDate(dateTimeString: string | undefined): string | undefined {
     if (dateTimeString) {
       const dateParts = dateTimeString.split(/[-T:.Z]/);
+<<<<<<< HEAD
+=======
+
+      //console.log(dateParts);
+      
+
+      // Extract the year, month, and day components
+>>>>>>> 3abdfc063ded554801c56886992a437289811ea0
       const year = dateParts[0];
       const month = this.getMonthName(parseInt(dateParts[1], 10));
       const day = dateParts[2];
