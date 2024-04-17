@@ -29,6 +29,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
   projectState!: ProjectState;
   disableInvasiveBtn: boolean = false;
   enableDefaultImage: boolean = false;
+  formattedDate: string | undefined;
   sequenceNo!: string | undefined;
   // List of subscription
   private subscription: any[] = [];
@@ -50,48 +51,25 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
     this.subscribeToProjectInfo();
     this.subscribeToProjectState();
     this.sequenceNo = this.projectInfo.sequenceNo;
+    this.formattedDate = this.formatDate(this.projectInfo.editedat);
   }
-
-  getMonthName(month: number): string {
-    // Array of month names
-    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   
-    // Get the month name based on the month number
-    return monthNames[month - 1];
-  }
 
   formatDate(dateTimeString: string | undefined): string | undefined {
     if (dateTimeString) {
-      const monthNames = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ];
       const dateParts = dateTimeString.split(/[-T:.Z]/);
-
-      console.log(dateParts);
-      
-
-      // Extract the year, month, and day components
       const year = dateParts[0];
       const month = this.getMonthName(parseInt(dateParts[1], 10));
       const day = dateParts[2];
-    
-      // Construct the formatted date string
-      const formattedDate = `${month} ${day}, ${year}`;
-    
-      return formattedDate;
+      
+      return `${month} ${day}, ${year}`;
     }
     return undefined;
+  }
+
+  private getMonthName(month: number): string {
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return monthNames[month - 1];
   }
 
 
