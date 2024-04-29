@@ -60,7 +60,19 @@ export class SectionListComponent implements OnInit{
 
   private fetchDataForGivenSectionIdOnInit() {
     if (this.sections.length > 0) {
-      this.fetchDataForGivenSectionId(this.sections[0]); // Fetch data for the first section initially
+      this.fetchDataForGivenSectionId(this.sections[0]); 
+    } else {
+      // this.fetchDataForGivenSectionId(undefined)
+      const emptySection: Section = {
+        _id: '',
+        count: 0,
+        furtherinvasivereviewrequired: false,
+        visualsignsofleak: false,
+        name: '',
+        conditionalassessment: '',
+        visualreview: ''
+      };
+      this.fetchDataForGivenSectionId(emptySection);
     }
   }
 
