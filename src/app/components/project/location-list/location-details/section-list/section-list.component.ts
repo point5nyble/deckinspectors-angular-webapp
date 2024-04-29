@@ -55,7 +55,15 @@ export class SectionListComponent implements OnInit{
 
   ngOnInit(): void {
     this.subscribeProjectState();
+    this.fetchDataForGivenSectionIdOnInit();
   }
+
+  private fetchDataForGivenSectionIdOnInit() {
+    if (this.sections.length > 0) {
+      this.fetchDataForGivenSectionId(this.sections[0]); // Fetch data for the first section initially
+    }
+  }
+
   private subscribeProjectState() {
     this.store.select(ProjectQuery.getProjectModel).subscribe(data => {
       this.projectState = data.state;
@@ -99,6 +107,7 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
       });
     }
 
+    this.fetchDataForGivenSectionIdOnInit();
     // console.log(this.sectionID);
   }
 
