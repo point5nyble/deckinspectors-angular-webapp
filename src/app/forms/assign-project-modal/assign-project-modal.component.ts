@@ -4,6 +4,7 @@ import { Project } from 'src/app/common/models/project';
 import { ProjectListElement } from 'src/app/common/models/project-list-element';
 import { HttpsRequestService } from 'src/app/service/https-request.service';
 import { environment } from '../../../environments/environment';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-assign-project-modal',

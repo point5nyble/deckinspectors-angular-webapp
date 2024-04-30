@@ -60,6 +60,7 @@ import { ReplaceFinalreportModalComponent } from './forms/replace-finalreport-mo
 import { ReportsComponent } from './forms/download-files-modal/reports/reports.component';
 import { HeaderComponent } from './components/dashboard/header/header.component';
 import { CounterssComponent } from './components/dashboard/counterss/counterss.component';
+import { HotToastModule } from '@ngneat/hot-toast';
 
 
 @NgModule({
@@ -130,7 +131,8 @@ import { CounterssComponent } from './components/dashboard/counterss/counterss.c
     MatRadioModule,
     LocationListComponent,
     SectionListComponent,
-    AngularEditorModule
+    AngularEditorModule,
+    HotToastModule.forRoot()
   ],
   providers: [MdbModalService],
   bootstrap: [AppComponent]
