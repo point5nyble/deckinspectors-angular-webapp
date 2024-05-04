@@ -211,7 +211,7 @@ export class DashboardComponent implements OnInit
     if (this.projectState === ProjectState.INVASIVE) {
       return projects.filter(project => project.isInvasive);
     }
-    return projects.filter(project => !project.iscomplete).sort(this.compare);
+    return projects.sort(this.compare);
   }
 
   private getRecentlyAddedProject(projects: Project[]) {
