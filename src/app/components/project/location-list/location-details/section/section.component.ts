@@ -100,14 +100,6 @@ export class SectionComponent implements OnInit{
     this.rows = [];
     this.sectionId_ = $event;
 
-    console.log("Event", $event);
-    
-    if(this.sectionId_ === undefined)
-      {
-        console.log("Undefined");
-      }
-      console.log("Section ID: ", this.sectionId_);
-
     let url = '';
     let data: any = {
       username: localStorage.getItem('username')
