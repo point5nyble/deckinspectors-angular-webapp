@@ -64,6 +64,7 @@ export class UsersComponent implements OnInit {
       last_name: '',
       first_name: '',
       email: '',
+      mobile: '',
       role: '',
       access_type: '',
     };
