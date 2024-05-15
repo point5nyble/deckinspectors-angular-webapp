@@ -168,7 +168,7 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
   save(){
     this.sections.forEach(async (section, i) =>{
       let url = `${environment.apiURL}/section/${section._id}`;
-      let data = {"sequenceNo": i};
+      let data = {"sequenceNo": i.toString()};
 
       await this.httpsRequestService.putHttpData(url, data).subscribe(
         (response: any) => {
