@@ -76,37 +76,16 @@ export class UsersComponent implements OnInit {
         formtype: 'createUser',
       },
     });
-
+  
+    // Fetch updated users data after the modal is closed successfully
     this.modalRef.onClose.subscribe((message: any) => {
-      if (message !== undefined && message.user !== undefined) {
-        this.httpsRequestService
-          .postHttpData<any>(environment.apiURL + '/user/register', user)
-          .subscribe(
-            (data) => {
-              this.toast.success('User added successfully!');
-              setTimeout(() => {
-                this.fetchUsersData();
-              }, 1500);
-            },
-            (error) => {
-              console.log(error);
-              this.toast.error('Adding user failed!');
-
-              // if(error.status === 409){
-              // (document.getElementById('success-alert') as HTMLElement).innerHTML =`<div class="alert alert-danger alert-dismissible fade show" role="alert">
-              // <strong>Failure! </strong> ${error.error}
-              // <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
-              // }
-              // else{
-              // (document.getElementById('success-alert') as HTMLElement).innerHTML =`<div class="alert alert-danger alert-dismissible fade show" role="alert">
-              // <strong>Failure! </strong> user not created
-              // <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
-              // }
-            }
-          );
+      if (message !== undefined && message.success) {
+        this.fetchUsersData();
       }
     });
   };
+  
+  
 
   updateUser = (userEmail: string) => {
     const res: User[] = this.allUsers.filter(
