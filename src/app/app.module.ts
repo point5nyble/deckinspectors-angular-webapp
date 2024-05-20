@@ -61,7 +61,8 @@ import { ReportsComponent } from './forms/download-files-modal/reports/reports.c
 import { HeaderComponent } from './components/dashboard/header/header.component';
 import { CounterssComponent } from './components/dashboard/counterss/counterss.component';
 import { HotToastModule } from '@ngneat/hot-toast';
-
+import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
+import { MoveSectionsModalComponent } from './forms/move-sections-modal/move-sections-modal.component';
 
 @NgModule({
   declarations: [
@@ -103,8 +104,9 @@ import { HotToastModule } from '@ngneat/hot-toast';
     ProjectDescriberComponent,
     ReplaceFinalreportModalComponent,
     HeaderComponent,
-    CounterssComponent
-  ],
+    CounterssComponent,
+    MoveSectionsModalComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -132,7 +134,9 @@ import { HotToastModule } from '@ngneat/hot-toast';
     LocationListComponent,
     SectionListComponent,
     AngularEditorModule,
-    HotToastModule.forRoot()
+    HotToastModule.forRoot(),
+    CdkDropList,
+    CdkDrag
   ],
   providers: [MdbModalService],
   bootstrap: [AppComponent]

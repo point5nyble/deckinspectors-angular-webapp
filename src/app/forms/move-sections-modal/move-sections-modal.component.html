@@ -1,0 +1,45 @@
+<div class="custom-dialog-content">
+  <h2 class="modal-title">Move Locations</h2>
+  <div class="close-button-container">
+    <span class="close-icon" (click)="close()">&#10005;</span>
+  </div>
+
+  </div>
+
+<div class="main">
+  <div class="left">
+    <h3>Parent Locations</h3>
+    <div class="container mt-1" *ngFor="let item of locationsList">
+
+      <div class="child" [ngClass]="{selected: item[0].locationId === selectedParent}" cdkDropList [cdkDropListData]="item" 
+      (cdkDropListDropped)="drop($event)" [id]="item[0].locationId"
+      [cdkDropListConnectedTo]="dropTargetIds"
+      (click)="fetchChildren(item[0].locationId)"
+      *ngFor="let child of item">
+        
+      <p class="itemHeader">{{child.locationName}}</p>
+
+      </div>
+      
+      </div>
+
+  </div>
+  <div cdkDropList [cdkDropListConnectedTo]="dropTargetIds" [cdkDropListData]="sectionsList" (cdkDropListDropped)="drop($event)" class="right">
+    <h3>Child Locations</h3>
+
+    <div *ngIf="!isDisplayed" class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+     </div>
+
+     <div *ngIf="isDisplayed && sectionsList.length === 0">
+      No available children
+     </div>
+     <div class="container mt-1" *ngIf="isDisplayed && sectionsList.length !== 0">
+    <div cdkDrag *ngFor="let item of sectionsList">
+      <p class="section">{{item.name}}</p>
+      </div>
+    </div>
+
+
+  </div>
+</div>

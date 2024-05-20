@@ -15,6 +15,7 @@ import { ProjectState } from '../../../../app-state-service/store/project-state-
 import { ProjectQuery } from '../../../../app-state-service/project-state/project-selector';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
+import { MoveSectionsModalComponent } from 'src/app/forms/move-sections-modal/move-sections-modal.component';
 // import { Project } from 'src/app/common/models/project';
 
 @Component({
@@ -191,6 +192,58 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
         }, 1000);
       });
     }
+  }
+
+  private fetchProjectTreeData(): Promise<any> {
+    return new Promise((resolve, reject)=>{
+    let url = `${environment.apiURL}/project/getProjectMetadata/` + this.currentProjectId;
+    this.httpsRequestService.getHttpData<any>(url).subscribe(
+      (response: any) => {
+        let item = response?.item[0];
+        let locations = item?.locations.length > 0? item.locations : [];
+        item?.subProjects.forEach((subProject: any) => {
+          locations = [...locations, ...subProject?.subProjectLocations];
+        });
+        resolve(locations);
+      },
+      error => {
+        console.log(error);
+        reject();
+      }
+    );
+  })
+};
+
+  public moveSections() {
+    this.fetchProjectTreeData()
+    .then((res: any)=>{
+      res = res.map((item: any)=> [item]);
+      console.log(res);
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.width = '800px';
+      dialogConfig.height = '500px';
+      dialogConfig.data = {
+        id: 1,
+        locationsList: res
+      };
+
+      const dialogRef = this.dialog.open(
+        MoveSectionsModalComponent,
+        dialogConfig
+      );
+      dialogRef.afterClosed().subscribe((data) => {
+        // setTimeout(() => {
+        //   this.fetchProjectIdFromState();
+        // }, 1000);
+        console.log(data);
+      });
+    })
+    .catch((err: any)=>{
+      console.log("error: ", err);
+    });
+  
   }
 
   private fetchProjectIdFromState(): void {
