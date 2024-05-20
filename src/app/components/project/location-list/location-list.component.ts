@@ -233,7 +233,7 @@ export class LocationListComponent implements OnInit {
     let count = 0;
     this.subprojectList.forEach((subproject, i) =>{
       let url = `${environment.apiURL}/subproject/${subproject._id}`;
-      let data = {"sequenceNo": i};
+      let data = {"sequenceNo": i.toString()};
 
       this.httpsRequestService.putHttpData(url, data).subscribe(
         (response: any) => {

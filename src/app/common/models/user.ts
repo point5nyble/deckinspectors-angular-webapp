@@ -3,6 +3,7 @@ export interface User {
     last_name: string;
     first_name: string;
     email: string;
+    mobile: string;
     role: string;
     access_type: string;
   }

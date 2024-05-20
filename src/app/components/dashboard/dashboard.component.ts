@@ -68,12 +68,12 @@ export class DashboardComponent implements OnInit {
         if (user.role.toLowerCase() === "admin") {
           this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/project/allProjects`).subscribe(
             (data) => {
+              this.allProjects = this.filterProject(data.projects);
               if (onlyOngoing) {
                 this.projectInfos = this.filterProject(data.projects.filter((project: any) => !project.iscomplete));
-                this.allProjects = this.filterProject(data.projects.filter((project: any) => !project.iscomplete));
+                // this.allProjects = this.filterProject(data.projects.filter((project: any) => !project.iscomplete));
               } else {
                 this.projectInfos = this.filterProject(data.projects);
-                this.allProjects = this.filterProject(data.projects);
               }
               this.calculateProjectStatistics();
             },
@@ -84,12 +84,12 @@ export class DashboardComponent implements OnInit {
         } else {
           this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/project/getProjectsByUser/${localStorage.getItem('username')}`).subscribe(
             (data) => {
+              this.allProjects = this.filterProject(data.projects);
               if (onlyOngoing) {
                 this.projectInfos = this.filterProject(data.projects.filter((project: any) => !project.iscomplete));
-                this.allProjects = this.filterProject(data.projects.filter((project: any) => !project.iscomplete));
+                // this.allProjects = this.filterProject(data.projects.filter((project: any) => !project.iscomplete));
               } else {
                 this.projectInfos = this.filterProject(data.projects);
-                this.allProjects = this.filterProject(data.projects);
               }
             },
             error => {
@@ -226,7 +226,9 @@ export class DashboardComponent implements OnInit {
             this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/project/allProjects`).subscribe(
               (data) => {
                 this.projectInfos = data.projects.filter((project: any) => project.iscomplete).sort(this.compare);
-                this.allProjects = data.projects.filter((project: any) => project.iscomplete).sort(this.compare);
+                // this.allProjects = data.projects.filter((project: any) => project.iscomplete).sort(this.compare);
+              this.calculateProjectStatistics();
+
               },
               error => {
                 console.log(error);
@@ -237,7 +239,9 @@ export class DashboardComponent implements OnInit {
             this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/project/getProjectsByUser/${localStorage.getItem('username')}`).subscribe(
               (data) => {
                 this.projectInfos = data.projects.filter((project: any) => project.iscomplete).sort(this.compare);
-                this.allProjects = data.projects.filter((project: any) => project.iscomplete).sort(this.compare);
+                // this.allProjects = data.projects.filter((project: any) => project.iscomplete).sort(this.compare);
+              this.calculateProjectStatistics();
+
               },
               error => {
                 console.log(error);
