@@ -32,6 +32,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
   enableDefaultImage: boolean = false;
   formattedDate: string | undefined;
   sequenceNo!: string | undefined;
+  disableMoveLocation: boolean = false;
   // List of subscription
   private subscription: any[] = [];
   currentProjectId!: string;
@@ -215,6 +216,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
 };
 
   public moveSections() {
+    this.disableMoveLocation = true;
     this.fetchProjectTreeData()
     .then((res: any)=>{
       res = res.map((item: any)=> [item]);
@@ -233,6 +235,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
         MoveSectionsModalComponent,
         dialogConfig
       );
+      this.disableMoveLocation = false;
       dialogRef.afterClosed().subscribe((data) => {
         // setTimeout(() => {
         //   this.fetchProjectIdFromState();
