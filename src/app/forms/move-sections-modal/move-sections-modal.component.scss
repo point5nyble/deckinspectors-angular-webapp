@@ -7,11 +7,18 @@
   padding: 0.5rem;
 }
 
+.container{
+  overflow: hidden;
+}
+
 .modal-title {
-  color: #8B8888;
+  color: #1f1d1d;
   font-weight: 700;
   font-size: 24px;
   margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  font-weight: 600;
 }
 
 .close-icon{
@@ -96,4 +103,25 @@
 .selected{
   background-color: #ED7C1C;
   color: white;
+}
+
+.list-header{
+  text-align: center;
+  width: 90%;
+  border-radius: 3px;
+  background-color: #ED7C1C;
+  color: white;
+}
+
+.itemHeader{
+  font-size: 16px;
+  padding: 0.8rem;
+  height: 50%;
+  margin-bottom: 0;
+}
+
+.description{
+  height: 40%;
+  font-size: 14px;
+  margin-top: 0;
 }

@@ -8,7 +8,7 @@
 
 <div class="main">
   <div class="left">
-    <h3>Parent Locations</h3>
+    <h3 class="list-header">Common Locations/Apartments</h3>
     <div class="container mt-1" *ngFor="let item of locationsList">
 
       <div class="child" [ngClass]="{selected: item[0].locationId === selectedParent}" cdkDropList [cdkDropListData]="item" 
@@ -18,14 +18,14 @@
       *ngFor="let child of item">
         
       <p class="itemHeader">{{child.locationName}}</p>
-
+      <p class="description">{{child.locationType}}</p>
       </div>
       
       </div>
 
   </div>
   <div cdkDropList [cdkDropListConnectedTo]="dropTargetIds" [cdkDropListData]="sectionsList" (cdkDropListDropped)="drop($event)" class="right">
-    <h3>Child Locations</h3>
+    <h3 class="list-header">Child Locations</h3>
 
     <div *ngIf="!isDisplayed" class="spinner-border text-primary" role="status">
       <span class="sr-only">Loading...</span>
