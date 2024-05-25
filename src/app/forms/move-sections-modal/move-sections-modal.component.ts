@@ -35,6 +35,10 @@ export class MoveSectionsModalComponent {
     this.isDisplayed = false;
     let movedSection = event.previousContainer.data[event.previousIndex];
     let newParent = event.container.data[0];
+    if (!(movedSection && newParent) || (event.container === event.previousContainer)){
+      this.isDisplayed = true;
+      return;
+    }
     let url = `${environment.apiURL}/section/moveSection`;
 
     let data = {
