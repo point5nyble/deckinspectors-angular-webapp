@@ -16,9 +16,16 @@
       [cdkDropListConnectedTo]="dropTargetIds"
       (click)="fetchChildren(item[0].locationId)"
       *ngFor="let child of item">
-        
-      <p class="itemHeader">{{child.locationName}}</p>
-      <p class="description">{{child.locationType}}</p>
+      
+      <span *ngIf="child.buildingName !== undefined">
+        Building Name: <strong>{{child.buildingName}}</strong>
+      </span>
+
+      <span *ngIf="child.locationType === 'apartment'">Apartment Name: {{child.locationName}}</span>
+        <span *ngIf="child.locationType !== 'apartment' && child.buildingName !== undefined">Common Location Name: {{child.locationName}}</span>
+        <span *ngIf="child.buildingName === undefined">
+          Project Common Location Name: {{child.locationName}}
+        </span>
       </div>
       
       </div>

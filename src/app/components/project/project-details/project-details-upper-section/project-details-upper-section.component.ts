@@ -203,7 +203,11 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
         let item = response?.item[0];
         let locations = item?.locations.length > 0? item.locations : [];
         item?.subProjects.forEach((subProject: any) => {
-          locations = [...locations, ...subProject?.subProjectLocations];
+          let subProjectLocations = subProject?.subProjectLocations.map((location : any)=>{
+            location.buildingName = subProject.name;
+            return location;
+          })
+          locations = [...locations, ...subProjectLocations];
         });
         resolve(locations);
       },
