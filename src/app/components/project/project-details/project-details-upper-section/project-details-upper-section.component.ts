@@ -232,6 +232,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
       dialogConfig.height = '500px';
       dialogConfig.data = {
         id: 1,
+        projectName: this.projectInfo.name,
         locationsList: res
       };
 
