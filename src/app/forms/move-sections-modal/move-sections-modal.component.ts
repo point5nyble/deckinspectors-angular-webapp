@@ -14,12 +14,14 @@ export class MoveSectionsModalComponent {
   dropTargetIds: any[] = [];
   isSaving: boolean = false;
   isDisplayed: boolean = true;
+  projectName!: string;
 
   selectedParent!: any;
   constructor(private cdr: ChangeDetectorRef,
               private dialogRef: MatDialogRef<MoveSectionsModalComponent>,
               @Inject(MAT_DIALOG_DATA) data : any, private httpsRequestService:HttpsRequestService) {
                 this.locationsList = data.locationsList;
+                this.projectName = data.projectName;
    }
 
    ngOnInit(){

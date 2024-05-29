@@ -1,5 +1,5 @@
 <div class="custom-dialog-content">
-  <h2 class="modal-title">Move Locations</h2>
+  <h2 class="modal-title">{{projectName}} - Move Locations</h2>
   <div class="close-button-container">
     <span class="close-icon" (click)="close()">&#10005;</span>
   </div>
@@ -9,7 +9,8 @@
 <div class="main">
   <div class="left">
     <h3 class="list-header">Common Locations/Apartments</h3>
-    <div class="container mt-1" *ngFor="let item of locationsList">
+    <div class="list">
+    <div class="container mt-1 list" *ngFor="let item of locationsList">
 
       <div class="child" [ngClass]="{selected: item[0].locationId === selectedParent}" cdkDropList [cdkDropListData]="item" 
       (cdkDropListDropped)="drop($event)" [id]="item[0].locationId"
@@ -29,7 +30,7 @@
       </div>
       
       </div>
-
+    </div>
   </div>
   <div cdkDropList [cdkDropListConnectedTo]="dropTargetIds" [cdkDropListData]="sectionsList" (cdkDropListDropped)="drop($event)" class="right">
     <h3 class="list-header">Child Locations</h3>
@@ -41,12 +42,13 @@
      <div *ngIf="isDisplayed && sectionsList.length === 0">
       No available children
      </div>
+     <div class="list">
      <div class="container mt-1" *ngIf="isDisplayed && sectionsList.length !== 0">
     <div cdkDrag *ngFor="let item of sectionsList">
       <p class="section">{{item.name}}</p>
       </div>
     </div>
-
+  </div>
 
   </div>
 </div>
