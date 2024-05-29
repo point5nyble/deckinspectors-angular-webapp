@@ -69,8 +69,8 @@
 }
 
 .child{
-  height: 90%;
-  max-height: 95%;
+  height: 5rem;
+  max-height: 6rem;
   width: 100%;
   border: 1px solid #aaa9a9;
   border-radius: 5px;
@@ -78,6 +78,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0.5rem;
 }
 
 .section{
@@ -109,17 +110,4 @@
   border-radius: 3px;
   background-color: #ED7C1C;
   color: white;
-}
-
-.itemHeader{
-  font-size: 16px;
-  padding: 0.8rem;
-  height: 50%;
-  margin-bottom: 0;
-}
-
-.description{
-  height: 40%;
-  font-size: 14px;
-  margin-top: 0;
 }
