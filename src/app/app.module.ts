@@ -63,6 +63,9 @@ import { CounterssComponent } from './components/dashboard/counterss/counterss.c
 import { HotToastModule } from '@ngneat/hot-toast';
 import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { MoveSectionsModalComponent } from './forms/move-sections-modal/move-sections-modal.component';
+import { CustomFormsComponent } from './components/custom-forms/custom-forms.component';
+import { NewCustomFormComponent } from './forms/new-custom-form/new-custom-form.component';
+import { FormQuestionComponent } from './forms/new-custom-form/form-question/form-question.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +108,10 @@ import { MoveSectionsModalComponent } from './forms/move-sections-modal/move-sec
     ReplaceFinalreportModalComponent,
     HeaderComponent,
     CounterssComponent,
-    MoveSectionsModalComponent
+    MoveSectionsModalComponent,
+    CustomFormsComponent,
+    NewCustomFormComponent,
+    FormQuestionComponent
     ],
   imports: [
     BrowserModule,

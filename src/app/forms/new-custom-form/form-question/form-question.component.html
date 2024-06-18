@@ -1,0 +1,47 @@
+<div class="question-container">
+    <div class="question-menu">
+        <button class="buttonAddnew" (click)="raiseAddQuestionEvent()">Add Question</button>
+        <select [(ngModel)]="question.type" (ngModelChange)="updateFormType()" name="type-{{question.label}}">
+            <option value="text">Text</option>
+            <option value="radio">Radio</option>
+            <option value="checkbox">Checkbox</option>
+            <option value="dropdown">Dropdown</option>
+        </select>
+
+    </div>
+    <input type="text" [(ngModel)]="question.label" name="label-{{question.label}}" class="full-width-input" placeholder="Enter question label" />
+    <div [formGroup]="form">
+        <div [ngSwitch]="question.type">
+            <div *ngSwitchCase="'radio'" formArrayName="{{question.label}}">
+                <div *ngFor="let option of question.options; let j = index">
+                    <label>
+                        <input type="radio" formControlName="{{j}}" [value]="option">
+                        <input class="full-width-input" type="text" formControlName="radio {{j}}" [value]="option">
+                    </label>
+                    <button class="option-btn" type="button" (click)="deleteOption(j)">Delete option</button>
+                </div>
+            </div>
+            <div *ngSwitchCase="'checkbox'" formArrayName="{{question.label}}">
+                <div *ngFor="let option of question.options; let j = index">
+                    <label>
+                        <input type="checkbox" [formControlName]="''+j">
+                        <input class="full-width-input" type="text" [formControlName]="'checkbox '+j" [value]="option">
+                    </label>
+                    <button class="option-btn" type="button" (click)="deleteOption(j)">Delete option</button>
+                </div>
+            </div>
+
+            <div *ngSwitchCase="'dropdown'" formArrayName="{{question.label}}">
+                <div *ngFor="let option of question.options; let j = index">
+                    <label>
+                        <input class="full-width-input" type="text" [formControlName]="'dropdown '+j" [value]="option">
+                    </label>
+                    <button class="option-btn" type="button" (click)="deleteOption(j)">Delete option</button>
+                </div>
+            </div>
+            <div *ngIf="question.type !== 'text'">
+                <button class="option-btn" type="button" (click)="addOption()">Add option</button>
+            </div>
+        </div>
+    </div>
+</div>

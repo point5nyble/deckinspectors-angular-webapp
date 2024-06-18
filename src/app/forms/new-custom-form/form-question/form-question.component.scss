@@ -1,0 +1,38 @@
+.question-container{
+    border: 1px solid green;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 100%;
+}
+
+.question-menu{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.buttonAddnew {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ED7C1C;
+    background-color: #ED7C1C;
+    border-radius: 8px;
+    color: white;
+    width: fit-content;
+    height: 35px;
+    margin-bottom: 0px;
+    font-size: 12px;
+}
+
+.full-width-input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid silver;
+    padding: 8px 0;
+    margin-bottom: 0.5rem;
+    box-sizing: border-box; /* Ensures padding does not affect the width */
+    outline: none; /* Removes the default outline when focused */
+  }

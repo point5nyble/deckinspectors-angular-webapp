@@ -1,0 +1,22 @@
+<h2 class="modal-title">Add New Form</h2>
+<div class="close-button-container">
+    <span class="close-icon" (click)="close()">&#10005;</span>
+</div>
+
+<div class="form-container">
+    <input type="text" [(ngModel)]="formName" name="label-{{formName}}" placeholder="Enter form name" />
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <div *ngFor="let question of questions; let i = index">
+            <app-form-question (addQuestion)="addQuestion(i)" (updateType)="updateFormType()" [question]="question"
+                [form]="form"></app-form-question>
+            <button type="button" (click)="deleteQuestion(i)">Delete Question</button>
+        </div>
+        <mat-dialog-actions class="button-container">
+            <button *ngIf="!isSaving" type="submit" class="mat-raised-button mat-primary save-button">Save</button>
+            <button *ngIf="isSaving" class="mat-raised-button mat-primary save-button" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Saving...
+            </button>
+        </mat-dialog-actions>
+    </form>
+</div>
