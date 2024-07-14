@@ -5,8 +5,17 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class TenantService {
+  projectInfo: any = {};
 
   constructor(private httpRequestService: HttpsRequestService) { }
+
+  setProjectInfo(projectInfo: any) {
+    this.projectInfo = projectInfo;
+  }
+
+  getProjectInfo() {
+    return this.projectInfo;
+  }
 
   getTenant (companyIdentifier: any) {
     return this.httpRequestService.getHttpData(`${environment.apiURL}/tenants/identifier/${companyIdentifier}`);

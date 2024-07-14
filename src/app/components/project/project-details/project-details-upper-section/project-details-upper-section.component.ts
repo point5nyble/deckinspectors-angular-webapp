@@ -16,6 +16,7 @@ import { ProjectQuery } from '../../../../app-state-service/project-state/projec
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { MoveSectionsModalComponent } from 'src/app/forms/move-sections-modal/move-sections-modal.component';
+import { TenantService } from "../../../../service/tenant.service";
 // import { Project } from 'src/app/common/models/project';
 
 @Component({
@@ -39,6 +40,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
 
   constructor(
     private orchestratorCommunicationService: OrchestratorCommunicationService,
+    private tenantService: TenantService,
     private store: Store<any>,
     private httpsRequestService: HttpsRequestService,
     private dialog: MatDialog,
@@ -55,7 +57,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
     this.sequenceNo = this.projectInfo.sequenceNo;
     this.formattedDate = this.formatDate(this.projectInfo.editedat);
   }
-  
+
 
   formatDate(dateTimeString: string | undefined): string | undefined {
     if (dateTimeString) {
@@ -63,7 +65,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
       const year = dateParts[0];
       const month = this.getMonthName(parseInt(dateParts[1], 10));
       const day = dateParts[2];
-      
+
       return `${month} ${day}, ${year}`;
     }
     return undefined;
@@ -251,7 +253,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
     .catch((err: any)=>{
       console.log("error: ", err);
     });
-  
+
   }
 
   private fetchProjectIdFromState(): void {
@@ -308,6 +310,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
         this.projectInfo = response.project;
+        this.tenantService.setProjectInfo(response.project);
         this.projectInfo.type = 'project';
         this.orchestratorCommunicationService.publishEvent(
           OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC,
