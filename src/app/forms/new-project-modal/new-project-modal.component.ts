@@ -27,6 +27,7 @@ export class NewProjectModalComponent implements OnInit {
   imagePreviewUrl: string | null = null;
   selectedFileName: string | null = null;
   isSaving: boolean = false;
+  allForms: any = [];
 
 
   constructor(private formBuilder: FormBuilder,
@@ -48,8 +49,10 @@ export class NewProjectModalComponent implements OnInit {
       address: [this.data.process === 'edit' ? this.data.projectInfo?.address: ""],
       option: [this.data.process === 'edit' ? this.data.projectInfo?.projecttype: "multilevel"], // Add validators if needed
       description: [this.data.process === 'edit' ? this.data.projectInfo?.description: ""],
-      editDate: [this.data.process === 'edit' ? this.data.projectInfo?.editedat: this.getFormattedCurrentDate()]
+      editDate: [this.data.process === 'edit' ? this.data.projectInfo?.editedat: this.getFormattedCurrentDate()],
+      formId: [{value: (this.data.process === 'edit' && this.data.projectInfo?.formId != '') ? this.data.projectInfo?.formId : null, disabled: (this.data.process === 'edit')}],
     });
+    this.fetchLocationForms();
   }
 
   private getFormattedCurrentDate(): string {
@@ -57,6 +60,22 @@ export class NewProjectModalComponent implements OnInit {
     // Format the date as needed (e.g., 'yyyy-MM-dd')
     const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
     return formattedDate;
+  }
+
+  private fetchLocationForms() {
+    const userObj = JSON.parse(localStorage.getItem('user')!);
+    let url = environment.apiURL + '/locationforms/getalllocationforms';
+    let data = {
+      companyIdentifier: userObj.companyIdentifier,
+    };
+    this.httpsRequestService.postHttpData(url, data).subscribe(
+      (response: any) => {
+        this.allForms = response.forms;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   handleFileInput(event: any) {
@@ -120,11 +139,13 @@ export class NewProjectModalComponent implements OnInit {
         "url": image_url=== undefined? '': image_url,
         "projecttype": this.yourForm.value.option,
         "assignedTo": [localStorage.getItem('username')],
-        "editedat": this.yourForm.value.editDate
+        "editedat": this.yourForm.value.editDate,
+        "formId": (this.yourForm.value.formId && this.yourForm.value.formId !== '') ? this.yourForm.value.formId : null
       }
       if (this.data.process === 'edit') {
         let projectid = this.data.projectInfo._id === undefined ? (<any>this.data.projectInfo).id : this.data.projectInfo._id;
         let url = environment.apiURL + '/project/' + projectid;
+        data.formId = (this.data.projectInfo?.formId != '') ? this.data.projectInfo?.formId : null;
         this.updateProject(url, data);
       } else {
         this.createNewProject(url, data);

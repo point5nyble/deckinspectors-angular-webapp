@@ -1,4 +1,4 @@
-<div class="custom-dialog-content">
+<div class="custom-dialog-content container">
   <h2 class="modal-title">Add New Project</h2>
   <div class="close-button-container">
     <span class="close-icon" (click)="close()">&#10005;</span>
@@ -24,18 +24,27 @@
       <input type="date" formControlName="editDate" class="form-control">
     </div>
 
-    <div class="form-group">
-      <label class="form-label">Project Type</label>
-      <div class="radio-group">
-        <label class="radio-label">
-          <input type="radio" value="singlelevel" formControlName="option" required>
-          Single Level
-        </label>
+    <div class="form-group row">
+      <div class="col">
+        <label class="form-label">Project Type</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" value="singlelevel" formControlName="option" required>
+            Single Level
+          </label>
 
-        <label class="radio-label">
-          <input type="radio" value="multilevel" formControlName="option" required>
-          Multi Level
-        </label>
+          <label class="radio-label">
+            <input type="radio" value="multilevel" formControlName="option" required>
+            Multi Level
+          </label>
+        </div>
+      </div>
+      <div class="col">
+        <label class="form-label">Location Form</label>
+        <select class="form-select" name="form" formControlName="formId">
+          <option [value]="null">default</option>
+          <option *ngFor="let form of allForms" [value]="form._id">{{ form.name }}</option>
+        </select>
       </div>
     </div>
 

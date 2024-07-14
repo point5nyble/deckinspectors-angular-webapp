@@ -364,25 +364,41 @@ export class SectionComponent implements OnInit{
   }
 
   private createSectionData(data: any):any {
-    return {
+    const preparedObj: any = {
       "name": data?.visualReportName,
       "unitUnavailable": data?.unitUnavailable === true,
       "additionalconsiderations": data?.additionalConsiderationsOrConcern,
       "additionalconsiderationshtml": data?.additionalConsiderationsOrConcernHtml,
-      "awe": data?.AWE,
-      "conditionalassessment": data?.conditionAssessment,
+      // "awe": data?.AWE,
+      // "conditionalassessment": data?.conditionAssessment,
       "createdby": localStorage.getItem('username'),
-      "eee": data?.EEE,
-      "exteriorelements": data?.exteriorElements,
+      // "eee": data?.EEE,
+      // "exteriorelements": data?.exteriorElements,
       "furtherinvasivereviewrequired": data?.invasiveReviewRequired,
-      "lbc": data?.LBC,
+      // "lbc": data?.LBC,
       "parentid": this.location._id,
       "parenttype": this.location.type,
-      "visualreview": data?.visualReview,
+      // "visualreview": data?.visualReview,
       "visualsignsofleak": data?.signsOfLeaks,
-      "waterproofingelements": data?.waterproofingElements,
-      "images": data?.images
+      // "waterproofingelements": data?.waterproofingElements,
+      "images": data?.images,
+      // "questions": data?.questions
     };
+    if (data.isLocationFormFields) {
+      preparedObj.questions = data?.questions;
+      preparedObj.companyIdentifier = data?.companyIdentifier;
+    } else {
+      preparedObj.awe = data?.AWE;
+      preparedObj.conditionalassessment = data?.conditionAssessment;
+      preparedObj.eee = data?.EEE;
+      preparedObj.exteriorelements = data?.exteriorElements;
+      // preparedObj.furtherinvasivereviewrequired = data?.invasiveReviewRequired;
+      preparedObj.lbc = data?.LBC;
+      preparedObj.waterproofingelements = data?.waterproofingElements;
+      preparedObj.visualreview = data?.visualReview;
+    }
+
+    return preparedObj;
   }
 
   private createInvasiveSectionData(data: any):any {

@@ -1,5 +1,5 @@
 <!-- form-component.component.html -->
-<div class="form-container">
+<div class="form-container" id="visual-deck-report-modal">
 
   <div class="form-header">
     <h4>Visual Deck/Waterproofing Report</h4>
@@ -7,285 +7,354 @@
   <div class="close-button-container">
     <span class="close-icon" (click)="close()">&#10005;</span>
   </div>
-  <div class="form-container">
-    <div class="form-body" [formGroup]="visualDeckReportModalForm">
-      <div class="form-errors"
-        *ngIf="showErrors && visualDeckReportModalForm.get('visualReportName')?.hasError('required')">
-        *field is required.
-      </div>
-      <div class="form-field">
-        <label class="qstn-txt" for="name">Name</label>
-        <input formControlName="visualReportName" type="text" id="name" name="visualReportName"
-          placeholder="Visual Report Name">
-      </div>
-      <hr>
-      <div class="form-field">
-        <label for="isUnitUnavailable" class="qstn-txt">Unit Unavailable</label>
-        <div class="can-toggle">
-          <input (change)="handleUnitUnavailable(unitUnavailable)" formControlName="unitUnavailable" type="checkbox"
-            id="isUnitUnavailable" name="isUnitUnavailable" #unitUnavailable>
-          <label for="isUnitUnavailable">
-            <div class="can-toggle__switch" data-checked="Yes" data-unchecked="No"></div>
-          </label>
-        </div>
-      </div>
-      <hr>
-
-      <ng-container *ngIf="!unitUnavailable.checked">
+  <ng-container *ngIf="!isLoading">
+    <div class="form-container">
+      <div class="form-body" [formGroup]="visualDeckReportModalForm">
         <div class="form-errors"
-          *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('exteriorElements')?.hasError('required')">
-          *field is required.
-        </div>
-
-        <div class="form-field">
-          <label class="qstn-txt">Exterior Elements</label>
-          <div class="radio-group">
-            <label class="element-text" *ngFor="let option of exteriorElementsOptions"
-              [class.selected]="isOptionSelected(option, 'exteriorElements')"
-              (click)="toggleOptionSelection(option, 'exteriorElements')">
-              {{ option }}
-            </label>
-          </div>
-        </div>
-      <hr>
-
-
-        <div class="form-errors"
-          *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('waterproofingElements')?.hasError('required')">
-          *field is required.
-        </div>
-
-        <div class="form-field">
-          <label class="qstn-txt">Waterproofing Elements</label>
-          <div class="radio-group">
-            <label class="element-text" *ngFor="let option of waterproofingElements"
-              [class.selected]="isOptionSelected(option, 'waterproofingElements')"
-              (click)="toggleOptionSelection(option, 'waterproofingElements')">
-              {{ option }}
-            </label>
-          </div>
-        </div>
-      <hr>
-
-
-        <div class="form-errors"
-          *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('visualReview')?.hasError('required')">
+             *ngIf="showErrors && visualDeckReportModalForm.get('visualReportName')?.hasError('required')">
           *field is required.
         </div>
         <div class="form-field">
-          <label class="qstn-txt">Visual Review</label>
-          <div class="radio-group">
-            <label class="element-text" for="good"
-              [class.selected]="visualDeckReportModalForm.get('visualReview')?.value === 'Good'"
-              (click)="selectVisualReview('Good')">
-              Good
-            </label>
-            <label class="element-text" for="bad"
-              [class.selected]="visualDeckReportModalForm.get('visualReview')?.value === 'Bad'"
-              (click)="selectVisualReview('Bad')">
-              Bad
-            </label>
-            <label class="element-text" for="fair"
-              [class.selected]="visualDeckReportModalForm.get('visualReview')?.value === 'Fair'"
-              (click)="selectVisualReview('Fair')">
-              Fair
-            </label>
-          </div>
+          <label class="qstn-txt" for="name">Name</label>
+          <input formControlName="visualReportName" type="text" id="name" name="visualReportName"
+                 placeholder="Visual Report Name">
         </div>
-      <hr>
-
-
-        <div class="form-errors"
-          *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('signsOfLeaks')?.hasError('required')">
-          *field is required.
-        </div>
-
+        <hr>
         <div class="form-field">
-          <label class="qstn-txt">Any visual signs of leaks</label>
+          <label for="isUnitUnavailable" class="qstn-txt">Unit Unavailable</label>
           <div class="can-toggle">
-            <input id="signsOfLeaksToggle a" type="checkbox"
-              [checked]="visualDeckReportModalForm.get('signsOfLeaks')?.value === 'Yes'"
-              (change)="toggleSignsOfLeaks()">
-            <label for="signsOfLeaksToggle a">
+            <input (change)="handleUnitUnavailable(unitUnavailable)" formControlName="unitUnavailable" type="checkbox"
+                   id="isUnitUnavailable" name="isUnitUnavailable" #unitUnavailable>
+            <label for="isUnitUnavailable">
               <div class="can-toggle__switch" data-checked="Yes" data-unchecked="No"></div>
             </label>
           </div>
         </div>
-      <hr>
+        <hr>
+
+        <ng-container *ngIf="!unitUnavailable.checked">
+          <ng-container *ngIf="!isLocationFormFields">
+            <div class="form-errors"
+                 *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('exteriorElements')?.hasError('required')">
+              *field is required.
+            </div>
+
+            <div class="form-field">
+              <label class="qstn-txt">Exterior Elements</label>
+              <div class="radio-group">
+                <label class="element-text" *ngFor="let option of exteriorElementsOptions"
+                       [class.selected]="isOptionSelected(option, 'exteriorElements')"
+                       (click)="toggleOptionSelection(option, 'exteriorElements')">
+                  {{ option }}
+                </label>
+              </div>
+            </div>
+            <hr>
 
 
-        <div class="form-errors"
-          *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('invasiveReviewRequired')?.hasError('required')">
-          *field is required.
-        </div>
-        <div class="form-field">
-          <label class="qstn-txt">Further Invasive Review Required Yes/No</label>
-          <div class="can-toggle">
-            <input id="invasiveReviewToggle a" type="checkbox"
-              [checked]="visualDeckReportModalForm.get('invasiveReviewRequired')?.value === 'Yes'"
-              (change)="toggleInvasiveReview()">
-            <label for="invasiveReviewToggle a">
-              <div class="can-toggle__switch" data-checked="Yes" data-unchecked="No"></div>
-            </label>
+            <div class="form-errors"
+                 *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('waterproofingElements')?.hasError('required')">
+              *field is required.
+            </div>
+
+            <div class="form-field">
+              <label class="qstn-txt">Waterproofing Elements</label>
+              <div class="radio-group">
+                <label class="element-text" *ngFor="let option of waterproofingElements"
+                       [class.selected]="isOptionSelected(option, 'waterproofingElements')"
+                       (click)="toggleOptionSelection(option, 'waterproofingElements')">
+                  {{ option }}
+                </label>
+              </div>
+            </div>
+            <hr>
+
+
+            <div class="form-errors"
+                 *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('visualReview')?.hasError('required')">
+              *field is required.
+            </div>
+            <div class="form-field">
+              <label class="qstn-txt">Visual Review</label>
+              <div class="radio-group">
+                <label class="element-text" for="good"
+                       [class.selected]="visualDeckReportModalForm.get('visualReview')?.value === 'Good'"
+                       (click)="selectVisualReview('Good')">
+                  Good
+                </label>
+                <label class="element-text" for="bad"
+                       [class.selected]="visualDeckReportModalForm.get('visualReview')?.value === 'Bad'"
+                       (click)="selectVisualReview('Bad')">
+                  Bad
+                </label>
+                <label class="element-text" for="fair"
+                       [class.selected]="visualDeckReportModalForm.get('visualReview')?.value === 'Fair'"
+                       (click)="selectVisualReview('Fair')">
+                  Fair
+                </label>
+              </div>
+            </div>
+            <hr>
+
+
+            <div class="form-errors"
+                 *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('signsOfLeaks')?.hasError('required')">
+              *field is required.
+            </div>
+
+            <div class="form-field">
+              <label class="qstn-txt">Any visual signs of leaks</label>
+              <div class="can-toggle">
+                <input id="signsOfLeaksToggle a" type="checkbox"
+                       [checked]="visualDeckReportModalForm.get('signsOfLeaks')?.value === 'Yes'"
+                       (change)="toggleSignsOfLeaks()">
+                <label for="signsOfLeaksToggle a">
+                  <div class="can-toggle__switch" data-checked="Yes" data-unchecked="No"></div>
+                </label>
+              </div>
+            </div>
+            <hr>
+          </ng-container>
+
+          <div class="form-errors"
+               *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('invasiveReviewRequired')?.hasError('required')">
+            *field is required.
           </div>
-        </div>
-      <hr>
-
-
-        <div class="form-errors"
-          *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('conditionAssessment')?.hasError('required')">
-          *field is required.
-        </div>
-        <div class="form-field">
-          <label class="qstn-txt">Condition Assessment</label>
-          <div class="radio-group">
-            <label class="element-text" for="pass"
-              [class.selected]="visualDeckReportModalForm.get('conditionAssessment')?.value === 'Pass'"
-              (click)="selectConditionAssessment('Pass')">
-              Pass
-            </label>
-            <label class="element-text" for="fail"
-              [class.selected]="visualDeckReportModalForm.get('conditionAssessment')?.value === 'Fail'"
-              (click)="selectConditionAssessment('Fail')">
-              Fail
-            </label>
-            <label class="element-text" for="future_inspection"
-              [class.selected]="visualDeckReportModalForm.get('conditionAssessment')?.value === 'Futureinspection'"
-              (click)="selectConditionAssessment('Futureinspection')">
-              Future Inspection
-            </label>
-          </div>
-        </div>
-      <hr>
-
-      </ng-container>
-      <div class="form-field">
-        <label class="qstn-txt" for="description">Additional Considerations or Concern</label>
-        <!-- <textarea formControlName="additionalConsiderationsOrConcern" id="description" name="additionalConsiderationsOrConcern" rows="4"></textarea> -->
-        <angular-editor formControlName="additionalConsiderationsOrConcern" id="description"
-          name="additionalConsiderationsOrConcern" rows="4" [config]="config"></angular-editor>
-      </div>
-      <hr>
-
-
-      <ng-container *ngIf="!unitUnavailable.checked">
-
-        <div class="form-errors"
-          *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('EEE')?.hasError('required')">
-          *field is required.
-        </div>
-        <div class="form-field">
-          <label class="qstn-txt">Life Expectancy Exterior Elevated Elements (EEE)</label>
-          <div class="radio-group">
-            <label class="element-text" [class.selected]="visualDeckReportModalForm.get('EEE')!.value === 'one'"
-              (click)="selectEEE('one')">
-              0-1 Years
-            </label>
-            <label class="element-text" [class.selected]="visualDeckReportModalForm.get('EEE')!.value === 'four'"
-              (click)="selectEEE('four')">
-              1-4 Years
-            </label>
-            <label class="element-text" [class.selected]="visualDeckReportModalForm.get('EEE')!.value === 'seven'"
-              (click)="selectEEE('seven')">
-              4-7 Years
-            </label>
-            <label class="element-text" [class.selected]="visualDeckReportModalForm.get('EEE')!.value === 'sevenplus'"
-              (click)="selectEEE('sevenplus')">
-              7+ Years
-            </label>
-          </div>
-        </div>
-      <hr>
-
-
-        <div class="form-errors"
-          *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('LBC')?.hasError('required')">
-          *field is required.
-        </div>
-        <div class="form-field">
-          <label class="qstn-txt">Life Expectancy Load Bearing Components (LBC)</label>
-          <div class="radio-group">
-            <label class="element-text" [class.selected]="visualDeckReportModalForm.get('LBC')?.value === 'one'"
-              (click)="selectLBC('one')" for="0-1yrs1">
-              0-1 Years
-            </label>
-            <label class="element-text" [class.selected]="visualDeckReportModalForm.get('LBC')?.value === 'four'"
-              (click)="selectLBC('four')" for="1-4yrs1">
-              1-4 Years
-            </label>
-            <label class="element-text" [class.selected]="visualDeckReportModalForm.get('LBC')?.value === 'seven'"
-              (click)="selectLBC('seven')" for="4-7yrs1">
-              4-7 Years
-            </label>
-            <label class="element-text" [class.selected]="visualDeckReportModalForm.get('LBC')?.value === 'sevenplus'"
-              (click)="selectLBC('sevenplus')" for="7+yrs1">
-              7+ Years
-            </label>
-          </div>
-        </div>
-      <hr>
-
-
-        <div class="form-errors"
-          *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('AWE')?.hasError('required')">
-          *field is required.
-        </div>
-        <div class="form-field">
-          <label class="qstn-txt">Life Expectancy Associated Waterproofing Elements (AWE)</label>
-          <div class="radio-group">
-            <label class="element-text" [class.selected]="visualDeckReportModalForm.get('AWE')?.value === 'one'"
-              (click)="selectAWE('one')" for="0-1yrsAWE">
-              0-1 Years
-            </label>
-            <label class="element-text" [class.selected]="visualDeckReportModalForm.get('AWE')?.value === 'four'"
-              (click)="selectAWE('four')" for="1-4yrsAWE">
-              1-4 Years
-            </label>
-            <label class="element-text" [class.selected]="visualDeckReportModalForm.get('AWE')?.value === 'seven'"
-              (click)="selectAWE('seven')" for="4-7yrsAWE">
-              4-7 Years
-            </label>
-            <label class="element-text" [class.selected]="visualDeckReportModalForm.get('AWE')?.value === 'sevenplus'"
-              (click)="selectAWE('sevenplus')" for="7+yrsAWE">
-              7+ Years
-            </label>
-          </div>
-        </div>
-      <hr>
-
-
-
-        <div class="form-errors"
-          *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('images')?.hasError('required')">
-          *field is required.
-        </div>
-        <div class="form-group">
-          <label class="form-label qstn-txt">Upload Image:</label>
-          <input type="file" (change)="handleFileInput($event)" class="form-control" multiple>
-          <div class="img-container">
-            <div *ngFor="let imageUrl of imagePreviewUrls; let i = index" class="image-preview">
-              <img [src]="imageUrl" alt="Image Preview" class="preview-image">
-              <span class="close-icon-img" (click)="removeImage(i)">&times;</span>
+          <div class="form-field">
+            <label class="qstn-txt">Further Invasive Review Required Yes/No</label>
+            <div class="can-toggle">
+              <input id="invasiveReviewToggle a" type="checkbox"
+                     [checked]="visualDeckReportModalForm.get('invasiveReviewRequired')?.value === 'Yes'"
+                     (change)="toggleInvasiveReview()">
+              <label for="invasiveReviewToggle a">
+                <div class="can-toggle__switch" data-checked="Yes" data-unchecked="No"></div>
+              </label>
             </div>
           </div>
+          <hr>
+
+          <ng-container *ngIf="!isLocationFormFields">
+            <div class="form-errors"
+                 *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('conditionAssessment')?.hasError('required')">
+              *field is required.
+            </div>
+            <div class="form-field">
+              <label class="qstn-txt">Condition Assessment</label>
+              <div class="radio-group">
+                <label class="element-text" for="pass"
+                       [class.selected]="visualDeckReportModalForm.get('conditionAssessment')?.value === 'Pass'"
+                       (click)="selectConditionAssessment('Pass')">
+                  Pass
+                </label>
+                <label class="element-text" for="fail"
+                       [class.selected]="visualDeckReportModalForm.get('conditionAssessment')?.value === 'Fail'"
+                       (click)="selectConditionAssessment('Fail')">
+                  Fail
+                </label>
+                <label class="element-text" for="future_inspection"
+                       [class.selected]="visualDeckReportModalForm.get('conditionAssessment')?.value === 'Futureinspection'"
+                       (click)="selectConditionAssessment('Futureinspection')">
+                  Future Inspection
+                </label>
+              </div>
+            </div>
+            <hr>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="!unitUnavailable.checked && isLocationFormFields">
+          <ng-container *ngFor="let question of locationFormQuestions; let i = index">
+            <div class="form-errors"
+                 *ngIf="showErrors && question.isMandatory &&
+                ((question.type === 'checkbox' && (!question.answers || question.answers.length <= 0)) ||
+                 (question.type !== 'checkbox' && (!question.answer || question.answer === '')))">
+              *field is required.
+            </div>
+            <div [ngSwitch]="question.type" class="form-field full-width">
+              <label *ngIf="question.type !== 'toggle'" class="qstn-txt" for="{{question._id}}">{{ question.name }}</label>
+
+              <input *ngSwitchCase="'text'"
+                     class="full-width"
+                     [id]="question._id"
+                     [name]="question._id"
+                     [(ngModel)]="question.answer"
+                     [ngModelOptions]="{standalone: true}"
+                     [required]="question.isMandatory"
+                     type="text">
+
+              <textarea *ngSwitchCase="'textarea'"
+                        class="full-width"
+                        [name]="question._id"
+                        [(ngModel)]="question.answer"
+                        [ngModelOptions]="{standalone: true}"
+                        [required]="question.isMandatory"
+                        rows="4"></textarea>
+
+              <div *ngSwitchCase="'checkbox'" class="radio-group">
+                <label class="element-text" *ngFor="let option of question.allowedValues"
+                       [class.selected]="isOptionSelectedForDynamicField(option, i)"
+                       (click)="toggleOptionSelectionForDynamicField(option, i)">
+                  {{ option }}
+                </label>
+              </div>
+
+              <select *ngSwitchCase="'dropdown'"
+                      [name]="question._id"
+                      [(ngModel)]="question.answer"
+                      [ngModelOptions]="{standalone: true}"
+                      [required]="question.isMandatory">
+                <option *ngFor="let option of question.allowedValues" [value]="option">{{ option }}</option>
+              </select>
+
+              <div *ngSwitchCase="'radiobutton'" class="radio-group">
+                <label *ngFor="let option of question.allowedValues" class="element-text"
+                       [class.selected]="question.answer === option" (click)="question.answer = option">
+                  {{ option }}
+                </label>
+              </div>
+
+              <div *ngSwitchCase="'toggle'" class="can-toggle">
+                <input id="{{question._id}}" type="checkbox"
+                       [checked]="question.answer === 'Yes'"
+                       (change)="toggleForDynamicField(i)">
+                <label for="{{question._id}}">
+                  <div class="can-toggle__switch" data-checked="Yes" data-unchecked="No"></div>
+                </label>
+              </div>
+            </div>
+
+            <hr>
+          </ng-container>
+        </ng-container>
+
+        <div class="form-field">
+          <label class="qstn-txt" for="description">Additional Considerations or Concern</label>
+          <!-- <textarea formControlName="additionalConsiderationsOrConcern" id="description" name="additionalConsiderationsOrConcern" rows="4"></textarea> -->
+          <angular-editor formControlName="additionalConsiderationsOrConcern" id="description"
+                          name="additionalConsiderationsOrConcern" rows="4" [config]="config"></angular-editor>
         </div>
-      <hr>
+        <hr>
 
 
-      </ng-container>
+        <ng-container *ngIf="!unitUnavailable.checked && !isLocationFormFields">
+
+          <div class="form-errors"
+               *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('EEE')?.hasError('required')">
+            *field is required.
+          </div>
+          <div class="form-field">
+            <label class="qstn-txt">Life Expectancy Exterior Elevated Elements (EEE)</label>
+            <div class="radio-group">
+              <label class="element-text" [class.selected]="visualDeckReportModalForm.get('EEE')!.value === 'one'"
+                     (click)="selectEEE('one')">
+                0-1 Years
+              </label>
+              <label class="element-text" [class.selected]="visualDeckReportModalForm.get('EEE')!.value === 'four'"
+                     (click)="selectEEE('four')">
+                1-4 Years
+              </label>
+              <label class="element-text" [class.selected]="visualDeckReportModalForm.get('EEE')!.value === 'seven'"
+                     (click)="selectEEE('seven')">
+                4-7 Years
+              </label>
+              <label class="element-text" [class.selected]="visualDeckReportModalForm.get('EEE')!.value === 'sevenplus'"
+                     (click)="selectEEE('sevenplus')">
+                7+ Years
+              </label>
+            </div>
+          </div>
+          <hr>
+
+
+          <div class="form-errors"
+               *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('LBC')?.hasError('required')">
+            *field is required.
+          </div>
+          <div class="form-field">
+            <label class="qstn-txt">Life Expectancy Load Bearing Components (LBC)</label>
+            <div class="radio-group">
+              <label class="element-text" [class.selected]="visualDeckReportModalForm.get('LBC')?.value === 'one'"
+                     (click)="selectLBC('one')" for="0-1yrs1">
+                0-1 Years
+              </label>
+              <label class="element-text" [class.selected]="visualDeckReportModalForm.get('LBC')?.value === 'four'"
+                     (click)="selectLBC('four')" for="1-4yrs1">
+                1-4 Years
+              </label>
+              <label class="element-text" [class.selected]="visualDeckReportModalForm.get('LBC')?.value === 'seven'"
+                     (click)="selectLBC('seven')" for="4-7yrs1">
+                4-7 Years
+              </label>
+              <label class="element-text" [class.selected]="visualDeckReportModalForm.get('LBC')?.value === 'sevenplus'"
+                     (click)="selectLBC('sevenplus')" for="7+yrs1">
+                7+ Years
+              </label>
+            </div>
+          </div>
+          <hr>
+
+
+          <div class="form-errors"
+               *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('AWE')?.hasError('required')">
+            *field is required.
+          </div>
+          <div class="form-field">
+            <label class="qstn-txt">Life Expectancy Associated Waterproofing Elements (AWE)</label>
+            <div class="radio-group">
+              <label class="element-text" [class.selected]="visualDeckReportModalForm.get('AWE')?.value === 'one'"
+                     (click)="selectAWE('one')" for="0-1yrsAWE">
+                0-1 Years
+              </label>
+              <label class="element-text" [class.selected]="visualDeckReportModalForm.get('AWE')?.value === 'four'"
+                     (click)="selectAWE('four')" for="1-4yrsAWE">
+                1-4 Years
+              </label>
+              <label class="element-text" [class.selected]="visualDeckReportModalForm.get('AWE')?.value === 'seven'"
+                     (click)="selectAWE('seven')" for="4-7yrsAWE">
+                4-7 Years
+              </label>
+              <label class="element-text" [class.selected]="visualDeckReportModalForm.get('AWE')?.value === 'sevenplus'"
+                     (click)="selectAWE('sevenplus')" for="7+yrsAWE">
+                7+ Years
+              </label>
+            </div>
+          </div>
+          <hr>
+        </ng-container>
+
+        <ng-container *ngIf="!unitUnavailable.checked">
+          <div class="form-errors"
+               *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('images')?.hasError('required')">
+            *field is required.
+          </div>
+          <div class="form-group">
+            <label class="form-label qstn-txt">Upload Image:</label>
+            <input type="file" (change)="handleFileInput($event)" class="form-control" multiple>
+            <div class="img-container">
+              <div *ngFor="let imageUrl of imagePreviewUrls; let i = index" class="image-preview">
+                <img [src]="imageUrl" alt="Image Preview" class="preview-image">
+                <span class="close-icon-img" (click)="removeImage(i)">&times;</span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
     </div>
-  </div>
-  <div class="button-container">
-    <div class="form-errors" *ngIf="showErrors && !unitUnavailable.checked && !visualDeckReportModalForm.valid">
-      *Fill all mandatory fields.
+    <div class="button-container">
+      <div class="form-errors" *ngIf="showErrors && !unitUnavailable.checked && !visualDeckReportModalForm.valid">
+        *Fill all mandatory fields.
+      </div>
+      <div class="inside-button-container">
+        <button *ngIf="!isSaving" class="mat-raised-button mat-primary save-button" (click)="save()">Save</button>
+        <button *ngIf="isSaving" class="d-flex w-auto align-items-center mat-raised-button mat-primary save-button" type="button" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Saving...
+        </button>
+        <!-- <button class="close-button" (click)="close()">Close</button> -->
+      </div>
     </div>
-    <div class="inside-button-container">
-      <button *ngIf="!isSaving" class="mat-raised-button mat-primary save-button" (click)="save()">Save</button>
-      <button *ngIf="isSaving" class="mat-raised-button mat-primary save-button" type="button" disabled>
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Saving...
-      </button>
-      <!-- <button class="close-button" (click)="close()">Close</button> -->
-    </div>
+  </ng-container>
+  <div class="form-container loading-section">
+    <app-loading-screen *ngIf="isLoading"></app-loading-screen>
   </div>
 </div>
