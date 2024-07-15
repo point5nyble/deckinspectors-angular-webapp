@@ -42,7 +42,7 @@
       <div class="col">
         <label class="form-label">Location Form</label>
         <select class="form-select" name="form" formControlName="formId">
-          <option [value]="null">default</option>
+          <option [value]="null">Default</option>
           <option *ngFor="let form of allForms" [value]="form._id">{{ form.name }}</option>
         </select>
       </div>

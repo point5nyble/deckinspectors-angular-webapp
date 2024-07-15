@@ -96,10 +96,6 @@ export class VisualDeckReportModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.projectInfo = this.tenantService.getProjectInfo();
-    if (this.projectInfo && this.projectInfo.formId && this.projectInfo.formId !== '') {
-      this.getFormById(this.projectInfo.formId);
-    }
     const unitUnavailableCheck = [null, undefined, true];
     this.visualDeckReportModalForm = this.formBuilder.group({
       visualReportName: [this.data.rowsMap?.get('name'), Validators.required], // Add validators if needed
@@ -116,6 +112,20 @@ export class VisualDeckReportModalComponent implements OnInit {
       AWE: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? "" : this.data.rowsMap?.get('awe'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required],
       images: [this.data.images, (this.data.rowsMap?.get('unitUnavailable')) ? null : Validators.required]
     });
+
+    this.projectInfo = this.tenantService.getProjectInfo();
+    if ((!this.data || !this.data.questions || !this.data.questions.length) &&
+      this.projectInfo && this.projectInfo.formId && this.projectInfo.formId !== '') {
+      this.getFormById(this.projectInfo.formId);
+    } else if (this.data && this.data.questions && this.data.questions.length) {
+      this.locationFormQuestions = JSON.parse(JSON.stringify(this.data.questions));
+      this.locationFormQuestions = this.locationFormQuestions.map((question: any) => {
+        question.type = question.type.toLowerCase();
+        return question;
+      });
+      this.isLocationFormFields = true;
+      this.removeDefaultValidation();
+    }
     // console.log('data = ', this.data);
     // console.log('this.projectInfo = ', this.projectInfo);
   }
@@ -284,7 +294,8 @@ export class VisualDeckReportModalComponent implements OnInit {
     const exteriorElementsControl = this.visualDeckReportModalForm.get('exteriorElements');
     const waterproofingElementsControl = this.visualDeckReportModalForm.get('waterproofingElements');
     const visualReviewControl = this.visualDeckReportModalForm.get('visualReview');
-    const invasiveReviewRequiredControl = this.visualDeckReportModalForm.get('invasiveReviewRequired');
+    const signsOfLeaksControl = this.visualDeckReportModalForm.get('signsOfLeaks');
+    // const invasiveReviewRequiredControl = this.visualDeckReportModalForm.get('invasiveReviewRequired');
     const conditionAssessmentControl = this.visualDeckReportModalForm.get('conditionAssessment');
     const EEEControl = this.visualDeckReportModalForm.get('EEE');
     const LBCControl = this.visualDeckReportModalForm.get('LBC');
@@ -293,7 +304,8 @@ export class VisualDeckReportModalComponent implements OnInit {
     exteriorElementsControl?.clearValidators();
     waterproofingElementsControl?.clearValidators();
     visualReviewControl?.clearValidators();
-    invasiveReviewRequiredControl?.clearValidators();
+    signsOfLeaksControl?.clearValidators();
+    // invasiveReviewRequiredControl?.clearValidators();
     conditionAssessmentControl?.clearValidators();
     EEEControl?.clearValidators();
     LBCControl?.clearValidators();
@@ -302,7 +314,8 @@ export class VisualDeckReportModalComponent implements OnInit {
     exteriorElementsControl?.updateValueAndValidity();
     waterproofingElementsControl?.updateValueAndValidity();
     visualReviewControl?.updateValueAndValidity();
-    invasiveReviewRequiredControl?.updateValueAndValidity();
+    signsOfLeaksControl?.updateValueAndValidity();
+    // invasiveReviewRequiredControl?.updateValueAndValidity();
     conditionAssessmentControl?.updateValueAndValidity();
     EEEControl?.updateValueAndValidity();
     LBCControl?.updateValueAndValidity();

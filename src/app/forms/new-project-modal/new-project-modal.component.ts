@@ -50,7 +50,7 @@ export class NewProjectModalComponent implements OnInit {
       option: [this.data.process === 'edit' ? this.data.projectInfo?.projecttype: "multilevel"], // Add validators if needed
       description: [this.data.process === 'edit' ? this.data.projectInfo?.description: ""],
       editDate: [this.data.process === 'edit' ? this.data.projectInfo?.editedat: this.getFormattedCurrentDate()],
-      formId: [{value: (this.data.process === 'edit' && this.data.projectInfo?.formId != '') ? this.data.projectInfo?.formId : null, disabled: (this.data.process === 'edit')}],
+      formId: [{value: (this.data.process === 'edit' && this.data.projectInfo && this.data.projectInfo.formId && this.data.projectInfo.formId != '') ? this.data.projectInfo?.formId : null, disabled: (this.data.process === 'edit')}],
     });
     this.fetchLocationForms();
   }
@@ -145,7 +145,7 @@ export class NewProjectModalComponent implements OnInit {
       if (this.data.process === 'edit') {
         let projectid = this.data.projectInfo._id === undefined ? (<any>this.data.projectInfo).id : this.data.projectInfo._id;
         let url = environment.apiURL + '/project/' + projectid;
-        data.formId = (this.data.projectInfo?.formId != '') ? this.data.projectInfo?.formId : null;
+        data.formId = (this.data.projectInfo && this.data.projectInfo.formId && this.data.projectInfo.formId != '') ? this.data.projectInfo?.formId : null;
         this.updateProject(url, data);
       } else {
         this.createNewProject(url, data);
