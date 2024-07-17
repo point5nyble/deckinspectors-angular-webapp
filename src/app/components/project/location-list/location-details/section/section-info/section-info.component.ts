@@ -7,6 +7,9 @@ import { Component, Input } from '@angular/core';
 })
 export class SectionInfoComponent {
   @Input() rows: { column1: string; column2: any }[] = [];
+  @Input() isDynamicForm: boolean = false;
+  @Input() formQuestions: any[] = [];
+  @Input() isSaving: boolean = false;
   constructor() {}
 
   getFormattedColumn2Value(column2Value: any): string {
