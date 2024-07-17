@@ -106,7 +106,7 @@ export class VisualDeckReportModalComponent implements OnInit {
       signsOfLeaks: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? false : this.data.rowsMap?.get('visualsignsofleak'), (this.data.rowsMap?.get('unitUnavailable')) ? false : Validators.required],
       invasiveReviewRequired: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? false : this.data.rowsMap?.get('furtherinvasivereviewrequired'), (this.data.rowsMap?.get('unitUnavailable')) ? null : Validators.required],
       conditionAssessment: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? "" : this.data.rowsMap?.get('conditionalassessment'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required],
-      additionalConsiderationsOrConcern: [this.data.rowsMap?.get('additionalconsiderationshtml') !== undefined ? this.data.rowsMap?.get('additionalconsiderationshtml') : this.data.rowsMap?.get('additionalconsiderations')],
+      additionalConsiderationsOrConcern: [this.data.rowsMap?.get('additionalconsiderations') !== undefined ? this.data.rowsMap?.get('additionalconsiderations') : ""],
       EEE: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? "" : this.data.rowsMap?.get('eee'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required],
       LBC: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? "" : this.data.rowsMap?.get('lbc'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required],
       AWE: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? "" : this.data.rowsMap?.get('awe'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required],
@@ -181,7 +181,7 @@ export class VisualDeckReportModalComponent implements OnInit {
     unitUnavailable = !!(unitUnavailable);
     this.locationFormQuestions.forEach((question: any) => {
       if (!unitUnavailable && question.isMandatory &&
-          ((question.type === 'checkbox' && (!question.answers || question.answers.length <= 0)) ||
+          ((question.type === 'checkbox' && (!question.multipleAnswers || question.multipleAnswers.length <= 0)) ||
           (question.type !== 'checkbox' && (!question.answer || question.answer === '')))) {
         valid = false;
       }
@@ -446,13 +446,13 @@ export class VisualDeckReportModalComponent implements OnInit {
 
   isOptionSelectedForDynamicField(option: string, index: number): boolean {
     const question = this.locationFormQuestions[index];
-    const selectedOptions = question.answers;
+    const selectedOptions = question.multipleAnswers;
     return selectedOptions && selectedOptions.includes(option);
   }
 
   toggleOptionSelectionForDynamicField(option: string, index: number): void {
     const question = this.locationFormQuestions[index];
-    const selectedOptions = question.answers || [];
+    const selectedOptions = question.multipleAnswers || [];
 
     if (selectedOptions.includes(option)) {
       const index = selectedOptions.indexOf(option);
@@ -461,7 +461,7 @@ export class VisualDeckReportModalComponent implements OnInit {
       selectedOptions.push(option);
     }
 
-    this.locationFormQuestions[index].answers = selectedOptions;
+    this.locationFormQuestions[index].multipleAnswers = selectedOptions;
   }
 
   toggleForDynamicField(index: number) {

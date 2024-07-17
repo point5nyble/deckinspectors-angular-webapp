@@ -166,7 +166,7 @@
           <ng-container *ngFor="let question of locationFormQuestions; let i = index">
             <div class="form-errors"
                  *ngIf="showErrors && question.isMandatory &&
-                ((question.type === 'checkbox' && (!question.answers || question.answers.length <= 0)) ||
+                ((question.type === 'checkbox' && (!question.multipleAnswers || question.multipleAnswers.length <= 0)) ||
                  (question.type !== 'checkbox' && (!question.answer || question.answer === '')))">
               *field is required.
             </div>

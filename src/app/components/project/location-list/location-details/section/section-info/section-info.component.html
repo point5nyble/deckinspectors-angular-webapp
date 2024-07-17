@@ -226,7 +226,7 @@
                   </td>
                   <td class="element-right">
                     <span class="lyf-right-text">
-                      <ng-container *ngFor="let answer of questionObj.answers">
+                      <ng-container *ngFor="let answer of questionObj.multipleAnswers">
                         <span class="element-right-text">{{ answer }}</span>
                       </ng-container>
                     </span>
@@ -234,21 +234,21 @@
                 </ng-container>
               </tr>
             </ng-container>
-            </tbody>
-          </table>
-
-          <table class="table con">
-            <tbody class="table-body">
             <ng-container *ngFor="let row of rows; let i = index">
               <tr *ngIf="row.column1 === 'Additional Considerations or Concerns'" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
-                <td class="con-left">
+                <td class="lyf-left">
                   <p>{{ row.column1 }}</p>
                 </td>
-                <td class="con-right">{{ getFormattedColumn2Value(row.column2) }}</td>
+                <td class="lyf-right">
+                  <span class="lyf-right-text">
+                    {{ getFormattedColumn2Value(row.column2) }}
+                  </span>
+                </td>
               </tr>
             </ng-container>
             </tbody>
           </table>
+
         </ng-container>
       </div>
 

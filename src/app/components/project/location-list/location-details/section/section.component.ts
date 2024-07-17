@@ -160,6 +160,10 @@ export class SectionComponent implements OnInit{
       (response:any) => {
         this.sectionReport = response.section;
         this.formQuestions = response.section?.questions || [];
+        this.formQuestions = this.formQuestions.map((question: any) => {
+          question.type = question.type.toLowerCase();
+          return question;
+        });
         this.constructRows();
         this.isRecordFound = true;
         this.isSaving = false;
