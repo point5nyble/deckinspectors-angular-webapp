@@ -333,6 +333,9 @@ export class SectionComponent implements OnInit{
     let request = null;
     if (this.sectionState === SectionState.VISUAL) {
       request = this.createSectionData(data);
+      //created by is getting the value of logged in user on edit, so we are removing createdBy on edit after saving the user to lasteditBy property
+      request["lasteditby"] = request["createdBy"];
+      delete request["createdBy"];
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
       request = this.createConclusiveSectionData(data);
     } else if (this.sectionState === SectionState.INVASIVE) {
