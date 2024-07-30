@@ -53,15 +53,21 @@ export class NewSubprojectModalComponent {
 
   createNewLocation(){
     let url = environment.apiURL + '/subproject/add';
-    let data = {
+    let username = localStorage.getItem('username');
+    let data: any = {
       "name": this.newSubprojectForm.value.name,
       "description": this.newSubprojectForm.value.description,
       "parentid": this.data.projectInfo.parentId,
       "parenttype": this.data.projectInfo.parenttype,
       "isInvasive": true,
-      "createdBy": localStorage.getItem('username'),
       "url": this.newSubprojectForm.value.image,
-      "assignedTo" : [localStorage.getItem('username')]
+    }
+    if (this.data.process === "edit"){
+      data["lasteditedby"] = username;
+    }
+    else{
+      data["createdBy"] = username;
+      data["assignedTo"] = username;
     }
   }
 
