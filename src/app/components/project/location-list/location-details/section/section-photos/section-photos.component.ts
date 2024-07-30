@@ -7,6 +7,7 @@ import {InspectionReport} from "../../../../../../common/models/inspection-repor
 })
 export class SectionPhotosComponent implements OnInit{
   @Input() images!: string[];
+  @Input() isSaving: boolean = false;
   @Input() rows: { column1: string; column2: any }[] = [];
 
   constructor() {}
@@ -39,5 +40,5 @@ export class SectionPhotosComponent implements OnInit{
     this.currentIndex = (this.currentIndex + 1) % this.images.length;
     this.currentLightboxImage = this.images[this.currentIndex];
   }
-  
+
 }

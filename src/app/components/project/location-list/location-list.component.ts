@@ -254,7 +254,7 @@ export class LocationListComponent implements OnInit {
     let count = 0;
     this.locationList.forEach((location, i) =>{
       let url = `${environment.apiURL}/location/${location._id}`;
-      let data = {"sequenceNo": i};
+      let data = {"sequenceNo": i.toString()};
 
       this.httpsRequestService.putHttpData(url, data).subscribe(
         (response: any) => {

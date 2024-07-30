@@ -1,5 +1,5 @@
-<div class="scrollable-container">
-  <table class="table ">
+<div class="scrollable-container" id="section-info">
+  <table class="table " *ngIf="!isSaving">
     <tbody>
       <ng-container *ngIf="rows.length > 1 && rows[1].column2 === true">
 
@@ -49,7 +49,7 @@
 
       <!-- VISUAL -->
       <div class="scrollable-container">
-        <ng-container *ngIf="rows.length > 1 && rows[1].column2 === false">
+        <ng-container *ngIf="rows.length > 1 && rows[1].column2 === false && !isDynamicForm">
           <table class="table header">
             <tbody class="table-body">
               <ng-container *ngFor="let row of rows; let i = index">
@@ -101,7 +101,7 @@
               </tbody>
             </table>
           </div>
-          
+
           <table class="table element">
             <tbody class="table-body">
               <ng-container *ngFor="let row of rows; let i = index">
@@ -150,6 +150,105 @@
               </ng-container>
             </tbody>
           </table>
+        </ng-container>
+
+        <ng-container *ngIf="rows.length > 1 && rows[1].column2 === false && isDynamicForm">
+          <table class="table header">
+            <tbody class="table-body">
+            <ng-container *ngFor="let row of rows; let i = index">
+              <tr *ngIf="i === 0" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
+                <td class="centre">
+                  <p>{{ getFormattedColumn2Value(row.column2) }}</p>
+                </td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+
+          <div class="first-row">
+            <table class="table bool">
+              <tbody class="table-body">
+              <ng-container *ngFor="let row of rows; let i = index">
+                <tr *ngIf="i === 1" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
+                  <ng-container
+                    *ngIf="!(row.column1 === 'Additional Considerations or Concerns Html' || row.column1 === 'Additional Considerations or Concerns')">
+                    <td class="bool-left">
+                      <p>{{ row.column1 }}</p>
+                    </td>
+                    <td class="bool-right"><span class="bool-right-text"
+                                                 [ngStyle]="{ 'background-color': getBackgroundColorBool(row.column1, row.column2) }">{{
+                        getFormattedColumn2Value(row.column2) }}</span></td>
+                  </ng-container>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+
+            <table class="table lyf">
+              <tbody class="table-body">
+              <ng-container *ngFor="let row of rows; let i = index">
+                <tr *ngIf="i === 2" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
+                  <ng-container
+                    *ngIf="!(row.column1 === 'Additional Considerations or Concerns Html' || row.column1 === 'Additional Considerations or Concerns')">
+                    <td class="lyf-left">
+                      <p>{{ row.column1 }}</p>
+                    </td>
+                    <td class="lyf-right">
+                        <span class="bool-right-text"
+                              [ngStyle]="{ 'background-color': getBackgroundColorBool(row.column1, row.column2) }">{{
+                            getFormattedColumn2Value(row.column2) }}</span>
+                    </td>
+                  </ng-container>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+          </div>
+
+          <table class="table header">
+            <tbody class="table-body">
+            <ng-container *ngFor="let questionObj of formQuestions; let i = index">
+              <tr style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
+                <ng-container *ngIf="questionObj.type !== 'checkbox'">
+                  <td class="lyf-left">
+                    <p>{{ questionObj.name }}</p>
+                  </td>
+                  <td class="lyf-right">
+                    <span class="lyf-right-text">
+                      {{ questionObj.answer }}
+                    </span>
+                  </td>
+                </ng-container>
+
+                <ng-container *ngIf="questionObj.type === 'checkbox'">
+                  <td class="element-left">
+                    <p>{{ questionObj.name }}</p>
+                  </td>
+                  <td class="element-right">
+                    <span class="lyf-right-text">
+                      <ng-container *ngFor="let answer of questionObj.multipleAnswers">
+                        <span class="element-right-text">{{ answer }}</span>
+                      </ng-container>
+                    </span>
+                  </td>
+                </ng-container>
+              </tr>
+            </ng-container>
+            <ng-container *ngFor="let row of rows; let i = index">
+              <tr *ngIf="row.column1 === 'Additional Considerations or Concerns'" style="border-bottom: 0.25px solid rgb(88, 85, 85); border-top: 0.25px solid rgb(88, 85, 85)">
+                <td class="lyf-left">
+                  <p>{{ row.column1 }}</p>
+                </td>
+                <td class="lyf-right">
+                  <span class="lyf-right-text">
+                    {{ getFormattedColumn2Value(row.column2) }}
+                  </span>
+                </td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+
         </ng-container>
       </div>
 
@@ -263,6 +362,10 @@
 
     </tbody>
   </table>
+
+<!--  <div class="loading-section" *ngIf="isSaving">-->
+<!--    <app-loading-screen></app-loading-screen>-->
+<!--  </div>-->
 </div>
 
 

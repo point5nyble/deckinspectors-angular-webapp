@@ -15,7 +15,7 @@
       </div> -->
     </div>
   </div>
-  
+
   <app-loading-screen *ngIf="isSaving"></app-loading-screen>
   <div class="projectInfo">
     <div *ngIf="projectState === ProjectState.INVASIVE && showBtn" class="mr-4">
@@ -36,14 +36,12 @@
     </div>
     <app-section-info class="flex-item" [rows]="rows" *ngIf="isRecordFound"></app-section-info>
   </div> -->
-  <div class="locationsectioninformation">
-    <div cdkDropList class="scrollable">
-      <!-- Conditionally render app-section-photos if there are images -->
-      <app-section-photos [images]="images" [rows]="rows" *ngIf="isRecordFound && images && images.length > 0"></app-section-photos>
+    <div class="locationsectioninformation">
+      <div cdkDropList class="scrollable">
+        <!-- Conditionally render app-section-photos if there are images -->
+        <app-section-photos [images]="images" [rows]="rows" *ngIf="isRecordFound && images && images.length > 0" [isSaving]="isSaving"></app-section-photos>
+      </div>
+      <app-section-info class="flex-item" [rows]="rows" [isDynamicForm]="isDynamicForm" [formQuestions]="formQuestions" [isSaving]="isSaving" *ngIf="isRecordFound"></app-section-info>
     </div>
-    <app-section-info class="flex-item" [rows]="rows" *ngIf="isRecordFound"></app-section-info>
-  </div>
-  
-   
   </div>
 </div>

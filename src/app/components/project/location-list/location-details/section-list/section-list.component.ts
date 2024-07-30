@@ -15,6 +15,7 @@ import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/d
 import {NgClass, NgFor, NgIf} from '@angular/common';
 import { SectionListElementComponent } from './section-list-element/section-list-element.component';
 import { VisualDeckReportModalComponent } from 'src/app/forms/visual-deck-report-modal/visual-deck-report-modal.component';
+import {TenantService} from "../../../../../service/tenant.service";
 
 @Component({
   selector: 'app-section-list',
@@ -37,6 +38,8 @@ export class SectionListComponent implements OnInit{
     this.getSections(location);
   }
   public currentSection!: any;
+  projectInfo: any;
+  isDynamicForm: boolean = false;
 
   projectState!: ProjectState;
   @Output() sectionStateChange = new EventEmitter<SectionState>();
@@ -44,7 +47,8 @@ export class SectionListComponent implements OnInit{
   constructor(private dialog: MatDialog,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
               private httpsRequestService:HttpsRequestService,
-              private store: Store<any>) {
+              private store: Store<any>,
+              private tenantService: TenantService) {
   }
 
 
@@ -56,11 +60,13 @@ export class SectionListComponent implements OnInit{
   ngOnInit(): void {
     this.subscribeProjectState();
     this.fetchDataForGivenSectionIdOnInit();
+    this.projectInfo = this.tenantService.getProjectInfo();
+    this.isDynamicForm = !!(this.projectInfo && this.projectInfo.formId && this.projectInfo.formId !== '');
   }
 
   private fetchDataForGivenSectionIdOnInit() {
-    if (this.sections.length > 0) {
-      this.fetchDataForGivenSectionId(this.sections[0]); 
+    if (this.sections && this.sections.length > 0) {
+      this.fetchDataForGivenSectionId(this.sections[0]);
     } else {
       // this.fetchDataForGivenSectionId(undefined)
       const emptySection: Section = {
@@ -85,9 +91,9 @@ export class SectionListComponent implements OnInit{
 
 ngOnChanges(changes: { [property: string]: SimpleChange }) {
     // Extract changes to the input property by its name
-    let change: SimpleChange = changes['isLoading']; 
+    let change: SimpleChange = changes['isLoading'];
     if(change?.currentValue){
-      
+
     }
     // Whenever the data in the parent changes, this method gets triggered
     // You can act on the changes here. You will have both the previous
@@ -108,7 +114,7 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
         fl = true;
       }
     });
-    
+
     if (fl){
       this.sections?.sort((a, b) => {
         return String(a._id).localeCompare(String(b._id));
@@ -147,7 +153,10 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
     dialogRef.afterClosed().subscribe(data => {
       if(data.confirmed){
         let id = $event._id;
-        let url = `${environment.apiURL}/section/${id}`;
+        let url: string = `${environment.apiURL}/section/${id}`;
+        if (this.isDynamicForm) {
+          url = `${environment.apiURL}/dynamicsection/${id}`;
+        }
         this.httpsRequestService.deleteHttpData(url).subscribe(
           (response: any) => {
             this.sectionsDeletionComplete.emit(true);
@@ -209,7 +218,13 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
     if (this.projectState === ProjectState.VISUAL) {
       request = this.createSectionData(data);
     }
-    let url = environment.apiURL + '/section/add';
+    let url = '';
+    if (data.isLocationFormFields) {
+      url = environment.apiURL + '/dynamicsection/add';
+    } else {
+      url = environment.apiURL + '/section/add';
+    }
+
     let isInvasive = request?.furtherinvasivereviewrequired === "Yes";
     this.httpsRequestService.postHttpData(url, request).subscribe(
       (response:any) => {
@@ -225,24 +240,41 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
   }
 
   private createSectionData(data: any):any {
-    return {
+    const preparedObj: any = {
       "name": data?.visualReportName,
       "unitUnavailable": data?.unitUnavailable === true,
       "additionalconsiderations": data?.additionalConsiderationsOrConcern,
       "additionalconsiderationshtml": data?.additionalConsiderationsOrConcernHtml,
-      "awe": data?.AWE,
-      "conditionalassessment": data?.conditionAssessment,
+      // "awe": data?.AWE,
+      // "conditionalassessment": data?.conditionAssessment,
       "createdby": localStorage.getItem('username'),
-      "eee": data?.EEE,
-      "exteriorelements": data?.exteriorElements,
+      // "eee": data?.EEE,
+      // "exteriorelements": data?.exteriorElements,
       "furtherinvasivereviewrequired": data?.invasiveReviewRequired,
-      "lbc": data?.LBC,
+      // "lbc": data?.LBC,
       "parentid": this.location_._id,
       "parenttype": this.location_.type,
-      "visualreview": data?.visualReview,
-      "visualsignsofleak": data?.signsOfLeaks,
-      "waterproofingelements": data?.waterproofingElements,
-      "images": data?.images
+      // "visualreview": data?.visualReview,
+      // "visualsignsofleak": data?.signsOfLeaks,
+      // "waterproofingelements": data?.waterproofingElements,
+      "images": data?.images,
+      // "questions": data?.questions
     };
+    if (data.isLocationFormFields) {
+      preparedObj.questions = data?.questions;
+      preparedObj.companyIdentifier = data?.companyIdentifier;
+    } else {
+      preparedObj.awe = data?.AWE;
+      preparedObj.conditionalassessment = data?.conditionAssessment;
+      preparedObj.eee = data?.EEE;
+      preparedObj.exteriorelements = data?.exteriorElements;
+      // preparedObj.furtherinvasivereviewrequired = data?.invasiveReviewRequired;
+      preparedObj.lbc = data?.LBC;
+      preparedObj.visualsignsofleak = data?.signsOfLeaks;
+      preparedObj.waterproofingelements = data?.waterproofingElements;
+      preparedObj.visualreview = data?.visualReview;
+    }
+
+    return preparedObj;
   }
 }

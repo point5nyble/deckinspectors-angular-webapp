@@ -20,6 +20,7 @@ import {
   ConclusiveSectionModalComponent
 } from "../../../../../forms/conclusive-section-modal/conclusive-section-modal/conclusive-section-modal.component";
 import { environment } from '../../../../../../environments/environment';
+import {TenantService} from "../../../../../service/tenant.service";
 
 @Component({
   selector: 'app-section',
@@ -34,6 +35,10 @@ export class SectionComponent implements OnInit{
   sectionId_!:string;
   images!: string[];
   sectionReport!: InspectionReport;
+  projectInfo: any;
+  isDynamicForm: boolean = false;
+  formQuestions: any = [];
+  isLoading: boolean = false;
 
   @Output() sectionStateChange = new EventEmitter<SectionState>();
 
@@ -48,7 +53,8 @@ export class SectionComponent implements OnInit{
   constructor(private dialog: MatDialog,
               private orchestratorCommunicationService:OrchestratorCommunicationService,
               private httpsRequestService:HttpsRequestService,
-              private store: Store<any>) {
+              private store: Store<any>,
+              private tenantService: TenantService) {
 
   }
 
@@ -57,6 +63,8 @@ export class SectionComponent implements OnInit{
     this.constructRows();
     this.subscribeProjectState();
     this.subscribeToSectionClick();
+    this.projectInfo = this.tenantService.getProjectInfo();
+    this.isDynamicForm = !!(this.projectInfo && this.projectInfo.formId && this.projectInfo.formId !== '');
   }
 
   ngOnChanges(changes: { [property: string]: SimpleChange }) {
@@ -105,9 +113,13 @@ export class SectionComponent implements OnInit{
       username: localStorage.getItem('username')
     };
     if (this.sectionState === SectionState.VISUAL) {
-      data = {...data, sectionid: $event}
-      url = environment.apiURL + '/section/getSectionById';
-      // this.findOutConclusiveSectionStatus(this.sectionId_);
+      if (this.isDynamicForm) {
+        url = environment.apiURL + '/dynamicsection/' + this.sectionId_;
+      } else {
+        data = {...data, sectionid: $event}
+        url = environment.apiURL + '/section/getSectionById';
+        // this.findOutConclusiveSectionStatus(this.sectionId_);
+      }
     } else if (this.sectionState === SectionState.INVASIVE) {
       data = {...data, parentSectionId: $event}
       url = environment.apiURL + '/invasivesection/getInvasiveSectionByParentId';
@@ -117,10 +129,41 @@ export class SectionComponent implements OnInit{
       url = environment.apiURL + '/conclusivesection/getConclusiveSectionsByParentId';
     }
 
+    if (this.isDynamicForm) {
+      this.getDynamicSectionById(url);
+    } else {
+      this.getSectionById(url, data);
+    }
+  }
 
+  private getSectionById(url: string, data: any) {
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response:any) => {
         this.sectionReport = (this.sectionState === SectionState.VISUAL)? response.section : response.sections[0];
+        this.constructRows();
+        this.isRecordFound = true;
+        this.isSaving = false;
+      },
+      error => {
+        // Check this logic
+        if (error.error.code === 401 || error.error.code === 500) {
+          this.isRecordFound = false;
+        }
+        this.isSaving = false;
+        console.log(error);
+      }
+    );
+  }
+
+  private getDynamicSectionById(url: string) {
+    this.httpsRequestService.getHttpData(url).subscribe(
+      (response:any) => {
+        this.sectionReport = response.section;
+        this.formQuestions = response.section?.questions || [];
+        this.formQuestions = this.formQuestions.map((question: any) => {
+          question.type = question.type.toLowerCase();
+          return question;
+        });
         this.constructRows();
         this.isRecordFound = true;
         this.isSaving = false;
@@ -208,8 +251,6 @@ export class SectionComponent implements OnInit{
     } else if (this.sectionState === SectionState.VISUAL) {
       this.images = this.sectionReport?.images;
     }
-
-    // console.log(this.rows);
   }
 
   deleteElementFromArray(arr: any[], valueToDelete: string): any[] {
@@ -227,6 +268,9 @@ export class SectionComponent implements OnInit{
       rowsMap:this.rowsMap,
       images: this.images,
     };
+    if (this.isDynamicForm && this.sectionReport && this.sectionReport['questions']) {
+      dialogConfig.data.questions = this.sectionReport['questions'] || [];
+    }
     if (this.sectionState === SectionState.VISUAL) {
       const dialogRef = this.dialog.open(VisualDeckReportModalComponent, dialogConfig);
       dialogRef.afterClosed().subscribe(data => {
@@ -294,7 +338,8 @@ export class SectionComponent implements OnInit{
     } else if (this.sectionState === SectionState.INVASIVE) {
       request = this.createInvasiveSectionData(data);
     }
-    let url = this.getEditUrl();
+    const isLocationFormFields = data.isLocationFormFields;
+    let url = this.getEditUrl(isLocationFormFields);
     let isInvasive = request?.furtherinvasivereviewrequired === "Yes";
     this.httpsRequestService.putHttpData(url, request).subscribe(
       (response:any) => {
@@ -327,7 +372,8 @@ export class SectionComponent implements OnInit{
     } else if (this.sectionState === SectionState.INVASIVE) {
       request = this.createInvasiveSectionData(data);
     }
-    let url = this.getAddUrl();
+    const isLocationFormFields = data.isLocationFormFields;
+    let url = this.getAddUrl(isLocationFormFields);
     let isInvasive = request?.furtherinvasivereviewrequired === "Yes";
     this.httpsRequestService.postHttpData(url, request).subscribe(
       (response:any) => {
@@ -364,25 +410,42 @@ export class SectionComponent implements OnInit{
   }
 
   private createSectionData(data: any):any {
-    return {
+    const preparedObj: any = {
       "name": data?.visualReportName,
       "unitUnavailable": data?.unitUnavailable === true,
       "additionalconsiderations": data?.additionalConsiderationsOrConcern,
       "additionalconsiderationshtml": data?.additionalConsiderationsOrConcernHtml,
-      "awe": data?.AWE,
-      "conditionalassessment": data?.conditionAssessment,
+      // "awe": data?.AWE,
+      // "conditionalassessment": data?.conditionAssessment,
       "createdby": localStorage.getItem('username'),
-      "eee": data?.EEE,
-      "exteriorelements": data?.exteriorElements,
+      // "eee": data?.EEE,
+      // "exteriorelements": data?.exteriorElements,
       "furtherinvasivereviewrequired": data?.invasiveReviewRequired,
-      "lbc": data?.LBC,
+      // "lbc": data?.LBC,
       "parentid": this.location._id,
       "parenttype": this.location.type,
-      "visualreview": data?.visualReview,
-      "visualsignsofleak": data?.signsOfLeaks,
-      "waterproofingelements": data?.waterproofingElements,
-      "images": data?.images
+      // "visualreview": data?.visualReview,
+      // "visualsignsofleak": data?.signsOfLeaks,
+      // "waterproofingelements": data?.waterproofingElements,
+      "images": data?.images,
+      // "questions": data?.questions
     };
+    if (data.isLocationFormFields) {
+      preparedObj.questions = data?.questions;
+      preparedObj.companyIdentifier = data?.companyIdentifier;
+    } else {
+      preparedObj.awe = data?.AWE;
+      preparedObj.conditionalassessment = data?.conditionAssessment;
+      preparedObj.eee = data?.EEE;
+      preparedObj.exteriorelements = data?.exteriorElements;
+      // preparedObj.furtherinvasivereviewrequired = data?.invasiveReviewRequired;
+      preparedObj.lbc = data?.LBC;
+      preparedObj.visualsignsofleak = data?.signsOfLeaks;
+      preparedObj.waterproofingelements = data?.waterproofingElements;
+      preparedObj.visualreview = data?.visualReview;
+    }
+
+    return preparedObj;
   }
 
   private createInvasiveSectionData(data: any):any {
@@ -407,10 +470,14 @@ export class SectionComponent implements OnInit{
     };
   }
 
-  private getAddUrl():string {
+  private getAddUrl(isLocationFormFields: boolean = false):string {
     let url = '';
     if (this.sectionState === SectionState.VISUAL) {
-      url = environment.apiURL + '/section/add';
+      if (isLocationFormFields) {
+        url = environment.apiURL + '/dynamicsection/add';
+      } else {
+        url = environment.apiURL + '/section/add';
+      }
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
       url = environment.apiURL + '/conclusivesection/add';
     } else if (this.sectionState === SectionState.INVASIVE) {
@@ -419,10 +486,14 @@ export class SectionComponent implements OnInit{
     return url;
   }
 
-  private getEditUrl():string {
+  private getEditUrl(isLocationFormFields: boolean = false):string {
     let url = '';
     if (this.sectionState === SectionState.VISUAL) {
-      url = environment.apiURL + '/section/' + this.sectionReport._id;
+      if (isLocationFormFields) {
+        url = environment.apiURL + '/dynamicsection/' + this.sectionReport._id;
+      } else {
+        url = environment.apiURL + '/section/' + this.sectionReport._id;
+      }
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
       url = environment.apiURL + '/conclusivesection/' + this.sectionReport._id;
     } else if (this.sectionState === SectionState.INVASIVE) {

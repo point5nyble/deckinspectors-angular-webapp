@@ -1,4 +1,4 @@
-<div class="photo-list scrollable-container">
+<div class="photo-list scrollable-container" *ngIf="!isSaving">
   <div class="image-row">
     <div *ngFor="let photo of images; let i = index;">
       <img src="{{ photo }}"  alt="Photo" (click)="openPreviewImage(i)">

@@ -5,6 +5,9 @@ import { ImageToUrlConverterService } from "../../service/image-to-url-converter
 import { forkJoin, Observable } from "rxjs";
 import { map } from 'rxjs/operators';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { environment } from "../../../environments/environment";
+import { HttpsRequestService } from "../../service/https-request.service";
+import { TenantService } from "../../service/tenant.service";
 
 @Component({
   selector: 'app-visual-deck-report-modal',
@@ -25,6 +28,10 @@ export class VisualDeckReportModalComponent implements OnInit {
   imageControl: FormControl = new FormControl();
   showErrors: boolean = false;
   isSaving: boolean = false;
+  isLoading: boolean = false;
+  isLocationFormFields: boolean = false;
+  locationFormQuestions: any = [];
+  projectInfo: any;
 
   config: AngularEditorConfig = {
     editable: true,
@@ -80,7 +87,9 @@ export class VisualDeckReportModalComponent implements OnInit {
               private cdr: ChangeDetectorRef,
               private dialogRef: MatDialogRef<VisualDeckReportModalComponent>,
               @Inject(MAT_DIALOG_DATA) data: any,
-              private imageToUrlConverterService: ImageToUrlConverterService) {
+              private imageToUrlConverterService: ImageToUrlConverterService,
+              private httpsRequestService: HttpsRequestService,
+              private tenantService: TenantService) {
     this.data = data;
     this.data.images = this.data.images === undefined ? [] : this.data.images;
     this.imagePreviewUrls = JSON.parse(JSON.stringify(this.data.images));
@@ -97,12 +106,53 @@ export class VisualDeckReportModalComponent implements OnInit {
       signsOfLeaks: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? false : this.data.rowsMap?.get('visualsignsofleak'), (this.data.rowsMap?.get('unitUnavailable')) ? false : Validators.required],
       invasiveReviewRequired: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? false : this.data.rowsMap?.get('furtherinvasivereviewrequired'), (this.data.rowsMap?.get('unitUnavailable')) ? null : Validators.required],
       conditionAssessment: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? "" : this.data.rowsMap?.get('conditionalassessment'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required],
-      additionalConsiderationsOrConcern: [this.data.rowsMap?.get('additionalconsiderationshtml') !== undefined ? this.data.rowsMap?.get('additionalconsiderationshtml') : this.data.rowsMap?.get('additionalconsiderations')],
+      additionalConsiderationsOrConcern: [this.data.rowsMap?.get('additionalconsiderations') !== undefined ? this.data.rowsMap?.get('additionalconsiderations') : ""],
       EEE: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? "" : this.data.rowsMap?.get('eee'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required],
       LBC: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? "" : this.data.rowsMap?.get('lbc'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required],
       AWE: [unitUnavailableCheck.includes(this.data.rowsMap?.get('unitUnavailable')) ? "" : this.data.rowsMap?.get('awe'), (this.data.rowsMap?.get('unitUnavailable')) ? "" : Validators.required],
       images: [this.data.images, (this.data.rowsMap?.get('unitUnavailable')) ? null : Validators.required]
     });
+
+    this.projectInfo = this.tenantService.getProjectInfo();
+    if ((!this.data || !this.data.questions || !this.data.questions.length) &&
+      this.projectInfo && this.projectInfo.formId && this.projectInfo.formId !== '') {
+      this.getFormById(this.projectInfo.formId);
+    } else if (this.data && this.data.questions && this.data.questions.length) {
+      this.locationFormQuestions = JSON.parse(JSON.stringify(this.data.questions));
+      this.locationFormQuestions = this.locationFormQuestions.map((question: any) => {
+        question.type = question.type.toLowerCase();
+        return question;
+      });
+      this.isLocationFormFields = true;
+      this.removeDefaultValidation();
+    }
+    // console.log('data = ', this.data);
+    // console.log('this.projectInfo = ', this.projectInfo);
+  }
+
+  getFormById(formId:string){
+    this.isLoading = true;
+    let url = environment.apiURL + `/locationforms/${formId}`;
+    this.httpsRequestService.getHttpData(url).subscribe(
+      (response: any) => {
+        if (response.success) {
+          if (response.location && response.location.questions) {
+            this.locationFormQuestions = response.location.questions;
+            this.locationFormQuestions = this.locationFormQuestions.map((question: any) => {
+              question.type = question.type.toLowerCase();
+              return question;
+            });
+          }
+          this.isLocationFormFields = true;
+          this.removeDefaultValidation();
+        }
+        this.isLoading = false;
+      },
+      (error) => {
+        console.log(error);
+        this.isLoading = false;
+      }
+    );
   }
 
   close() {
@@ -114,13 +164,30 @@ export class VisualDeckReportModalComponent implements OnInit {
   }
 
   save() {
-    if (this.visualDeckReportModalForm.valid) {
+    // console.log(this.visualDeckReportModalForm.value);
+    // console.log(this.locationFormQuestions);
+    if (this.visualDeckReportModalForm.valid && this.checkValidDynamicFields()) {
       this.isSaving = true;
       this.uploadImage();
     }
     else {
       this.showErrors = true;
     }
+  }
+
+  checkValidDynamicFields(): boolean {
+    let valid: boolean = true;
+    let unitUnavailable = this.visualDeckReportModalForm.get('unitUnavailable')?.value;
+    unitUnavailable = !!(unitUnavailable);
+    this.locationFormQuestions.forEach((question: any) => {
+      if (!unitUnavailable && question.isMandatory &&
+          ((question.type === 'checkbox' && (!question.multipleAnswers || question.multipleAnswers.length <= 0)) ||
+          (question.type !== 'checkbox' && (!question.answer || question.answer === '')))) {
+        valid = false;
+      }
+    })
+
+    return valid;
   }
 
   handleFileInput(event: any) {
@@ -212,11 +279,47 @@ export class VisualDeckReportModalComponent implements OnInit {
       additionalConsiderationsOrConcern: parsedText
     });
     this.visualDeckReportModalForm.value["additionalConsiderationsOrConcernHtml"] = htmlText;
-    this.dialogRef.close(this.visualDeckReportModalForm.value);
+    const valuesObj: any = this.visualDeckReportModalForm.value;
+    valuesObj.questions = this.locationFormQuestions;
+    valuesObj.isLocationFormFields = this.isLocationFormFields;
+    valuesObj.companyIdentifier = this.projectInfo.companyIdentifier;
+    this.dialogRef.close(valuesObj);
   }
 
   private isValidImageLink(imageUrl: string): boolean {
     return (imageUrl.startsWith("http") || imageUrl.startsWith("https") || imageUrl.startsWith("/var") || imageUrl.startsWith("/section"));
+  }
+
+  removeDefaultValidation() {
+    const exteriorElementsControl = this.visualDeckReportModalForm.get('exteriorElements');
+    const waterproofingElementsControl = this.visualDeckReportModalForm.get('waterproofingElements');
+    const visualReviewControl = this.visualDeckReportModalForm.get('visualReview');
+    const signsOfLeaksControl = this.visualDeckReportModalForm.get('signsOfLeaks');
+    // const invasiveReviewRequiredControl = this.visualDeckReportModalForm.get('invasiveReviewRequired');
+    const conditionAssessmentControl = this.visualDeckReportModalForm.get('conditionAssessment');
+    const EEEControl = this.visualDeckReportModalForm.get('EEE');
+    const LBCControl = this.visualDeckReportModalForm.get('LBC');
+    const AWEControl = this.visualDeckReportModalForm.get('AWE');
+
+    exteriorElementsControl?.clearValidators();
+    waterproofingElementsControl?.clearValidators();
+    visualReviewControl?.clearValidators();
+    signsOfLeaksControl?.clearValidators();
+    // invasiveReviewRequiredControl?.clearValidators();
+    conditionAssessmentControl?.clearValidators();
+    EEEControl?.clearValidators();
+    LBCControl?.clearValidators();
+    AWEControl?.clearValidators();
+
+    exteriorElementsControl?.updateValueAndValidity();
+    waterproofingElementsControl?.updateValueAndValidity();
+    visualReviewControl?.updateValueAndValidity();
+    signsOfLeaksControl?.updateValueAndValidity();
+    // invasiveReviewRequiredControl?.updateValueAndValidity();
+    conditionAssessmentControl?.updateValueAndValidity();
+    EEEControl?.updateValueAndValidity();
+    LBCControl?.updateValueAndValidity();
+    AWEControl?.updateValueAndValidity();
   }
 
   handleUnitUnavailable = (unitUnavailable: any) => {
@@ -244,15 +347,17 @@ export class VisualDeckReportModalComponent implements OnInit {
       AWEControl?.clearValidators();
     } else {
       imagesControl?.setValidators([Validators.required]);
-      exteriorElementsControl?.setValidators([Validators.required]);
-      waterproofingElementsControl?.setValidators([Validators.required]);
-      visualReviewControl?.setValidators([Validators.required]);
-      signsOfLeaksControl?.setValidators([Validators.required]);
       invasiveReviewRequiredControl?.setValidators([Validators.required]);
-      conditionAssessmentControl?.setValidators([Validators.required]);
-      EEEControl?.setValidators([Validators.required]);
-      LBCControl?.setValidators([Validators.required]);
-      AWEControl?.setValidators([Validators.required]);
+      if (!this.isLocationFormFields) {
+        exteriorElementsControl?.setValidators([Validators.required]);
+        waterproofingElementsControl?.setValidators([Validators.required]);
+        visualReviewControl?.setValidators([Validators.required]);
+        signsOfLeaksControl?.setValidators([Validators.required]);
+        conditionAssessmentControl?.setValidators([Validators.required]);
+        EEEControl?.setValidators([Validators.required]);
+        LBCControl?.setValidators([Validators.required]);
+        AWEControl?.setValidators([Validators.required]);
+      }
     }
     imagesControl?.updateValueAndValidity();
     exteriorElementsControl?.updateValueAndValidity();
@@ -271,21 +376,21 @@ export class VisualDeckReportModalComponent implements OnInit {
     if (eeeControl) {
       eeeControl.setValue(value);
     }
-  }  
+  }
 
   selectLBC(value: string) {
     const eeeControl = this.visualDeckReportModalForm.get('LBC');
     if (eeeControl) {
       eeeControl.setValue(value);
     }
-  }  
+  }
 
   selectAWE(value: string) {
     const aweControl = this.visualDeckReportModalForm.get('AWE');
     if (aweControl) {
       aweControl.setValue(value);
     }
-  }  
+  }
 
   selectVisualReview(value: string) {
     const visualReview = this.visualDeckReportModalForm.get('visualReview');
@@ -318,26 +423,52 @@ export class VisualDeckReportModalComponent implements OnInit {
       invasiveReviewControl.setValue(newValue);
     }
   }
-  
 
-isOptionSelected(option: string, formControlName: string): boolean {
-  const selectedOptions = this.visualDeckReportModalForm.get(formControlName)?.value;
-  return selectedOptions && selectedOptions.includes(option);
-}
 
-toggleOptionSelection(option: string, formControlName: string): void {
-  const control = this.visualDeckReportModalForm.get(formControlName);
-  const selectedOptions = control?.value || [];
-
-  if (selectedOptions.includes(option)) {
-    const index = selectedOptions.indexOf(option);
-    selectedOptions.splice(index, 1);
-  } else {
-    selectedOptions.push(option);
+  isOptionSelected(option: string, formControlName: string): boolean {
+    const selectedOptions = this.visualDeckReportModalForm.get(formControlName)?.value;
+    return selectedOptions && selectedOptions.includes(option);
   }
 
-  control?.setValue(selectedOptions);
-}
+  toggleOptionSelection(option: string, formControlName: string): void {
+    const control = this.visualDeckReportModalForm.get(formControlName);
+    const selectedOptions = control?.value || [];
+
+    if (selectedOptions.includes(option)) {
+      const index = selectedOptions.indexOf(option);
+      selectedOptions.splice(index, 1);
+    } else {
+      selectedOptions.push(option);
+    }
+
+    control?.setValue(selectedOptions);
+  }
+
+  isOptionSelectedForDynamicField(option: string, index: number): boolean {
+    const question = this.locationFormQuestions[index];
+    const selectedOptions = question.multipleAnswers;
+    return selectedOptions && selectedOptions.includes(option);
+  }
+
+  toggleOptionSelectionForDynamicField(option: string, index: number): void {
+    const question = this.locationFormQuestions[index];
+    const selectedOptions = question.multipleAnswers || [];
+
+    if (selectedOptions.includes(option)) {
+      const index = selectedOptions.indexOf(option);
+      selectedOptions.splice(index, 1);
+    } else {
+      selectedOptions.push(option);
+    }
+
+    this.locationFormQuestions[index].multipleAnswers = selectedOptions;
+  }
+
+  toggleForDynamicField(index: number) {
+    const question = this.locationFormQuestions[index];
+    const currentValue = question.answer;
+    this.locationFormQuestions[index].answer = currentValue === 'Yes' ? 'No' : 'Yes';
+  }
 
 
 
