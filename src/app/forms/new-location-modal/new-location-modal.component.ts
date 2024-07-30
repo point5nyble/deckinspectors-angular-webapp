@@ -72,17 +72,17 @@ export class NewLocationModalComponent {
   }
 
   createLocation(image_url?:string){
+    let username = localStorage.getItem('username');
     let data: any = {
       "name": this.newLocationForm.value.name,
       "description": this.newLocationForm.value.description,
       "parentid":  this.data.projectInfo?.parentId,
       "parenttype": this.data.projectInfo?.parenttype,
-      "createdBy": localStorage.getItem('username'),
       "url": image_url? image_url : "",
       "type": this.data.type,
       "isInvasive":false,
-      "assignedTo":['']
     }
+
     let url: string;
     // TODO: Check this logic changing this for
     if (this.data.isSubProject || this.data.type === 'subproject') {
@@ -96,9 +96,12 @@ export class NewLocationModalComponent {
       let projectid = this.data.projectInfo._id === undefined ? (<any>this.data.projectInfo).id : this.data.projectInfo._id;
        url = url.replace('add', projectid);
       data["sequenceNo"] = this.data.sequenceNo;
+      data["lasteditedby"] = username;
       this.updateLocation(url, data);
     } else {
       data["sequenceNo"] = this.data.sequenceNo;
+      data["createdBy"] = username;
+      data["assignedTo"] = ['']
       this.createNewLocation(url,data);
     }
   }
