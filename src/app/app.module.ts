@@ -16,7 +16,7 @@ import { SectionComponent } from './components/project/location-list/location-de
 import { SectionInfoComponent } from './components/project/location-list/location-details/section/section-info/section-info.component';
 import { SectionPhotosComponent } from './components/project/location-list/location-details/section/section-photos/section-photos.component';
 import { SectionListElementComponent } from './components/project/location-list/location-details/section-list/section-list-element/section-list-element.component';
-import {NgOptimizedImage} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import { NewProjectModalComponent } from './forms/new-project-modal/new-project-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -136,7 +136,8 @@ import { MoveSectionsModalComponent } from './forms/move-sections-modal/move-sec
     AngularEditorModule,
     HotToastModule.forRoot(),
     CdkDropList,
-    CdkDrag
+    CdkDrag,
+    CommonModule
   ],
   providers: [MdbModalService],
   bootstrap: [AppComponent]
