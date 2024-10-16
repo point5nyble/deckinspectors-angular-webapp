@@ -7,11 +7,13 @@ import { Project } from '../../../common/models/project';
 import { HttpsRequestService } from 'src/app/service/https-request.service';
 import { environment } from '../../../../environments/environment';
 import { DeleteConfirmationModalComponent } from '../../../forms/delete-confirmation-modal/delete-confirmation-modal.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-project-info',
   templateUrl: './project-info.component.html',
   styleUrls: ['./project-info.component.scss'],
+  providers: [DatePipe]
 })
 export class ProjectInfoComponent {
   @Input() projectInfo!: Project;
@@ -24,18 +26,12 @@ export class ProjectInfoComponent {
 
   constructor(
     private dialog: MatDialog,
-    private httpsRequestService: HttpsRequestService
+    private httpsRequestService: HttpsRequestService,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
-    // const [year, month, day] = this.projectInfo.editedat.split('-');
-    const dateParts = this.projectInfo.editedat.split(/[-T:.Z]/);
-    const year = dateParts[0];
-    const month = this.getMonthName(parseInt(dateParts[1], 10));
-    const day = dateParts[2];
-
-    // Construct the formatted date string
-    this.formattedDate = `${month} ${day}, ${year}`;
+    this.formattedDate = this.datePipe.transform(this.projectInfo.editedat, 'MMM d, yyyy HH:mm')!;
   }
   getMonthName(month: number): string {
     // Array of month names

@@ -17,12 +17,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { MoveSectionsModalComponent } from 'src/app/forms/move-sections-modal/move-sections-modal.component';
 import { TenantService } from "../../../../service/tenant.service";
+import { DatePipe } from '@angular/common';
 // import { Project } from 'src/app/common/models/project';
 
 @Component({
   selector: 'app-project-details-upper-section',
   templateUrl: './project-details-upper-section.component.html',
   styleUrls: ['./project-details-upper-section.component.scss'],
+  providers: [DatePipe]
 })
 export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
   projectInfo!: BuildingLocation & ProjectListElement;
@@ -44,7 +46,8 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
     private store: Store<any>,
     private httpsRequestService: HttpsRequestService,
     private dialog: MatDialog,
-    private http: HttpClient
+    private http: HttpClient,
+    private datePipe: DatePipe
   ) {}
 
   public ngOnDestroy(): void {
@@ -55,7 +58,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
     this.subscribeToProjectInfo();
     this.subscribeToProjectState();
     this.sequenceNo = this.projectInfo.sequenceNo;
-    this.formattedDate = this.formatDate(this.projectInfo.editedat);
+    this.formattedDate = this.datePipe.transform(this.projectInfo.editedat, 'MMM d, yyyy HH:mm')!;
   }
 
 
