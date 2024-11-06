@@ -16,7 +16,7 @@ export class WebsocketConnectionService {
   //private wssURL:string='';
 
   private getWssUrl(): Observable<string> {
-    const azureFuncEndpoint = 'https://deckreportingapp.azurewebsites.net/api/pubsub/negotiate';
+    const azureFuncEndpoint = 'https://deckmultireportingapp.azurewebsites.net/api/pubsub/negotiate';
 
     return this.httpsRequestService.getHttpTextData(azureFuncEndpoint);
   }

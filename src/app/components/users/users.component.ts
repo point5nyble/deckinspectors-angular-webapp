@@ -103,31 +103,31 @@ export class UsersComponent implements OnInit {
         },
       });
 
-      this.modalRef.onClose.subscribe((message: any) => {
-        if (message !== undefined && message.user !== undefined) {
-          this.httpsRequestService
-            .postHttpData<any>(environment.apiURL + '/user/update', user)
-            .subscribe(
-              (data) => {},
-              (error) => {
-                console.log(error);
-                if (error.status == 201) {
-                  (
-                    document.getElementById('success-alert') as HTMLElement
-                  ).innerHTML = `<div class="alert alert-primary alert-dismissible fade show" role="alert">
-                <strong>Success! </strong> user updated 
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
-                } else {
-                  (
-                    document.getElementById('success-alert') as HTMLElement
-                  ).innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Failure! </strong> user not updated 
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
-                }
-              }
-            );
-        }
-      });
+      // this.modalRef.onClose.subscribe((message: any) => {
+      //   if (message !== undefined && message.user !== undefined) {
+      //     this.httpsRequestService
+      //       .postHttpData<any>(environment.apiURL + '/user/update', user)
+      //       .subscribe(
+      //         (data) => {},
+      //         (error) => {
+      //           console.log(error);
+      //           if (error.status == 201) {
+      //             (
+      //               document.getElementById('success-alert') as HTMLElement
+      //             ).innerHTML = `<div class="alert alert-primary alert-dismissible fade show" role="alert">
+      //           <strong>Success! </strong> user updated 
+      //           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
+      //           } else {
+      //             (
+      //               document.getElementById('success-alert') as HTMLElement
+      //             ).innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      //           <strong>Failure! </strong> user not updated 
+      //           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
+      //           }
+      //         }
+      //       );
+      //   }
+      // });
     }
   };
 

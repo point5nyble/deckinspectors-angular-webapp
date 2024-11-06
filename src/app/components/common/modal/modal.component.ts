@@ -36,7 +36,8 @@ export class ModalComponent {
     }
 
     // Make the HTTP request to register the user
-    this.httpsRequestService
+    if(this.formtype==='createUser'){
+      this.httpsRequestService
       .postHttpData<any>(environment.apiURL + '/user/register', this.user)
       .subscribe(
         (data) => {
@@ -45,9 +46,38 @@ export class ModalComponent {
         },
         (error) => {
           console.log(error);
-          this.toast.error('Adding user failed!');
+          this.toast.error(error.error);
+
         }
       );
+    }else{
+      this.httpsRequestService
+            .postHttpData<any>(environment.apiURL + '/user/update', this.user)
+            .subscribe(
+              (data) => {},
+              (error) => {
+                console.log(error);
+                if (error.status == 201) {
+                //   (
+                //     document.getElementById('success-alert') as HTMLElement
+                //   ).innerHTML = `<div class="alert alert-primary alert-dismissible fade show" role="alert">
+                // <strong>Success! </strong> user updated 
+                // <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
+                this.toast.success('User updated successfully!');
+                this.modalRef.close({ success: true });
+                } else {
+                  this.toast.error(`User failed to update!, ${error.error}`);
+                //   (
+                //     document.getElementById('success-alert') as HTMLElement
+                //   ).innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                // <strong>Failure! </strong> user not updated 
+                // <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
+                }
+              }
+            );
+      
+    }
+    
   };
 
   togglePasswordVisibility = () => {
