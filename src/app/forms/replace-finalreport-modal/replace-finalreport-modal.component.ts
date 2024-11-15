@@ -39,10 +39,14 @@ export class ReplaceFinalreportModalComponent {
     formData.append('file', this.selectedFile);
     formData.append('companyName', this.companyName);
     let token = localStorage.getItem('token');
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data'); // Set the correct Content-Type
-    headers.append('Authorization', token!);
-    this.http.post(`${environment.apiURL}/project/replacefinalreporttemplate`, formData, { headers }).subscribe(
+    const headers = new HttpHeaders({
+
+      'Authorization': token!
+    });
+    // headers.append('Content-Type', 'multipart/form-data'); // Set the correct Content-Type
+    // headers.append('Authorization', token!);
+
+    this.http.post(`${environment.apiURL}/project/replacefinalreporttemplate`, formData, {headers} ).subscribe(
       (response) => {
         this.dialogRef.close({uploadStatus: true});
       },
