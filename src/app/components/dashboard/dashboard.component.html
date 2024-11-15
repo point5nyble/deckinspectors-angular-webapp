@@ -9,13 +9,14 @@
         [completedProjects]="completedProjects"
         [ongoingProjects]="ongoingProjects"
         (newProjectUploaded)="newProjectUploaded()"
+        (fileUploaded)="fileUploaded($event)"
       ></app-counterss>
 
         <app-filter
         (searchedTerm)="projectSearch($event)"
         (newProjectUploaded)="newProjectUploaded()"
         (filterCompleted)="filterCompleted($event)"
-        (fileUploaded)="fileUploaded($event)"
+       
         >
         </app-filter>
         <div *ngIf="notificationRecieved">
