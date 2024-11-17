@@ -35,10 +35,13 @@ export class ReplaceFinalreportModalComponent {
     }
 
     // Create FormData to send file and file name
+    const userObj = JSON.parse(localStorage.getItem('user')!);
     const formData = new FormData();
     formData.append('file', this.selectedFile);
-    formData.append('companyName', this.companyName);
+    formData.append('companyName', userObj.companyIdentifier);
+    
     let token = localStorage.getItem('token');
+    
     const headers = new HttpHeaders({
 
       'Authorization': token!

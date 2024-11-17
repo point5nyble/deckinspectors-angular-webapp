@@ -82,8 +82,9 @@ export class DownloadFilesModalComponent {
 
   downloadFinalReport(reportType: string, reportFormat: string) {
     let url = environment.apiURL + '/project/finalreport';
+    const userObj = JSON.parse(localStorage.getItem('user')!);
     let data = {
-     "companyName": this.getCompanyNameFromActiveSection(this.activeSection)
+     "companyName": userObj.companyIdentifier
     };
     let token = localStorage.getItem('token');
     const headers = new HttpHeaders({
