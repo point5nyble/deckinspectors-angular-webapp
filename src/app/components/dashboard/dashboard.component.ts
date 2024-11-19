@@ -19,6 +19,8 @@ import { WebsocketConnectionService } from 'src/app/service/websocket-connection
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
+
   totalProjects: number = 0;
   completedProjects: number = 0;
   ongoingProjects: number = 0;
@@ -160,7 +162,15 @@ export class DashboardComponent implements OnInit {
       this.fetchProjectData();
     }, 1000);
   }
+  sortByName() {
 
+    this.projectInfos= this.projectInfos.sort((a, b) => {
+      const dateA = new Date(a.editedat);
+        const dateB = new Date(b.editedat);
+        return dateB.getTime() - dateA.getTime(); 
+    });
+
+  }
   private filterProject(projects: Project[]): Project[] {
     if (this.projectState === ProjectState.INVASIVE) {
       return projects.filter(project => project.isInvasive);

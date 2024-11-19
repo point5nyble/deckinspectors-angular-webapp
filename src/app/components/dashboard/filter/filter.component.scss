@@ -123,3 +123,21 @@ label input:checked{
   right: 0; 
   margin-right: 5px;
 }
+
+.sortbyDate{
+  display: flex;
+  align-items: center; /* Vertically align */
+  justify-content: center;
+  border:solid #ED7C1C 1px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  height: 30px;
+  width: 120px;
+  text-align: center;
+  background-color: #ED7C1C;
+  color: #ED7C1C;
+}
+.custom-icon {
+  font-size: 15px !important;
+  border: none !important;
+}
