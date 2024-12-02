@@ -35,7 +35,14 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
+.card-text1
+{
+  font-size: 11px; 
+  margin-left: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .card-body {
   padding: 10px;
   // display: flex; /* Add padding to the card body */

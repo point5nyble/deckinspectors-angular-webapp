@@ -3,7 +3,10 @@
     style="height: 160px; width: 240;">
   <div class="card-body">
     <h5 class="locationName card-title">{{ location.name }}</h5>
+    
     <p class="card-text">&nbsp;{{ location.description ? location.description : 'No description' }}</p>
+    
+    <p *ngIf="location.createdby != null" class="card-text1">Inspected By:   &nbsp;&nbsp;           {{ location.createdby ? location.createdby : '' }}</p>
     <!-- <span *ngIf="isSubProject && isAdmin" class="bi bi-person-circle icon assignUser" (click)="openAssignProjectModal()" title="Assign users to project"></span> -->
 
     <div class="row-container">
