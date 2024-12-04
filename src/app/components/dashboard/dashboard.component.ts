@@ -175,7 +175,7 @@ export class DashboardComponent implements OnInit {
     if (this.projectState === ProjectState.INVASIVE) {
       return projects.filter(project => project.isInvasive);
     }
-    return projects.sort(this.compare);
+    return projects.sort(this.sortbyEditDate);
   }
 
   private getRecentlyAddedProject(projects: Project[]) {
@@ -216,6 +216,10 @@ export class DashboardComponent implements OnInit {
     if (x > y) { return -1; }
     return 0;
   }
+  sortbyEditDate = (a: Project, b: Project) => {
+    return new Date(b.editedat).getTime() - new Date(a.editedat).getTime();
+    
+  }
 
   projectAssigned = (event: any) => {
     this.isProjectAssigned = event.isAssigned;
@@ -235,7 +239,7 @@ export class DashboardComponent implements OnInit {
           if (user.role.toLowerCase() === "admin") {
             this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/project/allProjects`).subscribe(
               (data) => {
-                this.projectInfos = data.projects.filter((project: any) => project.iscomplete).sort(this.compare);
+                this.projectInfos = data.projects.filter((project: any) => project.iscomplete).sort(this.sortbyEditDate);
                 // this.allProjects = data.projects.filter((project: any) => project.iscomplete).sort(this.compare);
               this.calculateProjectStatistics();
 
@@ -248,7 +252,7 @@ export class DashboardComponent implements OnInit {
           else {
             this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/project/getProjectsByUser/${localStorage.getItem('username')}`).subscribe(
               (data) => {
-                this.projectInfos = data.projects.filter((project: any) => project.iscomplete).sort(this.compare);
+                this.projectInfos = data.projects.filter((project: any) => project.iscomplete).sort(this.sortbyEditDate);
                 // this.allProjects = data.projects.filter((project: any) => project.iscomplete).sort(this.compare);
               this.calculateProjectStatistics();
 
