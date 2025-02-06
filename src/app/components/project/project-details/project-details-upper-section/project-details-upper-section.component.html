@@ -64,6 +64,7 @@
           <!-- <p>Description</p> -->
           <div class="DescriptionBoxLocation">
             <p class="description h6">{{ projectInfo.description }}</p>
+            <p *ngIf="projectInfo.createdby != null" class="description h8">Inspected By:   &nbsp;&nbsp;           {{ projectInfo.createdby ? projectInfo.createdby : '' }}</p>
           </div>
         </div>
 
