@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup,Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ImageToUrlConverterService} from "../../service/image-to-url-converter.service";
 import {HttpsRequestService} from "../../service/https-request.service";
@@ -45,12 +45,12 @@ export class NewProjectModalComponent implements OnInit {
   ngOnInit() {
     this.yourForm = this.formBuilder.group({
       image: [this.data.process === 'edit' ? this.data.projectInfo?.url: ""], // Add validators if needed
-      name: [this.data.process === 'edit' ? this.data.projectInfo?.name: ""], // Add validators if needed
+      name: [this.data.process === 'edit' ? this.data.projectInfo?.name: "",Validators.required], // Add validators if needed
       address: [this.data.process === 'edit' ? this.data.projectInfo?.address: ""],
       option: [this.data.process === 'edit' ? this.data.projectInfo?.projecttype: "multilevel"], // Add validators if needed
       description: [this.data.process === 'edit' ? this.data.projectInfo?.description: ""],
       editDate: [this.data.process === 'edit' ? this.data.projectInfo?.editedat: this.getFormattedCurrentDate()],
-      formId: [{value: (this.data.process === 'edit' && this.data.projectInfo && this.data.projectInfo.formId && this.data.projectInfo.formId != '') ? this.data.projectInfo?.formId : null, disabled: (this.data.process === 'edit')}],
+      formId: [{value: (this.data.process === 'edit' && this.data.projectInfo && this.data.projectInfo.formId && this.data.projectInfo.formId != '') ? this.data.projectInfo?.formId : null, disabled: (this.data.process === 'edit')},Validators.required],
     });
     this.fetchLocationForms();
   }
@@ -71,6 +71,7 @@ export class NewProjectModalComponent implements OnInit {
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
         this.allForms = response.forms;
+        
       },
       (error) => {
         console.log(error);
@@ -148,7 +149,12 @@ export class NewProjectModalComponent implements OnInit {
         data.formId = (this.data.projectInfo && this.data.projectInfo.formId && this.data.projectInfo.formId != '') ? this.data.projectInfo?.formId : null;
         this.updateProject(url, data);
       } else {
-        this.createNewProject(url, data);
+        if (data.formId != null) {
+          data.formId=null;
+          this.createNewProject(url, data);
+        }else{
+          this.isSaving = false;
+        }
       }
     }
 

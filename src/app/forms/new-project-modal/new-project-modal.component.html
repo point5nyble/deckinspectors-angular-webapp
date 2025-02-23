@@ -7,6 +7,9 @@
     <div class="form-group">
       <label class="form-label">Project Name:</label>
       <input type="text" formControlName="name" class="form-control" required>
+      <div *ngIf="yourForm.get('name')?.invalid && yourForm.get('name')?.touched" class="text-danger">
+        Project Name is required.
+      </div>
     </div>
 
     <div class="form-group">
@@ -42,9 +45,13 @@
       <div class="col">
         <label class="form-label">Location Form</label>
         <select class="form-select" name="form" formControlName="formId">
-          <option [value]="null">Default</option>
+          
+          <option value="default">Default</option>
           <option *ngFor="let form of allForms" [value]="form._id">{{ form.name }}</option>
         </select>
+        <div *ngIf="yourForm.get('formId')?.invalid" class="text-danger">
+          Location Form is required.
+        </div>
       </div>
     </div>
 
