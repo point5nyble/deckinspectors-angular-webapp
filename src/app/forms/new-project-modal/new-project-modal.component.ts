@@ -150,7 +150,9 @@ export class NewProjectModalComponent implements OnInit {
         this.updateProject(url, data);
       } else {
         if (data.formId != null) {
-          data.formId=null;
+          
+          if(data.formId=='default')
+            data.formId=null;
           this.createNewProject(url, data);
         }else{
           this.isSaving = false;
