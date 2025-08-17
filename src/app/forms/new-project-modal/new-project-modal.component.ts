@@ -135,11 +135,11 @@ export class NewProjectModalComponent implements OnInit {
       let data = {
         "name": this.yourForm.value.name,
         "description": this.yourForm.value.description,
-        "createdBy": localStorage.getItem('username'),
+        "createdby": localStorage.getItem('username'),
         "address": this.yourForm.value.address,
         "url": image_url=== undefined? '': image_url,
         "projecttype": this.yourForm.value.option,
-        "assignedTo": [localStorage.getItem('username')],
+        "assignedto": [localStorage.getItem('username')],
         "editedat": this.yourForm.value.editDate,
         "formId": (this.yourForm.value.formId && this.yourForm.value.formId !== '') ? this.yourForm.value.formId : null
       }
