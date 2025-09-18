@@ -132,16 +132,23 @@ export class NewProjectModalComponent implements OnInit {
     }
   createProject(image_url:string) {
       let url = environment.apiURL + '/project/add';
-      let data = {
+      let data: any = {
         "name": this.yourForm.value.name,
         "description": this.yourForm.value.description,
         "createdby": localStorage.getItem('username'),
         "address": this.yourForm.value.address,
         "url": image_url=== undefined? '': image_url,
         "projecttype": this.yourForm.value.option,
-        "assignedto": [localStorage.getItem('username')],
         "editedat": this.yourForm.value.editDate,
         "formId": (this.yourForm.value.formId && this.yourForm.value.formId !== '') ? this.yourForm.value.formId : null
+      };
+
+      // Only set assignedto for new projects. Do not override assignedto during edit.
+      if (this.data.process !== 'edit') {
+        data.assignedto = [localStorage.getItem('username')];
+      } else if (this.data.projectInfo && this.data.projectInfo.assignedto) {
+        // preserve existing assignedto on edit by including it in the update payload
+        data.assignedto = this.data.projectInfo.assignedto;
       }
       if (this.data.process === 'edit') {
         let projectid = this.data.projectInfo._id === undefined ? (<any>this.data.projectInfo).id : this.data.projectInfo._id;
