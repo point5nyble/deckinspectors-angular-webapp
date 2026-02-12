@@ -76,10 +76,10 @@ export class LocationListComponent implements OnInit {
     if(this.ischildClickEvent)
       this.ischildClickEvent = false;
     else{
-    if (locationInfo._id !== '') {
+    if (locationInfo.id !== '') {
       if (locationInfo.type === 'subproject') {
           this.subprojectList.forEach((item: ProjectListElement, index: number) => {
-            if(item._id === locationInfo._id){
+            if(item.id === locationInfo.id){
               locationInfo['sequenceNo'] = index.toString();
             }
     
@@ -87,7 +87,7 @@ export class LocationListComponent implements OnInit {
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SHOW_SCREEN, 'subproject');
       } else {
         this.locationList.forEach((item: ProjectListElement, index: number) => {
-          if(item._id === locationInfo._id){
+          if(item.id === locationInfo.id){
             locationInfo['sequenceNo'] = index.toString();
           }
   
@@ -139,7 +139,7 @@ export class LocationListComponent implements OnInit {
     locations?.forEach((location, i) => {
       this.locationList.push(
         {
-          _id: location._id,
+          id: location.id ?? (<any>location)._id,
           createdat: location.createdat,
           createdby: location.createdby,
           description: location.description,
@@ -159,7 +159,7 @@ export class LocationListComponent implements OnInit {
 
     if (fl){
       this.locationList.sort((a, b) => {
-        return String(a._id).localeCompare(String(b._id));
+        return String(a.id).localeCompare(String(b.id));
       });
     }else{
       this.locationList.sort((a, b) => {
@@ -175,7 +175,7 @@ export class LocationListComponent implements OnInit {
       subproject?.forEach(project => {
           this.subprojectList.push(
               {
-                  _id: project._id,
+                  id: project.id ?? (<any>project)._id,
                   createdat: project.createdat,
                   createdby: project.createdby,
                   description: project.description,
@@ -196,7 +196,7 @@ export class LocationListComponent implements OnInit {
 
       if (fl){
         this.subprojectList.sort((a, b) => {
-          return String(a._id).localeCompare(String(b._id));
+          return String(a.id).localeCompare(String(b.id));
         });
       }else{
         this.subprojectList.sort((a, b) => {
@@ -232,7 +232,7 @@ export class LocationListComponent implements OnInit {
   saveSubprojects = () =>{
     let count = 0;
     this.subprojectList.forEach((subproject, i) =>{
-      let url = `${environment.apiURL}/subproject/${subproject._id}`;
+      let url = `${environment.apiURL}/subproject/${subproject.id}`;
       let data = {"sequenceNo": i.toString()};
 
       this.httpsRequestService.putHttpData(url, data).subscribe(
@@ -253,7 +253,7 @@ export class LocationListComponent implements OnInit {
   saveLocations = () =>{
     let count = 0;
     this.locationList.forEach((location, i) =>{
-      let url = `${environment.apiURL}/location/${location._id}`;
+      let url = `${environment.apiURL}/location/${location.id}`;
       let data = {"sequenceNo": i.toString()};
 
       this.httpsRequestService.putHttpData(url, data).subscribe(

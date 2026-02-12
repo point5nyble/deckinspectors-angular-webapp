@@ -69,7 +69,7 @@ export class AssignProjectModalComponent {
 
     currAssigned.forEach((username, i) =>{
       if (this.location === undefined){
-      this.httpsRequestService.postHttpData(`${environment.apiURL}/project/${this.projectInfo._id}/assign`, {username: username}).subscribe(
+      this.httpsRequestService.postHttpData(`${environment.apiURL}/project/${this.projectInfo.id}/assign`, {username: username}).subscribe(
         (res: any) => {
           this.dialogRef.close({isAssigned: true, apiCalled: true});
         },
@@ -79,7 +79,7 @@ export class AssignProjectModalComponent {
       )
     }
     else{
-      this.httpsRequestService.postHttpData(`${environment.apiURL}/subproject/${this.location._id}/assign`, {username: username}).subscribe(
+      this.httpsRequestService.postHttpData(`${environment.apiURL}/subproject/${this.location.id}/assign`, {username: username}).subscribe(
         (res: any) => {
           this.dialogRef.close({isAssigned: true, apiCalled: true});
         },
@@ -93,7 +93,7 @@ export class AssignProjectModalComponent {
 
   unassignedUsers.forEach((username : any) =>{
     if (this.location === undefined){
-    this.httpsRequestService.postHttpData(`${environment.apiURL}/project/${this.projectInfo._id}/unassign`, {username: username}).subscribe(
+    this.httpsRequestService.postHttpData(`${environment.apiURL}/project/${this.projectInfo.id}/unassign`, {username: username}).subscribe(
       (res: any) => {
         this.dialogRef.close({isAssigned: true, apiCalled: true});
       },
@@ -104,7 +104,7 @@ export class AssignProjectModalComponent {
     )
   }
   else{
-    this.httpsRequestService.postHttpData(`${environment.apiURL}/subproject/${this.location._id}/unassign`, {username: username}).subscribe(
+    this.httpsRequestService.postHttpData(`${environment.apiURL}/subproject/${this.location.id}/unassign`, {username: username}).subscribe(
       (res: any) => {
         this.dialogRef.close({isAssigned: true, apiCalled: true});
       },

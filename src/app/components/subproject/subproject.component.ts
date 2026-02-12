@@ -91,9 +91,9 @@ export class SubprojectComponent implements OnInit, OnDestroy{
   }
   private separateProject(item:any) {
     // Temp solution
-    let subproject = item.filter((sub:any) => sub._id === this.projectInfo.id)[0];
+    let subproject = item.filter((sub:any) => sub.id === this.projectInfo.id)[0];
     if (subproject === undefined) {
-      subproject = item.filter((sub:any) => sub._id === this.projectInfo._id)[0];
+      subproject = item.filter((sub:any) => sub.id === this.projectInfo.id)[0];
     }
     if (this.projectState === ProjectState.INVASIVE) {
       this.buildingApartments = subproject?.children?.filter((sub:any) => sub.type === 'apartment' && sub.isInvasive);

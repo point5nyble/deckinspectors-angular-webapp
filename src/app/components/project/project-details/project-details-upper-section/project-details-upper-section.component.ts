@@ -203,9 +203,13 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
   private fetchProjectTreeData(): Promise<any> {
     return new Promise((resolve, reject)=>{
     let url = `${environment.apiURL}/project/getProjectMetadata/` + this.currentProjectId;
+    console.log("Fetching project tree data from URL:", url);
     this.httpsRequestService.getHttpData<any>(url).subscribe(
       (response: any) => {
         let item = response?.item[0];
+        if (item?.id) {
+          this.currentProjectId = item.id;
+        }
         let locations = item?.locations.length > 0? item.locations : [];
         item?.subProjects.forEach((subProject: any) => {
           let subProjectLocations = subProject?.subProjectLocations.map((location : any)=>{
@@ -269,18 +273,13 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
             previousState.stack[previousState.stack.length - 1];
           if (this.projectInfo.type === 'subproject') {
             this.projectType = 'subproject';
-            let subprojectid =
-              this.projectInfo._id === undefined
-                ? (<any>this.projectInfo).id
-                : this.projectInfo._id;
-            this.fetchSubprojectDetails(subprojectid);
+              let subprojectid = this.projectInfo.id ?? (<any>this.projectInfo)._id;
+              this.fetchSubprojectDetails(subprojectid);
           } else if (this.projectInfo.type === 'project') {
             this.projectType = 'project';
             this.disableInvasiveBtn = !this.projectInfo.isInvasive;
-            let projectid =
-              this.projectInfo._id === undefined
-                ? (<any>this.projectInfo).id
-                : this.projectInfo._id;
+            let projectid = this.projectInfo.id ?? (<any>this.projectInfo)._id;
+                console.log("Fetching project details for project ID:", this.projectInfo, (<any>this.projectInfo).id,projectid);
             this.fetchProjectDetails(projectid);
             this.orchestratorCommunicationService.publishEvent(
               OrchestratorEventName.INVASIVE_BTN_DISABLED,
@@ -293,10 +292,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
             this.projectInfo.type === 'buildinglocation'
           ) {
             this.projectType = 'location';
-            let projectid =
-              this.projectInfo._id === undefined
-                ? (<any>this.projectInfo).id
-                : this.projectInfo._id;
+            let projectid = this.projectInfo.id ?? (<any>this.projectInfo)._id;
             this.fetchLocationDetails(projectid);
           }
         })
@@ -304,6 +300,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
   }
   private fetchProjectDetails(projectid: string) {
     // if (this.currentProjectId !== projectid) {
+    console.log("Fetching project details for project ID:", projectid);
     this.currentProjectId = projectid;
     let url = environment.apiURL + '/project/getProjectById';
     let data = {
@@ -332,15 +329,25 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
   }
   private fetchSubprojectDetails(projectid: string) {
     // if (this.currentProjectId !== projectid) {
-    this.currentProjectId = projectid;
     let url = environment.apiURL + '/subproject/getSubProjectById';
+    console.log("Fetching subproject details for subproject ID:", projectid);
     let data = {
       subprojectid: projectid,
       username: localStorage.getItem('username'),
     };
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
+        const responseSubprojectId =
+          response?.subproject?.id ??
+          response?.subproject?._id ??
+          response?.subprojects?.[0]?.id ??
+          response?.subprojects?.[0]?._id;
+        if (responseSubprojectId) {
+          this.currentProjectId = responseSubprojectId;
+        }
         this.projectInfo = response.subproject;
+        // Normalize id to avoid undefined
+        this.projectInfo.id = this.projectInfo.id;
         this.orchestratorCommunicationService.publishEvent(
           OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC,
           this.projectInfo
@@ -386,10 +393,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
 
   public downloadExcel() {
     let url = environment.apiURL + '/project/generateexcel';
-    let projectid =
-      this.projectInfo._id === undefined
-        ? (<any>this.projectInfo).id
-        : this.projectInfo._id;
+    let projectid = this.projectInfo.id ?? (<any>this.projectInfo)._id;
     let data = {
       projectid: projectid,
       username: localStorage.getItem('username'),
@@ -417,7 +421,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
-      },
+      },  
       (error: any) => {
         console.log(error);
         alert('Error');

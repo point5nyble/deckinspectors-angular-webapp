@@ -1,6 +1,6 @@
 
 export interface ProjectListElement {
-  _id?: string;
+  id?: string;
   createdat?: string;
   createdby?: string;
   description?: string;

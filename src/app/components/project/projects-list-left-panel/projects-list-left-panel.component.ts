@@ -61,7 +61,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   private subscribeToGetCurrentProjectDetails() {
     this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState: any) => {
-      this.currentSelectedItem = previousState.stack[previousState.stack.length - 1].name;
+      this.currentSelectedItem = previousState.stack[previousState.stack.length - 1].name; 
       this.currentProject = previousState.stack[1]
     });
   }
@@ -111,7 +111,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
 
   private fetchLeftTreeData() {
     this.oldProjectList = this.projectList;
-    let projectid = this.currentProject?._id === undefined ? (<any>this.currentProject)?.id : this.currentProject?._id;
+    let projectid = this.currentProject?.id ?? this.currentProject?.id;
     let url = `${environment.apiURL}/project/getProjectMetadata/` + projectid;
     this.httpsRequestService.getHttpData<any>(url).subscribe(
       (response: any) => {
@@ -254,7 +254,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   private mapItem(input: Item): Item {
     return {
       name: input?.name,
-      id: input?.id,
+      id: input?.id ?? (<any>input)?._id,
       description: input?.description,
       address: input?.address,
       collapsed: input?.collapsed,
@@ -373,7 +373,7 @@ export class ProjectsListLeftPanelComponent implements OnInit {
   }
 
   private filterCurrentProject(projectList: Item[]) {
-    let projectid = this.currentProject?._id === undefined ? (<any>this.currentProject)?.id : this.currentProject?._id;
+    let projectid = this.currentProject?.id ?? this.currentProject?._id;
     return projectList?.filter(project => project.id === projectid);
   }
 

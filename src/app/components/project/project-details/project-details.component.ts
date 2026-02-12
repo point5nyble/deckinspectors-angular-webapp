@@ -120,7 +120,7 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
     this.store.select(BackNavigation.getPreviousStateModelChain).pipe(take(1)).subscribe((previousState: any) => {
       this.projectInfo = previousState.stack[previousState.stack.length - 1];
       if (this.projectInfo.type === 'project' && this.showSectionInfo === 'project') {
-        let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
+        let projectid = this.projectInfo.id === undefined ? (<any>this.projectInfo).id : this.projectInfo.id;
         this.fetchLocationData(projectid);
         this.fetchSubProjectData(projectid);
       }
@@ -152,7 +152,7 @@ export class ProjectDetailsComponent implements OnInit,OnDestroy  {
 
 
   projectDeletionComplete($event: boolean) {
-    let projectid = this.projectInfo._id === undefined ? (<any>this.projectInfo).id : this.projectInfo._id;
+    let projectid = this.projectInfo.id === undefined ? (<any>this.projectInfo).id : this.projectInfo.id;
     this.fetchLocationData(projectid);
     this.fetchSubProjectData(projectid);
     // $event is true when the subproject deleted process completed.

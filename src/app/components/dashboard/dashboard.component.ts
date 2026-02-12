@@ -210,8 +210,8 @@ export class DashboardComponent implements OnInit {
   }
 
   compare = (a: Project, b: Project) => {
-    let x = a._id.toLowerCase();
-    let y = b._id.toLowerCase();
+    let x = a.id.toLowerCase();
+    let y = b.id.toLowerCase();
     if (x < y) { return 1; }
     if (x > y) { return -1; }
     return 0;
