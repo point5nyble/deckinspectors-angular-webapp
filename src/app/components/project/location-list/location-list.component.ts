@@ -125,7 +125,7 @@ export class LocationListComponent implements OnInit {
     // TODO: USED TAKE
     this.store.select(BackNavigation.getPreviousStateModelChain).subscribe((previousState:any) => {
       // TODO: Remove Project ID Inconsistency
-      let projectID = previousState.stack[previousState.stack.length - 1]._id === undefined? previousState.stack[previousState.stack.length - 1].id : previousState.stack[previousState.stack.length - 1]._id;
+      let projectID = previousState.stack[previousState.stack.length - 1].id === undefined? previousState.stack[previousState.stack.length - 1].id : previousState.stack[previousState.stack.length - 1].id;
       this.projectInfo = {};
       this.projectInfo.name = previousState.stack[previousState.stack.length - 1].name;
       this.projectInfo.parentId = projectID;
