@@ -493,14 +493,14 @@ export class SectionComponent implements OnInit{
     let url = '';
     if (this.sectionState === SectionState.VISUAL) {
       if (isLocationFormFields) {
-        url = environment.apiURL + '/dynamicsection/' + this.sectionReport._id;
+        url = environment.apiURL + '/dynamicsection/' + this.sectionReport['id'];
       } else {
         url = environment.apiURL + '/section/' + this.sectionReport['id'];
       }
     } else if (this.sectionState === SectionState.CONCLUSIVE) {
-      url = environment.apiURL + '/conclusivesection/' + this.sectionReport._id;
+      url = environment.apiURL + '/conclusivesection/' + this.sectionReport['id'];
     } else if (this.sectionState === SectionState.INVASIVE) {
-      url = environment.apiURL + '/invasivesection/' + this.sectionReport._id;
+      url = environment.apiURL + '/invasivesection/' + this.sectionReport['id'];
     }
     return url;
   }
