@@ -103,7 +103,7 @@ export class ProjectInfoComponent {
     dialogConfig.width = '600px';
     dialogConfig.height = '500px';
     dialogConfig.data = {
-      id: 1,
+      projectId: this.projectInfo.id,
       project: this.projectInfo,
     };
     const dialogRef = this.dialog.open(

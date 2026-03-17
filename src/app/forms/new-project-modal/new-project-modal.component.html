@@ -47,7 +47,7 @@
         <select class="form-select" name="form" formControlName="formId">
           
           <option value="default">Default</option>
-          <option *ngFor="let form of allForms" [value]="form._id">{{ form.name }}</option>
+          <option *ngFor="let form of allForms" [value]="form.id">{{ form.name }}</option>
         </select>
         <div *ngIf="yourForm.get('formId')?.invalid" class="text-danger">
           Location Form is required.
