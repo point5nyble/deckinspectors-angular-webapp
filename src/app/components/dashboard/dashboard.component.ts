@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit {
   isFileNotUploaded: boolean = false;  //final report template
   notificationRecieved: boolean = false;
   notificationMessage: string = '';
+  isDateSortDescending: boolean = true;
 
   constructor(private cdr: ChangeDetectorRef,
               private httpsRequestService: HttpsRequestService,
@@ -162,14 +163,13 @@ export class DashboardComponent implements OnInit {
       this.fetchProjectData();
     }, 1000);
   }
-  sortByName() {
-
-    this.projectInfos= this.projectInfos.sort((a, b) => {
-      const dateA = new Date(a.editedat);
-        const dateB = new Date(b.editedat);
-        return dateB.getTime() - dateA.getTime(); 
+  sortByDate() {
+    this.isDateSortDescending = !this.isDateSortDescending;
+    this.projectInfos = [...this.projectInfos].sort((a, b) => {
+      const dateA = new Date(a.editedat).getTime();
+      const dateB = new Date(b.editedat).getTime();
+      return this.isDateSortDescending ? dateB - dateA : dateA - dateB;
     });
-
   }
   private filterProject(projects: Project[]): Project[] {
     if (this.projectState === ProjectState.INVASIVE) {

@@ -15,7 +15,7 @@ export class FilterComponent {
   @Output() filterCompleted = new EventEmitter<boolean>();
   @Output() newProjectUploaded = new EventEmitter<boolean>();
   @Output() fileUploaded = new EventEmitter<boolean>();
-  @Output() sortByName = new EventEmitter<void>();
+  @Output() sortByDate = new EventEmitter<void>();
   constructor(private dialog: MatDialog) { }
 
   public openModal():void {
@@ -57,7 +57,7 @@ export class FilterComponent {
       this.searchedTerm.emit(this.searchTerm);
   }
   sortbyDate(){
-    this.sortByName.emit();
+    this.sortByDate.emit();
   }
 
   filterCompletedProjects(){

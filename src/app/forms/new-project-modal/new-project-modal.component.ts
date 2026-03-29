@@ -49,17 +49,28 @@ export class NewProjectModalComponent implements OnInit {
       address: [this.data.process === 'edit' ? this.data.projectInfo?.address: ""],
       option: [this.data.process === 'edit' ? this.data.projectInfo?.projecttype: "multilevel"], // Add validators if needed
       description: [this.data.process === 'edit' ? this.data.projectInfo?.description: ""],
-      editDate: [this.data.process === 'edit' ? this.data.projectInfo?.editedat: this.getFormattedCurrentDate()],
+      editDate: [this.data.process === 'edit' ? this.formatDateForDateTimeLocal(this.data.projectInfo?.editedat) : this.getFormattedCurrentDate()],
       formId: [{value: (this.data.process === 'edit' && this.data.projectInfo && this.data.projectInfo.formId && this.data.projectInfo.formId != '') ? this.data.projectInfo?.formId : null, disabled: (this.data.process === 'edit')},Validators.required],
     });
     this.fetchLocationForms();
   }
 
   private getFormattedCurrentDate(): string {
-    const currentDate = new Date();
-    // Format the date as needed (e.g., 'yyyy-MM-dd')
-    const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
-    return formattedDate;
+    return this.formatDateForDateTimeLocal(new Date());
+  }
+
+  private formatDateForDateTimeLocal(value: string | Date | null | undefined): string {
+    const fallbackDate = new Date();
+    const parsedDate = value ? new Date(value) : fallbackDate;
+    const date = Number.isNaN(parsedDate.getTime()) ? fallbackDate : parsedDate;
+
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
 
   private fetchLocationForms() {
@@ -102,6 +113,16 @@ export class NewProjectModalComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
+  }
+
+  openDatePicker(input: HTMLInputElement) {
+    if (typeof input.showPicker === 'function') {
+      input.showPicker();
+      return;
+    }
+
+    input.focus();
+    input.click();
   }
 
     save() {

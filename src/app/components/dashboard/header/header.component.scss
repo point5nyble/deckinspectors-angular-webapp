@@ -1,28 +1,28 @@
-// .project-container{
-//   display: flex;
-//   flex: 1;
-//   overflow: hidden;
-//   padding: 10px;
-//   justify-content: space-between;
-// }
-
+// Custom header styling
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 10px;
+  padding: 20px 10px;
+  gap: 20px;
+  width: 100%;
+  min-width: 0;
+  flex-wrap: wrap;
 }
 
 .header-buttons{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  // margin-left: 500px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .AllProjectAndRefresh {
   display: flex;
   align-items: center;
+  min-width: 0;
+  flex-shrink: 0;
 }
 
 .AllProject{
@@ -30,15 +30,100 @@
   font-size: 40px;
   font-weight: 700;
   margin-bottom: 0px;
-  width: 300px;
-  // margin-right: 200px;
-  // padding-right: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .container-fluid{
   flex-direction: row;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+// Header button size override
+.header-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+  min-width: auto;
+}
+
+.header-primary-btn {
+  background-color: #ed7c1c !important;
+  border: 1px solid #ed7c1c !important;
+  color: #fff !important;
+  font-weight: 400;
+}
+
+.header-primary-btn:hover,
+.header-primary-btn:focus {
+  background-color: #d96a0a !important;
+  border-color: #d96a0a !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(237, 124, 28, 0.3);
+  transform: translateY(-2px);
+}
+
+.header-primary-btn:active {
+  background-color: #c75a00 !important;
+  border-color: #c75a00 !important;
+  color: #fff !important;
+  transform: translateY(0);
+}
+
+.header-primary-btn i,
+.header-primary-btn span {
+  color: inherit !important;
+}
+
+.header-primary-btn > span {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.header-primary-btn .material-symbols-outlined {
+  font-size: 16px;
+  line-height: 1;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.add-new-btn {
+  background-color: #ed7c1c;
+  color: white;
+}
+
+.add-new-btn:hover {
+  background-color: #d96a0a;
+  box-shadow: 0 4px 12px rgba(237, 124, 28, 0.3);
+  transform: translateY(-2px);
+}
+
+.add-new-btn:active {
+  transform: translateY(0);
+}
+
+.upload-template-btn {
+  background-color: #ed7c1c;
+  border-color: #ed7c1c;
+  color: white;
+}
+
+.upload-template-btn:hover {
+  background-color: #d96a0a;
+  border-color: #d96a0a;
+  box-shadow: 0 4px 12px rgba(237, 124, 28, 0.3);
+  transform: translateY(-2px);
+}
+
+.upload-template-btn:active {
+  transform: translateY(0);
 }
 
 .buttonAddnew{

@@ -139,8 +139,9 @@
 
 .project-describer{
   background-color: #FFFF;
-  max-height: 32px;
-  padding-top: 5px;
+  min-height: 56px;
+  padding-top: 0;
+  margin-bottom: 4px;
 }
 
 .projectInfoContainer{
