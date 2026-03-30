@@ -58,7 +58,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
     this.subscribeToProjectInfo();
     this.subscribeToProjectState();
     this.sequenceNo = this.projectInfo.sequenceNo;
-    this.formattedDate = this.datePipe.transform(this.projectInfo.editedat, 'MMM d, yyyy HH:mm')!;
+    this.updateFormattedDate();
   }
 
 
@@ -183,9 +183,13 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
         dialogConfig
       );
       dialogRef.afterClosed().subscribe((data) => {
+        if (data?.saved) {
+          this.applyUpdatedProjectFromDialog(data);
+        }
+
         setTimeout(() => {
           this.fetchProjectIdFromState();
-        }, 1000);
+        }, 200);
       });
     } else {
       const dialogRef = this.dialog.open(
@@ -271,6 +275,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
         .subscribe((previousState: any) => {
           this.projectInfo =
             previousState.stack[previousState.stack.length - 1];
+          this.updateFormattedDate();
           if (this.projectInfo.type === 'subproject') {
             this.projectType = 'subproject';
               let subprojectid = this.projectInfo.id ?? (<any>this.projectInfo)._id;
@@ -310,6 +315,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
         this.projectInfo = response.project;
+        this.updateFormattedDate();
         this.tenantService.setProjectInfo(response.project);
         this.projectInfo.type = 'project';
         this.orchestratorCommunicationService.publishEvent(
@@ -346,6 +352,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
           this.currentProjectId = responseSubprojectId;
         }
         this.projectInfo = response.subproject;
+        this.updateFormattedDate();
         // Normalize id to avoid undefined
         this.projectInfo.id = this.projectInfo.id;
         this.orchestratorCommunicationService.publishEvent(
@@ -375,6 +382,7 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
     this.httpsRequestService.postHttpData(url, data).subscribe(
       (response: any) => {
         this.projectInfo = response.location;
+        this.updateFormattedDate();
         this.orchestratorCommunicationService.publishEvent(
           OrchestratorEventName.REMOVE_ELEMENT_FROM_PREVIOUS_BUTTON_LOGIC,
           this.projectInfo
@@ -431,4 +439,22 @@ export class ProjectDetailsUpperSectionComponent implements OnInit, OnDestroy {
   showDefaultImage = () => {
     this.enableDefaultImage = true;
   };
+
+  private updateFormattedDate(): void {
+    this.formattedDate = this.projectInfo?.editedat
+      ? this.datePipe.transform(this.projectInfo.editedat, 'MMM d, yyyy HH:mm') || undefined
+      : undefined;
+  }
+
+  private applyUpdatedProjectFromDialog(data: any): void {
+    this.projectInfo = {
+      ...this.projectInfo,
+      name: data.name ?? this.projectInfo.name,
+      description: data.description ?? this.projectInfo.description,
+      address: data.address ?? this.projectInfo.address,
+      editedat: data.editedat ?? data.editDate ?? this.projectInfo.editedat,
+    };
+
+    this.updateFormattedDate();
+  }
 }

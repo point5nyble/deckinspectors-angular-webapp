@@ -61,7 +61,7 @@ export class NewProjectModalComponent implements OnInit {
 
   private formatDateForDateTimeLocal(value: string | Date | null | undefined): string {
     const fallbackDate = new Date();
-    const parsedDate = value ? new Date(value) : fallbackDate;
+    const parsedDate = value ? new Date(this.normalizeDateInput(value)) : fallbackDate;
     const date = Number.isNaN(parsedDate.getTime()) ? fallbackDate : parsedDate;
 
     const year = date.getFullYear();
@@ -71,6 +71,26 @@ export class NewProjectModalComponent implements OnInit {
     const minutes = date.getMinutes().toString().padStart(2, '0');
 
     return `${year}-${month}-${day}T${hours}:${minutes}`;
+  }
+
+  private normalizeDateInput(value: string | Date): string | Date {
+    if (value instanceof Date) {
+      return value;
+    }
+
+    // Some API responses omit timezone (e.g. 2026-03-30T02:39:00.000).
+    // Treat them as UTC to avoid showing shifted times in local timezone.
+    const hasTimezone = /([zZ]|[+-]\d{2}:?\d{2})$/.test(value);
+    return hasTimezone ? value : `${value}Z`;
+  }
+
+  private toApiEditDate(value: string | Date | null | undefined): string {
+    const fallbackDate = new Date();
+    const parsedDate = value ? new Date(value) : fallbackDate;
+    const date = Number.isNaN(parsedDate.getTime()) ? fallbackDate : parsedDate;
+
+    // Always send timezone-aware timestamps to avoid cross-timezone shifts.
+    return date.toISOString();
   }
 
   private fetchLocationForms() {
@@ -160,7 +180,7 @@ export class NewProjectModalComponent implements OnInit {
         "address": this.yourForm.value.address,
         "url": image_url=== undefined? '': image_url,
         "projecttype": this.yourForm.value.option,
-        "editedat": this.yourForm.value.editDate,
+        "editedat": this.toApiEditDate(this.yourForm.value.editDate),
         "formId": (this.yourForm.value.formId && this.yourForm.value.formId !== '') ? this.yourForm.value.formId : null
       };
 
@@ -194,7 +214,12 @@ export class NewProjectModalComponent implements OnInit {
           this.isSaving = false;
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
 
-          this.dialogRef.close(this.yourForm.value);
+          this.dialogRef.close({
+            ...this.yourForm.getRawValue(),
+            editedat: data.editedat,
+            saved: true,
+            process: this.data.process
+          });
         },
         error => {
           console.log(error)
@@ -208,7 +233,12 @@ export class NewProjectModalComponent implements OnInit {
         (response:any) => {
           this.isSaving = false;
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
-          this.dialogRef.close(this.yourForm.value);
+          this.dialogRef.close({
+            ...this.yourForm.getRawValue(),
+            editedat: data.editedat,
+            saved: true,
+            process: this.data.process
+          });
         },
         error => {
           console.log(error)
