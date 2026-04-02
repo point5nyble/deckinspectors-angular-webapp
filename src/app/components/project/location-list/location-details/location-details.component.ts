@@ -87,7 +87,7 @@ export class LocationDetailsComponent implements OnInit, OnDestroy{
           this.location.type === 'apartment' ||
           this.location.type === 'buildinglocation'
           ) {
-          let projectid = this.location._id === undefined ? (<any>this.location).id : this.location._id;
+          let projectid = this.location.id ?? (<any>this.location)._id;
           this.fetchLocationDetails(projectid);
         }
       }

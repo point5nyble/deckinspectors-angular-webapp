@@ -1,5 +1,5 @@
 export interface Section {
-  _id: string;
+  id: string;
   count: number;
   furtherinvasivereviewrequired: boolean;
   visualsignsofleak: boolean;
@@ -11,7 +11,7 @@ export interface Section {
 }
 
 export interface BuildingLocation {
-  _id: string;
+  id: string;
   createdat: string;
   count: number;
   createdby: string;

@@ -323,10 +323,6 @@
         </ng-container>
 
         <ng-container *ngIf="!unitUnavailable.checked">
-          <div class="form-errors"
-               *ngIf="showErrors && !unitUnavailable.checked && visualDeckReportModalForm.get('images')?.hasError('required')">
-            *field is required.
-          </div>
           <div class="form-group">
             <label class="form-label qstn-txt">Upload Image:</label>
             <input type="file" (change)="handleFileInput($event)" class="form-control" multiple>

@@ -30,7 +30,7 @@ export class UploadFilesModalComponent {
   }
 
   fetchProjectFiles = () =>{
-    this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/projectdocuments/${this.projectInfo._id}`).subscribe(
+    this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/projectdocuments/${this.projectInfo.id}`).subscribe(
       (res) => {
         this.projectFiles = res;
       },
@@ -75,7 +75,7 @@ export class UploadFilesModalComponent {
               (response:any) => {
                 // this.createProject(response.url);
                 let filePayload = {
-                  "project_id": this.projectInfo._id,
+                  "project_id": this.projectInfo.id,
                   "url": response.url,
                   "name": file.name,
                   "uploader": user? user: "deck"

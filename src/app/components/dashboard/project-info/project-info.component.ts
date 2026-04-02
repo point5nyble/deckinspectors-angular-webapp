@@ -120,7 +120,7 @@ export class ProjectInfoComponent {
     this.httpsRequestService
       .postHttpData<any>(
         `${environment.apiURL}/project/${
-          this.projectInfo._id
+          this.projectInfo.id
         }/toggleprojectstatus/${this.projectInfo.iscomplete ? 0 : 1}`,
         {}
       )
@@ -154,11 +154,11 @@ export class ProjectInfoComponent {
     );
     dialogRef.afterClosed().subscribe((data) => {
       if (data.confirmed) {
-        let url = environment.apiURL + '/project/' + this.projectInfo._id;
+        let url = environment.apiURL + '/project/' + this.projectInfo.id;
         this.httpsRequestService.deleteHttpData<any>(url).subscribe(
           (data) => {
             this.projectEventDeletedEvent.emit({
-              project_id: this.projectInfo._id,
+              project_id: this.projectInfo.id,
               state: true,
             });
           },

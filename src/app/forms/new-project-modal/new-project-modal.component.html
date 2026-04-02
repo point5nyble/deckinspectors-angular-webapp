@@ -24,7 +24,13 @@
 
     <div class="form-group">
       <label class="form-label">Inspect/Edit Date:</label>
-      <input type="datetime-local" formControlName="editDate" class="form-control">
+      <input
+        #editDateInput
+        type="datetime-local"
+        formControlName="editDate"
+        class="form-control date-control"
+        (click)="openDatePicker(editDateInput)"
+        (focus)="openDatePicker(editDateInput)">
     </div>
 
     <div class="form-group row">
@@ -46,7 +52,7 @@
         <label class="form-label">Location Form</label>
         <select class="form-select" name="form" formControlName="formId">
           
-          <option value="default">Default</option>
+          <option value="default">E3 Inspections Default</option>
           <option *ngFor="let form of allForms" [value]="form._id">{{ form.name }}</option>
         </select>
         <div *ngIf="yourForm.get('formId')?.invalid" class="text-danger">

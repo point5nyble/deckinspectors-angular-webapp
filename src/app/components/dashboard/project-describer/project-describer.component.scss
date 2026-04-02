@@ -1,56 +1,89 @@
 
 .Describer{
-    // margin-top: 10px;
-    // padding-top: 20px;
-    height: 50px;
+    height: 56px;
     display: flex;
-    // align-items: left;
-    justify-content: space-between;
-    flex:1;
-    // padding-top: 15px;
-    // margin-bottom: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    flex: 1;
     background-color: #E8F2FF;
-    border-radius: 20px;
+    border-radius: 14px;
+    padding: 8px 20px;
+    min-width: 0;
 }
 
 ul{
     display: flex;
     align-items: center;
     justify-content: center;
-    justify-content: space-evenly;
-    flex:1;
+    gap: 12px;
+    flex: 1;
     color: #8C8C8C;
     font-size: 12px;
     font-weight: 450;
-    // margin-bottom: 0px;
+    margin: 0;
+    min-width: 0;
+    height: 100%;
 }
 li{
     list-style: none;
 }
+#name{
+    flex: 1.6;
+    min-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 #A_User{
-    margin-left:150px;
+    flex: 1.2;
+    min-width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 #A_Offline{
-    margin-left:100px;
+    flex: 0 0 100px;
 }
 #Type{
-    margin-left:70px;
+    flex: 0 0 80px;
+    text-align: center;
 }
 #As_User{
-    margin-left:40px;
-    width:130px;
+    flex: 0 0 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 #Upload{
-    margin-left:30px;
+    flex: 0 0 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
-// .download
-// {
-//     margin-left: px;
-// }
+.Icons.download{
+    flex: 0 0 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Icons.complete{
+    flex: 0 0 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Folder{
+    flex: 0 0 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 p{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 15px;
+    padding-top: 0;
+    margin: 0;
 }

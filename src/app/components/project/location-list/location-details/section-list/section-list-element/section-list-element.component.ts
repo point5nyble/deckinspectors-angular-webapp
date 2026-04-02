@@ -14,7 +14,7 @@ export class SectionListElementComponent {
   @Input() isHighlighted!: boolean;
   @Output() deleteElement = new EventEmitter<any>();
   deleteSection() {
-    let sectionData={_id:this.section._id,name:this.section.name}
+    let sectionData={_id:this.section.id,name:this.section.name}
     this.deleteElement.emit(sectionData);
   }
 }

@@ -29,7 +29,7 @@ export class ReportsComponent {
   }
 
   fetchProjectFiles = () =>{
-    this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/projectreports/${this.projectInfo._id}`).subscribe(
+    this.httpsRequestService.getHttpData<any>(`${environment.apiURL}/projectreports/${this.projectInfo.id}`).subscribe(
       (res) => {
         this.projectFiles = res;
       },

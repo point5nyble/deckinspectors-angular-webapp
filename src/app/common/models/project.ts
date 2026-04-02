@@ -1,7 +1,7 @@
 import {BuildingLocation} from "./buildingLocation";
 
 export interface Project {
-  _id: string;
+  id: string;
   address: string;
   assignedto: string[];
   children: BuildingLocation[];

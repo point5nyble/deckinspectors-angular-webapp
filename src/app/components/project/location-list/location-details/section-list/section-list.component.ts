@@ -54,7 +54,7 @@ export class SectionListComponent implements OnInit{
 
   fetchDataForGivenSectionId($event: Section) {
     this.currentSection = $event;
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SECTION_CLICKED, $event._id);
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SECTION_CLICKED, $event.id);
   }
 
   ngOnInit(): void {
@@ -70,7 +70,7 @@ export class SectionListComponent implements OnInit{
     } else {
       // this.fetchDataForGivenSectionId(undefined)
       const emptySection: Section = {
-        _id: '',
+        id: '',
         count: 0,
         furtherinvasivereviewrequired: false,
         visualsignsofleak: false,
@@ -117,7 +117,7 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
 
     if (fl){
       this.sections?.sort((a, b) => {
-        return String(a._id).localeCompare(String(b._id));
+        return String(a.id).localeCompare(String(b.id));
       });
     }else{
       this.sections?.sort((a, b) => {
@@ -176,7 +176,7 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
 
   save(){
     this.sections.forEach(async (section, i) =>{
-      let url = `${environment.apiURL}/section/${section._id}`;
+      let url = `${environment.apiURL}/section/${section.id}`;
       let data = {"sequenceNo": i.toString()};
 
       await this.httpsRequestService.putHttpData(url, data).subscribe(
@@ -252,7 +252,7 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
       // "exteriorelements": data?.exteriorElements,
       "furtherinvasivereviewrequired": data?.invasiveReviewRequired,
       // "lbc": data?.LBC,
-      "parentid": this.location_._id,
+      "parentid": this.location_.id,
       "parenttype": this.location_.type,
       // "visualreview": data?.visualReview,
       // "visualsignsofleak": data?.signsOfLeaks,

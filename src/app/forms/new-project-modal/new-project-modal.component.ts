@@ -49,17 +49,48 @@ export class NewProjectModalComponent implements OnInit {
       address: [this.data.process === 'edit' ? this.data.projectInfo?.address: ""],
       option: [this.data.process === 'edit' ? this.data.projectInfo?.projecttype: "multilevel"], // Add validators if needed
       description: [this.data.process === 'edit' ? this.data.projectInfo?.description: ""],
-      editDate: [this.data.process === 'edit' ? this.data.projectInfo?.editedat: this.getFormattedCurrentDate()],
+      editDate: [this.data.process === 'edit' ? this.formatDateForDateTimeLocal(this.data.projectInfo?.editedat) : this.getFormattedCurrentDate()],
       formId: [{value: (this.data.process === 'edit' && this.data.projectInfo && this.data.projectInfo.formId && this.data.projectInfo.formId != '') ? this.data.projectInfo?.formId : null, disabled: (this.data.process === 'edit')},Validators.required],
     });
     this.fetchLocationForms();
   }
 
   private getFormattedCurrentDate(): string {
-    const currentDate = new Date();
-    // Format the date as needed (e.g., 'yyyy-MM-dd')
-    const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
-    return formattedDate;
+    return this.formatDateForDateTimeLocal(new Date());
+  }
+
+  private formatDateForDateTimeLocal(value: string | Date | null | undefined): string {
+    const fallbackDate = new Date();
+    const parsedDate = value ? new Date(this.normalizeDateInput(value)) : fallbackDate;
+    const date = Number.isNaN(parsedDate.getTime()) ? fallbackDate : parsedDate;
+
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  }
+
+  private normalizeDateInput(value: string | Date): string | Date {
+    if (value instanceof Date) {
+      return value;
+    }
+
+    // Some API responses omit timezone (e.g. 2026-03-30T02:39:00.000).
+    // Treat them as UTC to avoid showing shifted times in local timezone.
+    const hasTimezone = /([zZ]|[+-]\d{2}:?\d{2})$/.test(value);
+    return hasTimezone ? value : `${value}Z`;
+  }
+
+  private toApiEditDate(value: string | Date | null | undefined): string {
+    const fallbackDate = new Date();
+    const parsedDate = value ? new Date(value) : fallbackDate;
+    const date = Number.isNaN(parsedDate.getTime()) ? fallbackDate : parsedDate;
+
+    // Always send timezone-aware timestamps to avoid cross-timezone shifts.
+    return date.toISOString();
   }
 
   private fetchLocationForms() {
@@ -104,6 +135,16 @@ export class NewProjectModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  openDatePicker(input: HTMLInputElement) {
+    if (typeof input.showPicker === 'function') {
+      input.showPicker();
+      return;
+    }
+
+    input.focus();
+    input.click();
+  }
+
     save() {
       this.isSaving = true;
       this.uploadImage();
@@ -132,16 +173,23 @@ export class NewProjectModalComponent implements OnInit {
     }
   createProject(image_url:string) {
       let url = environment.apiURL + '/project/add';
-      let data = {
+      let data: any = {
         "name": this.yourForm.value.name,
         "description": this.yourForm.value.description,
-        "createdBy": localStorage.getItem('username'),
+        "createdby": localStorage.getItem('username'),
         "address": this.yourForm.value.address,
         "url": image_url=== undefined? '': image_url,
         "projecttype": this.yourForm.value.option,
-        "assignedTo": [localStorage.getItem('username')],
-        "editedat": this.yourForm.value.editDate,
+        "editedat": this.toApiEditDate(this.yourForm.value.editDate),
         "formId": (this.yourForm.value.formId && this.yourForm.value.formId !== '') ? this.yourForm.value.formId : null
+      };
+
+      // Only set assignedto for new projects. Do not override assignedto during edit.
+      if (this.data.process !== 'edit') {
+        data.assignedto = [localStorage.getItem('username')];
+      } else if (this.data.projectInfo && this.data.projectInfo.assignedto) {
+        // preserve existing assignedto on edit by including it in the update payload
+        data.assignedto = this.data.projectInfo.assignedto;
       }
       if (this.data.process === 'edit') {
         let projectid = this.data.projectInfo._id === undefined ? (<any>this.data.projectInfo).id : this.data.projectInfo._id;
@@ -166,7 +214,12 @@ export class NewProjectModalComponent implements OnInit {
           this.isSaving = false;
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
 
-          this.dialogRef.close(this.yourForm.value);
+          this.dialogRef.close({
+            ...this.yourForm.getRawValue(),
+            editedat: data.editedat,
+            saved: true,
+            process: this.data.process
+          });
         },
         error => {
           console.log(error)
@@ -180,7 +233,12 @@ export class NewProjectModalComponent implements OnInit {
         (response:any) => {
           this.isSaving = false;
           this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.UPDATE_LEFT_TREE_DATA, null);
-          this.dialogRef.close(this.yourForm.value);
+          this.dialogRef.close({
+            ...this.yourForm.getRawValue(),
+            editedat: data.editedat,
+            saved: true,
+            process: this.data.process
+          });
         },
         error => {
           console.log(error)

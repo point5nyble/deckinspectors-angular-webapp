@@ -1,32 +1,136 @@
 .horizontal-div {
   display: flex;
   align-items: center;
-  // box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   background-color: #fff;
-  // border: solid #fff 2px;
-  // border-radius: 10px;
-  /* Add padding to the top */
-  padding: 10px 15px;
-  justify-content: space-between;
+  padding: 16px 20px;
+  gap: 12px;
   cursor: pointer;
-  // border-bottom: solid #A7A5A5 2px;
-  min-height: 55px;
-  max-height: 55px;
-  // flex: 1;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  // padding-left: 12px;
+  min-height: 75px;
+  max-height: 75px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   margin-left: 8px;
   border-radius: 8px;
+  width: 100%;
+  min-width: 0;
 }
 
 .horizontal-div:hover {
-  // background-color: #f7f7f7;
-  // filter: brightness(98%);
   border-left-style: solid;
   border-left-width: 8px;
   border-color: #ed7c1c;
+}
+
+// Column width containers - Responsive Layout
+// Flexible columns: PROJECT NAME and ASSIGNED USER
+.col-project-name {
+  flex: 1.6;
+  min-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.col-assigned-user {
+  flex: 1.2;
+  min-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Semi-fixed columns
+.col-type {
+  flex: 0 0 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Fixed action columns
+.col-assign-user-btn {
+  flex: 0 0 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-upload {
+  flex: 0 0 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-reports {
+  flex: 0 0 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-upload .btn,
+.col-reports .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 400 !important;
+  font-size: 12px;
+  line-height: 1;
+  min-height: 36px;
+  padding: 0 10px;
+  background-color: transparent !important;
+  border: 1px solid #b7b7b7 !important;
+  color: #333 !important;
+  transition: all 0.2s ease;
+}
+
+.col-upload .btn:hover,
+.col-reports .btn:hover,
+.col-upload .btn:focus,
+.col-reports .btn:focus {
+  background-color: #ed7c1c !important;
+  border-color: #ed7c1c !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(237, 124, 28, 0.25);
+}
+
+.col-upload .btn:active,
+.col-reports .btn:active {
+  background-color: #d96a0a !important;
+  border-color: #d96a0a !important;
+}
+
+.col-upload .btn span:not(.material-symbols-outlined),
+.col-reports .btn span:not(.material-symbols-outlined) {
+  font-weight: 400 !important;
+  line-height: 1;
+}
+
+.col-upload .btn span,
+.col-reports .btn span {
+  color: inherit !important;
+}
+
+.col-upload .btn .material-symbols-outlined,
+.col-reports .btn .material-symbols-outlined {
+  font-size: 16px;
+  line-height: 1;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.col-complete {
+  flex: 0 0 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.col-delete {
+  flex: 0 0 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .options-section {
@@ -34,41 +138,28 @@
   align-items: center;
 }
 
-.icon:hover {
-  color: #007bff;
-}
-
-.bi:hover {
-  color: #007bff;
-}
-
-.bi-check {
-  font-size: 12px;
-}
-.fas {
-  display: inline-block;
-  font-size: 10px;
-  color: #666666b2;
-  cursor: pointer;
-}
-.fas:hover {
-  color: #007bff;
-}
-
 .icon {
-  font-size: 12px;
+  font-size: 24px;
   color: #6d6a6a;
   font-weight: 400;
   margin-right: 10px;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.icon:hover {
+  color: #ed7c1c;
+  transform: scale(1.1);
 }
 
 .AssignTo {
-  width: 150px;
+  width: 100%;
   max-height: 50px;
   color: #203eea;
   font-weight: 400;
-  overflow: clip;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   text-transform: capitalize;
   font-size: 12px;
 }
@@ -76,14 +167,17 @@
 .profile-section {
   display: flex;
   flex-direction: column;
-  width: 320px;
+  width: 100%;
   padding-right: 10px;
-  padding-top: 20px;
+  min-width: 0;
+  overflow: hidden;
+  justify-content: center;
+  height: 100%;
 }
 
 .AssignUser {
-  padding-bottom: 10px;
-  width: 130px;
+  padding-bottom: 5px;
+  width: 100%;
   height: 30px;
   border: solid #aaa9a9 1px;
   border-radius: 8px;
@@ -91,6 +185,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 5px;
+  font-size: 10px;
 }
 
 .AssignUsertext {
@@ -107,7 +202,15 @@
   color: #6d6a6a;
   column-gap: 10px;
   font-weight: 400;
-  margin-bottom: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.description p {
+  margin: 0;
+  font-size: 10px;
 }
 
 .description div {
@@ -115,49 +218,130 @@
   font-weight: 500;
 }
 
-.name
-{
-  margin-top: 5px;
-  margin-bottom: 10px;
+.name {
+  margin: 0;
+  font-size: 12px;
+  text-transform: capitalize;
+  line-height: 1.2;
 }
 
 .projectName {
   display: flex;
-  align-items: center;
-  column-gap: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  row-gap: 4px;
   color: #000000;
   font-weight: 500;
+  min-width: 0;
+  overflow: hidden;
+  width: 100%;
 }
 
-// .projectName div span{
-
-// }
-.projectName div {
+.project-date {
   display: flex;
   align-items: center;
+  gap: 4px;
   color: #666666cc;
-  margin-left: 10px;
-  margin-bottom: 10px;
-  // padding-bottom: 5px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.project-date .material-symbols-outlined {
+  font-size: 10px;
 }
 
 .projectName p {
-  width: 135px;
-  height: 23px;
+  width: 100%;
   font-size: 12px;
-  overflow: clip;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0;
 }
 
 .typeSection {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 12px;
-  // margin-left: 20px;
-  width: 90px;
-  color: #6d6a6a;
-  font-weight: 400;
 }
 
-.description p {
+// Upload Button Styling (outline/no fill)
+.upload-files-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1.5px solid #999;
+  background-color: transparent;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
   width: 100%;
-  height: 20px;
-  overflow: clip;
+  justify-content: center;
+}
+
+.upload-files-btn:hover {
+  border-color: #333;
+  background-color: #f5f5f5;
+  transform: translateY(-1px);
+}
+
+.upload-files-btn:active {
+  transform: translateY(0);
+}
+
+.upload-files-btn .material-symbols-outlined {
+  font-size: 16px;
+}
+
+.upload-files-btn .btn-text {
+  display: inline-block;
+  font-size: 12px;
+}
+
+// Download Report Button Styling (orange/filled)
+.download-report-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  background-color: #ed7c1c;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  width: 100%;
+  justify-content: center;
+}
+
+.download-report-btn:hover {
+  background-color: #d96a0a;
+  box-shadow: 0 4px 12px rgba(237, 124, 28, 0.3);
+  transform: translateY(-1px);
+}
+
+.download-report-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(237, 124, 28, 0.2);
+}
+
+.download-report-btn .material-symbols-outlined {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.download-report-btn .btn-text {
+  display: inline-block;
+  font-size: 12px;
 }
