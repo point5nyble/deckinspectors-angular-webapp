@@ -1,5 +1,6 @@
 export interface Section {
   id: string;
+  _id?: string;
   count: number;
   furtherinvasivereviewrequired: boolean;
   visualsignsofleak: boolean;

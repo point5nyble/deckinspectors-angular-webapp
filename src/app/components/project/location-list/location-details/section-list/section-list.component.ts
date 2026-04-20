@@ -54,7 +54,7 @@ export class SectionListComponent implements OnInit{
 
   fetchDataForGivenSectionId($event: Section) {
     this.currentSection = $event;
-    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SECTION_CLICKED, $event.id);
+    this.orchestratorCommunicationService.publishEvent(OrchestratorEventName.SECTION_CLICKED, $event._id ?? $event.id);
   }
 
   ngOnInit(): void {
@@ -110,14 +110,16 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
 
     let fl = false;
     this.sections?.forEach(section => {
-      if (section.sequenceNo === undefined){
+      if (section.sequenceNo === undefined || section.sequenceNo === null){
         fl = true;
       }
     });
 
     if (fl){
       this.sections?.sort((a, b) => {
-        return String(a.id).localeCompare(String(b.id));
+        const aKey = (a._id ?? a.id ?? '');
+        const bKey = (b._id ?? b.id ?? '');
+        return aKey.localeCompare(bKey, undefined, { sensitivity: 'base' });
       });
     }else{
       this.sections?.sort((a, b) => {
@@ -176,7 +178,7 @@ ngOnChanges(changes: { [property: string]: SimpleChange }) {
 
   save(){
     this.sections.forEach(async (section, i) =>{
-      let url = `${environment.apiURL}/section/${section.id}`;
+      let url = `${environment.apiURL}/section/${section._id ?? section.id}`;
       let data = {"sequenceNo": i.toString()};
 
       await this.httpsRequestService.putHttpData(url, data).subscribe(
