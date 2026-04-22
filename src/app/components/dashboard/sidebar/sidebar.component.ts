@@ -16,10 +16,8 @@ export class SidebarComponent {
   isSidebarCollapsed: boolean = true;
   name: string = '';
   role: string = ''; 
-  firstName: string = '';// Add this property
-   // Add this property
-  isAdmin: boolean =
-    JSON.parse(localStorage.getItem('user')!)?.role === 'admin';
+  firstName: string = '';
+  isAdmin: boolean = false;
   logoUrl = '';
   constructor(
     private loginService: LoginService,
@@ -30,7 +28,6 @@ export class SidebarComponent {
 
   ngOnInit(): void {
     // this.isAdmin = this.checkIfAdmin();
-    this.logoUrl = localStorage.getItem('companyLogo')!;
     this.fetchUserDetails();
   }
 
@@ -46,7 +43,10 @@ export class SidebarComponent {
 
         this.firstName = capitalizedFirstName;
         this.name = capitalizedFirstName + " " + capitalizedLastName;
-        this.role = capitalizedRole; // Set the username property
+        this.role = capitalizedRole;
+        this.isAdmin = user.role === 'admin';
+        // Update logo based on user's company/organization
+        this.logoUrl = user.company_logo || localStorage.getItem('companyLogo')!;
         // console.log(user);
       },
       error => {
